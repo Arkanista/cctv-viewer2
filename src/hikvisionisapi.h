@@ -40,8 +40,8 @@ public:
     Q_INVOKABLE void searchMonthAvailability(const QVariantMap &recorderInfo, int channelId, int year, int month);
 
 signals:
-    void searchFinished(const QString &recorderIp, int channelId, const QVariantList &segments);
-    void searchFailed(const QString &recorderIp, int channelId, const QString &error);
+    void searchFinished(const QString &recorderIp, int channelId, const QDateTime &startTime, const QVariantList &segments);
+    void searchFailed(const QString &recorderIp, int channelId, const QDateTime &startTime, const QString &error);
     void monthAvailabilityFinished(const QString &recorderIp, int channelId, int year, int month, const QVariantList &daysWithRecords);
 
 private slots:

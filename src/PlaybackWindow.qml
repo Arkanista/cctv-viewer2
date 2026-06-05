@@ -33,7 +33,6 @@ Window {
 
     color: "#0a0f14"
 
-    property var monthAvailabilities: ({})
     property var monthNames: ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"]
 
     property bool isSearchingRecordings: false
@@ -55,9 +54,13 @@ Window {
     property int gridLayoutColumns: 2
     property int gridLayoutRows: 2
     
-    // Cached segments for all active viewports (keyed by recorderIp_channelId)
-    property var activePlayersSegments: ({})
+    // Cached segments for all active viewports (keyed by recorderIp_channelId_dateKey)
     property var activePlayersFetching: ({})
+    
+    function getDateKey(date) {
+        if (!date) return "";
+        return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+    }
     
     onSelectedPlayerIndexChanged: {
         updateActiveCameraProperties();
@@ -96,7 +99,7 @@ Window {
         for (var i = 0; i < activePlayersList.length; i++) {
             var cam = activePlayersList[i];
             if (!cam) continue;
-            var key = cam.ip + "_" + cam.channelId;
+            var key = cam.ip + "_" + cam.channelId + "_" + getDateKey(currentDate);
             if (activePlayersFetching[key] === true) {
                 return true;
             }
@@ -131,10 +134,6 @@ Window {
                 var removedCam = activePlayersList[j];
                 if (removedCam) {
                     var key = removedCam.ip + "_" + removedCam.channelId;
-                    var tempSegments = Object.assign({}, activePlayersSegments);
-                    delete tempSegments[key];
-                    activePlayersSegments = tempSegments;
-
                     var tempFetching = Object.assign({}, activePlayersFetching);
                     delete tempFetching[key];
                     activePlayersFetching = tempFetching;
@@ -188,10 +187,6 @@ Window {
         if (activePlayersList[selectedPlayerIndex]) {
             var oldCam = activePlayersList[selectedPlayerIndex];
             var oldKey = oldCam.ip + "_" + oldCam.channelId;
-            var tempSegments = Object.assign({}, activePlayersSegments);
-            delete tempSegments[oldKey];
-            activePlayersSegments = tempSegments;
-
             var tempFetching = Object.assign({}, activePlayersFetching);
             delete tempFetching[oldKey];
             activePlayersFetching = tempFetching;
@@ -232,14 +227,10 @@ Window {
             item.playerInstance.stop();
         }
         
-        // Remove from segments cache
-        var key = removedCam.ip + "_" + removedCam.channelId;
-        var tempSegments = Object.assign({}, activePlayersSegments);
-        delete tempSegments[key];
-        activePlayersSegments = tempSegments;
-
+        // Remove from fetching state
+        var fetchKey = removedCam.ip + "_" + removedCam.channelId + "_" + getDateKey(currentDate);
         var tempFetching = Object.assign({}, activePlayersFetching);
-        delete tempFetching[key];
+        delete tempFetching[fetchKey];
         activePlayersFetching = tempFetching;
         
         var list = [];
@@ -270,18 +261,20 @@ Window {
                 playbackWindow.channelId = data.channelId;
                 playbackWindow.cameraName = data.cameraName;
                 
-                var key = data.ip + "_" + data.channelId;
-                if (activePlayersSegments[key] !== undefined && activePlayersFetching[key] !== true) {
+                var dateKey = getDateKey(currentDate);
+                var cacheKey = data.ip + "_" + data.channelId + "_" + dateKey;
+                var fetchKey = data.ip + "_" + data.channelId + "_" + dateKey;
+                if (rootWindow.playbackSegmentsCache[cacheKey] !== undefined && activePlayersFetching[fetchKey] !== true) {
                     playbackWindow.isSearchingRecordings = isAnyCameraSearching();
-                    timeline.segments = activePlayersSegments[key];
+                    timeline.segments = rootWindow.playbackSegmentsCache[cacheKey];
                     timeline.requestPaint();
                     fetchMonthAvailability(currentDate.getFullYear(), currentDate.getMonth());
                 } else {
-                    timeline.segments = activePlayersSegments[key] || [];
+                    timeline.segments = rootWindow.playbackSegmentsCache[cacheKey] || [];
                     playbackWindow.isSearchingRecordings = isAnyCameraSearching();
                     timeline.requestPaint();
                     
-                    if (activePlayersSegments[key] === undefined && activePlayersFetching[key] !== true) {
+                    if (rootWindow.playbackSegmentsCache[cacheKey] === undefined && activePlayersFetching[fetchKey] !== true) {
                         searchRecordingsForCamera(data, currentDate);
                     } else {
                         // It is fetching or already cached, fetch month availability
@@ -323,43 +316,52 @@ Window {
 
     Connections {
         target: HikvisionISAPI
-        function onSearchFinished(recorderIp, channelId, segments) {
-            var key = recorderIp + "_" + channelId;
+        function onSearchFinished(recorderIp, channelId, startTime, segments) {
+            var dateKey = getDateKey(startTime);
+            var cacheKey = recorderIp + "_" + channelId + "_" + dateKey;
+            var fetchKey = recorderIp + "_" + channelId + "_" + dateKey;
             
             var tempFetching = Object.assign({}, activePlayersFetching);
-            delete tempFetching[key];
+            delete tempFetching[fetchKey];
             activePlayersFetching = tempFetching;
 
-            var tempSegments = Object.assign({}, activePlayersSegments);
-            tempSegments[key] = segments;
-            activePlayersSegments = tempSegments;
-            timeline.requestPaint();
+            var tempSegments = Object.assign({}, rootWindow.playbackSegmentsCache);
+            tempSegments[cacheKey] = segments;
+            rootWindow.playbackSegmentsCache = tempSegments;
+
+            if (dateKey === getDateKey(currentDate)) {
+                timeline.requestPaint();
+                if (playbackWindow.recorderInfo && recorderIp === playbackWindow.recorderInfo.ip && channelId === playbackWindow.channelId) {
+                    timeline.segments = segments
+                }
+            }
 
             playbackWindow.isSearchingRecordings = isAnyCameraSearching();
-
-            if (playbackWindow.recorderInfo && recorderIp === playbackWindow.recorderInfo.ip && channelId === playbackWindow.channelId) {
-                timeline.segments = segments
-            }
         }
-        function onSearchFailed(recorderIp, channelId, error) {
-            var key = recorderIp + "_" + channelId;
+        function onSearchFailed(recorderIp, channelId, startTime, error) {
+            var dateKey = getDateKey(startTime);
+            var cacheKey = recorderIp + "_" + channelId + "_" + dateKey;
+            var fetchKey = recorderIp + "_" + channelId + "_" + dateKey;
             
             var tempFetching = Object.assign({}, activePlayersFetching);
-            delete tempFetching[key];
+            delete tempFetching[fetchKey];
             activePlayersFetching = tempFetching;
 
-            // Do not clear segments on failure, keep the old ones if any
-            timeline.requestPaint();
+            if (dateKey === getDateKey(currentDate)) {
+                timeline.requestPaint();
+                if (playbackWindow.recorderInfo && recorderIp === playbackWindow.recorderInfo.ip && channelId === playbackWindow.channelId) {
+                    timeline.segments = []
+                }
+            }
 
             playbackWindow.isSearchingRecordings = isAnyCameraSearching();
-
-            if (playbackWindow.recorderInfo && recorderIp === playbackWindow.recorderInfo.ip && channelId === playbackWindow.channelId) {
-                timeline.segments = []
-            }
         }
         function onMonthAvailabilityFinished(recorderIp, channelId, year, month, daysWithRecords) {
             var key = recorderIp + "_" + channelId + "_" + year + "-" + (month - 1);
-            monthAvailabilities[key] = daysWithRecords;
+            var tempAvails = Object.assign({}, rootWindow.monthAvailabilitiesCache);
+            tempAvails[key] = daysWithRecords;
+            rootWindow.monthAvailabilitiesCache = tempAvails;
+            
             if (playbackWindow.recorderInfo && recorderIp === playbackWindow.recorderInfo.ip && channelId === playbackWindow.channelId) {
                 playbackWindow.isSearchingMonth = false;
                 if (year === fetchedYear && (month - 1) === fetchedMonth) {
@@ -466,10 +468,8 @@ Window {
             return;
         }
         var key = recorderInfo.ip + "_" + channelId + "_" + y + "-" + m;
-        var now = new Date();
-        var isCurrentMonth = (y === now.getFullYear() && m === now.getMonth());
-        if (!isCurrentMonth && monthAvailabilities[key] !== undefined) {
-            playbackWindow.daysWithRecords = monthAvailabilities[key];
+        if (rootWindow.monthAvailabilitiesCache[key] !== undefined) {
+            playbackWindow.daysWithRecords = rootWindow.monthAvailabilitiesCache[key];
             isSearchingMonth = false;
             return;
         }
@@ -479,13 +479,15 @@ Window {
     }
 
     function searchRecordingsForCamera(cam, date) {
-        var key = cam.ip + "_" + cam.channelId;
-        if (activePlayersFetching[key] === true) {
+        var dateKey = getDateKey(date);
+        var cacheKey = cam.ip + "_" + cam.channelId + "_" + dateKey;
+        var fetchKey = cam.ip + "_" + cam.channelId + "_" + dateKey;
+        if (activePlayersFetching[fetchKey] === true) {
             return;
         }
         
         var tempFetching = Object.assign({}, activePlayersFetching);
-        tempFetching[key] = true;
+        tempFetching[fetchKey] = true;
         activePlayersFetching = tempFetching;
         
         playbackWindow.isSearchingRecordings = isAnyCameraSearching();
@@ -509,6 +511,15 @@ Window {
     }
 
     function searchRecordingsForDate(date) {
+        var dateKey = getDateKey(date);
+        
+        if (playbackWindow.recorderInfo) {
+            var activeCacheKey = playbackWindow.recorderInfo.ip + "_" + playbackWindow.channelId + "_" + dateKey;
+            timeline.segments = rootWindow.playbackSegmentsCache[activeCacheKey] || [];
+        } else {
+            timeline.segments = [];
+        }
+        
         var start = new Date(date)
         start.setHours(0,0,0,0)
         start.setDate(start.getDate() - 1)
@@ -522,8 +533,14 @@ Window {
             var cam = activePlayersList[i];
             if (!cam) continue; // Safety check for empty placeholders
             
-            var key = cam.ip + "_" + cam.channelId;
-            tempFetching[key] = true;
+            var cacheKey = cam.ip + "_" + cam.channelId + "_" + dateKey;
+            var fetchKey = cam.ip + "_" + cam.channelId + "_" + dateKey;
+            
+            if (rootWindow.playbackSegmentsCache[cacheKey] !== undefined || tempFetching[fetchKey] === true) {
+                continue;
+            }
+            
+            tempFetching[fetchKey] = true;
             
             var recorderInfoForCam = {
                 "ip": cam.ip,
@@ -1837,8 +1854,8 @@ Window {
                             // Draw stacked timeline segments for all active viewports
                             for (var i = 0; i < N; i++) {
                                 var cam = activeCams[i]
-                                var key = cam.ip + "_" + cam.channelId
-                                var camSegments = activePlayersSegments[key]
+                                var cacheKey = cam.ip + "_" + cam.channelId + "_" + getDateKey(currentDate)
+                                var camSegments = rootWindow.playbackSegmentsCache[cacheKey]
                                 if (!Array.isArray(camSegments)) {
                                     camSegments = []
                                 }

@@ -43,6 +43,10 @@ ApplicationWindow {
     property alias layoutIndex: stackLayout.currentIndex
     property var auxWindowsList: []
     property var activeLayoutWindow: rootWindow
+    
+    // Permanent caches for NVR searches to avoid constantly reloading from network
+    property var monthAvailabilitiesCache: ({})
+    property var playbackSegmentsCache: ({})
 
     onActiveChanged: {
         if (active) {

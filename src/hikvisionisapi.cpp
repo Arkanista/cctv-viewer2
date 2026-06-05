@@ -143,9 +143,9 @@ void HikvisionISAPI::onReplyFinished()
             emit monthAvailabilityFinished(recorderIp, session.channelId, session.year, session.month, daysList);
         } else {
             if (session.accumulatedSegments.count() > 0) {
-                emit searchFinished(recorderIp, session.channelId, session.accumulatedSegments);
+                emit searchFinished(recorderIp, session.channelId, session.startTime, session.accumulatedSegments);
             } else {
-                emit searchFailed(recorderIp, session.channelId, reply->errorString());
+                emit searchFailed(recorderIp, session.channelId, session.startTime, reply->errorString());
             }
         }
         m_sessions.remove(sessionId);
@@ -221,7 +221,7 @@ void HikvisionISAPI::onReplyFinished()
             emit monthAvailabilityFinished(recorderIp, session.channelId, session.year, session.month, daysList);
         } else {
             qDebug() << "[ISAPI] Day search finished (no more matches) for channel:" << session.channelId << "segments:" << session.accumulatedSegments.count();
-            emit searchFinished(recorderIp, session.channelId, session.accumulatedSegments);
+            emit searchFinished(recorderIp, session.channelId, session.startTime, session.accumulatedSegments);
         }
         m_sessions.remove(sessionId);
         return;
@@ -243,7 +243,7 @@ void HikvisionISAPI::onReplyFinished()
             emit monthAvailabilityFinished(recorderIp, session.channelId, session.year, session.month, daysList);
         } else {
             qDebug() << "[ISAPI] Day search finished for channel:" << session.channelId << "segments:" << session.accumulatedSegments.count();
-            emit searchFinished(recorderIp, session.channelId, session.accumulatedSegments);
+            emit searchFinished(recorderIp, session.channelId, session.startTime, session.accumulatedSegments);
         }
         m_sessions.remove(sessionId);
     }
