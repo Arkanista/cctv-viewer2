@@ -192,11 +192,11 @@
     </message>
     <message>
         <source>Trwa ładowanie...</source>
-        <translation>Loading...</translation>
+        <translation type="vanished">Loading...</translation>
     </message>
     <message>
         <source>pobieranie informacji o dostępności nagrań</source>
-        <translation>retrieving recording availability info</translation>
+        <translation type="vanished">retrieving recording availability info</translation>
     </message>
     <message>
         <source>Kamery</source>
@@ -249,6 +249,10 @@
     <message>
         <source>Trwa ładowanie informacji o dostępności nagrania...</source>
         <translation>Loading recording availability info...</translation>
+    </message>
+    <message>
+        <source>Pobieranie dostępności...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -228,11 +228,11 @@
     </message>
     <message>
         <source>Trwa ładowanie...</source>
-        <translation>Trwa ładowanie...</translation>
+        <translation type="vanished">Trwa ładowanie...</translation>
     </message>
     <message>
         <source>pobieranie informacji o dostępności nagrań</source>
-        <translation>pobieranie informacji o dostępności nagrań</translation>
+        <translation type="vanished">pobieranie informacji o dostępności nagrań</translation>
     </message>
     <message>
         <source>Trwa ładowanie informacji o dostępności nagrania...</source>
@@ -269,6 +269,10 @@
     <message>
         <source>Odśwież</source>
         <translation>Odśwież</translation>
+    </message>
+    <message>
+        <source>Pobieranie dostępności...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
