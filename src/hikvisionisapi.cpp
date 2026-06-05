@@ -227,8 +227,8 @@ void HikvisionISAPI::onReplyFinished()
         return;
     }
 
-    // If responseStatusStrg is MORE, there are more pages (limit to 5000 results to avoid infinite loop)
-    if (responseStatusStrg == "MORE" && session.currentPosition < 5000) {
+    // If responseStatusStrg is MORE, there are more pages (limit to 100000 results to avoid infinite loop)
+    if (responseStatusStrg == "MORE" && session.currentPosition < 100000) {
         qDebug() << "[ISAPI] Session" << sessionId << "status MORE; paginating next page from:" << (session.currentPosition + matchItemsCount);
         session.currentPosition += matchItemsCount;
         doSearchRequest(sessionId); // Fetch next page

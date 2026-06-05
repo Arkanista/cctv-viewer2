@@ -466,7 +466,9 @@ Window {
             return;
         }
         var key = recorderInfo.ip + "_" + channelId + "_" + y + "-" + m;
-        if (monthAvailabilities[key] !== undefined) {
+        var now = new Date();
+        var isCurrentMonth = (y === now.getFullYear() && m === now.getMonth());
+        if (!isCurrentMonth && monthAvailabilities[key] !== undefined) {
             playbackWindow.daysWithRecords = monthAvailabilities[key];
             isSearchingMonth = false;
             return;
