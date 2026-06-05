@@ -22,7 +22,7 @@ void HikvisionISAPI::searchRecordings(const QVariantMap &recorderInfo, int chann
     session.startTime = start;
     session.endTime = end;
     session.isMonthSearch = false;
-    session.currentPosition = 1;
+    session.currentPosition = 0;
     m_sessions[sessionId] = session;
 
     doSearchRequest(sessionId);
@@ -43,7 +43,7 @@ void HikvisionISAPI::searchMonthAvailability(const QVariantMap &recorderInfo, in
     session.isMonthSearch = true;
     session.year = year;
     session.month = month;
-    session.currentPosition = 1;
+    session.currentPosition = 0;
     m_sessions[sessionId] = session;
 
     doSearchRequest(sessionId);

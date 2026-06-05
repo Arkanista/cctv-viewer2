@@ -728,7 +728,28 @@ Window {
                 }
             }
             
-            Item { Layout.fillHeight: true } // spacer
+            Item {
+                Layout.fillHeight: true
+                Layout.preferredHeight: 20
+                Layout.alignment: Qt.AlignHCenter
+                
+                RowLayout {
+                    anchors.centerIn: parent
+                    spacing: 6
+                    visible: playbackWindow.isSearchingMonth
+                    
+                    Text {
+                        text: "⚡"
+                        color: "#00f5d4"
+                        font.pixelSize: 11
+                    }
+                    Text {
+                        text: qsTr("Pobieranie dostępności...")
+                        color: "#8898a6"
+                        font.pixelSize: 11
+                    }
+                }
+            } // spacer
             
             RowLayout {
                 Layout.fillWidth: true
@@ -762,34 +783,6 @@ Window {
                         calendarPopup.updateDaysModel()
                         playbackWindow.fetchMonthAvailability(calendarPopup.viewYear, calendarPopup.viewMonth)
                     }
-                }
-            }
-        }
-
-        Rectangle {
-            anchors.fill: parent
-            anchors.margins: 10
-            color: "#ee151d24"
-            visible: playbackWindow.isSearchingMonth
-            radius: 6
-
-            ColumnLayout {
-                anchors.centerIn: parent
-                spacing: 8
-
-                Text {
-                    text: qsTr("Trwa ładowanie...")
-                    color: "#00f5d4"
-                    font.bold: true
-                    font.pixelSize: 16
-                    Layout.alignment: Qt.AlignHCenter
-                }
-
-                Text {
-                    text: qsTr("pobieranie informacji o dostępności nagrań")
-                    color: "#8898a6"
-                    font.pixelSize: 11
-                    Layout.alignment: Qt.AlignHCenter
                 }
             }
         }
