@@ -91,7 +91,7 @@ void HikvisionISAPI::doSearchRequest(const QString &sessionId)
         "    </timeSpan>\n"
         "  </timeSpanList>\n"
         "  <maxResults>1000</maxResults>\n"
-        "  <searchResultPostion>%5</searchResultPostion>\n"
+        "  <searchResultPosition>%5</searchResultPosition>\n"
         "  <metadataList>\n"
         "    <metadataDescriptor>//recordType.meta.std-cgi.com</metadataDescriptor>\n"
         "  </metadataList>\n"
