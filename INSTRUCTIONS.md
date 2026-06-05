@@ -56,6 +56,8 @@ The main window of the program displays the live feed:
 * **Camera Grid**: Displays RTSP streams or feeds directly from the Hikvision SDK.
 * **Stream Quality Selection**: By right-clicking a camera viewport, you can select the **Main Stream** for highest resolution, or the **Sub Stream** to reduce network and graphics card load.
 * **Auto-hiding Sidebar**: The options sidebar (SideBar) can automatically collapse to the edge of the screen when the mouse cursor leaves its area (this option is configurable in Settings -> *„Automatically collapse sidebar”*).
+* **Multi-Monitor & Auxiliary Windows**: You can open independent additional (auxiliary) windows to run different grid layouts simultaneously on multiple screens or monitors. To open a new window, use the `Ctrl+N` keyboard shortcut, or click the **"New Window"** button on the hover-slide top toolbar. Each window can be configured with its own grid size and selected preset layout.
+
 
 ---
 
