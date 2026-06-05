@@ -22,7 +22,7 @@ void HikvisionISAPI::searchRecordings(const QVariantMap &recorderInfo, int chann
     session.startTime = start;
     session.endTime = end;
     session.isMonthSearch = false;
-    session.currentPosition = 0;
+    session.currentPosition = 1;
     m_sessions[sessionId] = session;
 
     doSearchRequest(sessionId);
@@ -43,7 +43,7 @@ void HikvisionISAPI::searchMonthAvailability(const QVariantMap &recorderInfo, in
     session.isMonthSearch = true;
     session.year = year;
     session.month = month;
-    session.currentPosition = 0;
+    session.currentPosition = 1;
     m_sessions[sessionId] = session;
 
     doSearchRequest(sessionId);
@@ -91,7 +91,7 @@ void HikvisionISAPI::doSearchRequest(const QString &sessionId)
         "    </timeSpan>\n"
         "  </timeSpanList>\n"
         "  <maxResults>1000</maxResults>\n"
-        "  <searchResultPosition>%5</searchResultPosition>\n"
+        "  <searchResultPostion>%5</searchResultPostion>\n"
         "  <metadataList>\n"
         "    <metadataDescriptor>//recordType.meta.std-cgi.com</metadataDescriptor>\n"
         "  </metadataList>\n"
@@ -227,8 +227,8 @@ void HikvisionISAPI::onReplyFinished()
         return;
     }
 
-    // If responseStatusStrg is MORE, there are more pages
-    if (responseStatusStrg == "MORE") {
+    // If responseStatusStrg is MORE, there are more pages (limit to 5000 results to avoid infinite loop)
+    if (responseStatusStrg == "MORE" && session.currentPosition < 5000) {
         qDebug() << "[ISAPI] Session" << sessionId << "status MORE; paginating next page from:" << (session.currentPosition + matchItemsCount);
         session.currentPosition += matchItemsCount;
         doSearchRequest(sessionId); // Fetch next page
