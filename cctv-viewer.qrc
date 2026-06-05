@@ -1,0 +1,55 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/zoom.svg</file>
+        <file>images/zoom_out.svg</file>
+        <file>images/rewind.svg</file>
+        <file>images/forward.svg</file>
+        <file>images/play_small.svg</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>translations/cctv-viewer_pl_PL.qm</file>
+        <file>translations/cctv-viewer_en_US.qm</file>
+        <file>src/RootWindow.qml</file>
+        <file>src/AuxiliaryWindow.qml</file>
+        <file>src/SettingsDialog.qml</file>
+        <file>src/ViewportSettingsDialog.qml</file>
+        <file>src/ToolsWindow.qml</file>
+        <file>src/Player.qml</file>
+        <file>src/ViewportsLayout.qml</file>
+        <file>src/SideBar.qml</file>
+        <file>src/SideBarItem.qml</file>
+        <file>src/ConfirmDialog.qml</file>
+        <file>src/DownloadDialog.qml</file>
+        <file>images/cctv-viewer.svg</file>
+        <file>images/cctv-viewer2-icon.png</file>
+        <file>images/icon-trash.svg</file>
+        <file>images/icon-warning.svg</file>
+        <file>images/cctv-viewer.ico</file>
+        <file>images/menu-viewport.svg</file>
+        <file>images/menu-tools.svg</file>
+        <file>images/menu-settings.svg</file>
+        <file>images/menu-presets.svg</file>
+        <file>images/menu-recorders.svg</file>
+        <file>images/menu.svg</file>
+        <file>images/menu-collapse.svg</file>
+        <file>images/menu-item-collapse.svg</file>
+        <file>src/imports/CCTV_Viewer/Utils/qmldir</file>
+        <file>src/imports/CCTV_Viewer/Utils/utils.js</file>
+        <file>src/imports/CCTV_Viewer/Themes/qmldir</file>
+        <file>src/imports/CCTV_Viewer/Themes/Compact.qml</file>
+        <file alias="Compact/Button.qml">src/imports/CCTV_Viewer/Themes/Compact/Button.qml</file>
+        <file alias="Compact/Frame.qml">src/imports/CCTV_Viewer/Themes/Compact/Frame.qml</file>
+        <file alias="Compact/GroupBox.qml">src/imports/CCTV_Viewer/Themes/Compact/GroupBox.qml</file>
+        <file alias="Compact/TextField.qml">src/imports/CCTV_Viewer/Themes/Compact/TextField.qml</file>
+        <file alias="Compact/CheckBox.qml">src/imports/CCTV_Viewer/Themes/Compact/CheckBox.qml</file>
+        <file alias="Compact/ToolTip.qml">src/imports/CCTV_Viewer/Themes/Compact/ToolTip.qml</file>
+        <file>images/github.svg</file>
+        <file>src/PresetIndicator.qml</file>
+        <file>src/NvrSettingsPanel.qml</file>
+        <file>src/NvrCamerasWindow.qml</file>
+        <file>src/PlaybackWindow.qml</file>
+        <file>images/play.svg</file>
+        <file>images/pause.svg</file>
+        <file>src/CursorShape.qml</file>
+        <file>src/CctvButton.qml</file>
+    </qresource>
+</RCC>

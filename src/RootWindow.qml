@@ -1,0 +1,1402 @@
+import QtQml 2.12
+import QtQuick 2.12
+import QtQuick.Window 2.12
+import QtQuick.Layouts 1.12
+import QtQuick.Controls 2.12
+import QtQuick.Dialogs 1.3
+import Qt.labs.settings 1.0
+import CCTV_Viewer.Core 1.0
+import CCTV_Viewer.Models 1.0
+import CCTV_Viewer.Utils 1.0
+import CCTV_Viewer.Themes 1.0
+
+ApplicationWindow {
+    id: rootWindow
+
+    title: Context.isAuxiliary ? qsTr("CCTV Viewer - Okno pomocnicze") : qsTr("CCTV Viewer")
+
+    visible: true
+    visibility: Context.config.fullScreen ? Window.FullScreen : Window.Windowed
+    width: rootWindowSettings.width
+    height: rootWindowSettings.height
+
+    // Right-to-left User Interfaces support
+    LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
+    LayoutMirroring.childrenInherit: true
+
+    Binding {
+        target: rootWindowSettings
+        property: "width"
+        value: rootWindow.width
+        when: !Context.config.fullScreen
+    }
+
+    Binding {
+        target: rootWindowSettings
+        property: "height"
+        value: rootWindow.height
+        when: !Context.config.fullScreen
+    }
+
+    property alias hikvisionRecordersJson: hikvisionSettings.recordersJson
+    property alias layoutRepeater: layoutRepeater
+    property alias layoutIndex: stackLayout.currentIndex
+    property var auxWindowsList: []
+    property var activeLayoutWindow: rootWindow
+
+    onActiveChanged: {
+        if (active) {
+            rootWindow.activeLayoutWindow = rootWindow;
+        }
+    }
+
+    Settings {
+        id: generalSettings
+
+        fileName: Context.config.fileName
+        property bool singleApplication: true
+        property bool allowSwappingViewports: true
+        property bool enableContextMenu: true
+        property bool enableRemoveCamera: true
+        property bool enableChangeViewportSettings: true
+        property bool enableStreamSelection: true
+        property bool lockGridSize: true
+    }
+
+    Settings {
+        id: hikvisionSettings
+        fileName: Context.config.fileName
+        category: "Hikvision"
+        property string recordersJson: "[]"
+    }
+
+
+    function getRecorderName(ip) {
+        try {
+            var list = JSON.parse(hikvisionSettings.recordersJson);
+            for (var i = 0; i < list.length; ++i) {
+                if (list[i].ip === ip) {
+                    if (list[i].name && list[i].name.trim() !== "") {
+                        return list[i].name;
+                    }
+                    break;
+                }
+            }
+        } catch(e) {
+            console.log("[RootWindow Error] Failed to parse recorders JSON:", e);
+        }
+        return ip;
+    }
+
+    Timer {
+        id: keepVisibleTimer
+        interval: 350
+        repeat: false
+    }
+
+    Settings {
+        id: rootWindowSettings
+
+        fileName: Context.config.fileName
+        category: "RootWindow"
+        property int width: 1280 + 48 // SideBar compact width
+        property int height: 720
+        property bool fullScreen
+        property bool sidebarAutoCollapse: true
+
+        Component.onCompleted: {
+            // Do not initialize "fullScreen" if option "-f" is set
+            if (!Context.config.fullScreen) {
+                Context.config.fullScreen = rootWindowSettings.fullScreen;
+            }
+
+            rootWindowSettings.fullScreen = Qt.binding(function() { return Context.config.fullScreen; });
+        }
+    }
+
+    Settings {
+        id: layoutsCollectionSettings
+
+        fileName: Context.config.fileName
+        category: "ViewportsLayoutsCollection"
+
+        property int currentIndex
+        property string models
+        property string defaultAVFormatOptions: "{\"analyzeduration\":0,\"probesize\":500000}"
+
+        function toJSValue(key) {
+            var obj = {};
+
+            try {
+                obj = JSON.parse(layoutsCollectionSettings[String(key)]);
+            } catch(err) {
+                Utils.log_error(qsTr("Error reading configuration!"));
+            }
+
+            return obj;
+        }
+    }
+
+    Settings {
+        id: viewSettings
+
+        fileName: Context.config.fileName
+        category: "View"
+
+        property bool hideCursorWhenFullScreen: true
+    }
+
+    Settings {
+        id: viewportSettings
+
+        fileName: Context.config.fileName
+        category: "Viewport"
+
+        property bool unmuteWhenFullScreen: false
+    }
+
+    Settings {
+        id: presetsSettings
+
+        fileName: Context.config.fileName
+        category: "Presets"
+
+        property bool carouselRunning: false
+        property int carouselInterval: 15000 // ms
+    }
+
+    Shortcut {
+        sequence: "M"
+        onActivated: {
+            if (Utils.currentLayout().focusIndex >= 0) {
+                var item = Utils.currentModel().get(Utils.currentLayout().focusIndex);
+                var viewport = Utils.currentLayout().get(Utils.currentLayout().focusIndex);
+
+                if (viewport.hasAudio) {
+                    if (item.volume > 0) {
+                        item.volume = 0;
+                    } else {
+                        item.volume = 1;
+                    }
+                }
+            }
+        }
+    }
+    Shortcut {
+        sequence: "Alt+Right"
+        onActivated: stackLayout.currentIndex = Math.min(stackLayout.currentIndex + 1, stackLayout.count - 1)
+    }
+    Shortcut {
+        sequence: "Alt+Left"
+        onActivated: stackLayout.currentIndex = Math.max(stackLayout.currentIndex - 1, 0)
+    }
+    // Shortcuts for the first 9 presets (Alt + 1, Alt + 2, ..., Alt + 9)
+    Repeater {
+        model: Context.config.kioskMode ? 0 : Math.min(stackLayout.count, 9)
+
+        Item {
+            Shortcut {
+                sequence: "Alt+" + (index + 1)
+                onActivated: stackLayout.currentIndex = index
+            }
+        }
+    }
+    Shortcut {
+        sequence: "Space"
+        enabled: presetsSettings.carouselRunning
+        onActivated: carouselTimer.paused = !carouselTimer.paused
+    }
+    Shortcut {
+        sequences: ["F11", StandardKey.FullScreen]
+        onActivated: toggleFullScreen()
+        onActivatedAmbiguously: toggleFullScreen()
+
+        function toggleFullScreen() {
+            Context.config.fullScreen = !Context.config.fullScreen;
+        }
+    }
+    Shortcut {
+        sequence: StandardKey.Quit
+        onActivated: Qt.quit()
+    }
+
+    Shortcut {
+        sequence: "Ctrl+N"
+        onActivated: rootWindow.openAuxiliaryWindow()
+    }
+
+    function setRootWindowRatio(ratio) {
+        var horzRatio = Utils.currentModel().size.width * ratio.width;
+        var vertRatio = Utils.currentModel().size.height * ratio.height;
+        var pixels = Math.round(rootWindow.width / horzRatio);
+
+        if (!Context.config.fullScreen) {
+            rootWindow.width = horzRatio * pixels;
+            rootWindow.height = vertRatio * pixels;
+        }
+    }
+
+    function openAuxiliaryWindow(initialState) {
+        Context.startAuxiliaryProcess();
+    }
+
+    function openPlaybackWindowEmpty() {
+        var component = Qt.createComponent("qrc:/src/PlaybackWindow.qml");
+        if (component.status === Component.Ready) {
+            var win = component.createObject(rootWindow, {
+                "recorderInfo": null,
+                "channelId": -1,
+                "cameraName": "",
+                "width": rootWindow.width * 0.9,
+                "height": rootWindow.height * 0.9
+            });
+            win.show();
+        } else {
+            component.statusChanged.connect(function() {
+                if (component.status === Component.Ready) {
+                    var win = component.createObject(rootWindow, {
+                        "recorderInfo": null,
+                        "channelId": -1,
+                        "cameraName": "",
+                        "width": rootWindow.width * 0.9,
+                        "height": rootWindow.height * 0.9
+                    });
+                    win.show();
+                }
+            });
+        }
+    }
+
+
+
+    ViewportsLayoutsCollectionModel {
+        id: layoutsCollectionModel
+
+        // Demo group
+        ViewportsLayoutModel {
+            size: Qt.size(2, 2)
+        }
+        ViewportsLayoutModel {
+            size: Qt.size(3, 3)
+        }
+        ViewportsLayoutModel {
+            size: Qt.size(1, 1)
+        }
+
+        onCountChanged: stackLayout.currentIndex = stackLayout.currentIndex.clamp(0, layoutsCollectionModel.count - 1)
+        Component.onCompleted: {
+            // Demo streams
+            get(0).get(0).url = "rtmp://live.a71.ru/demo/0";
+            get(0).get(1).url = "rtmp://live.a71.ru/demo/1";
+
+            try {
+                if (!layoutsCollectionSettings.models.isEmpty()) {
+                    fromJSValue(JSON.parse(layoutsCollectionSettings.models));
+                }
+            } catch(err) {
+                Utils.log_error(qsTr("Error reading configuration!"));
+            }
+
+            layoutsCollectionModel.changed.connect(function () {
+                layoutsCollectionSettings.models = JSON.stringify(toJSValue());
+            });
+
+            if (Context.isAuxiliary) {
+                stackLayout.currentIndex = -1;
+            } else {
+                // Force initialize "currentIndex" if option "-p" is set
+                var currentIndex = (Context.config.currentIndex >= 0) ? Context.config.currentIndex : layoutsCollectionSettings.currentIndex;
+                stackLayout.currentIndex = currentIndex.clamp(0, layoutsCollectionModel.count - 1);
+            }
+        }
+    }
+
+    // Hover area at the very top edge of the window to slide down the top bar
+    MouseArea {
+        id: hoverArea
+        height: 12
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        hoverEnabled: true
+        z: 99999
+        onContainsMouseChanged: {
+            if (containsMouse) {
+                keepVisibleTimer.stop();
+            } else if (!topToolBarMouseArea.containsMouse) {
+                keepVisibleTimer.start();
+            }
+        }
+    }
+
+    // Sleek premium horizontal top bar for settings and grid layout options
+    Rectangle {
+        id: topToolBar
+        height: 44
+        anchors.left: parent.left
+        anchors.right: parent.right
+        color: "#cc121214"
+        z: 9999
+
+        // Slide animation based on hover states of the top edge or the bar itself
+        y: (hoverArea.containsMouse || topToolBarMouseArea.containsMouse || keepVisibleTimer.running) ? 0 : -height
+
+        Behavior on y {
+            NumberAnimation {
+                duration: 200
+                easing.type: Easing.OutCubic
+            }
+        }
+
+        Rectangle {
+            anchors.bottom: parent.bottom
+            width: parent.width
+            height: 1
+            color: "#2a3540"
+            z: 10 // draw line on top of background
+        }
+
+        MouseArea {
+            id: topToolBarMouseArea
+            anchors.fill: parent
+            hoverEnabled: true
+            onContainsMouseChanged: {
+                if (containsMouse) {
+                    keepVisibleTimer.stop();
+                } else if (!hoverArea.containsMouse) {
+                    keepVisibleTimer.start();
+                }
+            }
+
+            RowLayout {
+            anchors.fill: parent
+            anchors.leftMargin: 12
+            anchors.rightMargin: 12
+            spacing: 12
+
+            Button {
+                id: quitButton
+                Layout.preferredWidth: 30
+                Layout.preferredHeight: 30
+                Layout.alignment: Qt.AlignVCenter
+
+                contentItem: Text {
+                    text: "✕"
+                    font.bold: true
+                    font.pixelSize: 14
+                    color: "white"
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+
+                background: Rectangle {
+                    color: quitButton.pressed ? "#cc2929" : (quitButton.hovered ? "#ff4d4d" : "#d63333")
+                    radius: 15
+                }
+
+                onClicked: {
+                    quitConfirmDialog.open();
+                }
+            }
+
+            Button {
+                id: optionsButton
+                text: qsTr("⚙️ OPCJE")
+                Layout.preferredWidth: 90
+                Layout.preferredHeight: 30
+                Layout.alignment: Qt.AlignVCenter
+
+                contentItem: Text {
+                    text: optionsButton.text
+                    font.bold: true
+                    font.pixelSize: 10
+                    color: "white"
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+
+                background: Rectangle {
+                    color: optionsButton.pressed ? "#cc121214" : (optionsButton.hovered ? "#aa1c242c" : "#66121214")
+                    radius: 15
+                    border.color: optionsButton.hovered ? "#ff7a00" : "#44ffffff"
+                    border.width: 1
+                }
+
+                onClicked: {
+                    sidebarWindow.visible = !sidebarWindow.visible;
+                    if (sidebarWindow.visible) {
+                        sidebarWindow.raise();
+                        sidebarWindow.requestActivate();
+                    }
+                }
+            }
+
+            Button {
+                id: newWindowButton
+                text: qsTr("📺 NOWE OKNO")
+                Layout.preferredWidth: 110
+                Layout.preferredHeight: 30
+                Layout.alignment: Qt.AlignVCenter
+
+                contentItem: Text {
+                    text: newWindowButton.text
+                    font.bold: true
+                    font.pixelSize: 10
+                    color: "white"
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    topPadding: 3
+                }
+
+                background: Rectangle {
+                    color: newWindowButton.pressed ? "#cc121214" : (newWindowButton.hovered ? "#aa1c242c" : "#66121214")
+                    radius: 15
+                    border.color: newWindowButton.hovered ? "#ff7a00" : "#44ffffff"
+                    border.width: 1
+                }
+
+                onClicked: {
+                    rootWindow.openAuxiliaryWindow();
+                }
+            }
+
+            Button {
+                id: archiveButton
+                text: qsTr("📂 ARCHIWUM")
+                Layout.preferredWidth: 105
+                Layout.preferredHeight: 30
+                Layout.alignment: Qt.AlignVCenter
+
+                contentItem: Text {
+                    text: archiveButton.text
+                    font.bold: true
+                    font.pixelSize: 10
+                    color: "white"
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+
+                background: Rectangle {
+                    color: archiveButton.pressed ? "#cc121214" : (archiveButton.hovered ? "#aa1c242c" : "#66121214")
+                    radius: 15
+                    border.color: archiveButton.hovered ? "#00f5d4" : "#44ffffff"
+                    border.width: 1
+                }
+
+                onClicked: {
+                    rootWindow.openPlaybackWindowEmpty();
+                }
+            }
+
+            Switch {
+                id: systemStatsSwitch
+                checked: false
+                text: qsTr("📊 STATYSTYKI")
+
+                Layout.preferredHeight: 28
+                Layout.alignment: Qt.AlignVCenter
+
+                indicator: Rectangle {
+                    implicitWidth: 36
+                    implicitHeight: 18
+                    x: systemStatsSwitch.leftPadding
+                    y: parent.height / 2 - height / 2
+                    radius: 9
+                    color: systemStatsSwitch.checked ? "#00ff66" : "#1c242c"
+                    border.color: systemStatsSwitch.checked ? "#00cc52" : "#2a3540"
+                    border.width: 1
+
+                    Rectangle {
+                        x: systemStatsSwitch.checked ? parent.width - width - 2 : 2
+                        y: 2
+                        width: 14
+                        height: 14
+                        radius: 7
+                        color: "white"
+
+                        Behavior on x {
+                            NumberAnimation { duration: 150 }
+                        }
+                    }
+                }
+
+                contentItem: Text {
+                    text: systemStatsSwitch.text
+                    font.bold: true
+                    font.pixelSize: 10
+                    color: systemStatsSwitch.checked ? "#00ff66" : (systemStatsSwitch.hovered ? "#ffffff" : "#8898a6")
+                    verticalAlignment: Text.AlignVCenter
+                    leftPadding: systemStatsSwitch.indicator.width + 6
+                }
+            }
+
+            Rectangle {
+                width: 1
+                height: 20
+                color: "#2a3540"
+                Layout.alignment: Qt.AlignVCenter
+            }
+
+            Text {
+                text: qsTr("Siatka widoku:")
+                color: "#8898a6"
+                font.bold: true
+                font.pixelSize: 11
+                Layout.alignment: Qt.AlignVCenter
+            }
+
+            RowLayout {
+                spacing: 6
+
+                Button {
+                    id: fullScreenBtn
+                    Layout.preferredWidth: 28
+                    Layout.preferredHeight: 28
+
+                    property bool isActive: Context.config.fullScreen
+
+                    contentItem: Image {
+                        anchors.centerIn: parent
+                        width: 14
+                        height: 14
+                        source: {
+                            var colorStr = fullScreenBtn.isActive ? "white" : (fullScreenBtn.hovered ? "white" : "%238898a6");
+                            if (fullScreenBtn.isActive) {
+                                return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M4 10h6V4m10 6h-6V4M4 14h6v6m10-6h-6v6'></path></svg>";
+                            } else {
+                                return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3'></path></svg>";
+                            }
+                        }
+                    }
+
+                    background: Rectangle {
+                        color: fullScreenBtn.isActive ? "#ff7a00" : (fullScreenBtn.pressed ? "#cc121214" : (fullScreenBtn.hovered ? "#3a4550" : "#1c242c"))
+                        radius: 4
+                        border.color: fullScreenBtn.isActive ? "#ff9e00" : (fullScreenBtn.hovered ? "#8898a6" : "#2a3540")
+                        border.width: 1
+                    }
+
+                    onClicked: {
+                        Context.config.fullScreen = !Context.config.fullScreen;
+                    }
+
+                    ToolTip.delay: Compact.toolTipDelay
+                    ToolTip.timeout: Compact.toolTipTimeout
+                    ToolTip.visible: fullScreenBtn.hovered
+                    ToolTip.text: qsTr("Toggle Full Screen")
+                }
+
+                Switch {
+                    id: lockGridSwitch
+                    checked: generalSettings.lockGridSize
+                    text: qsTr("🔒 Blokuj zmianę")
+
+                    Layout.preferredHeight: 28
+                    Layout.alignment: Qt.AlignVCenter
+
+                    indicator: Rectangle {
+                        implicitWidth: 36
+                        implicitHeight: 18
+                        x: lockGridSwitch.leftPadding
+                        y: parent.height / 2 - height / 2
+                        radius: 9
+                        color: lockGridSwitch.checked ? "#ff7a00" : "#1c242c"
+                        border.color: lockGridSwitch.checked ? "#ff9e00" : "#2a3540"
+                        border.width: 1
+
+                        Rectangle {
+                            x: lockGridSwitch.checked ? parent.width - width - 2 : 2
+                            y: 2
+                            width: 14
+                            height: 14
+                            radius: 7
+                            color: "white"
+
+                            Behavior on x {
+                                NumberAnimation { duration: 150 }
+                            }
+                        }
+                    }
+
+                    contentItem: Text {
+                        text: lockGridSwitch.text
+                        font.bold: true
+                        font.pixelSize: 10
+                        color: lockGridSwitch.checked ? "white" : (lockGridSwitch.hovered ? "#ffffff" : "#8898a6")
+                        verticalAlignment: Text.AlignVCenter
+                        leftPadding: lockGridSwitch.indicator.width + 6
+                    }
+
+                    onCheckedChanged: {
+                        generalSettings.lockGridSize = checked;
+                    }
+                }
+
+                Repeater {
+                    model: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+                    delegate: Button {
+                        id: gridBtn
+                        property int gridSize: modelData
+                        text: gridSize + "x" + gridSize
+                        enabled: !generalSettings.lockGridSize
+
+                        Layout.preferredWidth: 44
+                        Layout.preferredHeight: 28
+
+                        // Highlight if this is the current active size!
+                        property bool isActive: {
+                            try {
+                                var curr = Utils.currentModel();
+                                return curr && curr.size.width === gridSize && curr.size.height === gridSize;
+                            } catch(e) {
+                                return false;
+                            }
+                        }
+
+                        contentItem: Text {
+                            text: gridBtn.text
+                            font.bold: true
+                            font.pixelSize: 10
+                            color: gridBtn.enabled ? (gridBtn.isActive ? "white" : (gridBtn.hovered ? "#ffffff" : "#8898a6")) : "#555555"
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                        }
+
+                        background: Rectangle {
+                            color: gridBtn.isActive ? "#ff7a00" : (gridBtn.pressed ? "#cc121214" : (gridBtn.hovered ? "#3a4550" : "#1c242c"))
+                            radius: 4
+                            border.color: gridBtn.isActive ? "#ff9e00" : (gridBtn.hovered ? "#8898a6" : "#2a3540")
+                            border.width: 1
+                            opacity: gridBtn.enabled ? 1.0 : 0.4
+                        }
+
+                        onClicked: {
+                            try {
+                                var curr = Utils.currentModel();
+                                if (curr) {
+                                    curr.size = Qt.size(gridSize, gridSize);
+                                }
+                            } catch(e) {
+                                console.log("[Grid Selector Error] Failed to change grid size:", e);
+                            }
+                        }
+                    }
+                }
+
+                Button {
+                    id: moreOptionsButton
+                    text: qsTr("Więcej opcji")
+
+                    Layout.preferredWidth: 84
+                    Layout.preferredHeight: 28
+
+                    contentItem: Text {
+                        text: moreOptionsButton.text
+                        font.bold: true
+                        font.pixelSize: 10
+                        color: "white"
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    background: Rectangle {
+                        color: moreOptionsButton.pressed ? "#cc121214" : (moreOptionsButton.hovered ? "#aa1c242c" : "#1c242c")
+                        radius: 4
+                        border.color: moreOptionsButton.hovered ? "#ff7a00" : "#2a3540"
+                        border.width: 1
+                    }
+
+                    onClicked: {
+                        toolsWindow.visible = !toolsWindow.visible;
+                        if (toolsWindow.visible) {
+                            toolsWindow.raise();
+                            toolsWindow.requestActivate();
+                        }
+                    }
+                }
+            }
+
+            Item {
+                Layout.fillWidth: true // Spacer to push existing views to the right
+            }
+
+            // Right-aligned Existing Views/Presets selector
+            Text {
+                text: qsTr("Wybór widoku:")
+                color: "#8898a6"
+                font.bold: true
+                font.pixelSize: 11
+                Layout.alignment: Qt.AlignVCenter
+            }
+
+            RowLayout {
+                spacing: 6
+
+                Repeater {
+                    model: layoutsCollectionModel
+                    delegate: Button {
+                        id: viewBtn
+                        property int layoutIndex: model.index
+
+                        visible: {
+                            try {
+                                var layout = model.layoutModel;
+                                if (layout) {
+                                    return layout.visible;
+                                }
+                            } catch(e) {}
+                            return true;
+                        }
+
+                        text: {
+                            try {
+                                var layout = model.layoutModel;
+                                if (layout) {
+                                    if (layout.name && layout.name.trim() !== "") {
+                                        return layout.name;
+                                    }
+                                    if (layout.isNvr) {
+                                        return "📹 " + getRecorderName(layout.nvrIp);
+                                    } else {
+                                        var count = 1;
+                                        for (var i = 0; i < layoutIndex; ++i) {
+                                            var l = layoutsCollectionModel.get(i);
+                                            if (l && !l.isNvr) count++;
+                                        }
+                                        return "Widok " + count;
+                                    }
+                                }
+                            } catch(e) {}
+                            return "Widok " + (layoutIndex + 1);
+                        }
+
+                        Layout.preferredHeight: 28
+
+                        // Highlight if this is the currently active view!
+                        property bool isActive: stackLayout.currentIndex === layoutIndex
+
+                        contentItem: Text {
+                            text: viewBtn.text
+                            font.bold: true
+                            font.pixelSize: 10
+                            color: viewBtn.isActive ? "white" : (viewBtn.hovered ? "#ffffff" : "#8898a6")
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                        }
+
+                        background: Rectangle {
+                            color: viewBtn.isActive ? "#00f5d4" : (viewBtn.pressed ? "#cc121214" : (viewBtn.hovered ? "#3a4550" : "#1c242c"))
+                            radius: 4
+                            border.color: viewBtn.isActive ? "#00f5d4" : (viewBtn.hovered ? "#8898a6" : "#2a3540")
+                            border.width: 1
+                        }
+
+                        onClicked: {
+                            stackLayout.currentIndex = layoutIndex;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    }
+
+    Item {
+        anchors.fill: parent
+
+        StackLayout {
+            id: stackLayout
+
+            visible: false
+            currentIndex: -1
+            anchors.fill: parent
+
+            onCurrentIndexChanged: {
+                layoutsCollectionSettings.currentIndex = currentIndex;
+                if (carouselTimer.running) {
+                    carouselTimer.restart();
+                }
+            }
+
+            Repeater {
+                id: layoutRepeater
+                model: layoutsCollectionModel
+
+                ViewportsLayout {
+                    model: layoutModel
+                    focus: true
+                }
+            }
+
+            Timer {
+                id: carouselTimer
+
+                repeat: true
+                interval: presetsSettings.carouselInterval
+                running: presetsSettings.carouselRunning && !paused
+
+                property bool paused: false
+
+                onTriggered: {
+                    // Scrolling carousel to right
+                    if (stackLayout.currentIndex < layoutsCollectionModel.count - 1) {
+                        ++stackLayout.currentIndex
+                    } else {
+                        stackLayout.currentIndex = 0;
+                    }
+                }
+            }
+        }
+    }
+
+    // Separate utility Window for options (SideBar contents)
+    Window {
+        id: sidebarWindow
+        title: qsTr("CCTV Viewer - Panel")
+        width: Math.round(rootWindow.width * 0.85)
+        height: Math.round(rootWindow.height * 0.85)
+        visible: false
+        color: "#0f151b"
+
+        Settings {
+            id: sidebarWindowSettings
+            fileName: Context.config.fileName
+            category: "SidebarWindow"
+            property int x: -1
+            property int y: -1
+            property int width: -1
+            property int height: -1
+            property bool visible: false
+        }
+
+        Component.onCompleted: {
+            var defaultWidth = Math.round(rootWindow.width * 0.85);
+            var defaultHeight = Math.round(rootWindow.height * 0.85);
+            var defaultX = Math.round(rootWindow.x + (rootWindow.width - defaultWidth) / 2);
+            var defaultY = Math.round(rootWindow.y + (rootWindow.height - defaultHeight) / 2);
+
+            sidebarWindow.width = (sidebarWindowSettings.width > 0 && sidebarWindowSettings.width !== 320) ? sidebarWindowSettings.width : defaultWidth;
+            sidebarWindow.height = (sidebarWindowSettings.height > 0 && sidebarWindowSettings.height !== 750) ? sidebarWindowSettings.height : defaultHeight;
+            sidebarWindow.x = (sidebarWindowSettings.x >= 0 && sidebarWindowSettings.x !== 100) ? sidebarWindowSettings.x : defaultX;
+            sidebarWindow.y = (sidebarWindowSettings.y >= 0 && sidebarWindowSettings.y !== 100) ? sidebarWindowSettings.y : defaultY;
+            sidebarWindow.visible = sidebarWindowSettings.visible;
+
+            sidebarWindow.xChanged.connect(saveGeometry);
+            sidebarWindow.yChanged.connect(saveGeometry);
+            sidebarWindow.widthChanged.connect(saveGeometry);
+            sidebarWindow.heightChanged.connect(saveGeometry);
+            sidebarWindow.visibleChanged.connect(saveGeometry);
+        }
+
+        onVisibleChanged: {
+            if (visible) {
+                var defaultWidth = Math.round(rootWindow.width * 0.85);
+                var defaultHeight = Math.round(rootWindow.height * 0.85);
+                if (sidebarWindow.width === 320 || sidebarWindow.width <= 0) {
+                    sidebarWindow.width = defaultWidth;
+                }
+                if (sidebarWindow.height === 750 || sidebarWindow.height <= 0) {
+                    sidebarWindow.height = defaultHeight;
+                }
+                sidebarWindow.x = Math.round(rootWindow.x + (rootWindow.width - sidebarWindow.width) / 2);
+                sidebarWindow.y = Math.round(rootWindow.y + (rootWindow.height - sidebarWindow.height) / 2);
+            }
+        }
+
+        function saveGeometry() {
+            sidebarWindowSettings.x = sidebarWindow.x;
+            sidebarWindowSettings.y = sidebarWindow.y;
+            sidebarWindowSettings.width = sidebarWindow.width;
+            sidebarWindowSettings.height = sidebarWindow.height;
+            sidebarWindowSettings.visible = sidebarWindow.visible;
+        }
+
+        Loader {
+            id: sideBarLoader
+            anchors.fill: parent
+            
+            Component.onCompleted: {
+                if (!Context.config.kioskMode) {
+                    source = "SideBar.qml";
+                }
+            }
+        }
+    }
+
+    Connections {
+        target: SingleApplication
+        onMessageReceived: {
+            if (message === "openNewWindow") {
+                rootWindow.openAuxiliaryWindow();
+            }
+        }
+    }
+
+    Component.onCompleted: {
+        stackLayout.visible = true;
+    }
+
+    SettingsDialog {
+        id: settingsDialog
+    }
+
+    ConfirmDialog {
+        id: quitConfirmDialog
+        title: Context.isAuxiliary ? qsTr("Zamknij okno") : qsTr("Zamknij program")
+        message: Context.isAuxiliary ? qsTr("Czy na pewno zamknąć to okno?") : qsTr("Czy na pewno zamknąć program?")
+        confirmButtonText: qsTr("TAK")
+        cancelButtonText: qsTr("NIE")
+        isDanger: true
+        onAccepted: Qt.quit()
+    }
+
+    ToolsWindow {
+        id: toolsWindow
+        visible: false
+    }
+
+    // Light-green line marking the 50px-360px stats panel zone
+    Rectangle {
+        id: statsGreenLine
+        x: 0
+        y: 50
+        width: 1
+        height: 310
+        color: "#00ff66"
+        z: 99999
+        visible: systemStatsSwitch.checked
+    }
+
+    // Hover trigger zone
+    MouseArea {
+        id: statsTriggerArea
+        x: 0
+        y: 50
+        width: (statsPanel.x > -statsPanel.width) ? statsPanel.width : 15
+        height: 310
+        hoverEnabled: true
+        acceptedButtons: Qt.NoButton
+        z: 99998
+        visible: systemStatsSwitch.checked
+    }
+
+    // Slide-out panel for system stats
+    Rectangle {
+        id: statsPanel
+        width: 400
+        height: 310
+        y: 50
+        color: "#59121214" // 35% opacity dark background for better readability
+        border.color: "#00ff66"
+        border.width: 1
+        radius: 4
+        z: 99999
+        visible: systemStatsSwitch.checked
+
+        property bool pinned: pinStatsSwitch.checked
+        property bool hovered: statsTriggerArea.containsMouse || panelMouseArea.containsMouse
+        property bool panelActive: false
+
+        onHoveredChanged: {
+            if (hovered) {
+                delayCloseTimer.stop();
+                panelActive = true;
+            } else {
+                delayCloseTimer.start();
+            }
+        }
+
+        x: (pinned || panelActive) ? 0 : -width
+
+        Behavior on x {
+            NumberAnimation {
+                duration: 250
+                easing.type: Easing.OutCubic
+            }
+        }
+
+        Timer {
+            id: delayCloseTimer
+            interval: 1500 // comfortable 1.5s delay before closing panel
+            repeat: false
+            onTriggered: {
+                statsPanel.panelActive = false;
+            }
+        }
+
+        MouseArea {
+            id: panelMouseArea
+            anchors.fill: parent
+            hoverEnabled: true
+            acceptedButtons: Qt.NoButton
+        }
+
+        property var cpuHistory: []
+        property var gpuHistory: []
+        property var netHistory: []
+
+        Component.onCompleted: {
+            var arr = [];
+            for (var i = 0; i < 360; ++i) arr.push(0);
+            cpuHistory = arr;
+            gpuHistory = arr;
+            netHistory = arr;
+        }
+
+        Connections {
+            target: SystemStats
+            function onStatsChanged() {
+                var cpu = SystemStats.cpuUsage;
+                var gpu = SystemStats.gpuUsage;
+                var net = SystemStats.netUsage;
+
+                var newCpu = statsPanel.cpuHistory.slice();
+                newCpu.push(cpu);
+                if (newCpu.length > 360) newCpu.shift();
+                statsPanel.cpuHistory = newCpu;
+
+                var newGpu = statsPanel.gpuHistory.slice();
+                newGpu.push(gpu);
+                if (newGpu.length > 360) newGpu.shift();
+                statsPanel.gpuHistory = newGpu;
+
+                var newNet = statsPanel.netHistory.slice();
+                newNet.push(net);
+                if (newNet.length > 360) newNet.shift();
+                statsPanel.netHistory = newNet;
+
+                cpuCanvas.requestPaint();
+                gpuCanvas.requestPaint();
+                netCanvas.requestPaint();
+            }
+        }
+
+        ColumnLayout {
+            anchors.fill: parent
+            anchors.margins: 15
+            spacing: 8
+
+            RowLayout {
+                Layout.fillWidth: true
+                
+                Text {
+                    text: qsTr("📊 SYSTEM STATS")
+                    color: "#00ff66"
+                    font.bold: true
+                    font.pixelSize: 13
+                    Layout.fillWidth: true
+                }
+
+                Switch {
+                    id: pinStatsSwitch
+                    checked: false
+                    text: qsTr("Nie chowaj")
+
+                    indicator: Rectangle {
+                        implicitWidth: 32
+                        implicitHeight: 16
+                        radius: 8
+                        color: pinStatsSwitch.checked ? "#00ff66" : "#1c242c"
+                        border.color: pinStatsSwitch.checked ? "#00cc52" : "#2a3540"
+                        border.width: 1
+
+                        Rectangle {
+                            x: pinStatsSwitch.checked ? parent.width - width - 2 : 2
+                            y: 2
+                            width: 12
+                            height: 12
+                            radius: 6
+                            color: "white"
+                            Behavior on x { NumberAnimation { duration: 120 } }
+                        }
+                    }
+
+                    contentItem: Text {
+                        text: pinStatsSwitch.text
+                        font.bold: true
+                        font.pixelSize: 9
+                        color: pinStatsSwitch.checked ? "#00ff66" : "#8898a6"
+                        verticalAlignment: Text.AlignVCenter
+                        leftPadding: pinStatsSwitch.indicator.width + 4
+                    }
+                }
+            }
+
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 20
+
+                Text {
+                    text: qsTr("RAM: ") + SystemStats.ramUsage.toFixed(1) + " MB"
+                    color: "#00ff66"
+                    font.pixelSize: 11
+                    font.bold: true
+                }
+
+                Text {
+                    text: qsTr("VRAM: ") + SystemStats.vramUsage.toFixed(1) + " MB"
+                    color: "#00ff66"
+                    font.pixelSize: 11
+                    font.bold: true
+                }
+            }
+
+            Text {
+                text: qsTr("CPU: ") + SystemStats.cpuUsage.toFixed(1) + "%"
+                color: "#00ff66"
+                font.pixelSize: 11
+                font.bold: true
+            }
+
+            Canvas {
+                id: cpuCanvas
+                Layout.fillWidth: true
+                Layout.preferredHeight: 28
+
+                onPaint: {
+                    var ctx = getContext("2d");
+                    ctx.clearRect(0, 0, width, height);
+
+                    // Draw bright and thin background border
+                    ctx.strokeStyle = "rgba(0, 255, 102, 0.7)";
+                    ctx.lineWidth = 0.8;
+                    ctx.strokeRect(0, 0, width, height);
+
+                    // Draw faint gridlines
+                    ctx.beginPath();
+                    ctx.strokeStyle = "rgba(0, 255, 102, 0.15)";
+                    ctx.lineWidth = 0.8;
+                    // Horizontal gridlines
+                    var hStep = height / 4;
+                    for (var y = hStep; y < height; y += hStep) {
+                        ctx.moveTo(0, y);
+                        ctx.lineTo(width, y);
+                    }
+                    // Vertical gridlines every 1 minute (60 seconds / 60 points)
+                    var colWidth = width / 6;
+                    for (var col = 1; col < 6; ++col) {
+                        var xv = col * colWidth;
+                        ctx.moveTo(xv, 0);
+                        ctx.lineTo(xv, height);
+                    }
+                    ctx.stroke();
+
+                    // Draw CPU line & fill
+                    if (statsPanel.cpuHistory && statsPanel.cpuHistory.length > 1) {
+                        var step = width / (360 - 1);
+                        var startX = width - (statsPanel.cpuHistory.length - 1) * step;
+
+                        // 1. Draw gradient area under the curve
+                        ctx.beginPath();
+                        ctx.moveTo(startX, height);
+                        for (var i = 0; i < statsPanel.cpuHistory.length; i++) {
+                            var x = startX + i * step;
+                            var yVal = height - (statsPanel.cpuHistory[i] / 100.0) * height;
+                            yVal = Math.max(1, Math.min(height - 1, yVal));
+                            ctx.lineTo(x, yVal);
+                        }
+                        ctx.lineTo(width, height);
+                        ctx.closePath();
+                        
+                        var gradient = ctx.createLinearGradient(0, 0, 0, height);
+                        gradient.addColorStop(0, "rgba(0, 255, 102, 0.35)");
+                        gradient.addColorStop(1, "rgba(0, 255, 102, 0.03)");
+                        ctx.fillStyle = gradient;
+                        ctx.fill();
+
+                        // 2. Stroke graph line on top
+                        ctx.beginPath();
+                        ctx.strokeStyle = "#00ff66";
+                        ctx.lineWidth = 1.8; // thicker line for visibility
+                        ctx.moveTo(startX, height - (statsPanel.cpuHistory[0] / 100.0) * height);
+                        for (var i = 1; i < statsPanel.cpuHistory.length; i++) {
+                            var x = startX + i * step;
+                            var yVal = height - (statsPanel.cpuHistory[i] / 100.0) * height;
+                            yVal = Math.max(1, Math.min(height - 1, yVal));
+                            ctx.lineTo(x, yVal);
+                        }
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            Text {
+                text: qsTr("GPU: ") + SystemStats.gpuUsage.toFixed(1) + "%"
+                color: "#00ff66"
+                font.pixelSize: 11
+                font.bold: true
+            }
+
+            Canvas {
+                id: gpuCanvas
+                Layout.fillWidth: true
+                Layout.preferredHeight: 28
+
+                onPaint: {
+                    var ctx = getContext("2d");
+                    ctx.clearRect(0, 0, width, height);
+
+                    // Draw bright and thin background border
+                    ctx.strokeStyle = "rgba(0, 255, 102, 0.7)";
+                    ctx.lineWidth = 0.8;
+                    ctx.strokeRect(0, 0, width, height);
+
+                    // Draw faint gridlines
+                    ctx.beginPath();
+                    ctx.strokeStyle = "rgba(0, 255, 102, 0.15)";
+                    ctx.lineWidth = 0.8;
+                    // Horizontal gridlines
+                    var hStep = height / 4;
+                    for (var y = hStep; y < height; y += hStep) {
+                        ctx.moveTo(0, y);
+                        ctx.lineTo(width, y);
+                    }
+                    // Vertical gridlines every 1 minute (60 seconds / 60 points)
+                    var colWidth = width / 6;
+                    for (var col = 1; col < 6; ++col) {
+                        var xv = col * colWidth;
+                        ctx.moveTo(xv, 0);
+                        ctx.lineTo(xv, height);
+                    }
+                    ctx.stroke();
+
+                    // Draw GPU line & fill
+                    if (statsPanel.gpuHistory && statsPanel.gpuHistory.length > 1) {
+                        var step = width / (360 - 1);
+                        var startX = width - (statsPanel.gpuHistory.length - 1) * step;
+
+                        // 1. Draw gradient area under the curve
+                        ctx.beginPath();
+                        ctx.moveTo(startX, height);
+                        for (var i = 0; i < statsPanel.gpuHistory.length; i++) {
+                            var x = startX + i * step;
+                            var yVal = height - (statsPanel.gpuHistory[i] / 100.0) * height;
+                            yVal = Math.max(1, Math.min(height - 1, yVal));
+                            ctx.lineTo(x, yVal);
+                        }
+                        ctx.lineTo(width, height);
+                        ctx.closePath();
+                        
+                        var gradient = ctx.createLinearGradient(0, 0, 0, height);
+                        gradient.addColorStop(0, "rgba(0, 255, 102, 0.35)");
+                        gradient.addColorStop(1, "rgba(0, 255, 102, 0.03)");
+                        ctx.fillStyle = gradient;
+                        ctx.fill();
+
+                        // 2. Stroke graph line on top
+                        ctx.beginPath();
+                        ctx.strokeStyle = "#00ff66";
+                        ctx.lineWidth = 1.8; // thicker line for visibility
+                        ctx.moveTo(startX, height - (statsPanel.gpuHistory[0] / 100.0) * height);
+                        for (var i = 1; i < statsPanel.gpuHistory.length; i++) {
+                            var x = startX + i * step;
+                            var yVal = height - (statsPanel.gpuHistory[i] / 100.0) * height;
+                            yVal = Math.max(1, Math.min(height - 1, yVal));
+                            ctx.lineTo(x, yVal);
+                        }
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            Text {
+                text: qsTr("NET: ") + (SystemStats.netUsage >= 1.0 ? SystemStats.netUsage.toFixed(1) + " MB/s" : (SystemStats.netUsage * 1024.0).toFixed(0) + " KB/s")
+                color: "#00ff66"
+                font.pixelSize: 11
+                font.bold: true
+            }
+
+            Canvas {
+                id: netCanvas
+                Layout.fillWidth: true
+                Layout.preferredHeight: 28
+
+                onPaint: {
+                    var ctx = getContext("2d");
+                    ctx.clearRect(0, 0, width, height);
+
+                    // Draw bright and thin background border
+                    ctx.strokeStyle = "rgba(0, 255, 102, 0.7)";
+                    ctx.lineWidth = 0.8;
+                    ctx.strokeRect(0, 0, width, height);
+
+                    // Draw faint gridlines
+                    ctx.beginPath();
+                    ctx.strokeStyle = "rgba(0, 255, 102, 0.15)";
+                    ctx.lineWidth = 0.8;
+                    // Horizontal gridlines
+                    var hStep = height / 4;
+                    for (var y = hStep; y < height; y += hStep) {
+                        ctx.moveTo(0, y);
+                        ctx.lineTo(width, y);
+                    }
+                    // Vertical gridlines every 1 minute
+                    var colWidth = width / 6;
+                    for (var col = 1; col < 6; ++col) {
+                        var xv = col * colWidth;
+                        ctx.moveTo(xv, 0);
+                        ctx.lineTo(xv, height);
+                    }
+                    ctx.stroke();
+
+                    // Find max value in history to scale Y-axis
+                    var maxVal = 0.5; // minimum scale is 0.5 MB/s
+                    if (statsPanel.netHistory) {
+                        for (var i = 0; i < statsPanel.netHistory.length; i++) {
+                            if (statsPanel.netHistory[i] > maxVal) {
+                                maxVal = statsPanel.netHistory[i];
+                            }
+                        }
+                    }
+
+                    // Draw Network line & fill
+                    if (statsPanel.netHistory && statsPanel.netHistory.length > 1) {
+                        var step = width / (360 - 1);
+                        var startX = width - (statsPanel.netHistory.length - 1) * step;
+
+                        // 1. Draw gradient area under the curve
+                        ctx.beginPath();
+                        ctx.moveTo(startX, height);
+                        for (var i = 0; i < statsPanel.netHistory.length; i++) {
+                            var x = startX + i * step;
+                            var yVal = height - (statsPanel.netHistory[i] / maxVal) * height;
+                            yVal = Math.max(1, Math.min(height - 1, yVal));
+                            ctx.lineTo(x, yVal);
+                        }
+                        ctx.lineTo(width, height);
+                        ctx.closePath();
+                        
+                        var gradient = ctx.createLinearGradient(0, 0, 0, height);
+                        gradient.addColorStop(0, "rgba(0, 255, 102, 0.35)");
+                        gradient.addColorStop(1, "rgba(0, 255, 102, 0.03)");
+                        ctx.fillStyle = gradient;
+                        ctx.fill();
+
+                        // 2. Stroke graph line on top
+                        ctx.beginPath();
+                        ctx.strokeStyle = "#00ff66";
+                        ctx.lineWidth = 1.8; // thicker line for visibility
+                        ctx.moveTo(startX, height - (statsPanel.netHistory[0] / maxVal) * height);
+                        for (var i = 1; i < statsPanel.netHistory.length; i++) {
+                            var x = startX + i * step;
+                            var yVal = height - (statsPanel.netHistory[i] / maxVal) * height;
+                            yVal = Math.max(1, Math.min(height - 1, yVal));
+                            ctx.lineTo(x, yVal);
+                        }
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+    }
+
+    CursorShape {
+        id: cursorShape
+
+        autoHide: rootWindow.activeFocusItem != null && // Disabled when ApplicationWindow is't active
+                  !settingsDialog.visible &&
+                  Context.config.fullScreen && viewSettings.hideCursorWhenFullScreen
+        autoHideTimeout: 3000
+        anchors.fill: parent
+    }
+}

@@ -1,0 +1,36 @@
+# Maintainer: arkanista <arkanista@cctv-viewer2.org>
+
+pkgname=cctv-viewer2
+pkgver=2.0.0
+pkgrel=1
+pkgdesc="CCTV Viewer - viewer and mounter video streams with Hikvision SDK integration"
+arch=('x86_64')
+url="https://github.com/arkanista/cctv-viewer2"
+license=('GPL3')
+conflicts=('cctv-viewer' 'cctv-viewer-git')
+provides=('cctv-viewer')
+replaces=('cctv-viewer-git')
+depends=('qt5-declarative' 'qt5-multimedia' 'qt5-svg' 'ffmpeg')
+makedepends=('cmake' 'qt5-tools' 'git')
+source=("cctv-viewer2::git+file://${startdir}/../..")
+sha256sums=('SKIP')
+
+prepare() {
+  cd "$srcdir/cctv-viewer2"
+  git submodule init
+  git -c protocol.file.allow=always -C src/qmlav fetch --all
+  git -c protocol.file.allow=always submodule update --recursive
+}
+
+build() {
+  # Run cmake configuration and build
+  cmake -B build -S "$srcdir/cctv-viewer2" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
+}
+
+package() {
+  # Install target files to $pkgdir
+  DESTDIR="$pkgdir" cmake --install build
+}

@@ -1,0 +1,135 @@
+# CCTV Viewer 2
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+> [!IMPORTANT]
+> **Important Disclaimer & User Information:**
+> * **Original Author:** This project is a fork and modification of the original [cctv-viewer](https://github.com/iEvgeny/cctv-viewer) created by **Evgeny S. Maksimov** ([@iEvgeny](https://github.com/iEvgeny)).
+> * **Built with AI Assistance:** This version has been heavily modified and built using **Gemini** and **Claude** AI assistants.
+> * **Not a Professional Programmer:** I am not a professional software developer. This is a personal project created for my own needs.
+> * **Use At Your Own Risk:** The program is provided "as is", without warranty of any kind. You use this software entirely at your own responsibility and risk.
+> * **Do Not Contact Me for Support:** Please do not contact me with support questions, bug reports, or help requests. I cannot and will not provide technical support.
+> * **NEVER Run As Root:** For security and safety reasons, **NEVER run this program as root or with administrator privileges**. 
+>
+> **Project Goal:** This project was created for the sole purpose of allowing me to completely abandon Windows on my system by replacing the essential camera viewing and playback functionality of the Hikvision iVMS-4200 software on Linux.
+
+---
+
+## About CCTV Viewer 2
+
+**CCTV Viewer 2** is a high-performance desktop application designed for simultaneous viewing of live video feeds (RTSP/ONVIF) and deep integration with Hikvision NVR/DVR video recorders (both Live view and synchronized Playback archives).
+
+It is designed for Linux users who need a robust, lightweight, and smooth alternative to bloated proprietary software.
+
+---
+
+## Detailed Application Features
+
+### 📺 Live View Grid & Viewport Interactions
+* **Camera Assignment (Select-and-Click)**: Select a viewport in the main grid layout to focus it, then click the **"+" (Add)** button on any camera in the NVR/DVR list to assign it.
+* **Viewport Swapping**: Swap camera feeds between two grid viewports by selecting the **"Swap viewports" ("Zamień miejscami")** option in the right-click context menu of the source viewport and then clicking on the target viewport.
+* **Camera Removal**: Quickly clear/remove a camera stream from any grid viewport using the right-click context menu (**"Remove camera" / "Usuń kamerę"**) with a safety confirmation dialog.
+* **Double-Click to Maximize**: Double-click any camera viewport in the grid to maximize it to full screen. Double-click again to restore the grid layout.
+* **Individual Viewport Settings**: Customize RTSP transport protocols, volume levels, and display properties for each viewport individually via the context menu (**"Change settings" / "Zmień ustawienia"**).
+
+### 🔍 Advanced Image Controls & Zooming
+* **Interactive Viewport Zooming (Region Selection)**: Enter zoom mode by clicking the magnifying glass icon on any viewport. Click and drag a rectangular marquee over the video stream to crop and zoom into that specific region. Click the icon again to reset the zoom.
+* **1:1 Pixel Mapping Mode**: View camera streams in their native pixel-to-pixel resolution without any scaling distortion.
+* **Middle-Click Panning**: While in 1:1 mode, click and hold the middle mouse button (scroll wheel) to pan around the enlarged stream.
+* **Mouse Wheel Zoom (Fullscreen)**: Scale the stream dynamically in fullscreen mode by holding the `Ctrl` key and scrolling the mouse wheel.
+
+### 🔌 Hikvision NVR/DVR Deep Integration
+* **Auto-Discovery**: Enter your NVR/DVR IP address and credentials to automatically discover and list all active camera channels.
+* **Automatic NVR Preset Grid**: Click **"Generate Grid"** in the recorders panel to automatically generate a tailored viewport layout (preset) mapping all discovered cameras to an optimal grid size.
+* **Dynamic Quality Selection**: Manually toggle between **Main Stream** (high resolution) and **Sub Stream** (low bandwidth/CPU load) for any viewport via the context menu to save system resources and network bandwidth.
+
+### ⏱️ Synchronized Playback Archive
+* **Multi-Camera Synchronization**: Play back archived video recordings from multiple Hikvision recorders/cameras simultaneously in perfect time synchronization.
+* **Interactive Timeline**: Drag the timeline horizontally to navigate through time. Scale the timeline smoothly with the mouse wheel (from a full 24-hour view down to a precise 10-minute resolution).
+* **Footage Availability Cache**: Visual colored bars indicating recording segments on NVR storage are cached dynamically to eliminate flickering during timeline manipulation.
+* **Timeline Auto-Follow**: The timeline view automatically scrolls to keep the red playback indicator centered, pausing intelligently when the user drags the timeline manually.
+* **Manual Re-Center**: Click the **"Center"** button to instantly snap the timeline back to center around the active playback indicator.
+* **15-Min Quick Check**: Click the archive icon next to a camera or recorder in the live view to automatically start playback starting **exactly 15 minutes before the current system time**, allowing you to instantly inspect recent events.
+
+### 📥 Archive Recording Downloader
+* **Direct MP4 Downloader**: Download segments of archived footage directly to your local drive.
+* **Flexible Timeframe Range**: Select precise start/end points for the export.
+* **Visual Progress Bar**: Track the download process in real-time, with download bandwidth correctly accounted for in the System Statistics panel.
+
+### 📊 Multi-Threaded System Statistics Panel
+* **Slide-Out Overlay**: Hover and slide the left edge of the screen to reveal a diagnostic monitoring overlay.
+* **Metrics Tracked**:
+  * **CPU & RAM**: Total system CPU load (%) and the memory consumed by `cctv-viewer2` and its download subprocesses.
+  * **GPU & VRAM**: Core graphics card utilization and video memory usage (real-time XML parsing of `nvidia-smi` data, filtering only relevant process allocations).
+  * **Network Bandwidth**: Live download speed aggregated from all active video players and download subprocesses.
+* **Pin Feature**: Click the pin icon to keep the stats panel locked open, or let it slide away automatically.
+* **Stutter-Free Video Rendering**: Calculations are performed on a separate thread (`StatsWorker`) to guarantee zero frames are dropped during 60 FPS video rendering.
+
+### 🛠️ Global Application Settings & UI
+* **Auto-Collapsing Sidebar**: The left side options panel automatically collapses when the mouse leaves its boundary, maximizing video workspace (toggleable in Settings).
+* **Layout Carousel (Tour)**: Enable cyclic automatic switching of camera grid presets in a loop, with configurable switching intervals. You can exclude specific presets from the tour.
+* **Custom Layout Presets**: Create custom layout presets with configurable row and column counts (e.g., 2x2, 3x3, 4x4).
+* **Global Shortcuts**: Complete control via keyboard hotkeys:
+  * `F` or `Esc`: Toggle fullscreen.
+  * `M`: Mute/unmute active viewport audio.
+  * `Space`: Play/pause playback archive.
+  * `Alt + 1` to `Alt + 9`: Instant preset switching.
+* **Multilingual UI**: Live translation switching between English and Polish.
+
+---
+
+## Screenshots
+
+### Main Window Grid & Settings
+![Main Window Grid & Settings](images/screenshot_main.png)
+
+### System Statistics Panel (Sliding Overlay)
+![System Statistics Panel](images/screenshot_stats.png)
+
+### Playback Archive Timeline
+![Playback Archive Timeline](images/screenshot_playback.png)
+
+---
+
+## System Requirements & Dependencies
+
+### Hardware Environment (Tested On)
+The application has been developed and tested on a high-end Linux desktop with the following hardware specifications:
+- **Operating System:** CachyOS Linux (Arch Linux derivative, rolling release)
+- **CPU:** AMD Ryzen 9 5950X (16 Cores / 32 Threads)
+- **System Memory:** 64 GB RAM
+- **Graphics Card:** NVIDIA GeForce RTX 5070 Ti (16 GB VRAM)
+
+### Software Dependencies
+To build and run the application, the following packages are required:
+
+* **Runtime Dependencies:**
+  - `qt5-declarative` (Qt5 QML module)
+  - `qt5-multimedia` (Qt5 Multimedia module)
+  - `qt5-svg` (Qt5 SVG icon rendering)
+  - `ffmpeg` (for media demuxing and decoding)
+  - *Note: Hikvision SDK shared libraries are pre-bundled under `src/hikvision_sdk/lib/` and automatically set up via the build configuration or Pacman package.*
+
+* **Build Dependencies:**
+  - `cmake` (>= 3.10)
+  - `qt5-tools` (for translation compilation `lrelease`)
+  - `git`
+
+---
+
+## Getting Started
+
+To clone this repository, make sure you include the submodules:
+```bash
+git clone --recurse-submodules https://github.com/arkanista/cctv-viewer2.git
+```
+
+For detailed usage instructions, check out the documentation files:
+- [English User Manual (INSTRUCTIONS.md)](file:///home/arkanis/cctv/cctv-viewer2/INSTRUCTIONS.md)
+- [Polish User Manual (INSTRUKCJA.md)](file:///home/arkanis/cctv/cctv-viewer2/INSTRUKCJA.md)
+
+---
+
+## License
+
+This project is licensed under the GPL v3 License.

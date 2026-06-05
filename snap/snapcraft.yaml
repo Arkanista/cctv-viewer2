@@ -1,0 +1,183 @@
+name: cctv-viewer
+version: '2.0.0+git'
+license: GPL-3.0
+
+icon: images/cctv-viewer.svg
+title: CCTV Viewer
+summary: Viewer and mounter video streams
+description: |
+  CCTV Viewer - a simple application for simultaneously viewing multiple
+  video streams. Designed for high performance and low latency.
+  Based on ffmpeg.
+website: https://cctv-viewer2.org
+contact: mailto:arkanista@cctv-viewer2.org
+issues: https://github.com/arkanista/cctv-viewer2/issues
+source-code: https://github.com/arkanista/cctv-viewer2
+
+grade: stable
+confinement: strict
+base: core22
+compression: lzo
+
+architectures:
+  - build-on: amd64
+  - build-on: arm64
+  - build-on: armhf
+  - build-on: ppc64el
+
+environment:
+  ARCH_TRIPLET: $CRAFT_ARCH_TRIPLET_BUILD_FOR
+
+plugs:
+  graphics-core22:
+    interface: content
+    target: $SNAP/graphics
+    default-provider: mesa-core22
+  # Support for common GTK themes
+  # https://forum.snapcraft.io/t/how-to-use-the-system-gtk-theme-via-the-gtk-common-themes-snap/6235
+  gtk-3-themes:
+    interface: content
+    target: $SNAP/share/themes
+    default-provider: gtk-common-themes
+  icon-themes:
+    interface: content
+    target: $SNAP/share/icons
+    default-provider: gtk-common-themes
+  sound-themes:
+    interface: content
+    target: $SNAP/share/sounds
+    default-provider: gtk-common-themes
+
+layout:
+  /usr/share/libdrm:
+    bind: $SNAP/graphics/libdrm
+  /usr/share/drirc.d:
+    symlink: $SNAP/graphics/drirc.d
+  /usr/share/X11/XErrorDB:
+    symlink: $SNAP/graphics/X11/XErrorDB
+  /usr/share/X11/locale:
+    symlink: $SNAP/graphics/X11/locale
+
+apps:
+  cctv-viewer:
+    command-chain:
+      - bin/graphics-core22-wrapper
+      - bin/desktop-launch
+    command: usr/bin/cctv-viewer
+    desktop: usr/share/applications/cctv-viewer.desktop
+    plugs:
+      - audio-playback
+      - camera
+      - desktop
+      - desktop-legacy
+      - gsettings
+      - home
+      - network
+      - opengl
+      - removable-media
+      - screen-inhibit-control
+      - unity7 # Possibly unneeded
+      - wayland
+      - x11
+
+parts:
+  # https://mir-server.io/docs/the-graphics-core22-snap-interface
+  graphics-core22:
+    after: [cctv-viewer]
+    plugin: dump
+    source: https://github.com/MirServer/graphics-core22.git
+    override-prime: |
+      craftctl default
+      ${CRAFT_PART_SRC}/bin/graphics-core22-cleanup mesa-core22 nvidia-core22
+    prime:
+      - bin/graphics-core22-wrapper
+
+  desktop-qt5:
+    plugin: dump
+    source: snap/local
+    stage-packages:
+      - libxkbcommon0
+      - fonts-ubuntu
+      - dmz-cursor-theme
+      - light-themes
+      - adwaita-icon-theme
+      - gnome-themes-standard
+      - shared-mime-info
+      #- libqt5gui5
+      - libgdk-pixbuf2.0-0
+      - libqt5svg5 # For loading icon themes which are svg
+      - locales-all
+      - xdg-user-dirs
+      - fcitx-frontend-qt5
+    organize:
+      desktop-launch: bin/
+
+  qt5-gtk-platform:
+    plugin: nil
+    stage-packages:
+      - qt5-gtk-platformtheme
+
+  qt5-kde-platform:
+    plugin: nil
+    stage-packages:
+      - plasma-integration # KDE Plasma Keyboard Shortcuts support
+
+  cctv-viewer:
+    after: [desktop-qt5, qt5-gtk-platform, qt5-kde-platform]
+    plugin: cmake
+    cmake-parameters:
+      - -DPACKAGER=SNAP
+    source: .
+    override-pull: |
+      snapcraftctl pull
+      # Point icon to the correct location
+      sed -i.bak -i -e 's|Icon=cctv-viewer|Icon=/usr/share/pixmaps/cctv-viewer.svg|g' cctv-viewer.desktop
+    build-packages:
+      - build-essential
+      - libva-dev
+      - libglx-dev
+      - libavformat-dev
+      - libavcodec-dev
+      - libavutil-dev
+      - libswscale-dev
+      - libswresample-dev
+      - libavdevice-dev
+      - qtdeclarative5-dev
+      - qtmultimedia5-dev
+      - qttools5-dev
+      - libgtest-dev
+      - git
+      - pkg-config
+    stage-packages:
+      # Debian package dependencies
+      - libavcodec58
+      - libavdevice58
+      - libavformat58
+      - libavutil56
+      - libc6
+      - libgcc-s1
+      - libgl1
+      - libqt5core5a
+      - libqt5gui5 # libqt5gui5-gles
+      - libqt5multimedia5
+      - libqt5qml5
+      - libstdc++6
+      - libswresample3
+      - libswscale5
+      - libva-x11-2
+      - libva2
+      - libx11-6
+      - libqt5multimedia5-plugins
+      - qtwayland5
+      - qml-module-qtquick-layouts
+      - qml-module-qtqml-models2
+      - qml-module-qtquick-controls
+      - qml-module-qtquick-controls2
+      - qml-module-qtquick-window2
+      - qml-module-qtquick-dialogs
+      - qml-module-qt-labs-settings
+      - qml-module-qtmultimedia
+    organize:
+      usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/blas/*: usr/lib/
+      usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/lapack/*: usr/lib/
+      usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio/*: usr/lib/

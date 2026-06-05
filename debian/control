@@ -1,0 +1,41 @@
+Source: cctv-viewer
+Section: video
+Priority: optional
+Maintainer: arkanista <arkanista@cctv-viewer2.org>
+Build-Depends: debhelper (>= 9),
+               libva-dev,
+               libglx-dev,
+               libavformat-dev,
+               libavcodec-dev,
+               libavutil-dev,
+               libswscale-dev,
+               libswresample-dev,
+               libavdevice-dev,
+               qtdeclarative5-dev,
+               qtmultimedia5-dev,
+               qttools5-dev,
+               libgtest-dev,
+               git,
+               cmake,
+               pkg-config
+Standards-Version: 3.9.8
+Homepage: https://github.com/arkanista/cctv-viewer2
+Vcs-Git: https://github.com/arkanista/cctv-viewer2.git
+Vcs-Browser: https://github.com/arkanista/cctv-viewer2
+
+Package: cctv-viewer
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+         libqt5multimedia5-plugins,
+         qtwayland5,
+         qml-module-qtquick-layouts,
+         qml-module-qtqml-models2,
+         qml-module-qtquick-controls,
+         qml-module-qtquick-controls2,
+         qml-module-qtquick-window2,
+         qml-module-qtquick-dialogs,
+         qml-module-qt-labs-settings,
+         qml-module-qtmultimedia
+Description: CCTV Viewer - viewer and mounter video streams.
+ A simple application for simultaneously viewing multiple video streams.
+ Designed for high performance and low latency. Based on ffmpeg.
