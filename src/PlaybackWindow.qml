@@ -12,7 +12,7 @@ Window {
     id: playbackWindow
     width: 950
     height: 650
-    title: qsTr("Archiwum - ") + cameraName
+    title: qsTr("Archive - ") + cameraName
 
     property var recorderInfo
     property int channelId: 1
@@ -37,7 +37,7 @@ Window {
 
     color: "#0a0f14"
 
-    property var monthNames: [qsTr("Styczeń"), qsTr("Luty"), qsTr("Marzec"), qsTr("Kwiecień"), qsTr("Maj"), qsTr("Czerwiec"), qsTr("Lipiec"), qsTr("Sierpień"), qsTr("Wrzesień"), qsTr("Październik"), qsTr("Listopad"), qsTr("Grudzień")]
+    property var monthNames: [qsTr("January"), qsTr("February"), qsTr("March"), qsTr("April"), qsTr("May"), qsTr("June"), qsTr("July"), qsTr("August"), qsTr("September"), qsTr("October"), qsTr("November"), qsTr("December")]
 
     property bool isSearchingRecordings: false
     property var monthAvailabilityFetching: ({})
@@ -823,7 +823,7 @@ Window {
                 Layout.fillWidth: true
                 
                 CctvButton {
-                    text: "< Poprzedni"
+                    text: qsTr("< Poprzedni")
                     iconSource: ""
                     onClicked: {
                         if (calendarPopup.viewMonth === 0) { 
@@ -848,7 +848,7 @@ Window {
                 }
                 
                 CctvButton {
-                    text: "Następny >"
+                    text: qsTr("Następny >")
                     iconSource: ""
                     onClicked: {
                         if (calendarPopup.viewMonth === 11) { 
@@ -889,7 +889,7 @@ Window {
                         Layout.alignment: Qt.AlignHCenter
                         
                         Repeater {
-                            model: ["Pn", "Wt", "Śr", "Cz", "Pt", "So", "Nd"]
+                            model: [qsTr("Mo"), qsTr("Tu"), qsTr("We"), qsTr("Th"), qsTr("Fr"), qsTr("Sa"), qsTr("Su")]
                             Text { 
                                 text: modelData; color: "#8898a6"; font.bold: true; 
                                 horizontalAlignment: Text.AlignHCenter; 
@@ -978,7 +978,7 @@ Window {
                         Layout.alignment: Qt.AlignHCenter
                         
                         Repeater {
-                            model: ["Pn", "Wt", "Śr", "Cz", "Pt", "So", "Nd"]
+                            model: [qsTr("Mo"), qsTr("Tu"), qsTr("We"), qsTr("Th"), qsTr("Fr"), qsTr("Sa"), qsTr("Su")]
                             Text { 
                                 text: modelData; color: "#8898a6"; font.bold: true; 
                                 horizontalAlignment: Text.AlignHCenter; 
@@ -1935,17 +1935,17 @@ Window {
                         RowLayout {
                             spacing: 5
                             CctvButton {
-                                text: "Ostatnia 1h"
+                                text: qsTr("Ostatnia 1h")
                                 isSmall: true
                                 onClicked: zoomToLast(1)
                             }
                             CctvButton {
-                                text: "Ostatnie 8h"
+                                text: qsTr("Ostatnie 8h")
                                 isSmall: true
                                 onClicked: zoomToLast(8)
                             }
                             CctvButton {
-                                text: "Cały dzień"
+                                text: qsTr("Cały dzień")
                                 isSmall: true
                                 onClicked: {
                                     zoomHours = 24
@@ -1971,7 +1971,7 @@ Window {
                         // Playback speed shortcuts
                         RowLayout {
                             spacing: 3
-                            Text { text: "Prędkość:"; color: "white"; font.bold: true; font.pixelSize: 10 }
+                            Text { text: qsTr("Prędkość:"); color: "white"; font.bold: true; font.pixelSize: 10 }
                             
                             Repeater {
                                 model: [1, 2, 4, 8]
@@ -1994,7 +1994,7 @@ Window {
                         RowLayout {
                             spacing: 3
                             CctvButton {
-                                text: "Pobierz"
+                                text: qsTr("Pobierz")
                                 isSmall: true
                                 enabled: getLoadedCameras().length > 0
                                 onClicked: {
@@ -2031,7 +2031,7 @@ Window {
                                 onClicked: jumpTime(-15000)
                             }
                             CctvButton {
-                                text: isPlaying ? "Pauza" : "Play"
+                                text: isPlaying ? qsTr("Pauza") : qsTr("Play")
                                 iconSource: isPlaying ? "qrc:/images/pause.svg" : "qrc:/images/play.svg"
                                 isSmall: true
                                 isPrimary: true

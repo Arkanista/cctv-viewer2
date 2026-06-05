@@ -152,6 +152,38 @@
         <source>Grudzień</source>
         <translation>December</translation>
     </message>
+    <message>
+        <source>&lt; Poprzedni</source>
+        <translation>&lt; Previous</translation>
+    </message>
+    <message>
+        <source>Następny &gt;</source>
+        <translation>Next &gt;</translation>
+    </message>
+    <message>
+        <source>Pobieranie nagrań</source>
+        <translation>Download recordings</translation>
+    </message>
+    <message>
+        <source>Od:</source>
+        <translation>From:</translation>
+    </message>
+    <message>
+        <source>Do:</source>
+        <translation>To:</translation>
+    </message>
+    <message>
+        <source>Anuluj</source>
+        <translation>Cancel</translation>
+    </message>
+    <message>
+        <source>Zatrzymaj</source>
+        <translation>Stop</translation>
+    </message>
+    <message>
+        <source>Pobierz</source>
+        <translation>Download</translation>
+    </message>
 </context>
 <context>
     <name>NvrCamerasWindow</name>
@@ -287,7 +319,7 @@
     </message>
     <message>
         <source>Dzisiaj</source>
-        <translation>Dzisiaj</translation>
+        <translation>Today</translation>
     </message>
     <message>
         <source>Odśwież</source>
@@ -295,7 +327,7 @@
     </message>
     <message>
         <source>Wycentruj</source>
-        <translation>Wycentruj</translation>
+        <translation>Center</translation>
     </message>
     <message>
         <source>Trwa ładowanie informacji o dostępności nagrania...</source>
@@ -356,6 +388,122 @@
     <message>
         <source>Grudzień</source>
         <translation>December</translation>
+    </message>
+    <message>
+        <source>Archive - </source>
+        <translation>Archive - </translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation>January</translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation>February</translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation>March</translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation>April</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation>May</translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation>June</translation>
+    </message>
+    <message>
+        <source>July</source>
+        <translation>July</translation>
+    </message>
+    <message>
+        <source>August</source>
+        <translation>August</translation>
+    </message>
+    <message>
+        <source>September</source>
+        <translation>September</translation>
+    </message>
+    <message>
+        <source>October</source>
+        <translation>October</translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation>November</translation>
+    </message>
+    <message>
+        <source>December</source>
+        <translation>December</translation>
+    </message>
+    <message>
+        <source>&lt; Poprzedni</source>
+        <translation>&lt; Previous</translation>
+    </message>
+    <message>
+        <source>Następny &gt;</source>
+        <translation>Next &gt;</translation>
+    </message>
+    <message>
+        <source>Mo</source>
+        <translation>Mo</translation>
+    </message>
+    <message>
+        <source>Tu</source>
+        <translation>Tu</translation>
+    </message>
+    <message>
+        <source>We</source>
+        <translation>We</translation>
+    </message>
+    <message>
+        <source>Th</source>
+        <translation>Th</translation>
+    </message>
+    <message>
+        <source>Fr</source>
+        <translation>Fr</translation>
+    </message>
+    <message>
+        <source>Sa</source>
+        <translation>Sa</translation>
+    </message>
+    <message>
+        <source>Su</source>
+        <translation>Su</translation>
+    </message>
+    <message>
+        <source>Ostatnia 1h</source>
+        <translation>Last 1h</translation>
+    </message>
+    <message>
+        <source>Ostatnie 8h</source>
+        <translation>Last 8h</translation>
+    </message>
+    <message>
+        <source>Cały dzień</source>
+        <translation>Full day</translation>
+    </message>
+    <message>
+        <source>Prędkość:</source>
+        <translation>Speed:</translation>
+    </message>
+    <message>
+        <source>Pobierz</source>
+        <translation>Download</translation>
+    </message>
+    <message>
+        <source>Pauza</source>
+        <translation>Pause</translation>
+    </message>
+    <message>
+        <source>Play</source>
+        <translation>Play</translation>
     </message>
 </context>
 <context>

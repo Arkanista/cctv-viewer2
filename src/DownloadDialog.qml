@@ -168,7 +168,7 @@ Popup {
                 spacing: 20
                 
                 CctvButton {
-                    text: "< Poprzedni"
+                    text: qsTr("< Poprzedni")
                     onClicked: {
                         if (calendarPopup.viewMonth === 0) { 
                             calendarPopup.viewMonth = 11; 
@@ -180,7 +180,7 @@ Popup {
                     }
                 }
                 CctvButton {
-                    text: "Następny >"
+                    text: qsTr("Następny >")
                     onClicked: {
                         if (calendarPopup.viewMonth === 11) { 
                             calendarPopup.viewMonth = 0; 
@@ -301,7 +301,7 @@ Popup {
         spacing: 15
 
         Text {
-            text: "Pobieranie nagrań"
+            text: qsTr("Pobieranie nagrań")
             color: "white"
             font.pixelSize: 18
             font.bold: true
@@ -314,7 +314,7 @@ Popup {
             columnSpacing: 10
             Layout.fillWidth: true
 
-            Text { text: "Od:"; color: "white" }
+            Text { text: qsTr("Od:"); color: "white" }
             RowLayout {
                 Layout.fillWidth: true
                 spacing: 2
@@ -353,7 +353,7 @@ Popup {
                 enabled: !downloadDialog.isAnyDownloading()
             }
 
-            Text { text: "Do:"; color: "white" }
+            Text { text: qsTr("Do:"); color: "white" }
             RowLayout {
                 Layout.fillWidth: true
                 spacing: 2
@@ -523,14 +523,14 @@ Popup {
             Item { Layout.fillWidth: true } // Spacer
 
             CctvButton {
-                text: "Anuluj"
+                text: qsTr("Anuluj")
                 onClicked: {
                     downloadDialog.close()
                 }
             }
 
             CctvButton {
-                text: downloadDialog.isAnyDownloading() ? "Zatrzymaj" : "Pobierz"
+                text: downloadDialog.isAnyDownloading() ? qsTr("Zatrzymaj") : qsTr("Pobierz")
                 isPrimary: true
                 enabled: downloadDialog.isAnyDownloading() || downloadDialog.isAnyEnabled()
                 onClicked: {
