@@ -27,6 +27,26 @@ sudo pacman -U cctv-viewer2-2.0.0-1-x86_64.pkg.tar.zst
 ```
 Pakiet automatycznie zainstaluje program, plik aktywacyjny `.desktop` oraz wymagane biblioteki Hikvision SDK w systemowej ścieżce `/usr/lib/cctv-viewer2`.
 
+### Ręczna kompilacja (ze źródeł)
+Jeśli zamiast gotowej paczki chcesz skompilować program ręcznie (np. na innej dystrybucji Linuksa):
+
+1. Zainstaluj wymagane zależności do budowania oraz działania programu. W systemie Arch Linux / CachyOS wywołaj:
+   ```bash
+   sudo pacman -S base-devel cmake qt5-declarative qt5-multimedia qt5-quickcontrols qt5-quickcontrols2 qt5-svg qt5-graphicaleffects qt5-tools ffmpeg git
+   ```
+2. Skonfiguruj projekt za pomocą CMake:
+   ```bash
+   cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
+   ```
+3. Skompiluj kod:
+   ```bash
+   cmake --build build -j$(nproc)
+   ```
+4. Zainstaluj aplikację w systemie:
+   ```bash
+   sudo cmake --install build
+   ```
+
 ### Uruchamianie
 Program można uruchomić z menu systemowego lub wpisując w terminalu:
 ```bash
