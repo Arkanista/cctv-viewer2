@@ -271,7 +271,7 @@
     <name>PlaybackWindow</name>
     <message>
         <source>Archiwum - </source>
-        <translation>Archiwum - </translation>
+        <translation type="vanished">Archiwum - </translation>
     </message>
     <message>
         <source>Trwa ładowanie...</source>
@@ -343,51 +343,51 @@
     </message>
     <message>
         <source>Styczeń</source>
-        <translation>January</translation>
+        <translation type="vanished">January</translation>
     </message>
     <message>
         <source>Luty</source>
-        <translation>February</translation>
+        <translation type="vanished">February</translation>
     </message>
     <message>
         <source>Marzec</source>
-        <translation>March</translation>
+        <translation type="vanished">March</translation>
     </message>
     <message>
         <source>Kwiecień</source>
-        <translation>April</translation>
+        <translation type="vanished">April</translation>
     </message>
     <message>
         <source>Maj</source>
-        <translation>May</translation>
+        <translation type="vanished">May</translation>
     </message>
     <message>
         <source>Czerwiec</source>
-        <translation>June</translation>
+        <translation type="vanished">June</translation>
     </message>
     <message>
         <source>Lipiec</source>
-        <translation>July</translation>
+        <translation type="vanished">July</translation>
     </message>
     <message>
         <source>Sierpień</source>
-        <translation>August</translation>
+        <translation type="vanished">August</translation>
     </message>
     <message>
         <source>Wrzesień</source>
-        <translation>September</translation>
+        <translation type="vanished">September</translation>
     </message>
     <message>
         <source>Październik</source>
-        <translation>October</translation>
+        <translation type="vanished">October</translation>
     </message>
     <message>
         <source>Listopad</source>
-        <translation>November</translation>
+        <translation type="vanished">November</translation>
     </message>
     <message>
         <source>Grudzień</source>
-        <translation>December</translation>
+        <translation type="vanished">December</translation>
     </message>
     <message>
         <source>Archive - </source>
