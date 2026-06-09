@@ -116,7 +116,7 @@ The application has been extensively developed and tested across multiple hardwa
 - **Performance Details:** Running on a 4K monitor displaying a 30-camera grid view.
   - **CPU System Usage:** ~20%
   - **GPU Utilization:** 25-30%
-  - **RAM Usage:** ~5 GB
+  - **Total System RAM Usage:** ~5 GB (Application consumes ~2-2.5 GB)
   - **VRAM Usage:** 1-2 GB
 
 **Machine 3:**
