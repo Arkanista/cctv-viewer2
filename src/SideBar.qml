@@ -1990,6 +1990,7 @@ FocusScope {
     Platform.FolderDialog {
         id: snapshotFolderDialog
         title: qsTr("Wybierz folder dla stopklatek")
+        options: Platform.FolderDialog.DontUseNativeDialog
         onAccepted: {
             var path = snapshotFolderDialog.folder.toString();
             if (path.indexOf("file://") === 0) path = path.substring(7);
@@ -2004,6 +2005,7 @@ FocusScope {
     Platform.FolderDialog {
         id: videoFolderDialog
         title: qsTr("Wybierz folder dla nagrań")
+        options: Platform.FolderDialog.DontUseNativeDialog
         onAccepted: {
             var path = videoFolderDialog.folder.toString();
             if (path.indexOf("file://") === 0) path = path.substring(7);
