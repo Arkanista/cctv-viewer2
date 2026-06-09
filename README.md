@@ -115,7 +115,7 @@ The application has been extensively developed and tested across multiple hardwa
 - **Graphics Card:** NVIDIA GeForce GTX 1070 Ti (8 GB VRAM)
 - **Performance Details:** Running on a 4K monitor displaying a 30-camera grid view.
   - **CPU System Usage:** ~20%
-  - **Process CPU Utilization:** 25-30%
+  - **GPU Utilization:** 25-30%
   - **RAM Usage:** ~5 GB
   - **VRAM Usage:** 1-2 GB
 
