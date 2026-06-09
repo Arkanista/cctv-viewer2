@@ -15,6 +15,7 @@ The program has been optimized for stability, smooth operation (60 FPS), and min
 6. [Playback Archive Player](#6-playback-archive-player)
 7. [Downloading Recordings (Downloader)](#7-downloading-recordings-downloader)
 8. [Keyboard Shortcuts and Mouse Controls](#8-keyboard-shortcuts-and-mouse-controls)
+9. [Taking Snapshots and Path Configuration](#9-taking-snapshots-and-path-configuration)
 
 ---
 
@@ -149,3 +150,23 @@ From the Playback Archive window, you can download selected segments of recordin
   * Opens a quick settings menu for the selected viewport (allows removing the camera from the grid, changing between Main/Sub streams, or accessing individual display parameters).
 * **Mouse Scroll Wheel**:
   * Adjusts scale (Zoom) of the timeline in the playback archive player.
+
+---
+
+## 9. Taking Snapshots and Path Configuration
+
+The application allows you to quickly capture high-quality snapshots from any camera viewport in both Live View and Playback Archive mode.
+
+### Taking Snapshots:
+1. A subtle camera icon overlay button is available in the bottom-right corner of each viewport.
+2. Clicking the camera icon captures the frame and saves it as a JPEG image (quality 98 - virtually lossless).
+3. A successful capture is confirmed by the camera icon flashing orange (`#ff7a00`) for exactly 1 second.
+4. **Full Resolution**: In Playback Archive mode, snapshots are saved at the stream's full native source resolution directly from the decoder's frame buffer, regardless of the active viewport size on screen or display scaling.
+
+### Saving Path Configurations:
+1. Go to the **Settings** tab (gear icon in the sidebar).
+2. Under the **Saving** ("Zapis") section, you can configure the default paths:
+   * **Default snapshots path**: Folder where snapshots will be saved (defaults to `~/Obrazy/CCTV`).
+   * **Default recordings path**: Folder where downloaded MP4 videos will be saved (defaults to `~/Wideo/CCTV`).
+3. Clicking the `...` browser button opens your operating system's native folder selector (Breeze in KDE).
+4. **Browser Button Behavior**: The directory picker opens precisely at the path typed in the text field (if it exists). If the field is empty, invalid, or pointing to a folder you don't have access to, the dialog falls back and opens at your home directory (`~/`).

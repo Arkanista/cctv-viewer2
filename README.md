@@ -53,6 +53,13 @@ It is designed for Linux users who need a robust, lightweight, and smooth altern
 * **Manual Re-Center**: Click the **"Center"** button to instantly snap the timeline back to center around the active playback indicator.
 * **15-Min Quick Check**: Click the archive icon next to a camera or recorder in the live view to automatically start playback starting **exactly 15 minutes before the current system time**, allowing you to instantly inspect recent events.
 
+### 📸 Snapshot Capture & Path Configuration
+* **Instant Snapshot Capturing**: Take high-quality, virtually lossless snapshots (JPEG format, quality 98) directly from any active viewport in both Live View and Playback Archive.
+* **Camera Icon Overlay**: Viewports feature a subtle camera overlay icon in the toolbar. Clicking it flashes the icon orange (`#ff7a00`) for exactly 1 second to confirm successful capture.
+* **High-Resolution Archive Captures**: Playback snapshots are captured at the stream's full native source resolution directly from the decoded frame buffer in memory, bypassing any display scaling or window size constraints.
+* **Custom Paths Configuration**: Configure default storage paths for snapshots (`~/Obrazy/CCTV` by default) and downloaded videos (`~/Wideo/CCTV` by default) inside the **"Saving" ("Zapis")** section of the Settings panel.
+* **Native KDE Directory Browser**: Click the `...` browser buttons to open a native-style KDE directory selector. The dialog opens precisely at the folder currently shown in the text input, falling back to the user's home folder (`~/`) if the field is empty or points to a non-existent path.
+
 ### 📥 Archive Recording Downloader
 * **Direct MP4 Downloader**: Download segments of archived footage directly to your local drive.
 * **Flexible Timeframe Range**: Select precise start/end points for the export.

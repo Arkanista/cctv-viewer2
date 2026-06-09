@@ -15,6 +15,7 @@ Program został zoptymalizowany pod kątem stabilności, płynności działania 
 6. [Odtwarzacz Archiwum Nagrań (Playback Archive)](#6-odtwarzacz-archiwum-nagrań-playback-archive)
 7. [Pobieranie Nagrań (Downloader)](#7-pobieranie-nagrań-downloader)
 8. [Skróty Klawiszowe i Sterowanie Myszami](#8-skróty-klawiszowe-i-sterowanie-myszami)
+9. [Wykonywanie Zrzutów Ekranu (Stopklatek) i Konfiguracja Ścieżek](#9-wykonywanie-zrzutów-ekranu-stopklatek-i-konfiguracja-ścieżek)
 
 ---
 
@@ -149,3 +150,23 @@ Z poziomu okna Playback Archive możesz pobierać wybrane fragmenty nagrań bezp
   * Otwiera podręczne menu ustawień dla wybranego kafelka (umożliwia usuwanie kamery z siatki, zmianę strumienia Main/Sub czy wejście w indywidualne parametry wyświetlania).
 * **Kółko myszy (Scroll Wheel)**:
   * Regulacja skali (Zoom) osi czasu w oknie odtwarzacza archiwum.
+
+---
+
+## 9. Wykonywanie Zrzutów Ekranu (Stopklatek) i Konfiguracja Ścieżek
+
+Aplikacja umożliwia szybkie wykonywanie wysokiej jakości stopklatek z dowolnego kafelka kamery w trybie podglądu na żywo oraz odtwarzania archiwum.
+
+### Wykonywanie Stopklatek:
+1. W prawym dolnym rogu każdego kafelka kamery znajduje się ikona aparatu.
+2. Kliknięcie ikony aparatu powoduje wykonanie zrzutu ekranu i zapisanie go jako obraz JPEG (jakość 98 - praktycznie bezstratna).
+3. Pomyślne wykonanie zrzutu jest potwierdzane podświetleniem ikony aparatu na kolor pomarańczowy (`#ff7a00`) przez dokładnie 1 sekundę.
+4. **Pełna rozdzielczość**: W trybie odtwarzania archiwum stopklatki są zapisywane w pełnej, natywnej rozdzielczości strumienia z pamięci podręcznej dekodera, bez względu na aktualną wielkość kafelka na ekranie i skalowanie okna.
+
+### Konfiguracja Ścieżek Zapisu:
+1. Przejdź do zakładki **Ustawienia** (ikona koła zębatego w panelu bocznym).
+2. W sekcji **Zapis** znajdziesz pola tekstowe umożliwiające konfigurację domyślnych ścieżek zapisu:
+   * **Domyślna ścieżka stopklatek**: Miejsce zapisu zrzutów (domyślnie `~/Obrazy/CCTV`).
+   * **Domyślna ścieżka nagrań**: Miejsce zapisu pobieranych wideo (domyślnie `~/Wideo/CCTV`).
+3. Kliknięcie przycisku `...` obok pola tekstowego otwiera natywne okno wyboru folderu systemu operacyjnego (Breeze w KDE).
+4. **Działanie przycisku przeglądania**: Okno wyboru katalogu otwiera się bezpośrednio w katalogu wpisanym w polu tekstowym (jeśli istnieje). W przypadku braku wpisanej ścieżki, jej nieistnienia lub braku uprawnień, okno automatycznie startuje w katalogu domowym użytkownika (`~/`).

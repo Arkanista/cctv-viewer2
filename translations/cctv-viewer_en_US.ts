@@ -1030,23 +1030,23 @@
     </message>
     <message>
         <source>Zapis</source>
-        <translation type="unfinished">Saving</translation>
+        <translation>Saving</translation>
     </message>
     <message>
         <source>Domyślna ścieżka stopklatek:</source>
-        <translation type="unfinished">Default snapshot path:</translation>
+        <translation>Default snapshot path:</translation>
     </message>
     <message>
         <source>Domyślna ścieżka nagrań:</source>
-        <translation type="unfinished">Default recordings path:</translation>
+        <translation>Default recordings path:</translation>
     </message>
     <message>
         <source>Wybierz folder dla stopklatek</source>
-        <translation type="unfinished">Choose folder for snapshots</translation>
+        <translation>Choose folder for snapshots</translation>
     </message>
     <message>
         <source>Wybierz folder dla nagrań</source>
-        <translation type="unfinished">Choose folder for recordings</translation>
+        <translation>Choose folder for recordings</translation>
     </message>
 </context>
 <context>

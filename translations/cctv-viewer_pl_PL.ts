@@ -1079,23 +1079,23 @@
     </message>
     <message>
         <source>Zapis</source>
-        <translation type="unfinished">Zapis</translation>
+        <translation>Zapis</translation>
     </message>
     <message>
         <source>Domyślna ścieżka stopklatek:</source>
-        <translation type="unfinished">Domyślna ścieżka stopklatek:</translation>
+        <translation>Domyślna ścieżka stopklatek:</translation>
     </message>
     <message>
         <source>Domyślna ścieżka nagrań:</source>
-        <translation type="unfinished">Domyślna ścieżka nagrań:</translation>
+        <translation>Domyślna ścieżka nagrań:</translation>
     </message>
     <message>
         <source>Wybierz folder dla stopklatek</source>
-        <translation type="unfinished">Wybierz folder dla stopklatek</translation>
+        <translation>Wybierz folder dla stopklatek</translation>
     </message>
     <message>
         <source>Wybierz folder dla nagrań</source>
-        <translation type="unfinished">Wybierz folder dla nagrań</translation>
+        <translation>Wybierz folder dla nagrań</translation>
     </message>
 </context>
 <context>
