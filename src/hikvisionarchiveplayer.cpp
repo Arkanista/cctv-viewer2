@@ -787,6 +787,15 @@ int HikvisionArchivePlayer::videoHeight() const
     return m_currentImage.height();
 }
 
+bool HikvisionArchivePlayer::saveCurrentFrame(const QString &path) const
+{
+    std::lock_guard<std::mutex> lock(m_imageMutex);
+    if (m_currentImage.isNull()) {
+        return false;
+    }
+    return m_currentImage.save(path, "JPG", 98);
+}
+
 void HikvisionArchivePlayer::presentationLoop()
 {
     qDebug() << "[HikArchive] Presentation thread started";

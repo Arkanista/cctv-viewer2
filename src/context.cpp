@@ -183,3 +183,8 @@ QString Context::getLanguage() const
     QSettings settings(m_config ? m_config->fileName() : QSettings().fileName(), QSettings::IniFormat);
     return settings.value("language", "system").toString();
 }
+
+bool Context::mkpath(const QString &dirPath) const
+{
+    return QDir().mkpath(dirPath);
+}

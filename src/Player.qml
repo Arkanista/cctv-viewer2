@@ -7,6 +7,7 @@ import CCTV_Viewer.Multimedia 1.0
 import CCTV_Viewer.Hikvision 1.0
 import CCTV_Viewer.Core 1.0
 import CCTV_Viewer.Themes 1.0
+import Qt.labs.platform 1.1 as Platform
 
 FocusScope {
     id: root
@@ -638,6 +639,86 @@ FocusScope {
                 margins: 6
             }
             spacing: 6
+
+            Control {
+                id: snapshotBadge
+
+                property bool isSavingSnapshot: false
+
+                Timer {
+                    id: snapshotBadgeTimer
+                    interval: 1000
+                    onTriggered: snapshotBadge.isSavingSnapshot = false
+                }
+
+                implicitWidth: 16
+                implicitHeight: 16
+                visible: true
+
+                background: Rectangle {
+                    radius: 2
+                    color: snapshotMouseAreaBtn.pressed ? "#22ffffff" : (snapshotMouseAreaBtn.containsMouse ? "#11ffffff" : "transparent")
+                }
+
+                contentItem: Image {
+                    anchors.centerIn: parent
+                    width: 10
+                    height: 10
+                    source: snapshotBadge.isSavingSnapshot ?
+                        "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff7a00' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z'></path><circle cx='12' cy='13' r='4'></circle></svg>" :
+                        "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z'></path><circle cx='12' cy='13' r='4'></circle></svg>"
+                }
+
+                MouseArea {
+                    id: snapshotMouseAreaBtn
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        var d = new Date();
+                        var dateStr = Qt.formatDateTime(d, "yyyy-MM-dd_HH-mm-ss");
+                        var activeOutput = null;
+                        var nativeWidth = 1920;
+                        var nativeHeight = 1080;
+                        var camName = root.cameraNameInfo ? root.cameraNameInfo.replace(/ /g, "_").replace(/[^a-zA-Z0-9_\-\.]/g, "") : "Camera";
+
+                        if (root.isHikvision && !hikPlayerSettings.useRealStreams) {
+                            activeOutput = hikPlayer;
+                        } else if (activePlayerIndex === 1) {
+                            activeOutput = videoOutput1;
+                            nativeWidth = videoOutput1.sourceRect.width > 0 ? videoOutput1.sourceRect.width : 1920;
+                            nativeHeight = videoOutput1.sourceRect.height > 0 ? videoOutput1.sourceRect.height : 1080;
+                        } else {
+                            activeOutput = videoOutput2;
+                            nativeWidth = videoOutput2.sourceRect.width > 0 ? videoOutput2.sourceRect.width : 1920;
+                            nativeHeight = videoOutput2.sourceRect.height > 0 ? videoOutput2.sourceRect.height : 1080;
+                        }
+
+                        var path = "";
+                        if (typeof generalSettings !== "undefined" && generalSettings.snapshotPath !== "") {
+                            path = generalSettings.snapshotPath;
+                        } else {
+                            path = Platform.StandardPaths.writableLocation(Platform.StandardPaths.PicturesLocation).toString();
+                            if (path.indexOf("file://") === 0) path = path.substring(7);
+                            path = path + "/CCTV";
+                        }
+                        Context.mkpath(path);
+                        path = path + "/" + camName + "_LIVE_" + dateStr + ".jpg";
+
+                        snapshotBadge.isSavingSnapshot = true;
+                        snapshotBadgeTimer.restart();
+                        activeOutput.grabToImage(function(result) {
+                            result.saveToFile(path);
+                            console.log("Saved snapshot to", path);
+                        }, Qt.size(nativeWidth, nativeHeight));
+                    }
+                }
+
+                ToolTip.delay: Compact.toolTipDelay
+                ToolTip.timeout: Compact.toolTipTimeout
+                ToolTip.visible: snapshotMouseAreaBtn.containsMouse
+                ToolTip.text: qsTr("Wykonaj stopklatkę w pełnej rozdzielczości")
+            }
 
             Control {
                 id: playbackBadge

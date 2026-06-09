@@ -62,6 +62,7 @@ public:
     Q_INVOKABLE void stop();
     Q_INVOKABLE bool hasActiveStream() const;
     Q_INVOKABLE bool hasReceivedFrames() const;
+    Q_INVOKABLE bool saveCurrentFrame(const QString &path) const;
 
 
 signals:

@@ -65,6 +65,8 @@ ApplicationWindow {
         property bool enableChangeViewportSettings: true
         property bool enableStreamSelection: true
         property bool lockGridSize: true
+        property string snapshotPath: ""
+        property string videoPath: ""
     }
 
     Settings {

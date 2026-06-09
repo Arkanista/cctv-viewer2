@@ -33,6 +33,8 @@ public:
 
     Q_INVOKABLE void startAuxiliaryProcess();
 
+    Q_INVOKABLE bool mkpath(const QString &dirPath) const;
+
 signals:
     void languageChanged();
 

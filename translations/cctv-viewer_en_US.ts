@@ -505,6 +505,10 @@
         <source>Play</source>
         <translation>Play</translation>
     </message>
+    <message>
+        <source>Wykonaj stopklatkę w pełnej rozdzielczości</source>
+        <translation>Take snapshot in full resolution</translation>
+    </message>
 </context>
 <context>
     <name>Player</name>
@@ -559,6 +563,10 @@
     <message>
         <source>Select region to zoom</source>
         <translation>Select region to zoom</translation>
+    </message>
+    <message>
+        <source>Wykonaj stopklatkę w pełnej rozdzielczości</source>
+        <translation>Take snapshot in full resolution</translation>
     </message>
 </context>
 <context>
@@ -728,6 +736,26 @@
     <message>
         <source>System default</source>
         <translation>System default</translation>
+    </message>
+    <message>
+        <source>Zapis</source>
+        <translation>Saving</translation>
+    </message>
+    <message>
+        <source>Domyślna ścieżka stopklatek:</source>
+        <translation>Default snapshot path:</translation>
+    </message>
+    <message>
+        <source>Domyślna ścieżka nagrań:</source>
+        <translation>Default recordings path:</translation>
+    </message>
+    <message>
+        <source>Wybierz folder dla stopklatek</source>
+        <translation>Choose folder for snapshots</translation>
+    </message>
+    <message>
+        <source>Wybierz folder dla nagrań</source>
+        <translation>Choose folder for recordings</translation>
     </message>
 </context>
 <context>

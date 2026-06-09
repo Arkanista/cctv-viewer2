@@ -525,6 +525,10 @@
         <source>Play</source>
         <translation>Play</translation>
     </message>
+    <message>
+        <source>Wykonaj stopklatkę w pełnej rozdzielczości</source>
+        <translation>Wykonaj stopklatkę w pełnej rozdzielczości</translation>
+    </message>
 </context>
 <context>
     <name>Player</name>
@@ -579,6 +583,10 @@
     <message>
         <source>Włącz tryb 1:1 (piksel w piksel)</source>
         <translation>Włącz tryb 1:1 (piksel w piksel)</translation>
+    </message>
+    <message>
+        <source>Wykonaj stopklatkę w pełnej rozdzielczości</source>
+        <translation>Wykonaj stopklatkę w pełnej rozdzielczości</translation>
     </message>
 </context>
 <context>
@@ -757,6 +765,26 @@
     <message>
         <source>System default</source>
         <translation>Domyślny systemowy</translation>
+    </message>
+    <message>
+        <source>Zapis</source>
+        <translation>Zapis</translation>
+    </message>
+    <message>
+        <source>Domyślna ścieżka stopklatek:</source>
+        <translation>Domyślna ścieżka stopklatek:</translation>
+    </message>
+    <message>
+        <source>Domyślna ścieżka nagrań:</source>
+        <translation>Domyślna ścieżka nagrań:</translation>
+    </message>
+    <message>
+        <source>Wybierz folder dla stopklatek</source>
+        <translation>Wybierz folder dla stopklatek</translation>
+    </message>
+    <message>
+        <source>Wybierz folder dla nagrań</source>
+        <translation>Wybierz folder dla nagrań</translation>
     </message>
 </context>
 <context>

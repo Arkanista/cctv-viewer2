@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.12
 import QtQuick.Dialogs 1.2
 import CCTV_Viewer.Hikvision 1.0
 import CCTV_Viewer.Utils 1.0
+import CCTV_Viewer.Core 1.0
 import Qt.labs.platform 1.1 as Platform
 
 Popup {
@@ -218,9 +219,15 @@ Popup {
             var filename = cam.recorderName + "_" + cam.channelId + "_" + cam.cameraName + "_" + d + ".mp4";
             filename = filename.replace(/ /g, "_").replace(/[^a-zA-Z0-9_\-\.]/g, "");
             
-            var moviesPath = Platform.StandardPaths.writableLocation(Platform.StandardPaths.MoviesLocation).toString();
-            if (moviesPath.indexOf("file://") === 0) {
-                moviesPath = moviesPath.substring(7);
+            var moviesPath = "";
+            if (typeof generalSettings !== "undefined" && generalSettings.videoPath !== "") {
+                moviesPath = generalSettings.videoPath;
+            } else {
+                moviesPath = Platform.StandardPaths.writableLocation(Platform.StandardPaths.MoviesLocation).toString();
+                if (moviesPath.indexOf("file://") === 0) {
+                    moviesPath = moviesPath.substring(7);
+                }
+                moviesPath = moviesPath + "/CCTV";
             }
             var defaultSavePath = moviesPath + "/" + filename;
             
@@ -547,13 +554,18 @@ Popup {
                             if (modelItem.downloadEnabled) {
                                 var delegateItem = cameraRepeater.itemAt(i)
                                 if (delegateItem) {
-                                    var recInfo = {
-                                        "ip": modelItem.ip,
-                                        "port": modelItem.port,
-                                        "username": modelItem.username,
-                                        "password": modelItem.password
-                                    }
-                                    delegateItem.startRowDownload(recInfo, startDt, endDt)
+                                     var recInfo = {
+                                         "ip": modelItem.ip,
+                                         "port": modelItem.port,
+                                         "username": modelItem.username,
+                                         "password": modelItem.password
+                                     }
+                                     var path = modelItem.savePath;
+                                     var dirPath = path.substring(0, Math.max(path.lastIndexOf("/"), path.lastIndexOf("\\")));
+                                     if (dirPath !== "") {
+                                         Context.mkpath(dirPath);
+                                     }
+                                     delegateItem.startRowDownload(recInfo, startDt, endDt)
                                 }
                             }
                         }
@@ -569,7 +581,17 @@ Popup {
         fileMode: Platform.FileDialog.SaveFile
         nameFilters: ["Filmy MP4 (*.mp4)", "Wszystkie pliki (*)"]
         defaultSuffix: "mp4"
-        folder: Platform.StandardPaths.writableLocation(Platform.StandardPaths.MoviesLocation)
+        folder: {
+            if (typeof generalSettings !== "undefined" && generalSettings.videoPath !== "") {
+                Context.mkpath(generalSettings.videoPath);
+                return "file://" + generalSettings.videoPath;
+            }
+            var mLoc = Platform.StandardPaths.writableLocation(Platform.StandardPaths.MoviesLocation).toString();
+            if (mLoc.indexOf("file://") === 0) mLoc = mLoc.substring(7);
+            var defaultPath = mLoc + "/CCTV";
+            Context.mkpath(defaultPath);
+            return "file://" + defaultPath;
+        }
         onAccepted: {
             var path = fileDialog.file.toString()
             if (path.indexOf("file://") === 0) {

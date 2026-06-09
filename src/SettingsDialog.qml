@@ -4,6 +4,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.3
 import CCTV_Viewer.Utils 1.0
 import CCTV_Viewer.Core 1.0
+import Qt.labs.platform 1.1 as Platform
 
 Dialog {
     title: qsTr("Settings")
@@ -17,8 +18,14 @@ Dialog {
     }
     onAccepted: saveSettings()
 
-    ColumnLayout {
+    ScrollView {
         anchors.fill: parent
+        clip: true
+        contentWidth: parent.width
+
+        ColumnLayout {
+            width: parent.width
+            spacing: 12
 
         GroupBox {
             title: qsTr("General")
@@ -93,6 +100,69 @@ Dialog {
                             { text: "Polski", value: "pl" }
                         ]
                         textRole: "text"
+
+                        background: Rectangle {
+                            implicitHeight: 32
+                            color: "#151d24"
+                            border.color: languageComboBox.activeFocus ? "#ff7a00" : "#3a4550"
+                            border.width: 1
+                            radius: 6
+                        }
+
+                        contentItem: Text {
+                            text: languageComboBox.displayText
+                            color: "#eeeeee"
+                            font {
+                                pixelSize: 11
+                                bold: true
+                            }
+                            verticalAlignment: Text.AlignVCenter
+                            leftPadding: 10
+                        }
+
+                        delegate: ItemDelegate {
+                            width: languageComboBox.width
+                            height: 32
+                            contentItem: Text {
+                                text: modelData.text
+                                color: hovered ? "#00f5d4" : "#eeeeee"
+                                font {
+                                    pixelSize: 11
+                                    bold: true
+                                }
+                                verticalAlignment: Text.AlignVCenter
+                                leftPadding: 10
+                            }
+                            background: Rectangle {
+                                color: hovered ? "#2a3540" : "transparent"
+                                border.color: hovered ? "#00f5d4" : "transparent"
+                                border.width: 1
+                                radius: 4
+                            }
+                        }
+
+                        popup: Popup {
+                            y: languageComboBox.height + 2
+                            width: languageComboBox.width
+                            implicitHeight: contentItem.implicitHeight
+                            padding: 4
+
+                            contentItem: ListView {
+                                clip: true
+                                implicitHeight: contentHeight
+                                model: languageComboBox.popup.visible ? languageComboBox.delegateModel : null
+                                currentIndex: languageComboBox.highlightedIndex
+
+                                ScrollIndicator.vertical: ScrollIndicator { }
+                            }
+
+                            background: Rectangle {
+                                color: "#151d24"
+                                border.color: "#ff7a00"
+                                border.width: 1
+                                radius: 6
+                            }
+                        }
                     }
                 }
             }
@@ -146,7 +216,60 @@ Dialog {
                 }
             }
         }
+
+        GroupBox {
+            title: qsTr("Zapis")
+            Layout.fillWidth: true
+
+            ColumnLayout {
+                width: parent.width
+                spacing: 12
+
+                Text {
+                    text: qsTr("Domyślna ścieżka stopklatek:")
+                    color: "#eeeeee"
+                }
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+                    TextField {
+                        id: snapshotPathField
+                        Layout.fillWidth: true
+                        selectByMouse: true
+                    }
+                    Button {
+                        text: "..."
+                        onClicked: {
+                            snapshotFolderDialog.folder = "file://" + snapshotPathField.text
+                            snapshotFolderDialog.open()
+                        }
+                    }
+                }
+
+                Text {
+                    text: qsTr("Domyślna ścieżka nagrań:")
+                    color: "#eeeeee"
+                }
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+                    TextField {
+                        id: videoPathField
+                        Layout.fillWidth: true
+                        selectByMouse: true
+                    }
+                    Button {
+                        text: "..."
+                        onClicked: {
+                            videoFolderDialog.folder = "file://" + videoPathField.text
+                            videoFolderDialog.open()
+                        }
+                    }
+                }
+            }
+        }
     }
+}
 
     function loadSettings() {
         singleApplicationCheckBox.checked = !generalSettings.singleApplication;
@@ -163,6 +286,24 @@ Dialog {
 
         carouselRunningCheckBox.checked = presetsSettings.carouselRunning;
         carouselIntervalSpinBox.value = presetsSettings.carouselInterval;
+
+        var snapPath = generalSettings.snapshotPath;
+        if (snapPath === "") {
+            var picLoc = Platform.StandardPaths.writableLocation(Platform.StandardPaths.PicturesLocation).toString();
+            if (picLoc.indexOf("file://") === 0) picLoc = picLoc.substring(7);
+            snapPath = picLoc + "/CCTV";
+        }
+        Context.mkpath(snapPath);
+        snapshotPathField.text = snapPath;
+
+        var vidPath = generalSettings.videoPath;
+        if (vidPath === "") {
+            var movLoc = Platform.StandardPaths.writableLocation(Platform.StandardPaths.MoviesLocation).toString();
+            if (movLoc.indexOf("file://") === 0) movLoc = movLoc.substring(7);
+            vidPath = movLoc + "/CCTV";
+        }
+        Context.mkpath(vidPath);
+        videoPathField.text = vidPath;
 
         var lang = Context.getLanguage();
         for (var i = 0; i < languageComboBox.model.length; ++i) {
@@ -189,6 +330,11 @@ Dialog {
         presetsSettings.carouselRunning = carouselRunningCheckBox.checked;
         presetsSettings.carouselInterval = carouselIntervalSpinBox.value;
 
+        generalSettings.snapshotPath = snapshotPathField.text;
+        generalSettings.videoPath = videoPathField.text;
+        Context.mkpath(snapshotPathField.text);
+        Context.mkpath(videoPathField.text);
+
         var selectedLang = languageComboBox.model[languageComboBox.currentIndex].value;
         Context.setLanguage(selectedLang);
     }
@@ -203,6 +349,26 @@ Dialog {
                     break;
                 }
             }
+        }
+    }
+
+    Platform.FolderDialog {
+        id: snapshotFolderDialog
+        title: qsTr("Wybierz folder dla stopklatek")
+        onAccepted: {
+            var path = snapshotFolderDialog.folder.toString();
+            if (path.indexOf("file://") === 0) path = path.substring(7);
+            snapshotPathField.text = path;
+        }
+    }
+
+    Platform.FolderDialog {
+        id: videoFolderDialog
+        title: qsTr("Wybierz folder dla nagrań")
+        onAccepted: {
+            var path = videoFolderDialog.folder.toString();
+            if (path.indexOf("file://") === 0) path = path.substring(7);
+            videoPathField.text = path;
         }
     }
 }
