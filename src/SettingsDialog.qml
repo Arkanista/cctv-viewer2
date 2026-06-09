@@ -239,7 +239,13 @@ Dialog {
                     }
                     Button {
                         text: "..."
-                        onClicked: snapshotFolderDialog.open()
+                        onClicked: {
+                            var path = snapshotPathField.text;
+                            var folderUrl = Context.dirExists(path) ? Context.pathToUrl(path) : Context.pathToUrl(Context.homePath());
+                            snapshotFolderDialog.folder = folderUrl;
+                            snapshotFolderDialog.currentFolder = folderUrl;
+                            snapshotFolderDialog.open();
+                        }
                     }
                 }
 
@@ -257,7 +263,13 @@ Dialog {
                     }
                     Button {
                         text: "..."
-                        onClicked: videoFolderDialog.open()
+                        onClicked: {
+                            var path = videoPathField.text;
+                            var folderUrl = Context.dirExists(path) ? Context.pathToUrl(path) : Context.pathToUrl(Context.homePath());
+                            videoFolderDialog.folder = folderUrl;
+                            videoFolderDialog.currentFolder = folderUrl;
+                            videoFolderDialog.open();
+                        }
                     }
                 }
             }
@@ -346,26 +358,28 @@ Dialog {
         }
     }
 
-    FileDialog {
+    Platform.FolderDialog {
         id: snapshotFolderDialog
         title: qsTr("Wybierz folder dla stopklatek")
-        selectFolder: true
-        folder: Context.dirExists(snapshotPathField.text) ? Context.pathToUrl(snapshotPathField.text) : Context.pathToUrl(Context.homePath())
         onAccepted: {
             var path = snapshotFolderDialog.folder.toString();
             if (path.indexOf("file://") === 0) path = path.substring(7);
+            if (path.length > 1 && (path.endsWith("/") || path.endsWith("\\"))) {
+                path = path.substring(0, path.length - 1);
+            }
             snapshotPathField.text = path;
         }
     }
 
-    FileDialog {
+    Platform.FolderDialog {
         id: videoFolderDialog
         title: qsTr("Wybierz folder dla nagrań")
-        selectFolder: true
-        folder: Context.dirExists(videoPathField.text) ? Context.pathToUrl(videoPathField.text) : Context.pathToUrl(Context.homePath())
         onAccepted: {
             var path = videoFolderDialog.folder.toString();
             if (path.indexOf("file://") === 0) path = path.substring(7);
+            if (path.length > 1 && (path.endsWith("/") || path.endsWith("\\"))) {
+                path = path.substring(0, path.length - 1);
+            }
             videoPathField.text = path;
         }
     }

@@ -205,5 +205,13 @@ QString Context::homePath() const
 
 QUrl Context::pathToUrl(const QString &path) const
 {
+    QFileInfo info(path);
+    if (info.exists() && info.isDir()) {
+        QString p = path;
+        if (!p.endsWith('/') && !p.endsWith('\\')) {
+            p += '/';
+        }
+        return QUrl::fromLocalFile(p);
+    }
     return QUrl::fromLocalFile(path);
 }
