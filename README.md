@@ -106,13 +106,18 @@ The application has been extensively developed and tested across multiple hardwa
 - **System Memory:** 64 GB RAM
 - **Graphics Card:** NVIDIA GeForce RTX 5070 Ti (16 GB VRAM)
 
-**Machine 2:**
+**Machine 2 (Production Environment):**
 - **Operating System:** CachyOS Linux x86_64
 - **Kernel:** Linux 7.0.11-1-cachyos
 - **Desktop Environment:** KDE Plasma 6.6.5 (KWin Wayland)
 - **CPU:** Intel Core i7-9700F (8 Cores @ 4.70 GHz)
 - **System Memory:** 16 GB RAM
 - **Graphics Card:** NVIDIA GeForce GTX 1070 Ti (8 GB VRAM)
+- **Performance Details:** Running on a 4K monitor displaying a 30-camera grid view.
+  - **CPU System Usage:** ~20%
+  - **Process CPU Utilization:** 25-30%
+  - **RAM Usage:** ~5 GB
+  - **VRAM Usage:** 1-2 GB
 
 **Machine 3:**
 - **Operating System:** CachyOS Linux x86_64
