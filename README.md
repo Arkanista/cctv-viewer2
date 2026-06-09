@@ -96,11 +96,31 @@ It is designed for Linux users who need a robust, lightweight, and smooth altern
 ## System Requirements & Dependencies
 
 ### Hardware Environment (Tested On)
-The application has been developed and tested on a high-end Linux desktop with the following hardware specifications:
-- **Operating System:** CachyOS Linux (Arch Linux derivative, rolling release)
+The application has been extensively developed and tested across multiple hardware configurations on CachyOS (Arch Linux derivative) running **KDE Plasma 6.6.5 on Wayland**:
+
+**Machine 1 (High-end Desktop):**
+- **Operating System:** CachyOS Linux x86_64
+- **Kernel:** Linux 7.0.11-1-cachyos
+- **Desktop Environment:** KDE Plasma 6.6.5 (KWin Wayland)
 - **CPU:** AMD Ryzen 9 5950X (16 Cores / 32 Threads)
 - **System Memory:** 64 GB RAM
 - **Graphics Card:** NVIDIA GeForce RTX 5070 Ti (16 GB VRAM)
+
+**Machine 2:**
+- **Operating System:** CachyOS Linux x86_64
+- **Kernel:** Linux 7.0.11-1-cachyos
+- **Desktop Environment:** KDE Plasma 6.6.5 (KWin Wayland)
+- **CPU:** Intel Core i7-9700F (8 Cores @ 4.70 GHz)
+- **System Memory:** 16 GB RAM
+- **Graphics Card:** NVIDIA GeForce GTX 1070 Ti (8 GB VRAM)
+
+**Machine 3:**
+- **Operating System:** CachyOS Linux x86_64
+- **Kernel:** Linux 7.0.11-1-cachyos
+- **Desktop Environment:** KDE Plasma 6.6.5 (KWin Wayland)
+- **CPU:** AMD Ryzen 5 5600X (6 Cores / 12 Threads @ 4.65 GHz)
+- **System Memory:** 64 GB RAM
+- **Graphics Card:** NVIDIA GeForce RTX 3060 Ti (8 GB VRAM)
 
 ### Software Dependencies
 To build and run the application, the following packages are required:
