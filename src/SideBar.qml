@@ -8,6 +8,7 @@ import CCTV_Viewer.Core 1.0
 import CCTV_Viewer.Themes 1.0
 import CCTV_Viewer.Utils 1.0
 import Qt.labs.platform 1.1 as Platform
+import QtQuick.Dialogs 1.3 as QuickDialogs
 
 FocusScope {
     id: rootSideBar
@@ -1974,11 +1975,11 @@ FocusScope {
         onAccepted: layoutsCollectionModel.remove(index)
     }
 
-    Platform.FolderDialog {
+    QuickDialogs.FileDialog {
         id: snapshotFolderDialog
         title: qsTr("Wybierz folder dla stopklatek")
-        currentFolder: Context.dirExists(snapshotPathField.text) ? Context.pathToUrl(snapshotPathField.text) : Context.pathToUrl(Context.homePath())
-        folder: currentFolder
+        selectFolder: true
+        folder: Context.dirExists(snapshotPathField.text) ? Context.pathToUrl(snapshotPathField.text) : Context.pathToUrl(Context.homePath())
         onAccepted: {
             var path = snapshotFolderDialog.folder.toString();
             if (path.indexOf("file://") === 0) path = path.substring(7);
@@ -1987,11 +1988,11 @@ FocusScope {
         }
     }
 
-    Platform.FolderDialog {
+    QuickDialogs.FileDialog {
         id: videoFolderDialog
         title: qsTr("Wybierz folder dla nagrań")
-        currentFolder: Context.dirExists(videoPathField.text) ? Context.pathToUrl(videoPathField.text) : Context.pathToUrl(Context.homePath())
-        folder: currentFolder
+        selectFolder: true
+        folder: Context.dirExists(videoPathField.text) ? Context.pathToUrl(videoPathField.text) : Context.pathToUrl(Context.homePath())
         onAccepted: {
             var path = videoFolderDialog.folder.toString();
             if (path.indexOf("file://") === 0) path = path.substring(7);

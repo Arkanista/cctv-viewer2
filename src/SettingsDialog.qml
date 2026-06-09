@@ -346,11 +346,11 @@ Dialog {
         }
     }
 
-    Platform.FolderDialog {
+    FileDialog {
         id: snapshotFolderDialog
         title: qsTr("Wybierz folder dla stopklatek")
-        currentFolder: Context.dirExists(snapshotPathField.text) ? Context.pathToUrl(snapshotPathField.text) : Context.pathToUrl(Context.homePath())
-        folder: currentFolder
+        selectFolder: true
+        folder: Context.dirExists(snapshotPathField.text) ? Context.pathToUrl(snapshotPathField.text) : Context.pathToUrl(Context.homePath())
         onAccepted: {
             var path = snapshotFolderDialog.folder.toString();
             if (path.indexOf("file://") === 0) path = path.substring(7);
@@ -358,11 +358,11 @@ Dialog {
         }
     }
 
-    Platform.FolderDialog {
+    FileDialog {
         id: videoFolderDialog
         title: qsTr("Wybierz folder dla nagrań")
-        currentFolder: Context.dirExists(videoPathField.text) ? Context.pathToUrl(videoPathField.text) : Context.pathToUrl(Context.homePath())
-        folder: currentFolder
+        selectFolder: true
+        folder: Context.dirExists(videoPathField.text) ? Context.pathToUrl(videoPathField.text) : Context.pathToUrl(Context.homePath())
         onAccepted: {
             var path = videoFolderDialog.folder.toString();
             if (path.indexOf("file://") === 0) path = path.substring(7);
