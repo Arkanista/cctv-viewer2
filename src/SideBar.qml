@@ -7,6 +7,7 @@ import QtGraphicalEffects 1.12
 import CCTV_Viewer.Core 1.0
 import CCTV_Viewer.Themes 1.0
 import CCTV_Viewer.Utils 1.0
+import Qt.labs.platform 1.1 as Platform
 
 FocusScope {
     id: rootSideBar
@@ -1584,6 +1585,69 @@ FocusScope {
                                         { text: "Polski", value: "pl" }
                                     ]
                                     textRole: "text"
+
+                                    background: Rectangle {
+                                        implicitHeight: 32
+                                        color: "#151d24"
+                                        border.color: sidebarLanguageCombo.activeFocus ? "#ff7a00" : "#3a4550"
+                                        border.width: 1
+                                        radius: 6
+                                    }
+
+                                    contentItem: Text {
+                                        text: sidebarLanguageCombo.displayText
+                                        color: "#eeeeee"
+                                        font {
+                                            pixelSize: 11
+                                            bold: true
+                                        }
+                                        verticalAlignment: Text.AlignVCenter
+                                        leftPadding: 10
+                                    }
+
+                                    delegate: ItemDelegate {
+                                        width: sidebarLanguageCombo.width
+                                        height: 32
+                                        contentItem: Text {
+                                            text: modelData.text
+                                            color: hovered ? "#00f5d4" : "#eeeeee"
+                                            font {
+                                                pixelSize: 11
+                                                bold: true
+                                            }
+                                            verticalAlignment: Text.AlignVCenter
+                                            leftPadding: 10
+                                        }
+                                        background: Rectangle {
+                                            color: hovered ? "#2a3540" : "transparent"
+                                            border.color: hovered ? "#00f5d4" : "transparent"
+                                            border.width: 1
+                                            radius: 4
+                                        }
+                                    }
+
+                                    popup: Popup {
+                                        y: sidebarLanguageCombo.height + 2
+                                        width: sidebarLanguageCombo.width
+                                        implicitHeight: sidebarLanguageCombo.popup.visible ? contentItem.implicitHeight : 0
+                                        padding: 4
+
+                                        contentItem: ListView {
+                                            clip: true
+                                            implicitHeight: contentHeight
+                                            model: sidebarLanguageCombo.popup.visible ? sidebarLanguageCombo.delegateModel : null
+                                            currentIndex: sidebarLanguageCombo.highlightedIndex
+
+                                            ScrollIndicator.vertical: ScrollIndicator { }
+                                        }
+
+                                        background: Rectangle {
+                                            color: "#151d24"
+                                            border.color: "#ff7a00"
+                                            border.width: 1
+                                            radius: 6
+                                        }
+                                    }
                                     
                                     Component.onCompleted: {
                                         var lang = Context.getLanguage();
@@ -1610,6 +1674,143 @@ FocusScope {
                                                     break;
                                                 }
                                             }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    GroupBox {
+                        title: qsTr("Zapis")
+                        Layout.fillWidth: true
+
+                        background: Rectangle {
+                            color: "#141a21"
+                            border.color: "#2a3540"
+                            border.width: 1
+                            radius: 8
+                        }
+                        label: Text {
+                            text: parent.title
+                            color: "#00f5d4"
+                            font.bold: true
+                            font.pixelSize: 12
+                        }
+
+                        ColumnLayout {
+                            anchors.fill: parent
+                            spacing: 12
+
+                            ColumnLayout {
+                                Layout.fillWidth: true
+                                spacing: 4
+
+                                Text {
+                                    text: qsTr("Domyślna ścieżka stopklatek:")
+                                    color: "white"
+                                    font.pixelSize: 11
+                                }
+
+                                RowLayout {
+                                    Layout.fillWidth: true
+                                    spacing: 8
+
+                                    TextField {
+                                        id: snapshotPathField
+                                        Layout.fillWidth: true
+                                        selectByMouse: true
+                                        text: generalSettings.snapshotPath
+                                        color: "white"
+                                        font.pixelSize: 12
+                                        background: Rectangle {
+                                            color: "#0f151b"
+                                            radius: 4
+                                            border.color: snapshotPathField.activeFocus ? "#ff7a00" : "#2a3540"
+                                        }
+                                        onEditingFinished: {
+                                            generalSettings.snapshotPath = text
+                                            Context.mkpath(text)
+                                        }
+                                    }
+
+                                    Button {
+                                        id: btnBrowseSnapshot
+                                        text: "..."
+                                        Layout.preferredWidth: 32
+                                        Layout.preferredHeight: 30
+                                        contentItem: Text {
+                                            text: btnBrowseSnapshot.text
+                                            font.bold: true
+                                            color: "white"
+                                            horizontalAlignment: Text.AlignHCenter
+                                            verticalAlignment: Text.AlignVCenter
+                                        }
+                                        background: Rectangle {
+                                            color: btnBrowseSnapshot.pressed ? "#2a3540" : (btnBrowseSnapshot.hovered ? "#3a4550" : "#222c36")
+                                            radius: 4
+                                            border.color: "#2a3540"
+                                        }
+                                        onClicked: {
+                                            snapshotFolderDialog.folder = "file://" + generalSettings.snapshotPath
+                                            snapshotFolderDialog.open()
+                                        }
+                                    }
+                                }
+                            }
+
+                            ColumnLayout {
+                                Layout.fillWidth: true
+                                spacing: 4
+
+                                Text {
+                                    text: qsTr("Domyślna ścieżka nagrań:")
+                                    color: "white"
+                                    font.pixelSize: 11
+                                }
+
+                                RowLayout {
+                                    Layout.fillWidth: true
+                                    spacing: 8
+
+                                    TextField {
+                                        id: videoPathField
+                                        Layout.fillWidth: true
+                                        selectByMouse: true
+                                        text: generalSettings.videoPath
+                                        color: "white"
+                                        font.pixelSize: 12
+                                        background: Rectangle {
+                                            color: "#0f151b"
+                                            radius: 4
+                                            border.color: videoPathField.activeFocus ? "#ff7a00" : "#2a3540"
+                                        }
+                                        onEditingFinished: {
+                                            generalSettings.videoPath = text
+                                            Context.mkpath(text)
+                                        }
+                                    }
+
+                                    Button {
+                                        id: btnBrowseVideo
+                                        text: "..."
+                                        Layout.preferredWidth: 32
+                                        Layout.preferredHeight: 30
+                                        contentItem: Text {
+                                            text: btnBrowseVideo.text
+                                            font.bold: true
+                                            color: "white"
+                                            horizontalAlignment: Text.AlignHCenter
+                                            verticalAlignment: Text.AlignVCenter
+                                        }
+                                        background: Rectangle {
+                                            color: btnBrowseVideo.pressed ? "#2a3540" : (btnBrowseVideo.hovered ? "#3a4550" : "#222c36")
+                                            radius: 4
+                                            border.color: "#2a3540"
+                                        }
+                                        onClicked: {
+                                            videoFolderDialog.folder = "file://" + generalSettings.videoPath
+                                            videoFolderDialog.open()
                                         }
                                     }
                                 }
@@ -1777,5 +1978,27 @@ FocusScope {
         }
         property int index: -1
         onAccepted: layoutsCollectionModel.remove(index)
+    }
+
+    Platform.FolderDialog {
+        id: snapshotFolderDialog
+        title: qsTr("Wybierz folder dla stopklatek")
+        onAccepted: {
+            var path = snapshotFolderDialog.folder.toString();
+            if (path.indexOf("file://") === 0) path = path.substring(7);
+            generalSettings.snapshotPath = path;
+            Context.mkpath(path);
+        }
+    }
+
+    Platform.FolderDialog {
+        id: videoFolderDialog
+        title: qsTr("Wybierz folder dla nagrań")
+        onAccepted: {
+            var path = videoFolderDialog.folder.toString();
+            if (path.indexOf("file://") === 0) path = path.substring(7);
+            generalSettings.videoPath = path;
+            Context.mkpath(path);
+        }
     }
 }

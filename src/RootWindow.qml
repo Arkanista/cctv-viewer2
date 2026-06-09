@@ -9,6 +9,7 @@ import CCTV_Viewer.Core 1.0
 import CCTV_Viewer.Models 1.0
 import CCTV_Viewer.Utils 1.0
 import CCTV_Viewer.Themes 1.0
+import Qt.labs.platform 1.1 as Platform
 
 ApplicationWindow {
     id: rootWindow
@@ -940,6 +941,24 @@ ApplicationWindow {
 
     Component.onCompleted: {
         stackLayout.visible = true;
+
+        var snapPath = generalSettings.snapshotPath;
+        if (snapPath === "") {
+            var picLoc = Platform.StandardPaths.writableLocation(Platform.StandardPaths.PicturesLocation).toString();
+            if (picLoc.indexOf("file://") === 0) picLoc = picLoc.substring(7);
+            snapPath = picLoc + "/CCTV";
+            generalSettings.snapshotPath = snapPath;
+        }
+        Context.mkpath(snapPath);
+
+        var vidPath = generalSettings.videoPath;
+        if (vidPath === "") {
+            var movLoc = Platform.StandardPaths.writableLocation(Platform.StandardPaths.MoviesLocation).toString();
+            if (movLoc.indexOf("file://") === 0) movLoc = movLoc.substring(7);
+            vidPath = movLoc + "/CCTV";
+            generalSettings.videoPath = vidPath;
+        }
+        Context.mkpath(vidPath);
     }
 
     SettingsDialog {

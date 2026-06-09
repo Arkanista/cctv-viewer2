@@ -1077,6 +1077,26 @@
         <source>System default</source>
         <translation>Domyślny systemowy</translation>
     </message>
+    <message>
+        <source>Zapis</source>
+        <translation type="unfinished">Zapis</translation>
+    </message>
+    <message>
+        <source>Domyślna ścieżka stopklatek:</source>
+        <translation type="unfinished">Domyślna ścieżka stopklatek:</translation>
+    </message>
+    <message>
+        <source>Domyślna ścieżka nagrań:</source>
+        <translation type="unfinished">Domyślna ścieżka nagrań:</translation>
+    </message>
+    <message>
+        <source>Wybierz folder dla stopklatek</source>
+        <translation type="unfinished">Wybierz folder dla stopklatek</translation>
+    </message>
+    <message>
+        <source>Wybierz folder dla nagrań</source>
+        <translation type="unfinished">Wybierz folder dla nagrań</translation>
+    </message>
 </context>
 <context>
     <name>SideBarItem</name>

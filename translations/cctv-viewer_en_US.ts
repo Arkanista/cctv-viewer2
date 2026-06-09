@@ -1028,6 +1028,26 @@
         <source>Are you sure you want to delete this NVR Preset? This action is completely irreversible.</source>
         <translation>Are you sure you want to delete this NVR Preset? This action is completely irreversible.</translation>
     </message>
+    <message>
+        <source>Zapis</source>
+        <translation type="unfinished">Saving</translation>
+    </message>
+    <message>
+        <source>Domyślna ścieżka stopklatek:</source>
+        <translation type="unfinished">Default snapshot path:</translation>
+    </message>
+    <message>
+        <source>Domyślna ścieżka nagrań:</source>
+        <translation type="unfinished">Default recordings path:</translation>
+    </message>
+    <message>
+        <source>Wybierz folder dla stopklatek</source>
+        <translation type="unfinished">Choose folder for snapshots</translation>
+    </message>
+    <message>
+        <source>Wybierz folder dla nagrań</source>
+        <translation type="unfinished">Choose folder for recordings</translation>
+    </message>
 </context>
 <context>
     <name>SideBarItem</name>
