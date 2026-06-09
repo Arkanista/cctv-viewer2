@@ -202,3 +202,8 @@ QString Context::homePath() const
 {
     return QDir::homePath();
 }
+
+QUrl Context::pathToUrl(const QString &path) const
+{
+    return QUrl::fromLocalFile(path);
+}

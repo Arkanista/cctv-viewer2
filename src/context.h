@@ -7,6 +7,7 @@
 #include <QList>
 #include <QTranslator>
 #include <QQmlEngine>
+#include <QUrl>
 
 #include "config.h"
 
@@ -36,6 +37,7 @@ public:
     Q_INVOKABLE bool mkpath(const QString &dirPath) const;
     Q_INVOKABLE bool dirExists(const QString &dirPath) const;
     Q_INVOKABLE QString homePath() const;
+    Q_INVOKABLE QUrl pathToUrl(const QString &path) const;
 
 signals:
     void languageChanged();

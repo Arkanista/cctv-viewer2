@@ -1754,11 +1754,11 @@ FocusScope {
                                         onClicked: {
                                             var path = snapshotPathField.text;
                                             if (Context.dirExists(path)) {
-                                                snapshotFolderDialog.currentFolder = "file://" + path;
-                                                snapshotFolderDialog.folder = "file://" + path;
+                                                snapshotFolderDialog.currentFolder = Context.pathToUrl(path);
+                                                snapshotFolderDialog.folder = Context.pathToUrl(path);
                                             } else {
-                                                snapshotFolderDialog.currentFolder = "file://" + Context.homePath();
-                                                snapshotFolderDialog.folder = "file://" + Context.homePath();
+                                                snapshotFolderDialog.currentFolder = Context.pathToUrl(Context.homePath());
+                                                snapshotFolderDialog.folder = Context.pathToUrl(Context.homePath());
                                             }
                                             snapshotFolderDialog.open();
                                         }
@@ -1818,11 +1818,11 @@ FocusScope {
                                         onClicked: {
                                             var path = videoPathField.text;
                                             if (Context.dirExists(path)) {
-                                                videoFolderDialog.currentFolder = "file://" + path;
-                                                videoFolderDialog.folder = "file://" + path;
+                                                videoFolderDialog.currentFolder = Context.pathToUrl(path);
+                                                videoFolderDialog.folder = Context.pathToUrl(path);
                                             } else {
-                                                videoFolderDialog.currentFolder = "file://" + Context.homePath();
-                                                videoFolderDialog.folder = "file://" + Context.homePath();
+                                                videoFolderDialog.currentFolder = Context.pathToUrl(Context.homePath());
+                                                videoFolderDialog.folder = Context.pathToUrl(Context.homePath());
                                             }
                                             videoFolderDialog.open();
                                         }
