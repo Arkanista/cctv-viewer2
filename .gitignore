@@ -59,3 +59,6 @@ scratch/
 test_arg.cpp
 test_layer.qml
 
+# Package build files
+*.pkg.tar.zst
+/packaging/arch/cctv-viewer2/
