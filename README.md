@@ -162,9 +162,20 @@ To clone this repository, make sure you include the submodules:
 git clone --recurse-submodules https://github.com/arkanista/cctv-viewer2.git
 ```
 
+### Pre-compiled Arch Linux Package (Arch Linux / CachyOS)
+
+If you are running Arch Linux or CachyOS, you can skip compilation and install the pre-compiled Pacman package directly from the latest release:
+
+* **[Download cctv-viewer2-2.0.3-1-x86_64.pkg.tar.zst](https://github.com/Arkanista/cctv-viewer2/releases/download/v2.0.3/cctv-viewer2-2.0.3-1-x86_64.pkg.tar.zst)**
+
+To install the downloaded package:
+```bash
+sudo pacman -U cctv-viewer2-2.0.3-1-x86_64.pkg.tar.zst
+```
+
 ### Building from Source (Arch Linux / CachyOS)
 
-The easiest and recommended way to build and install the application on Arch-based distributions is by using `makepkg`, which automatically resolves and installs all required dependencies.
+The easiest and recommended way to build and install the application from source on Arch-based distributions is by using `makepkg`, which automatically resolves and installs all required dependencies.
 
 1. Navigate to the Arch packaging directory:
    ```bash
