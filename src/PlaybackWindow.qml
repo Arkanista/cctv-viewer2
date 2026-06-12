@@ -422,6 +422,7 @@ Window {
 
     onClosing: {
         stopAllPlayers();
+        playbackWindow.destroy();
     }
 
     DownloadDialog {

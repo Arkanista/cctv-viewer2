@@ -15,6 +15,10 @@ Window {
 
     property var recorder: ({})
 
+    onClosing: {
+        camerasWin.destroy();
+    }
+
     // Track thumbnail refresh counters per cache key
     property var refreshCounters: ({})
 
