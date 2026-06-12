@@ -43,6 +43,8 @@ import CCTV_Viewer.Themes 1.0
 T.ToolTip {
     id: control
 
+    enabled: false
+
     x: parent ? (parent.width - implicitWidth) / 2 : 0
     y: -implicitHeight - 3
 
@@ -57,7 +59,7 @@ T.ToolTip {
     delay: Compact.toolTipDelay
     timeout: Compact.toolTipTimeout
     font.pixelSize: 10
-    closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent | T.Popup.CloseOnReleaseOutsideParent
+    closePolicy: T.Popup.NoAutoClose
 
     contentItem: Text {
         id: text

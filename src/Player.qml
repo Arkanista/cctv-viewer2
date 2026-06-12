@@ -635,11 +635,8 @@ FocusScope {
             border.width: 1
         }
 
-        MouseArea {
-            id: playerHoverArea
-            anchors.fill: parent
-            hoverEnabled: true
-            acceptedButtons: Qt.NoButton
+        HoverHandler {
+            id: playerHoverHandler
         }
 
         // Symmetrically placed magnifying glass button overlay on the bottom right (no fill tło, gray border, white icon by default, color-coded modes)
@@ -650,7 +647,7 @@ FocusScope {
                 margins: 6
             }
             spacing: 6
-            visible: (root.source !== "") && (!viewSettings.hoverControlIcons || playerHoverArea.containsMouse || snapshotMouseAreaBtn.containsMouse || playbackMouseAreaBtn.containsMouse || oneToOneMouseAreaBtn.containsMouse || zoomMouseAreaBtn.containsMouse)
+            visible: (root.source !== "") && (!viewSettings.hoverControlIcons || playerHoverHandler.hovered)
 
             Control {
                 id: snapshotBadge
