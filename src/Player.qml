@@ -140,6 +140,8 @@ FocusScope {
         }
 
         if (newUrl === "") {
+            qmlAvPlayer1.stop();
+            qmlAvPlayer2.stop();
             qmlAvPlayer1.source = "";
             qmlAvPlayer2.source = "";
             activeStreamUrl = "";
@@ -157,7 +159,7 @@ FocusScope {
             return;
         }
 
-        var isSameCamera = (newCameraId !== "" && newCameraId === activeCameraId);
+        var isSameCamera = (newCameraId !== "" && newCameraId === activeCameraId && playbackState === MediaPlayer.PlayingState && status === MediaPlayer.Buffered);
 
         if (isSameCamera) {
             console.log("[Player] Seamless switch quality of camera " + newCameraId + " to URL: " + newUrl);
@@ -455,7 +457,7 @@ FocusScope {
                 margins: 6
             }
             
-            visible: root.isHikvision ? (root.recorderIp !== "") : (playbackState === MediaPlayer.PlayingState || status === MediaPlayer.Buffered || status === MediaPlayer.Buffering || status === MediaPlayer.Loading)
+            visible: (root.source !== "") && (root.isHikvision ? (root.recorderIp !== "") : (playbackState === MediaPlayer.PlayingState || status === MediaPlayer.Buffered || status === MediaPlayer.Buffering || status === MediaPlayer.Loading))
             
             color: "#66121214"
             border {
@@ -654,7 +656,7 @@ FocusScope {
 
                 implicitWidth: 16
                 implicitHeight: 16
-                visible: true
+                visible: root.source !== ""
 
                 background: Rectangle {
                     radius: 2
@@ -726,7 +728,7 @@ FocusScope {
                 
                 implicitWidth: 16
                 implicitHeight: 16
-                visible: root.isHikvision
+                visible: root.source !== "" && root.isHikvision
                 
                 background: Rectangle {
                     radius: 2
@@ -797,6 +799,7 @@ FocusScope {
                 
                 implicitWidth: 16
                 implicitHeight: 16
+                visible: root.source !== ""
                 
                 background: Rectangle {
                     radius: 2
@@ -834,6 +837,7 @@ FocusScope {
                 
                 implicitWidth: 16
                 implicitHeight: 16
+                visible: root.source !== ""
             
             font.pixelSize: 9
             

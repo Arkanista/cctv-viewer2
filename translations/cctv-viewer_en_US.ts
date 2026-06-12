@@ -274,6 +274,10 @@
         <source>NOT LOGGED IN</source>
         <translation>NOT LOGGED IN</translation>
     </message>
+    <message>
+        <source>Green: Active SDK session (PTZ/Archive). Red: No active session (RTSP stream works independently).</source>
+        <translation>Green: Active SDK session (PTZ/Archive). Red: No active session (RTSP stream works independently).</translation>
+    </message>
 </context>
 <context>
     <name>PlaybackWindow</name>

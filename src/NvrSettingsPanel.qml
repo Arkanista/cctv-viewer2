@@ -4,6 +4,7 @@ import QtQuick.Controls 2.12
 import Qt.labs.settings 1.0
 import CCTV_Viewer.Hikvision 1.0
 import CCTV_Viewer.Utils 1.0
+import CCTV_Viewer.Themes 1.0
 
 ColumnLayout {
     id: rootPanel
@@ -406,24 +407,40 @@ ColumnLayout {
                         }
                     }
 
-                    RowLayout {
-                        spacing: 6
+                    MouseArea {
+                        id: statusArea
                         Layout.alignment: Qt.AlignVCenter
                         Layout.rightMargin: 4
+                        implicitWidth: statusLayout.implicitWidth
+                        implicitHeight: statusLayout.implicitHeight
+                        hoverEnabled: true
 
-                        Rectangle {
-                            width: 8
-                            height: 8
-                            radius: 4
-                            antialiasing: true
-                            color: (rootPanel.activeSessionIps[modelData.ip] || false) ? "#00ff66" : "#ff3333"
+                        RowLayout {
+                            id: statusLayout
+                            anchors.fill: parent
+                            spacing: 6
+
+                            Rectangle {
+                                width: 8
+                                height: 8
+                                radius: 4
+                                antialiasing: true
+                                color: (rootPanel.activeSessionIps[modelData.ip] || false) ? "#00ff66" : "#ff3333"
+                            }
+
+                            Text {
+                                text: (rootPanel.activeSessionIps[modelData.ip] || false) ? qsTr("LOGGED IN") : qsTr("NOT LOGGED IN")
+                                color: (rootPanel.activeSessionIps[modelData.ip] || false) ? "#00ff66" : "#ff3333"
+                                font.pixelSize: 9
+                                font.bold: true
+                            }
                         }
 
-                        Text {
-                            text: (rootPanel.activeSessionIps[modelData.ip] || false) ? qsTr("LOGGED IN") : qsTr("NOT LOGGED IN")
-                            color: (rootPanel.activeSessionIps[modelData.ip] || false) ? "#00ff66" : "#ff3333"
-                            font.pixelSize: 9
-                            font.bold: true
+                        ToolTip {
+                            delay: Compact.toolTipDelay
+                            timeout: Compact.toolTipTimeout
+                            visible: statusArea.containsMouse
+                            text: qsTr("Green: Active SDK session (PTZ/Archive). Red: No active session (RTSP stream works independently).")
                         }
                     }
 

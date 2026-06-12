@@ -294,6 +294,10 @@
         <source>NOT LOGGED IN</source>
         <translation>NIEZALOGOWANO</translation>
     </message>
+    <message>
+        <source>Green: Active SDK session (PTZ/Archive). Red: No active session (RTSP stream works independently).</source>
+        <translation>Zielony: Aktywna sesja SDK (PTZ/Archiwum). Czerwony: Brak aktywnej sesji (obraz RTSP działa niezależnie).</translation>
+    </message>
 </context>
 <context>
     <name>PlaybackWindow</name>
