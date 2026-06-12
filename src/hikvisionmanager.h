@@ -48,11 +48,17 @@ signals:
     void sessionStatusChanged(const QString &ip, bool loggedIn);
 
 private:
+    struct SessionInfo {
+        LONG lUserID = -1;
+        NET_DVR_DEVICEINFO_V40 deviceInfo;
+    };
+
     LONG getSession(const QString &ip, int port, const QString &username, const QString &password);
     bool isLoggedInternal(const QString &ip) const;
+    bool getDeviceInfo(const QString &ip, NET_DVR_DEVICEINFO_V40 &deviceInfo);
 
     static HikvisionManager* m_instance;
-    QHash<QString, LONG> m_sessions; // Maps IP to UserID (lUserID)
+    QHash<QString, SessionInfo> m_sessions; // Maps IP to SessionInfo
     QHash<QString, SharedSession> m_sharedSessions;
     std::mutex m_sharedSessionsMutex;
     bool m_initialized;

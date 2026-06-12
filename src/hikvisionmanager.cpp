@@ -35,7 +35,7 @@ HikvisionManager::~HikvisionManager()
 
     // Logout all active sessions
     for (auto it = m_sessions.begin(); it != m_sessions.end(); ++it) {
-        NET_DVR_Logout(it.value());
+        NET_DVR_Logout(it.value().lUserID);
     }
     m_sessions.clear();
 
@@ -182,7 +182,7 @@ QVariantList HikvisionManager::discoverCameras(const QString &ip, int port, cons
     {
         std::lock_guard<std::mutex> lock(m_sharedSessionsMutex);
         wasLogged = isLoggedInternal(ip);
-        m_sessions.insert(ip, lUserID);
+        m_sessions.insert(ip, {lUserID, deviceInfo});
         isLoggedNow = isLoggedInternal(ip);
     }
     qDebug() << "[Hikvision] Logged in successfully to IP:" << ip << "with UserID:" << lUserID;
@@ -252,7 +252,7 @@ void HikvisionManager::logout(const QString &ip)
         std::lock_guard<std::mutex> lock(m_sharedSessionsMutex);
         wasLogged = isLoggedInternal(ip);
         if (m_sessions.contains(ip)) {
-            lUserID = m_sessions.take(ip);
+            lUserID = m_sessions.take(ip).lUserID;
         }
         isLoggedNow = isLoggedInternal(ip);
     }
@@ -276,6 +276,20 @@ bool HikvisionManager::isLoggedInternal(const QString &ip) const
     return m_sessions.contains(ip) || m_sharedSessions.contains(ip);
 }
 
+bool HikvisionManager::getDeviceInfo(const QString &ip, NET_DVR_DEVICEINFO_V40 &deviceInfo)
+{
+    std::lock_guard<std::mutex> lock(m_sharedSessionsMutex);
+    if (m_sessions.contains(ip)) {
+        deviceInfo = m_sessions.value(ip).deviceInfo;
+        return true;
+    }
+    if (m_sharedSessions.contains(ip)) {
+        deviceInfo = m_sharedSessions.value(ip).deviceInfo;
+        return true;
+    }
+    return false;
+}
+
 LONG HikvisionManager::getSession(const QString &ip, int port, const QString &username, const QString &password)
 {
     bool wasLogged = false;
@@ -285,7 +299,7 @@ LONG HikvisionManager::getSession(const QString &ip, int port, const QString &us
     {
         std::lock_guard<std::mutex> lock(m_sharedSessionsMutex);
         if (m_sessions.contains(ip)) {
-            return m_sessions.value(ip);
+            return m_sessions.value(ip).lUserID;
         }
         if (m_sharedSessions.contains(ip)) {
             return m_sharedSessions.value(ip).lUserID;
@@ -320,7 +334,7 @@ LONG HikvisionManager::getSession(const QString &ip, int port, const QString &us
 
     {
         std::lock_guard<std::mutex> lock(m_sharedSessionsMutex);
-        m_sessions.insert(ip, lUserID);
+        m_sessions.insert(ip, {lUserID, deviceInfo});
         isLoggedNow = isLoggedInternal(ip);
     }
 
@@ -363,14 +377,30 @@ void HikvisionManager::ptzWorkerLoop()
             continue;
         }
 
+        NET_DVR_DEVICEINFO_V40 deviceInfo;
+        int targetChannel = cmd.channelId;
+        if (getDeviceInfo(cmd.ip, deviceInfo)) {
+            int startDChan = deviceInfo.struDeviceV30.byStartDChan;
+            int chanNum = deviceInfo.struDeviceV30.byChanNum;
+            int startChan = deviceInfo.struDeviceV30.byStartChan;
+            if (startDChan > 0 && cmd.channelId < startDChan) {
+                if (cmd.channelId <= chanNum) {
+                    targetChannel = startChan + cmd.channelId - 1;
+                } else {
+                    targetChannel = startDChan + (cmd.channelId - chanNum) - 1;
+                }
+                qDebug() << "[Hikvision PTZ Worker] Translated logical channel" << cmd.channelId << "to SDK channel ID" << targetChannel;
+            }
+        }
+
         DWORD dwStop = cmd.stop ? 1 : 0;
-        BOOL ret = NET_DVR_PTZControl_Other(lUserID, static_cast<LONG>(cmd.channelId), static_cast<DWORD>(cmd.command), dwStop);
+        BOOL ret = NET_DVR_PTZControl_Other(lUserID, static_cast<LONG>(targetChannel), static_cast<DWORD>(cmd.command), dwStop);
         if (!ret) {
             DWORD err = NET_DVR_GetLastError();
-            qWarning() << "[Hikvision PTZ Worker] PTZ Control failed for IP:" << cmd.ip << "Channel:" << cmd.channelId 
+            qWarning() << "[Hikvision PTZ Worker] PTZ Control failed for IP:" << cmd.ip << "Channel:" << targetChannel 
                        << "Command:" << cmd.command << "Stop:" << cmd.stop << "Error:" << err;
         } else {
-            qDebug() << "[Hikvision PTZ Worker] PTZ Control succeeded for IP:" << cmd.ip << "Channel:" << cmd.channelId 
+            qDebug() << "[Hikvision PTZ Worker] PTZ Control succeeded for IP:" << cmd.ip << "Channel:" << targetChannel 
                      << "Command:" << cmd.command << "Stop:" << cmd.stop;
         }
     }
