@@ -334,7 +334,7 @@ Popup {
                     enabled: !downloadDialog.isAnyDownloading()
                 }
                 CctvButton {
-                    text: "📅"
+                    iconSource: "qrc:/images/calendar.svg"
                     isSmall: true
                     Layout.preferredWidth: 30
                     enabled: !downloadDialog.isAnyDownloading()
@@ -373,7 +373,7 @@ Popup {
                     enabled: !downloadDialog.isAnyDownloading()
                 }
                 CctvButton {
-                    text: "📅"
+                    iconSource: "qrc:/images/calendar.svg"
                     isSmall: true
                     Layout.preferredWidth: 30
                     enabled: !downloadDialog.isAnyDownloading()

@@ -1965,7 +1965,8 @@ Window {
                             }
                             CctvButton {
                                 id: calendarButton
-                                text: Qt.formatDate(currentDate, "yyyy-MM-dd") + " 📅"
+                                text: Qt.formatDate(currentDate, "yyyy-MM-dd")
+                                iconSource: "qrc:/images/calendar.svg"
                                 isSmall: true
                                 onClicked: {
                                     var pt = mapToItem(null, 0, 0)

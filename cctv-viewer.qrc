@@ -5,6 +5,8 @@
         <file>images/rewind.svg</file>
         <file>images/forward.svg</file>
         <file>images/play_small.svg</file>
+        <file>images/calendar.svg</file>
+        <file>images/folder.svg</file>
         <file>qtquickcontrols2.conf</file>
         <file>translations/cctv-viewer_pl_PL.qm</file>
         <file>translations/cctv-viewer_en_US.qm</file>

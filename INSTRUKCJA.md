@@ -33,7 +33,7 @@ Jeśli zamiast gotowej paczki chcesz skompilować program ręcznie (np. na innej
 
 1. Zainstaluj wymagane zależności do budowania oraz działania programu. W systemie Arch Linux / CachyOS wywołaj:
    ```bash
-   sudo pacman -S base-devel cmake qt5-declarative qt5-multimedia qt5-quickcontrols qt5-quickcontrols2 qt5-svg qt5-graphicaleffects qt5-tools ffmpeg git noto-fonts-emoji
+   sudo pacman -S base-devel cmake qt5-declarative qt5-multimedia qt5-quickcontrols qt5-quickcontrols2 qt5-svg qt5-graphicaleffects qt5-tools ffmpeg git
    ```
 2. Skonfiguruj projekt za pomocą CMake:
    ```bash

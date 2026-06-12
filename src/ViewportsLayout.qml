@@ -375,6 +375,44 @@ FocusScope {
 
                             keyNavigationHandler(keyLeftCallback);
                             break;
+                        case Qt.Key_Plus:
+                        case Qt.Key_Equal:
+                            if (event.text === "+" || event.key === Qt.Key_Plus) {
+                                if (player.isHikvision) {
+                                    if (!event.isAutoRepeat) {
+                                        HikvisionManager.ptzZoom(player.recorderIp, player.recorderPort, player.username, player.password, player.channelId, 11, false);
+                                    }
+                                    event.accepted = true;
+                                }
+                            }
+                            break;
+                        case Qt.Key_Minus:
+                            if (event.text === "-" || event.key === Qt.Key_Minus) {
+                                if (player.isHikvision) {
+                                    if (!event.isAutoRepeat) {
+                                        HikvisionManager.ptzZoom(player.recorderIp, player.recorderPort, player.username, player.password, player.channelId, 12, false);
+                                    }
+                                    event.accepted = true;
+                                }
+                            }
+                            break;
+                        }
+                    }
+
+                    Keys.onReleased: {
+                        if (event.isAutoRepeat) {
+                            return;
+                        }
+                        if (event.key === Qt.Key_Plus || event.key === Qt.Key_Equal || event.text === "+") {
+                            if (player.isHikvision) {
+                                HikvisionManager.ptzZoom(player.recorderIp, player.recorderPort, player.username, player.password, player.channelId, 11, true);
+                                event.accepted = true;
+                            }
+                        } else if (event.key === Qt.Key_Minus || event.text === "-") {
+                            if (player.isHikvision) {
+                                HikvisionManager.ptzZoom(player.recorderIp, player.recorderPort, player.username, player.password, player.channelId, 12, true);
+                                event.accepted = true;
+                            }
                         }
                     }
 

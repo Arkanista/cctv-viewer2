@@ -144,7 +144,6 @@ To build and run the application, the following packages are required:
   - `qt5-quickcontrols2` (Qt5 Quick Controls 2)
   - `qt5-graphicaleffects` (Qt5 Graphical Effects)
   - `qt5-svg` (Qt5 SVG icon rendering)
-  - `noto-fonts-emoji` (Required for rendering UI emoji icons like folder and calendar)
   - `ffmpeg` (for media demuxing and decoding)
   - *Note: Hikvision SDK shared libraries are pre-bundled under `src/hikvision_sdk/lib/` and automatically set up via the build configuration or Pacman package.*
 
@@ -193,7 +192,7 @@ If you are not using Arch Linux, you can build the application manually using CM
 1. **Install Dependencies:** Ensure you have installed all required runtime and build dependencies listed above using your distribution's package manager.
    For Arch/CachyOS:
    ```bash
-   sudo pacman -S base-devel cmake qt5-declarative qt5-multimedia qt5-quickcontrols qt5-quickcontrols2 qt5-svg qt5-graphicaleffects qt5-tools ffmpeg git noto-fonts-emoji
+   sudo pacman -S base-devel cmake qt5-declarative qt5-multimedia qt5-quickcontrols qt5-quickcontrols2 qt5-svg qt5-graphicaleffects qt5-tools ffmpeg git
    ```
 2. **Configure the build directory:**
    ```bash

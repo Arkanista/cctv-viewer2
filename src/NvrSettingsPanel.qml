@@ -16,6 +16,9 @@ ColumnLayout {
     // Format: [{"ip":"...", "port":8000, "username":"...", "password":"...", "cameras":[{"channelId":1, "name":"..."}]}]
     property var recorders: []
 
+    // Map of active session IPs (IP -> bool)
+    property var activeSessionIps: ({})
+
     // Live UX feedback state
     property string statusMessage: ""
     property string statusColor: "#ff7a00"
@@ -34,6 +37,24 @@ ColumnLayout {
         }
     }
 
+    Connections {
+        target: HikvisionManager
+        function onSessionStatusChanged(ip, loggedIn) {
+            var states = Object.assign({}, rootPanel.activeSessionIps);
+            states[ip] = loggedIn;
+            rootPanel.activeSessionIps = states;
+        }
+    }
+
+    function initializeActiveSessions() {
+        var states = {};
+        for (var i = 0; i < recorders.length; i++) {
+            var ip = recorders[i].ip;
+            states[ip] = HikvisionManager.isLogged(ip);
+        }
+        activeSessionIps = states;
+    }
+
     function loadRecorders() {
         try {
             var data = rootWindow.hikvisionRecordersJson;
@@ -42,6 +63,7 @@ ColumnLayout {
             } else {
                 recorders = [];
             }
+            initializeActiveSessions();
         } catch(e) {
             console.log("[Hikvision QML Error] Failed to load recorders:", e);
             recorders = [];
@@ -381,6 +403,27 @@ ColumnLayout {
                             text: qsTr("%1 cameras connected").arg(modelData.cameras ? modelData.cameras.length : 0)
                             color: "#8898a6"
                             font.pixelSize: 9
+                        }
+                    }
+
+                    RowLayout {
+                        spacing: 6
+                        Layout.alignment: Qt.AlignVCenter
+                        Layout.rightMargin: 4
+
+                        Rectangle {
+                            width: 8
+                            height: 8
+                            radius: 4
+                            antialiasing: true
+                            color: (rootPanel.activeSessionIps[modelData.ip] || false) ? "#00ff66" : "#ff3333"
+                        }
+
+                        Text {
+                            text: (rootPanel.activeSessionIps[modelData.ip] || false) ? qsTr("LOGGED IN") : qsTr("NOT LOGGED IN")
+                            color: (rootPanel.activeSessionIps[modelData.ip] || false) ? "#00ff66" : "#ff3333"
+                            font.pixelSize: 9
+                            font.bold: true
                         }
                     }
 

@@ -266,6 +266,14 @@
         <source>%1 cameras connected</source>
         <translation>%1 cameras connected</translation>
     </message>
+    <message>
+        <source>LOGGED IN</source>
+        <translation>LOGGED IN</translation>
+    </message>
+    <message>
+        <source>NOT LOGGED IN</source>
+        <translation>NOT LOGGED IN</translation>
+    </message>
 </context>
 <context>
     <name>PlaybackWindow</name>
@@ -600,7 +608,7 @@
     </message>
     <message>
         <source>📂 ARCHIWUM</source>
-        <translation>📂 ARCHIVE</translation>
+        <translation type="vanished">📂 ARCHIVE</translation>
     </message>
     <message>
         <source>📊 STATYSTYKI</source>
@@ -681,6 +689,10 @@
     <message>
         <source>NET: </source>
         <translation>NET: </translation>
+    </message>
+    <message>
+        <source>ARCHIVE</source>
+        <translation>ARCHIVE</translation>
     </message>
 </context>
 <context>

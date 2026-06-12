@@ -469,18 +469,30 @@ ApplicationWindow {
 
             Button {
                 id: archiveButton
-                text: qsTr("📂 ARCHIWUM")
+                text: qsTr("ARCHIVE")
                 Layout.preferredWidth: 105
                 Layout.preferredHeight: 30
                 Layout.alignment: Qt.AlignVCenter
 
-                contentItem: Text {
-                    text: archiveButton.text
-                    font.bold: true
-                    font.pixelSize: 10
-                    color: "white"
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
+                contentItem: Row {
+                    spacing: 6
+                    anchors.centerIn: parent
+
+                    Image {
+                        source: "qrc:/images/folder.svg"
+                        width: 14
+                        height: 14
+                        sourceSize: Qt.size(14, 14)
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
+                    Text {
+                        text: archiveButton.text
+                        font.bold: true
+                        font.pixelSize: 10
+                        color: "white"
+                        verticalAlignment: Text.AlignVCenter
+                    }
                 }
 
                 background: Rectangle {

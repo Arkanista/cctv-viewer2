@@ -33,7 +33,7 @@ If you want to compile the program manually (e.g., on another Linux distribution
 
 1. Install the required build and runtime dependencies using your package manager. For Arch Linux / CachyOS:
    ```bash
-   sudo pacman -S base-devel cmake qt5-declarative qt5-multimedia qt5-quickcontrols qt5-quickcontrols2 qt5-svg qt5-graphicaleffects qt5-tools ffmpeg git noto-fonts-emoji
+   sudo pacman -S base-devel cmake qt5-declarative qt5-multimedia qt5-quickcontrols qt5-quickcontrols2 qt5-svg qt5-graphicaleffects qt5-tools ffmpeg git
    ```
 2. Configure the project using CMake:
    ```bash

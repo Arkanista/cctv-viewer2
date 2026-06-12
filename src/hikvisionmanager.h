@@ -25,6 +25,12 @@ public:
     // Logout from a recorder session
     Q_INVOKABLE void logout(const QString &ip);
 
+    // Check if logged in to a recorder
+    Q_INVOKABLE bool isLogged(const QString &ip);
+
+    // PTZ zoom control
+    Q_INVOKABLE bool ptzZoom(const QString &ip, int port, const QString &username, const QString &password, int channelId, int command, bool stop);
+
     // Shared session management for playback players
     struct SharedSession {
         LONG lUserID = -1;
@@ -35,7 +41,13 @@ public:
     LONG loginShared(const QString &ip, int port, const QString &username, const QString &password, NET_DVR_DEVICEINFO_V40 &deviceInfo);
     void logoutShared(const QString &ip);
 
+signals:
+    void sessionStatusChanged(const QString &ip, bool loggedIn);
+
 private:
+    LONG getSession(const QString &ip, int port, const QString &username, const QString &password);
+    bool isLoggedInternal(const QString &ip) const;
+
     static HikvisionManager* m_instance;
     QHash<QString, LONG> m_sessions; // Maps IP to UserID (lUserID)
     QHash<QString, SharedSession> m_sharedSessions;
