@@ -818,6 +818,22 @@
         <source>Wybierz folder dla nagrań</source>
         <translation>Wybierz folder dla nagrań</translation>
     </message>
+    <message>
+        <source>User Interface Settings</source>
+        <translation>Ustawienia interfejsu użytkownika</translation>
+    </message>
+    <message>
+        <source>Show channel status in the top left corner of the viewport</source>
+        <translation>Pokazuj status kanału w lewym górnym rogu viewportu</translation>
+    </message>
+    <message>
+        <source>Show camera info in the bottom left corner of the viewport</source>
+        <translation>Pokazuj informację o kamerze w dolnym lewym rogu viewportu</translation>
+    </message>
+    <message>
+        <source>Show control icons in the bottom right corner of the viewport only when hovering</source>
+        <translation>Pokazuj ikony sterowania w dolnym prawym rogu viewportu tylko po najechaniu kursorem na viewport</translation>
+    </message>
 </context>
 <context>
     <name>SideBar</name>
@@ -1128,6 +1144,22 @@
     <message>
         <source>Wybierz folder dla nagrań</source>
         <translation>Wybierz folder dla nagrań</translation>
+    </message>
+    <message>
+        <source>User Interface Settings</source>
+        <translation>Ustawienia interfejsu użytkownika</translation>
+    </message>
+    <message>
+        <source>Show channel status in the top left corner of the viewport</source>
+        <translation>Pokazuj status kanału w lewym górnym rogu viewportu</translation>
+    </message>
+    <message>
+        <source>Show camera info in the bottom left corner of the viewport</source>
+        <translation>Pokazuj informację o kamerze w dolnym lewym rogu viewportu</translation>
+    </message>
+    <message>
+        <source>Show control icons in the bottom right corner of the viewport only when hovering</source>
+        <translation>Pokazuj ikony sterowania w dolnym prawym rogu viewportu tylko po najechaniu kursorem na viewport</translation>
     </message>
 </context>
 <context>

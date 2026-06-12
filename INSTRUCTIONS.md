@@ -171,3 +171,11 @@ The application allows you to quickly capture high-quality snapshots from any ca
    * **Default recordings path**: Folder where downloaded MP4 videos will be saved (defaults to `~/Wideo/CCTV`).
 3. Clicking the `...` browser button opens your operating system's native folder selector (Breeze in KDE).
 4. **Browser Button Behavior**: The directory picker opens precisely at the path typed in the text field (if it exists). If the field is empty, invalid, or pointing to a folder you don't have access to, the dialog falls back and opens at your home directory (`~/`).
+
+### User Interface Settings (UI):
+1. Go to the **Settings** tab (gear icon in the sidebar) or open the **Options** ("Opcje") sidebar.
+2. In the newly added **User Interface Settings** section, you can customize the visibility of elements overlaid on the camera kafelki/viewports:
+   * **Show channel status in the top left corner of the viewport** (default enabled) — Displays stream loading, playing, and connection status information.
+   * **Show camera info in the bottom left corner of the viewport** (default enabled) — Displays the camera name retrieved from the Hikvision recorder.
+   * **Show control icons in the bottom right corner of the viewport only when hovering** (default enabled) — Automatically hides the control button panel (snapshot, archive, 1:1 pixel-to-pixel, region zoom) when the mouse cursor is outside of that specific camera viewport. The icons appear instantly as soon as you move your mouse over the viewport (no click required) and disappear when leaving, maximizing the visibility of your camera streams.
+

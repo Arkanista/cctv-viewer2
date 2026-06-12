@@ -168,7 +168,31 @@ Dialog {
             }
         }
 
+        GroupBox {
+            title: qsTr("User Interface Settings")
 
+            Layout.fillWidth: true
+
+            ColumnLayout {
+                width: parent.width
+                spacing: 12
+
+                CheckBox {
+                    id: showChannelStatusCheckBox
+                    text: qsTr("Show channel status in the top left corner of the viewport")
+                }
+
+                CheckBox {
+                    id: showCameraInfoCheckBox
+                    text: qsTr("Show camera info in the bottom left corner of the viewport")
+                }
+
+                CheckBox {
+                    id: hoverControlIconsCheckBox
+                    text: qsTr("Show control icons in the bottom right corner of the viewport only when hovering")
+                }
+            }
+        }
 
         GroupBox {
             title: qsTr("Presets")
@@ -295,6 +319,9 @@ Dialog {
         enableStreamSelectionCheckBox.checked = generalSettings.enableStreamSelection;
         
         hideCursorWhenFullScreenCheckBox.checked = viewSettings.hideCursorWhenFullScreen;
+        showChannelStatusCheckBox.checked = viewSettings.showChannelStatus;
+        showCameraInfoCheckBox.checked = viewSettings.showCameraInfo;
+        hoverControlIconsCheckBox.checked = viewSettings.hoverControlIcons;
 
         carouselRunningCheckBox.checked = presetsSettings.carouselRunning;
         carouselIntervalSpinBox.value = presetsSettings.carouselInterval;
@@ -338,6 +365,9 @@ Dialog {
         generalSettings.enableStreamSelection = enableStreamSelectionCheckBox.checked;
         
         viewSettings.hideCursorWhenFullScreen = hideCursorWhenFullScreenCheckBox.checked;
+        viewSettings.showChannelStatus = showChannelStatusCheckBox.checked;
+        viewSettings.showCameraInfo = showCameraInfoCheckBox.checked;
+        viewSettings.hoverControlIcons = hoverControlIconsCheckBox.checked;
 
         presetsSettings.carouselRunning = carouselRunningCheckBox.checked;
         presetsSettings.carouselInterval = carouselIntervalSpinBox.value;

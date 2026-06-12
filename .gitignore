@@ -62,3 +62,6 @@ test_layer.qml
 # Package build files
 *.pkg.tar.zst
 /packaging/arch/cctv-viewer2/
+headless_app.log
+/packaging/arch/pkg/
+/packaging/arch/src/

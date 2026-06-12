@@ -171,3 +171,11 @@ Aplikacja umożliwia szybkie wykonywanie wysokiej jakości stopklatek z dowolneg
    * **Domyślna ścieżka nagrań**: Miejsce zapisu pobieranych wideo (domyślnie `~/Wideo/CCTV`).
 3. Kliknięcie przycisku `...` obok pola tekstowego otwiera natywne okno wyboru folderu systemu operacyjnego (Breeze w KDE).
 4. **Działanie przycisku przeglądania**: Okno wyboru katalogu otwiera się bezpośrednio w katalogu wpisanym w polu tekstowym (jeśli istnieje). W przypadku braku wpisanej ścieżki, jej nieistnienia lub braku uprawnień, okno automatycznie startuje w katalogu domowym użytkownika (`~/`).
+
+### Ustawienia Interfejsu Użytkownika (UI):
+1. Przejdź do zakładki **Ustawienia** (ikona koła zębatego w panelu bocznym) lub otwórz okno **Opcje** u góry ekranu.
+2. W nowo dodanej sekcji **Ustawienia interfejsu użytkownika** możesz dostosować widoczność elementów nakładanych na kafelki kamer (viewporty):
+   * **Pokazuj status kanału w lewym górnym rogu viewportu** (domyślnie włączony) — wyświetla informacje o ładowaniu, odtwarzaniu i statusie połączenia strumienia.
+   * **Pokazuj informację o kamerze w dolnym lewym rogu viewportu** (domyślnie włączony) — wyświetla nazwę kamery pobraną z rejestratora Hikvision.
+   * **Pokazuj ikony sterowania w dolnym prawym rogu viewportu tylko po najechaniu kursorem na viewport** (domyślnie włączony) — automatycznie ukrywa panel przycisków sterujących (stopklatka, archiwum, tryb 1:1, powiększenie regionu), gdy kursor myszy znajduje się poza danym kafelkiem kamery. Ikony pokazują się natychmiast po przesunięciu wskaźnika myszy nad dany viewport (bez konieczności klikania), co zwiększa estetykę podglądu i nie przesłania detali obrazu. Po opuszczeniu kafelka ikony natychmiast znikają.
+

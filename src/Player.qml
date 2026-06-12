@@ -303,6 +303,7 @@ FocusScope {
         border.color: "#101010"
         anchors.fill: parent
 
+
         Item {
             id: videoContainer
             anchors.fill: parent
@@ -457,7 +458,7 @@ FocusScope {
                 margins: 6
             }
             
-            visible: (root.source !== "") && (root.isHikvision ? (root.recorderIp !== "") : (playbackState === MediaPlayer.PlayingState || status === MediaPlayer.Buffered || status === MediaPlayer.Buffering || status === MediaPlayer.Loading))
+            visible: viewSettings.showChannelStatus && (root.source !== "") && (root.isHikvision ? (root.recorderIp !== "") : (playbackState === MediaPlayer.PlayingState || status === MediaPlayer.Buffered || status === MediaPlayer.Buffering || status === MediaPlayer.Loading))
             
             color: "#66121214"
             border {
@@ -513,7 +514,7 @@ FocusScope {
                 margins: 6
             }
             
-            visible: root.isHikvision && root.cameraNameInfo !== ""
+            visible: viewSettings.showCameraInfo && root.isHikvision && root.cameraNameInfo !== ""
             
             color: "#66121214"
             border {
@@ -634,6 +635,13 @@ FocusScope {
             border.width: 1
         }
 
+        MouseArea {
+            id: playerHoverArea
+            anchors.fill: parent
+            hoverEnabled: true
+            acceptedButtons: Qt.NoButton
+        }
+
         // Symmetrically placed magnifying glass button overlay on the bottom right (no fill tło, gray border, white icon by default, color-coded modes)
         Row {
             anchors {
@@ -642,6 +650,7 @@ FocusScope {
                 margins: 6
             }
             spacing: 6
+            visible: (root.source !== "") && (!viewSettings.hoverControlIcons || playerHoverArea.containsMouse || snapshotMouseAreaBtn.containsMouse || playbackMouseAreaBtn.containsMouse || oneToOneMouseAreaBtn.containsMouse || zoomMouseAreaBtn.containsMouse)
 
             Control {
                 id: snapshotBadge

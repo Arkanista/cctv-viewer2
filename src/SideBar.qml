@@ -1683,6 +1683,50 @@ FocusScope {
                     }
 
                     GroupBox {
+                        title: qsTr("User Interface Settings")
+                        Layout.fillWidth: true
+
+                        background: Rectangle {
+                            color: "#141a21"
+                            border.color: "#2a3540"
+                            border.width: 1
+                            radius: 8
+                        }
+                        label: Text {
+                            text: parent.title
+                            color: "#00f5d4"
+                            font.bold: true
+                            font.pixelSize: 12
+                        }
+
+                        ColumnLayout {
+                            anchors.fill: parent
+                            spacing: 8
+
+                            CheckBox {
+                                text: qsTr("Show channel status in the top left corner of the viewport")
+                                checked: viewSettings.showChannelStatus
+                                onCheckedChanged: viewSettings.showChannelStatus = checked
+                                Layout.fillWidth: true
+                            }
+
+                            CheckBox {
+                                text: qsTr("Show camera info in the bottom left corner of the viewport")
+                                checked: viewSettings.showCameraInfo
+                                onCheckedChanged: viewSettings.showCameraInfo = checked
+                                Layout.fillWidth: true
+                            }
+
+                            CheckBox {
+                                text: qsTr("Show control icons in the bottom right corner of the viewport only when hovering")
+                                checked: viewSettings.hoverControlIcons
+                                onCheckedChanged: viewSettings.hoverControlIcons = checked
+                                Layout.fillWidth: true
+                            }
+                        }
+                    }
+
+                    GroupBox {
                         title: qsTr("Zapis")
                         Layout.fillWidth: true
 
