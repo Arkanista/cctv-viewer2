@@ -1,4 +1,5 @@
 #include "hikvisionmanager.h"
+#include "context.h"
 #include <QDebug>
 #include <QProcess>
 #include <QRegularExpression>
@@ -11,6 +12,11 @@ HikvisionManager::HikvisionManager(QObject *parent)
     , m_initialized(false)
 {
     m_instance = this;
+    if (Context::isAuxiliary()) {
+        qDebug() << "[Hikvision] Skipping HCNetSDK initialization in auxiliary mode.";
+        return;
+    }
+
     if (NET_DVR_Init()) {
         m_initialized = true;
         qDebug() << "[Hikvision] HCNetSDK Initialized successfully.";

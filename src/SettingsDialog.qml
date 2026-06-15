@@ -191,6 +191,11 @@ Dialog {
                     id: hoverControlIconsCheckBox
                     text: qsTr("Show control icons in the bottom right corner of the viewport only when hovering")
                 }
+
+                CheckBox {
+                    id: showInfoOnHoverOnlyCheckBox
+                    text: qsTr("Show info fields only when hovering")
+                }
             }
         }
 
@@ -322,6 +327,7 @@ Dialog {
         showChannelStatusCheckBox.checked = viewSettings.showChannelStatus;
         showCameraInfoCheckBox.checked = viewSettings.showCameraInfo;
         hoverControlIconsCheckBox.checked = viewSettings.hoverControlIcons;
+        showInfoOnHoverOnlyCheckBox.checked = viewSettings.showInfoOnHoverOnly;
 
         carouselRunningCheckBox.checked = presetsSettings.carouselRunning;
         carouselIntervalSpinBox.value = presetsSettings.carouselInterval;
@@ -368,6 +374,7 @@ Dialog {
         viewSettings.showChannelStatus = showChannelStatusCheckBox.checked;
         viewSettings.showCameraInfo = showCameraInfoCheckBox.checked;
         viewSettings.hoverControlIcons = hoverControlIconsCheckBox.checked;
+        viewSettings.showInfoOnHoverOnly = showInfoOnHoverOnlyCheckBox.checked;
 
         presetsSettings.carouselRunning = carouselRunningCheckBox.checked;
         presetsSettings.carouselInterval = carouselIntervalSpinBox.value;

@@ -24,7 +24,7 @@ FocusScope {
     implicitHeight: 600
 
     property int state: SideBar.Expanded
-    property int currentViewportIndex: Utils.currentLayout().focusIndex
+    property int currentViewportIndex: Utils.currentLayout() ? Utils.currentLayout().focusIndex : -1
 
     property var regularIndices: []
     property var nvrIndices: []
@@ -613,8 +613,8 @@ FocusScope {
 
                                 Button {
                                     text: qsTr("Mute / Unmute Audio")
-                                    enabled: configUnlockSwitch.checked && (rootSideBar.currentViewportIndex >= 0 ? Utils.currentLayout().get(rootSideBar.currentViewportIndex).hasAudio : false)
-                                    highlighted: !(rootSideBar.currentViewportIndex >= 0 && Utils.currentModel().get(rootSideBar.currentViewportIndex).volume > 0 || viewportSettings.unmuteWhenFullScreen && Utils.currentLayout().fullScreenIndex >= 0)
+                                    enabled: configUnlockSwitch.checked && (rootSideBar.currentViewportIndex >= 0 && Utils.currentLayout() ? Utils.currentLayout().get(rootSideBar.currentViewportIndex).hasAudio : false)
+                                    highlighted: !(rootSideBar.currentViewportIndex >= 0 && Utils.currentModel() && Utils.currentModel().get(rootSideBar.currentViewportIndex).volume > 0 || viewportSettings.unmuteWhenFullScreen && Utils.currentLayout() && Utils.currentLayout().fullScreenIndex >= 0)
                                     Layout.fillWidth: true
                                     onClicked: {
                                         if (rootSideBar.currentViewportIndex >= 0) {
@@ -705,7 +705,7 @@ FocusScope {
 
                     GroupBox {
                         title: qsTr("Window Division")
-                        enabled: toolsUnlockSwitch.checked && !(Utils.currentLayout().fullScreenIndex >= 0)
+                        enabled: toolsUnlockSwitch.checked && !(Utils.currentLayout() && Utils.currentLayout().fullScreenIndex >= 0)
                         Layout.fillWidth: true
 
                         background: Rectangle {
@@ -930,9 +930,9 @@ FocusScope {
 
                             Button {
                                 text: qsTr("Merge Highlighted Cells")
-                                enabled: Utils.currentLayout().mergeCells(true)
+                                enabled: Utils.currentLayout() ? Utils.currentLayout().mergeCells(true) : false
                                 Layout.fillWidth: true
-                                onClicked: Utils.currentLayout().mergeCells()
+                                onClicked: if (Utils.currentLayout()) Utils.currentLayout().mergeCells()
                             }
                         }
                     }
@@ -1721,6 +1721,13 @@ FocusScope {
                                 text: qsTr("Show control icons in the bottom right corner of the viewport only when hovering")
                                 checked: viewSettings.hoverControlIcons
                                 onCheckedChanged: viewSettings.hoverControlIcons = checked
+                                Layout.fillWidth: true
+                            }
+
+                            CheckBox {
+                                text: qsTr("Show info fields only when hovering")
+                                checked: viewSettings.showInfoOnHoverOnly
+                                onCheckedChanged: viewSettings.showInfoOnHoverOnly = checked
                                 Layout.fillWidth: true
                             }
                         }

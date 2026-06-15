@@ -29,7 +29,7 @@
     </message>
     <message>
         <source>Brak wybranego widoku</source>
-        <translation>Brak wybranego widoku</translation>
+        <translation type="vanished">Brak wybranego widoku</translation>
     </message>
     <message>
         <source>Wybierz widok z menu na górnym pasku, aby rozpocząć wyświetlanie kamer.</source>
@@ -74,6 +74,14 @@
     <message>
         <source>NIE</source>
         <translation>NIE</translation>
+    </message>
+    <message>
+        <source>Nie wybrano widoku</source>
+        <translation type="vanished">Nie wybrano widoku</translation>
+    </message>
+    <message>
+        <source>Nie wybrano widoku, wybierz widok</source>
+        <translation>Nie wybrano widoku, wybierz widok</translation>
     </message>
 </context>
 <context>
@@ -199,6 +207,85 @@
     <message>
         <source>Pobierz</source>
         <translation>Pobierz</translation>
+    </message>
+    <message>
+        <source>Całkowity:</source>
+        <translation>Całkowity:</translation>
+    </message>
+    <message>
+        <source>Pobieranie...</source>
+        <translation>Pobieranie...</translation>
+    </message>
+    <message>
+        <source>Błąd:</source>
+        <translation>Błąd:</translation>
+    </message>
+    <message>
+        <source>Inicjalizacja...</source>
+        <translation>Inicjalizacja...</translation>
+    </message>
+    <message>
+        <source>Zatrzymano</source>
+        <translation>Zatrzymano</translation>
+    </message>
+</context>
+<context>
+    <name>HikvisionDownloader</name>
+    <message>
+        <source>Pobieranie już trwa.</source>
+        <translation>Pobieranie już trwa.</translation>
+    </message>
+    <message>
+        <source>Błąd logowania do urządzenia: %1</source>
+        <translation>Błąd logowania do urządzenia: %1</translation>
+    </message>
+    <message>
+        <source>Brak nagrań w wybranym przedziale czasowym dla tej kamery.</source>
+        <translation>Brak nagrań w wybranym przedziale czasowym dla tej kamery.</translation>
+    </message>
+    <message>
+        <source>Pobrano i przekonwertowano %1 z %2 plików.</source>
+        <translation>Pobrano i przekonwertowano %1 z %2 plików.</translation>
+    </message>
+    <message>
+        <source>Błąd inicjalizacji pobierania części %1: %2</source>
+        <translation>Błąd inicjalizacji pobierania części %1: %2</translation>
+    </message>
+    <message>
+        <source>Błąd startu pobierania części %1: %2</source>
+        <translation>Błąd startu pobierania części %1: %2</translation>
+    </message>
+    <message>
+        <source>Pobieranie części %1 z %2...</source>
+        <translation>Pobieranie części %1 z %2...</translation>
+    </message>
+    <message>
+        <source>Zatrzymano</source>
+        <translation>Zatrzymano</translation>
+    </message>
+    <message>
+        <source>Pobieranie przerwane przez użytkownika.</source>
+        <translation>Pobieranie przerwane przez użytkownika.</translation>
+    </message>
+    <message>
+        <source>Konwertowanie części %1 z %2...</source>
+        <translation>Konwertowanie części %1 z %2...</translation>
+    </message>
+    <message>
+        <source>Błąd w trakcie pobierania części %1.</source>
+        <translation>Błąd w trakcie pobierania części %1.</translation>
+    </message>
+    <message>
+        <source>Pobrano i przekonwertowano %1 z %2 części...</source>
+        <translation>Pobrano i przekonwertowano %1 z %2 części...</translation>
+    </message>
+    <message>
+        <source>Błąd wewnętrzny FFmpeg</source>
+        <translation>Błąd wewnętrzny FFmpeg</translation>
+    </message>
+    <message>
+        <source>Konwersja części %1 na MP4 nie powiodła się: %2</source>
+        <translation>Konwersja części %1 na MP4 nie powiodła się: %2</translation>
     </message>
 </context>
 <context>
@@ -739,6 +826,14 @@
         <source>ARCHIVE</source>
         <translation>ARCHIWUM</translation>
     </message>
+    <message>
+        <source>Nie wybrano widoku, wybierz widok</source>
+        <translation>Nie wybrano widoku, wybierz widok</translation>
+    </message>
+    <message>
+        <source>Wybierz widok z menu na górnym pasku, aby rozpocząć wyświetlanie kamer.</source>
+        <translation>Wybierz widok z menu na górnym pasku, aby rozpocząć wyświetlanie kamer.</translation>
+    </message>
 </context>
 <context>
     <name>SettingsDialog</name>
@@ -833,6 +928,10 @@
     <message>
         <source>Show control icons in the bottom right corner of the viewport only when hovering</source>
         <translation>Pokazuj ikony sterowania w dolnym prawym rogu viewportu tylko po najechaniu kursorem na viewport</translation>
+    </message>
+    <message>
+        <source>Show info fields only when hovering</source>
+        <translation>Pokazuj pola informacyjne tylko po najechaniu kursorem</translation>
     </message>
 </context>
 <context>
@@ -1160,6 +1259,10 @@
     <message>
         <source>Show control icons in the bottom right corner of the viewport only when hovering</source>
         <translation>Pokazuj ikony sterowania w dolnym prawym rogu viewportu tylko po najechaniu kursorem na viewport</translation>
+    </message>
+    <message>
+        <source>Show info fields only when hovering</source>
+        <translation>Pokazuj pola informacyjne tylko po najechaniu kursorem</translation>
     </message>
 </context>
 <context>

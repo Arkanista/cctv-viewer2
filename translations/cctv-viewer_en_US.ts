@@ -9,7 +9,7 @@
     </message>
     <message>
         <source>Brak wybranego widoku</source>
-        <translation>No view selected</translation>
+        <translation type="vanished">No view selected</translation>
     </message>
     <message>
         <source>Wybierz widok z menu na górnym pasku, aby rozpocząć wyświetlanie kamer.</source>
@@ -58,6 +58,14 @@
     <message>
         <source>NIE</source>
         <translation>NO</translation>
+    </message>
+    <message>
+        <source>Nie wybrano widoku</source>
+        <translation type="vanished">No view selected</translation>
+    </message>
+    <message>
+        <source>Nie wybrano widoku, wybierz widok</source>
+        <translation>No view selected, select a view</translation>
     </message>
 </context>
 <context>
@@ -183,6 +191,85 @@
     <message>
         <source>Pobierz</source>
         <translation>Download</translation>
+    </message>
+    <message>
+        <source>Całkowity:</source>
+        <translation>Total:</translation>
+    </message>
+    <message>
+        <source>Pobieranie...</source>
+        <translation>Downloading...</translation>
+    </message>
+    <message>
+        <source>Błąd:</source>
+        <translation>Error:</translation>
+    </message>
+    <message>
+        <source>Inicjalizacja...</source>
+        <translation>Initializing...</translation>
+    </message>
+    <message>
+        <source>Zatrzymano</source>
+        <translation>Stopped</translation>
+    </message>
+</context>
+<context>
+    <name>HikvisionDownloader</name>
+    <message>
+        <source>Pobieranie już trwa.</source>
+        <translation>Download is already in progress.</translation>
+    </message>
+    <message>
+        <source>Błąd logowania do urządzenia: %1</source>
+        <translation>Error logging in to device: %1</translation>
+    </message>
+    <message>
+        <source>Brak nagrań w wybranym przedziale czasowym dla tej kamery.</source>
+        <translation>No recordings in the selected time range for this camera.</translation>
+    </message>
+    <message>
+        <source>Pobrano i przekonwertowano %1 z %2 plików.</source>
+        <translation>Downloaded and converted %1 of %2 files.</translation>
+    </message>
+    <message>
+        <source>Błąd inicjalizacji pobierania części %1: %2</source>
+        <translation>Error initializing download of part %1: %2</translation>
+    </message>
+    <message>
+        <source>Błąd startu pobierania części %1: %2</source>
+        <translation>Error starting download of part %1: %2</translation>
+    </message>
+    <message>
+        <source>Pobieranie części %1 z %2...</source>
+        <translation>Downloading part %1 of %2...</translation>
+    </message>
+    <message>
+        <source>Zatrzymano</source>
+        <translation>Stopped</translation>
+    </message>
+    <message>
+        <source>Pobieranie przerwane przez użytkownika.</source>
+        <translation>Download interrupted by user.</translation>
+    </message>
+    <message>
+        <source>Konwertowanie części %1 z %2...</source>
+        <translation>Converting part %1 of %2...</translation>
+    </message>
+    <message>
+        <source>Błąd w trakcie pobierania części %1.</source>
+        <translation>Error downloading part %1.</translation>
+    </message>
+    <message>
+        <source>Pobrano i przekonwertowano %1 z %2 części...</source>
+        <translation>Downloaded and converted %1 of %2 parts...</translation>
+    </message>
+    <message>
+        <source>Błąd wewnętrzny FFmpeg</source>
+        <translation>Internal FFmpeg error</translation>
+    </message>
+    <message>
+        <source>Konwersja części %1 na MP4 nie powiodła się: %2</source>
+        <translation>Conversion of part %1 to MP4 failed: %2</translation>
     </message>
 </context>
 <context>
@@ -714,6 +801,14 @@
         <source>ARCHIVE</source>
         <translation>ARCHIVE</translation>
     </message>
+    <message>
+        <source>Nie wybrano widoku, wybierz widok</source>
+        <translation>No view selected, select a view</translation>
+    </message>
+    <message>
+        <source>Wybierz widok z menu na górnym pasku, aby rozpocząć wyświetlanie kamer.</source>
+        <translation>Select a view from the top menu to start displaying cameras.</translation>
+    </message>
 </context>
 <context>
     <name>SettingsDialog</name>
@@ -804,6 +899,10 @@
     <message>
         <source>Show control icons in the bottom right corner of the viewport only when hovering</source>
         <translation>Show control icons in the bottom right corner of the viewport only when hovering</translation>
+    </message>
+    <message>
+        <source>Show info fields only when hovering</source>
+        <translation>Show info fields only when hovering</translation>
     </message>
 </context>
 <context>
@@ -1111,6 +1210,10 @@
     <message>
         <source>Show control icons in the bottom right corner of the viewport only when hovering</source>
         <translation>Show control icons in the bottom right corner of the viewport only when hovering</translation>
+    </message>
+    <message>
+        <source>Show info fields only when hovering</source>
+        <translation>Show info fields only when hovering</translation>
     </message>
 </context>
 <context>

@@ -154,6 +154,7 @@ ApplicationWindow {
         property bool showChannelStatus: true
         property bool showCameraInfo: true
         property bool hoverControlIcons: true
+        property bool showInfoOnHoverOnly: false
     }
 
     Settings {
@@ -813,6 +814,49 @@ ApplicationWindow {
 
     Item {
         anchors.fill: parent
+
+        // Placeholder when no view is selected in auxiliary window
+        Rectangle {
+            anchors.fill: parent
+            color: "#0f151b"
+            visible: Context.isAuxiliary && stackLayout.currentIndex === -1
+
+            // Seledynowa ramka wewnątrz pustego pola (matching the archive viewport placeholder style)
+            Rectangle {
+                anchors.fill: parent
+                anchors.margins: 16
+                color: "transparent"
+                border.color: "#00f5d4"
+                border.width: 1.5
+                radius: 8
+            }
+
+            ColumnLayout {
+                anchors.centerIn: parent
+                spacing: 12
+
+                Text {
+                    text: "📺"
+                    font.pixelSize: 48
+                    Layout.alignment: Qt.AlignHCenter
+                }
+
+                Text {
+                    text: qsTr("Nie wybrano widoku, wybierz widok")
+                    color: "#00f5d4"
+                    font.bold: true
+                    font.pixelSize: 18
+                    Layout.alignment: Qt.AlignHCenter
+                }
+
+                Text {
+                    text: qsTr("Wybierz widok z menu na górnym pasku, aby rozpocząć wyświetlanie kamer.")
+                    color: "#8898a6"
+                    font.pixelSize: 12
+                    Layout.alignment: Qt.AlignHCenter
+                }
+            }
+        }
 
         StackLayout {
             id: stackLayout

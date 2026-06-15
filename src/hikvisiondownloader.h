@@ -14,6 +14,7 @@ class HikvisionDownloader : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool isDownloading READ isDownloading NOTIFY isDownloadingChanged)
+    Q_PROPERTY(bool isConverting READ isConverting NOTIFY isConvertingChanged)
     Q_PROPERTY(int progress READ progress NOTIFY progressChanged)
     Q_PROPERTY(QString statusText READ statusText NOTIFY statusTextChanged)
     Q_PROPERTY(int overallProgress READ overallProgress NOTIFY overallProgressChanged)
@@ -23,6 +24,7 @@ public:
     ~HikvisionDownloader() override;
 
     bool isDownloading() const;
+    bool isConverting() const;
     int progress() const;
     QString statusText() const;
     int overallProgress() const;
@@ -32,6 +34,7 @@ public:
 
 signals:
     void isDownloadingChanged();
+    void isConvertingChanged();
     void progressChanged();
     void statusTextChanged();
     void overallProgressChanged();
@@ -45,6 +48,7 @@ private:
     void startNextSegment();
 
     bool m_isDownloading;
+    bool m_isConverting;
     int m_progress;
     QString m_statusText;
     LONG m_lUserID;

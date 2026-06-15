@@ -104,6 +104,16 @@ Window {
             color: "#0f151b"
             visible: auxWindow.layoutIndex === -1
 
+            // Seledynowa ramka wewnątrz pustego pola (matching the archive viewport placeholder style)
+            Rectangle {
+                anchors.fill: parent
+                anchors.margins: 16
+                color: "transparent"
+                border.color: "#00f5d4"
+                border.width: 1.5
+                radius: 8
+            }
+
             ColumnLayout {
                 anchors.centerIn: parent
                 spacing: 12
@@ -115,8 +125,8 @@ Window {
                 }
 
                 Text {
-                    text: qsTr("Brak wybranego widoku")
-                    color: "white"
+                    text: qsTr("Nie wybrano widoku, wybierz widok")
+                    color: "#00f5d4"
                     font.bold: true
                     font.pixelSize: 18
                     Layout.alignment: Qt.AlignHCenter

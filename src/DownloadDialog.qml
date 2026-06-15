@@ -435,7 +435,7 @@ Popup {
                             id: rowDownloader
                             onStatusTextChanged: {
                                 if (rowDownloader.statusText !== "") {
-                                    if (rowDownloader.isDownloading && rowDownloader.statusText.indexOf("Konwertowanie") !== -1) {
+                                    if (rowDownloader.isDownloading && rowDownloader.isConverting) {
                                         model.statusText = rowDownloader.statusText + " (" + rowDownloader.overallProgress + "%)"
                                     } else {
                                         model.statusText = rowDownloader.statusText
@@ -445,14 +445,12 @@ Popup {
                             onProgressChanged: {
                                 model.progress = rowDownloader.overallProgress
                                 if (rowDownloader.isDownloading) {
-                                    if (rowDownloader.statusText !== "") {
-                                        if (rowDownloader.statusText.indexOf("Konwertowanie") !== -1) {
-                                            model.statusText = rowDownloader.statusText + " (" + rowDownloader.overallProgress + "%)"
-                                        } else {
-                                            model.statusText = rowDownloader.statusText + " " + rowDownloader.progress + "% (Całkowity: " + rowDownloader.overallProgress + "%)"
-                                        }
+                                    if (rowDownloader.isConverting) {
+                                        model.statusText = rowDownloader.statusText + " (" + rowDownloader.overallProgress + "%)"
+                                    } else if (rowDownloader.statusText !== "") {
+                                        model.statusText = rowDownloader.statusText + " " + rowDownloader.progress + "% (" + qsTr("Całkowity:") + " " + rowDownloader.overallProgress + "%)"
                                     } else {
-                                        model.statusText = "Pobieranie... " + rowDownloader.overallProgress + "%"
+                                        model.statusText = qsTr("Pobieranie...") + " " + rowDownloader.overallProgress + "%"
                                     }
                                 }
                             }
@@ -461,21 +459,21 @@ Popup {
                                 if (success) {
                                     model.statusText = message
                                 } else {
-                                    model.statusText = "Błąd: " + message
+                                    model.statusText = qsTr("Błąd:") + " " + message
                                 }
                             }
                         }
                         
                         function startRowDownload(recInfo, startDt, endDt) {
                             model.isDownloading = true
-                            model.statusText = "Inicjalizacja..."
+                            model.statusText = qsTr("Inicjalizacja...")
                             rowDownloader.startDownload(recInfo, model.channelId, startDt, endDt, model.savePath)
                         }
                         
                         function stopRowDownload() {
                             rowDownloader.stopDownload()
                             model.isDownloading = false
-                            model.statusText = "Zatrzymano"
+                            model.statusText = qsTr("Zatrzymano")
                         }
                         
                         RowLayout {

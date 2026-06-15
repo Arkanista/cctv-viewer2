@@ -85,7 +85,7 @@ Window {
 
             GroupBox {
                 title: qsTr("Window Division")
-                enabled: toolsUnlockSwitch.checked && !(Utils.currentLayout().fullScreenIndex >= 0)
+                enabled: toolsUnlockSwitch.checked && !(Utils.currentLayout() && Utils.currentLayout().fullScreenIndex >= 0)
                 Layout.fillWidth: true
 
                 background: Rectangle {
@@ -373,9 +373,9 @@ Window {
                     Button {
                         id: btnMergeCells
                         text: qsTr("Merge Highlighted Cells")
-                        enabled: Utils.currentLayout().mergeCells(true)
+                        enabled: Utils.currentLayout() ? Utils.currentLayout().mergeCells(true) : false
                         Layout.fillWidth: true
-                        onClicked: Utils.currentLayout().mergeCells()
+                        onClicked: if (Utils.currentLayout()) Utils.currentLayout().mergeCells()
                         background: Rectangle {
                             color: !btnMergeCells.enabled ? "#cc1c242c" : (btnMergeCells.pressed ? "#cc121214" : (btnMergeCells.hovered ? "#059669" : "#10b981"))
                             radius: 6

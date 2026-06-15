@@ -458,7 +458,7 @@ FocusScope {
                 margins: 6
             }
             
-            visible: viewSettings.showChannelStatus && (root.source !== "") && (root.isHikvision ? (root.recorderIp !== "") : (playbackState === MediaPlayer.PlayingState || status === MediaPlayer.Buffered || status === MediaPlayer.Buffering || status === MediaPlayer.Loading))
+            visible: (!viewSettings.showInfoOnHoverOnly || playerHoverArea.containsMouse) && viewSettings.showChannelStatus && (root.source !== "") && (root.isHikvision ? (root.recorderIp !== "") : (playbackState === MediaPlayer.PlayingState || status === MediaPlayer.Buffered || status === MediaPlayer.Buffering || status === MediaPlayer.Loading))
             
             color: "#66121214"
             border {
@@ -514,7 +514,7 @@ FocusScope {
                 margins: 6
             }
             
-            visible: viewSettings.showCameraInfo && root.isHikvision && root.cameraNameInfo !== ""
+            visible: (!viewSettings.showInfoOnHoverOnly || playerHoverArea.containsMouse) && viewSettings.showCameraInfo && root.isHikvision && root.cameraNameInfo !== ""
             
             color: "#66121214"
             border {

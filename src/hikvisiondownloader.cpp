@@ -8,6 +8,7 @@
 HikvisionDownloader::HikvisionDownloader(QObject *parent)
     : QObject(parent)
     , m_isDownloading(false)
+    , m_isConverting(false)
     , m_progress(0)
     , m_statusText("")
     , m_lUserID(-1)
@@ -31,6 +32,11 @@ bool HikvisionDownloader::isDownloading() const
     return m_isDownloading;
 }
 
+bool HikvisionDownloader::isConverting() const
+{
+    return m_isConverting;
+}
+
 QString HikvisionDownloader::statusText() const
 {
     return m_statusText;
@@ -50,7 +56,7 @@ int HikvisionDownloader::overallProgress() const
 void HikvisionDownloader::startDownload(const QVariantMap &recorderInfo, int channelId, const QDateTime &start, const QDateTime &end, const QString &saveFilePath)
 {
     if (m_isDownloading) {
-        emit downloadFinished(false, "Pobieranie już trwa.");
+        emit downloadFinished(false, tr("Pobieranie już trwa."));
         return;
     }
 
@@ -74,7 +80,7 @@ void HikvisionDownloader::startDownload(const QVariantMap &recorderInfo, int cha
 
     m_lUserID = NET_DVR_Login_V40(&loginInfo, &deviceInfo);
     if (m_lUserID < 0) {
-        emit downloadFinished(false, QString("Błąd logowania do urządzenia: %1").arg(NET_DVR_GetLastError()));
+        emit downloadFinished(false, tr("Błąd logowania do urządzenia: %1").arg(NET_DVR_GetLastError()));
         return;
     }
 
@@ -141,7 +147,7 @@ void HikvisionDownloader::startDownload(const QVariantMap &recorderInfo, int cha
     }
 
     if (m_segments.isEmpty()) {
-        emit downloadFinished(false, "Brak nagrań w wybranym przedziale czasowym dla tej kamery.");
+        emit downloadFinished(false, tr("Brak nagrań w wybranym przedziale czasowym dla tej kamery."));
         NET_DVR_Logout(m_lUserID);
         m_lUserID = -1;
         return;
@@ -159,19 +165,29 @@ void HikvisionDownloader::startDownload(const QVariantMap &recorderInfo, int cha
         baseTemp.replace(baseTemp.length() - 4, 4, ".pspart");
     }
 
-    for (int i = 0; i < m_segments.size(); ++i) {
+    int totalParts = m_segments.size();
+    int padWidth = 1;
+    if (totalParts > 99) {
+        padWidth = 3;
+    } else if (totalParts > 9) {
+        padWidth = 2;
+    }
+
+    for (int i = 0; i < totalParts; ++i) {
         QString segFinal = baseFinal;
         QString segTemp = baseTemp;
-        if (i > 0) {
+        if (totalParts > 1) {
+            int partNum = i + 1;
+            QString suffix = QString("_%1").arg(partNum, padWidth, 10, QChar('0'));
             if (segFinal.endsWith(".mp4", Qt::CaseInsensitive)) {
-                segFinal.insert(segFinal.length() - 4, QString("_%1").arg(i));
+                segFinal.insert(segFinal.length() - 4, suffix);
             } else {
-                segFinal += QString("_%1").arg(i);
+                segFinal += suffix;
             }
             if (segTemp.endsWith(".pspart", Qt::CaseInsensitive)) {
-                segTemp.insert(segTemp.length() - 7, QString("_%1").arg(i));
+                segTemp.insert(segTemp.length() - 7, suffix);
             } else {
-                segTemp += QString("_%1").arg(i);
+                segTemp += suffix;
             }
         }
         m_segments[i].finalPath = segFinal;
@@ -196,7 +212,7 @@ void HikvisionDownloader::startNextSegment()
         NET_DVR_Logout(m_lUserID);
         m_lUserID = -1;
         
-        QString summaryMsg = QString("Pobrano i przekonwertowano %1 z %2 plików.").arg(m_convertedSegmentsCount).arg(m_totalSegmentsCount);
+        QString summaryMsg = tr("Pobrano i przekonwertowano %1 z %2 plików.").arg(m_convertedSegmentsCount).arg(m_totalSegmentsCount);
         m_statusText = summaryMsg;
         emit statusTextChanged();
         emit downloadFinished(true, summaryMsg);
@@ -261,7 +277,7 @@ void HikvisionDownloader::startNextSegment()
         m_lUserID = -1;
         m_isDownloading = false;
         emit isDownloadingChanged();
-        emit downloadFinished(false, QString("Błąd inicjalizacji pobierania części %1: %2").arg(m_currentSegmentIndex + 1).arg(err));
+        emit downloadFinished(false, tr("Błąd inicjalizacji pobierania części %1: %2").arg(m_currentSegmentIndex + 1).arg(err));
         return;
     }
 
@@ -272,7 +288,7 @@ void HikvisionDownloader::startNextSegment()
         m_lUserID = -1;
         m_isDownloading = false;
         emit isDownloadingChanged();
-        emit downloadFinished(false, QString("Błąd startu pobierania części %1: %2").arg(m_currentSegmentIndex + 1).arg(NET_DVR_GetLastError()));
+        emit downloadFinished(false, tr("Błąd startu pobierania części %1: %2").arg(m_currentSegmentIndex + 1).arg(NET_DVR_GetLastError()));
         return;
     }
 
@@ -281,7 +297,7 @@ void HikvisionDownloader::startNextSegment()
     emit progressChanged();
     emit overallProgressChanged();
 
-    m_statusText = QString("Pobieranie części %1 z %2...").arg(m_currentSegmentIndex + 1).arg(m_totalSegmentsCount);
+    m_statusText = tr("Pobieranie części %1 z %2...").arg(m_currentSegmentIndex + 1).arg(m_totalSegmentsCount);
     emit statusTextChanged();
 
     m_timer->start();
@@ -312,13 +328,15 @@ void HikvisionDownloader::stopDownload()
     }
 
     m_isDownloading = false;
+    m_isConverting = false;
+    emit isConvertingChanged();
     m_progress = 0;
-    m_statusText = "Zatrzymano";
+    m_statusText = tr("Zatrzymano");
     emit isDownloadingChanged();
     emit progressChanged();
     emit overallProgressChanged();
     emit statusTextChanged();
-    emit downloadFinished(false, "Pobieranie przerwane przez użytkownika.");
+    emit downloadFinished(false, tr("Pobieranie przerwane przez użytkownika."));
 }
 
 void HikvisionDownloader::checkProgress()
@@ -360,7 +378,9 @@ void HikvisionDownloader::checkProgress()
             emit overallProgressChanged();
             
             if (m_finalFilePath.endsWith(".mp4", Qt::CaseInsensitive)) {
-                m_statusText = QString("Konwertowanie części %1 z %2...").arg(m_currentSegmentIndex + 1).arg(m_totalSegmentsCount);
+                m_isConverting = true;
+                emit isConvertingChanged();
+                m_statusText = tr("Konwertowanie części %1 z %2...").arg(m_currentSegmentIndex + 1).arg(m_totalSegmentsCount);
                 emit statusTextChanged();
                 m_ffmpegProcess->start("ffmpeg", QStringList() << "-y" << "-i" << m_tempFilePath << "-c:v" << "copy" << "-c:a" << "aac" << m_finalFilePath);
             } else {
@@ -374,11 +394,13 @@ void HikvisionDownloader::checkProgress()
                 m_lUserID = -1;
             }
             m_isDownloading = false;
+            m_isConverting = false;
+            emit isConvertingChanged();
             m_progress = 0;
             emit isDownloadingChanged();
             emit progressChanged();
             emit overallProgressChanged();
-            emit downloadFinished(false, QString("Błąd w trakcie pobierania części %1.").arg(m_currentSegmentIndex + 1));
+            emit downloadFinished(false, tr("Błąd w trakcie pobierania części %1.").arg(m_currentSegmentIndex + 1));
         }
     } else {
         if (m_progress != pos) {
@@ -391,11 +413,14 @@ void HikvisionDownloader::checkProgress()
 
 void HikvisionDownloader::onFfmpegFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
+    m_isConverting = false;
+    emit isConvertingChanged();
+
     if (exitStatus == QProcess::NormalExit && exitCode == 0) {
         QFile::remove(m_tempFilePath);
         m_convertedSegmentsCount++;
         m_currentSegmentIndex++;
-        m_statusText = QString("Pobrano i przekonwertowano %1 z %2 części...").arg(m_convertedSegmentsCount).arg(m_totalSegmentsCount);
+        m_statusText = tr("Pobrano i przekonwertowano %1 z %2 części...").arg(m_convertedSegmentsCount).arg(m_totalSegmentsCount);
         emit statusTextChanged();
         
         startNextSegment();
@@ -411,7 +436,7 @@ void HikvisionDownloader::onFfmpegFinished(int exitCode, QProcess::ExitStatus ex
         
         QString shortError = QString::fromUtf8(stderrOutput.trimmed());
         if (shortError.isEmpty()) {
-            shortError = "Błąd wewnętrzny FFmpeg";
+            shortError = tr("Błąd wewnętrzny FFmpeg");
         } else {
             QStringList lines = shortError.split('\n');
             if (!lines.isEmpty()) {
@@ -421,6 +446,6 @@ void HikvisionDownloader::onFfmpegFinished(int exitCode, QProcess::ExitStatus ex
                 }
             }
         }
-        emit downloadFinished(false, QString("Konwersja części %1 na MP4 nie powiodła się: %2").arg(m_currentSegmentIndex + 1).arg(shortError.left(100)));
+        emit downloadFinished(false, tr("Konwersja części %1 na MP4 nie powiodła się: %2").arg(m_currentSegmentIndex + 1).arg(shortError.left(100)));
     }
 }
