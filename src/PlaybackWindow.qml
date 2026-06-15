@@ -1620,8 +1620,11 @@ Window {
                                                     var nativeWidth = playerItem.videoWidth > 0 ? playerItem.videoWidth : 1920;
                                                     var nativeHeight = playerItem.videoHeight > 0 ? playerItem.videoHeight : 1080;
 
-                                                    var camName = modelData ? (modelData.cameraName + "_CH" + modelData.channelId) : "Camera";
-                                                    camName = camName.replace(/ /g, "_").replace(/[^a-zA-Z0-9_\-\.]/g, "");
+                                                    var rawCamName = modelData ? (modelData.cameraName + "_CH" + modelData.channelId) : "Camera";
+                                                    rawCamName = rawCamName.replace(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/g, "");
+                                                    rawCamName = rawCamName.replace(/([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}/g, "");
+                                                    rawCamName = rawCamName.trim().replace(/^[_-\s]+|[_-\s]+$/g, "");
+                                                    var camName = rawCamName.replace(/ /g, "_").replace(/[^a-zA-Z0-9_\-\.]/g, "");
 
                                                     var path = "";
                                                     if (typeof generalSettings !== "undefined" && generalSettings.snapshotPath !== "") {

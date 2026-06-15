@@ -13,7 +13,7 @@ Popup {
     focus: true
     anchors.centerIn: parent
     width: 1200
-    height: 240 + Math.max(1, downloadModel.count) * 65
+    height: 550
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
     
     signal downloadStarted()
@@ -216,7 +216,18 @@ Popup {
             if (!cam) continue;
             
             var d = Qt.formatDateTime(startDate, "yyyy-MM-dd");
-            var filename = cam.recorderName + "_" + cam.channelId + "_" + cam.cameraName + "_" + d + ".mp4";
+            var cleanRecName = cam.recorderName || "";
+            // Strip IPv4 and IPv6 addresses
+            cleanRecName = cleanRecName.replace(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/g, "");
+            cleanRecName = cleanRecName.replace(/([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}/g, "");
+            cleanRecName = cleanRecName.trim().replace(/^[_-\s]+|[_-\s]+$/g, "");
+            
+            var filename = "";
+            if (cleanRecName !== "") {
+                filename = cleanRecName + "_" + cam.channelId + "_" + cam.cameraName + "_" + d + ".mp4";
+            } else {
+                filename = cam.channelId + "_" + cam.cameraName + "_" + d + ".mp4";
+            }
             filename = filename.replace(/ /g, "_").replace(/[^a-zA-Z0-9_\-\.]/g, "");
             
             var moviesPath = "";
@@ -243,6 +254,7 @@ Popup {
                 "savePath": defaultSavePath,
                 "downloadEnabled": true,
                 "progress": 0,
+                "overallProgress": 0,
                 "isDownloading": false,
                 "statusText": ""
             });
@@ -396,132 +408,177 @@ Popup {
                 selectByMouse: true
                 palette.highlight: "#00f5d4"
                 palette.highlightedText: "#000000"
-                enabled: !downloadDialog.isAnyDownloading()
             }
         }
-
-        // Cameras List with fields
-        ColumnLayout {
+          // Cameras List inside a scrollable view with a fixed height layout
+        ScrollView {
+            id: cameraScroll
             Layout.fillWidth: true
-            spacing: 12
-            
-            Repeater {
-                id: cameraRepeater
-                model: downloadModel
-                
-                delegate: ColumnLayout {
-                    id: rowLayout
-                    Layout.fillWidth: true
-                    spacing: 4
-                    
-                    HikvisionDownloader {
-                        id: rowDownloader
-                        onProgressChanged: {
-                            model.progress = rowDownloader.progress
-                            if (rowDownloader.isDownloading) {
-                                model.statusText = "Pobieranie... " + rowDownloader.progress + "%"
-                            }
-                        }
-                        onDownloadFinished: {
-                            model.isDownloading = false
-                            if (success) {
-                                model.statusText = "Ukończono pomyślnie"
-                            } else {
-                                model.statusText = "Błąd: " + message
-                            }
-                        }
-                    }
-                    
-                    function startRowDownload(recInfo, startDt, endDt) {
-                        model.isDownloading = true
-                        model.statusText = "Inicjalizacja..."
-                        rowDownloader.startDownload(recInfo, model.channelId, startDt, endDt, model.savePath)
-                    }
-                    
-                    function stopRowDownload() {
-                        rowDownloader.stopDownload()
-                        model.isDownloading = false
-                        model.statusText = "Zatrzymano"
-                    }
-                    
-                    RowLayout {
-                        Layout.fillWidth: true
-                        spacing: 10
-                        
-                        CheckBox {
-                            checked: model.downloadEnabled
-                            onCheckedChanged: model.downloadEnabled = checked
-                            enabled: !downloadDialog.isAnyDownloading()
-                        }
-                        
-                        Text {
-                            text: model.cameraName
-                            color: "white"
-                            font.bold: true
-                            Layout.preferredWidth: 180
-                            elide: Text.ElideRight
-                        }
-                        
-                        TextField {
-                            id: savePathInput
-                            Layout.fillWidth: true
-                            enabled: model.downloadEnabled && !downloadDialog.isAnyDownloading()
-                            selectByMouse: true
-                            palette.highlight: "#00f5d4"
-                            palette.highlightedText: "#000000"
-                            onTextEdited: model.savePath = text
+            Layout.fillHeight: true
+            clip: true
 
-                            Binding {
-                                target: savePathInput
-                                property: "text"
-                                value: model.savePath
-                                when: !savePathInput.activeFocus
-                            }
-                        }
-                        
-                        CctvButton {
-                            text: "..."
-                            Layout.preferredWidth: 36
-                            enabled: model.downloadEnabled && !downloadDialog.isAnyDownloading()
-                            onClicked: {
-                                var p = model.savePath
-                                if (p.indexOf("file://") !== 0) {
-                                    p = "file://" + p
-                                }
-                                activeCameraIndex = index
-                                fileDialog.currentFile = p
-                                fileDialog.open()
-                            }
-                        }
-                    }
+            ColumnLayout {
+                id: scrollColumn
+                width: cameraScroll.width - 16
+                spacing: 12
+                
+                Repeater {
+                    id: cameraRepeater
+                    model: downloadModel
                     
-                    RowLayout {
+                    delegate: ColumnLayout {
+                        id: rowLayout
                         Layout.fillWidth: true
-                        Layout.leftMargin: 40
-                        visible: model.isDownloading || model.statusText !== ""
-                        spacing: 10
+                        spacing: 4
                         
-                        ProgressBar {
-                            from: 0
-                            to: 100
-                            value: model.progress
-                            Layout.fillWidth: true
-                            visible: model.isDownloading
+                        HikvisionDownloader {
+                            id: rowDownloader
+                            onStatusTextChanged: {
+                                if (rowDownloader.statusText !== "") {
+                                    if (rowDownloader.isDownloading && rowDownloader.statusText.indexOf("Konwertowanie") !== -1) {
+                                        model.statusText = rowDownloader.statusText + " (" + rowDownloader.overallProgress + "%)"
+                                    } else {
+                                        model.statusText = rowDownloader.statusText
+                                    }
+                                }
+                            }
+                            onProgressChanged: {
+                                model.progress = rowDownloader.overallProgress
+                                if (rowDownloader.isDownloading) {
+                                    if (rowDownloader.statusText !== "") {
+                                        if (rowDownloader.statusText.indexOf("Konwertowanie") !== -1) {
+                                            model.statusText = rowDownloader.statusText + " (" + rowDownloader.overallProgress + "%)"
+                                        } else {
+                                            model.statusText = rowDownloader.statusText + " " + rowDownloader.progress + "% (Całkowity: " + rowDownloader.overallProgress + "%)"
+                                        }
+                                    } else {
+                                        model.statusText = "Pobieranie... " + rowDownloader.overallProgress + "%"
+                                    }
+                                }
+                            }
+                            onDownloadFinished: {
+                                model.isDownloading = false
+                                if (success) {
+                                    model.statusText = message
+                                } else {
+                                    model.statusText = "Błąd: " + message
+                                }
+                            }
                         }
                         
-                        Text {
-                            text: model.statusText
-                            color: model.statusText.indexOf("Błąd") !== -1 ? "#ff3b30" : (model.statusText.indexOf("Pobieranie") !== -1 ? "#8898a6" : "#00f5d4")
-                            font.pixelSize: 11
-                            Layout.fillWidth: !model.isDownloading
-                            Layout.preferredWidth: model.isDownloading ? 120 : undefined
+                        function startRowDownload(recInfo, startDt, endDt) {
+                            model.isDownloading = true
+                            model.statusText = "Inicjalizacja..."
+                            rowDownloader.startDownload(recInfo, model.channelId, startDt, endDt, model.savePath)
+                        }
+                        
+                        function stopRowDownload() {
+                            rowDownloader.stopDownload()
+                            model.isDownloading = false
+                            model.statusText = "Zatrzymano"
+                        }
+                        
+                        RowLayout {
+                            Layout.fillWidth: true
+                            spacing: 10
+                            
+                            CheckBox {
+                                checked: model.downloadEnabled
+                                onCheckedChanged: model.downloadEnabled = checked
+                                enabled: !downloadDialog.isAnyDownloading()
+                            }
+                            
+                            Text {
+                                text: model.cameraName
+                                color: "white"
+                                font.bold: true
+                                Layout.preferredWidth: 180
+                                elide: Text.ElideRight
+                            }
+                            
+                            TextField {
+                                id: savePathInput
+                                Layout.fillWidth: true
+                                enabled: model.downloadEnabled && !downloadDialog.isAnyDownloading()
+                                selectByMouse: true
+                                palette.highlight: "#00f5d4"
+                                palette.highlightedText: "#000000"
+                                onTextEdited: model.savePath = text
+     
+                                Binding {
+                                    target: savePathInput
+                                    property: "text"
+                                    value: model.savePath
+                                    when: !savePathInput.activeFocus
+                                }
+                            }
+                            
+                            CctvButton {
+                                text: "..."
+                                Layout.preferredWidth: 36
+                                enabled: model.downloadEnabled && !downloadDialog.isAnyDownloading()
+                                onClicked: {
+                                    var p = model.savePath
+                                    if (p.indexOf("file://") !== 0) {
+                                        p = "file://" + p
+                                    }
+                                    activeCameraIndex = index
+                                    fileDialog.currentFile = p
+                                    fileDialog.open()
+                                }
+                            }
+                        }
+                        
+                        RowLayout {
+                            Layout.fillWidth: true
+                            Layout.leftMargin: 40
+                            visible: model.isDownloading || model.statusText !== ""
+                            
+                            Item {
+                                Layout.fillWidth: true
+                                implicitHeight: 18
+                                
+                                ProgressBar {
+                                    id: bar
+                                    anchors.fill: parent
+                                    from: 0
+                                    to: 100
+                                    value: model.progress
+                                    visible: model.isDownloading
+                                    
+                                    background: Rectangle {
+                                        implicitWidth: 200
+                                        implicitHeight: 18
+                                        color: "#282c34"
+                                        radius: 4
+                                    }
+                                    contentItem: Item {
+                                        implicitWidth: 200
+                                        implicitHeight: 18
+                                        Rectangle {
+                                            width: bar.visualPosition * parent.width
+                                            height: parent.height
+                                            radius: 4
+                                            color: "#00f5d4"
+                                        }
+                                    }
+                                }
+                                
+                                Text {
+                                    text: model.statusText
+                                    anchors.centerIn: parent
+                                    color: model.statusText.indexOf("Błąd") !== -1 ? "#ff3b30" : "white"
+                                    font.pixelSize: 11
+                                    font.bold: true
+                                    style: Text.Outline
+                                    styleColor: "#1e2227"
+                                }
+                            }
                         }
                     }
                 }
             }
         }
-
-        Item { Layout.fillHeight: true }
 
         RowLayout {
             Layout.fillWidth: true

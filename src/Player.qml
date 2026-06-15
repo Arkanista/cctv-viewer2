@@ -349,7 +349,7 @@ FocusScope {
             // Hikvision C++ Painted Player renders high-tech mock layout if fallback is disabled
             HikvisionPlayer {
                 id: hikPlayer
-                visible: root.isHikvision && !hikPlayerSettings.useRealStreams
+                visible: root.isHikvision && !hikPlayerSettings.useRealStreams && root.visible
                 x: -root.zoomX * width
                 y: -root.zoomY * height
                 width: parent.width / Math.max(0.001, root.zoomWidth)
@@ -691,7 +691,11 @@ FocusScope {
                             var activeOutput = null;
                             var nativeWidth = 1920;
                             var nativeHeight = 1080;
-                            var camName = root.cameraNameInfo ? root.cameraNameInfo.replace(/ /g, "_").replace(/[^a-zA-Z0-9_\-\.]/g, "") : "Camera";
+                            var rawCamName = root.cameraNameInfo || "Camera";
+                            rawCamName = rawCamName.replace(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/g, "");
+                            rawCamName = rawCamName.replace(/([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}/g, "");
+                            rawCamName = rawCamName.trim().replace(/^[_-\s]+|[_-\s]+$/g, "");
+                            var camName = rawCamName.replace(/ /g, "_").replace(/[^a-zA-Z0-9_\-\.]/g, "");
 
                             if (root.isHikvision && !hikPlayerSettings.useRealStreams) {
                                 activeOutput = hikPlayer;

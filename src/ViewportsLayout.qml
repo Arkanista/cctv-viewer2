@@ -483,6 +483,7 @@ FocusScope {
                         clip: true
                         Player {
                             id: player
+                            visible: root.visible
                             index: model.index
 
                             color: root.color

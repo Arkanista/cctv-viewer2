@@ -9,6 +9,7 @@ HikvisionDownloader::HikvisionDownloader(QObject *parent)
     : QObject(parent)
     , m_isDownloading(false)
     , m_progress(0)
+    , m_statusText("")
     , m_lUserID(-1)
     , m_lFileHandle(-1)
 {
@@ -30,9 +31,20 @@ bool HikvisionDownloader::isDownloading() const
     return m_isDownloading;
 }
 
+QString HikvisionDownloader::statusText() const
+{
+    return m_statusText;
+}
+
 int HikvisionDownloader::progress() const
 {
     return m_progress;
+}
+
+int HikvisionDownloader::overallProgress() const
+{
+    if (m_totalSegmentsCount <= 0) return 0;
+    return ((m_currentSegmentIndex * 100) + m_progress) / m_totalSegmentsCount;
 }
 
 void HikvisionDownloader::startDownload(const QVariantMap &recorderInfo, int channelId, const QDateTime &start, const QDateTime &end, const QString &saveFilePath)
@@ -41,6 +53,9 @@ void HikvisionDownloader::startDownload(const QVariantMap &recorderInfo, int cha
         emit downloadFinished(false, "Pobieranie już trwa.");
         return;
     }
+
+    m_recorderInfo = recorderInfo;
+    m_channelId = channelId;
 
     QString ip = recorderInfo["ip"].toString();
     int port = recorderInfo["port"].toInt();
@@ -71,97 +86,182 @@ void HikvisionDownloader::startDownload(const QVariantMap &recorderInfo, int cha
     } else if (deviceInfo.struDeviceV30.byChanNum > 0 && channelId <= deviceInfo.struDeviceV30.byChanNum) {
         realSdkChannel = channelId + deviceInfo.struDeviceV30.byStartChan - 1;
     }
+    m_realSdkChannel = realSdkChannel;
 
-    NET_DVR_PLAYCOND downloadCond;
-    std::memset(&downloadCond, 0, sizeof(NET_DVR_PLAYCOND));
-    downloadCond.dwChannel = static_cast<DWORD>(realSdkChannel);
-
-    downloadCond.struStartTime.dwYear = start.date().year();
-    downloadCond.struStartTime.dwMonth = start.date().month();
-    downloadCond.struStartTime.dwDay = start.date().day();
-    downloadCond.struStartTime.dwHour = start.time().hour();
-    downloadCond.struStartTime.dwMinute = start.time().minute();
-    downloadCond.struStartTime.dwSecond = start.time().second();
-
-    downloadCond.struStopTime.dwYear = end.date().year();
-    downloadCond.struStopTime.dwMonth = end.date().month();
-    downloadCond.struStopTime.dwDay = end.date().day();
-    downloadCond.struStopTime.dwHour = end.time().hour();
-    downloadCond.struStopTime.dwMinute = end.time().minute();
-    downloadCond.struStopTime.dwSecond = end.time().second();
-
-    // Check if any files exist in this time range first
+    // Find all physical recording files in this time range
     NET_DVR_FILECOND_V40 findCond;
     std::memset(&findCond, 0, sizeof(NET_DVR_FILECOND_V40));
     findCond.lChannel = static_cast<LONG>(realSdkChannel);
     findCond.dwFileType = 0xFF; // All types
     findCond.dwIsLocked = 0xFF; // All locks
     findCond.dwUseCardNo = 0;
-    findCond.struStartTime = downloadCond.struStartTime;
-    findCond.struStopTime = downloadCond.struStopTime;
+    
+    findCond.struStartTime.dwYear = start.date().year();
+    findCond.struStartTime.dwMonth = start.date().month();
+    findCond.struStartTime.dwDay = start.date().day();
+    findCond.struStartTime.dwHour = start.time().hour();
+    findCond.struStartTime.dwMinute = start.time().minute();
+    findCond.struStartTime.dwSecond = start.time().second();
 
+    findCond.struStopTime.dwYear = end.date().year();
+    findCond.struStopTime.dwMonth = end.date().month();
+    findCond.struStopTime.dwDay = end.date().day();
+    findCond.struStopTime.dwHour = end.time().hour();
+    findCond.struStopTime.dwMinute = end.time().minute();
+    findCond.struStopTime.dwSecond = end.time().second();
+
+    m_segments.clear();
     LONG lFindHandle = NET_DVR_FindFile_V40(m_lUserID, &findCond);
     if (lFindHandle >= 0) {
         NET_DVR_FINDDATA_V50 findData;
-        int state = NET_DVR_FindNextFile_V50(lFindHandle, &findData);
-        NET_DVR_FindClose_V30(lFindHandle);
-        if (state == NET_DVR_FILE_NOFIND || state == NET_DVR_NOMOREFILE) {
-            emit downloadFinished(false, "Brak nagrań w wybranym przedziale czasowym dla tej kamery.");
-            NET_DVR_Logout(m_lUserID);
-            m_lUserID = -1;
-            return;
+        while (true) {
+            int state = NET_DVR_FindNextFile_V50(lFindHandle, &findData);
+            if (state == 1000) { // NET_DVR_FILE_SUCCESS
+                QDateTime fileStart(QDate(findData.struStartTime.wYear, findData.struStartTime.byMonth, findData.struStartTime.byDay),
+                                    QTime(findData.struStartTime.byHour, findData.struStartTime.byMinute, findData.struStartTime.bySecond));
+                QDateTime fileEnd(QDate(findData.struStopTime.wYear, findData.struStopTime.byMonth, findData.struStopTime.byDay),
+                                  QTime(findData.struStopTime.byHour, findData.struStopTime.byMinute, findData.struStopTime.bySecond));
+                
+                QDateTime intersectStart = fileStart > start ? fileStart : start;
+                QDateTime intersectEnd = fileEnd < end ? fileEnd : end;
+                
+                if (intersectStart < intersectEnd) {
+                    DownloadSegment seg;
+                    seg.startTime = intersectStart;
+                    seg.endTime = intersectEnd;
+                    m_segments.append(seg);
+                }
+            } else if (state == 1002) { // NET_DVR_ISFINDING
+                QThread::msleep(10);
+            } else {
+                break;
+            }
         }
+        NET_DVR_FindClose_V30(lFindHandle);
     }
+
+    if (m_segments.isEmpty()) {
+        emit downloadFinished(false, "Brak nagrań w wybranym przedziale czasowym dla tej kamery.");
+        NET_DVR_Logout(m_lUserID);
+        m_lUserID = -1;
+        return;
+    }
+
+    // Sort segments chronologically
+    std::sort(m_segments.begin(), m_segments.end(), [](const DownloadSegment &a, const DownloadSegment &b) {
+        return a.startTime < b.startTime;
+    });
+
+    // Generate filenames for segments
+    QString baseFinal = saveFilePath;
+    QString baseTemp = saveFilePath;
+    if (baseTemp.endsWith(".mp4", Qt::CaseInsensitive)) {
+        baseTemp.replace(baseTemp.length() - 4, 4, ".pspart");
+    }
+
+    for (int i = 0; i < m_segments.size(); ++i) {
+        QString segFinal = baseFinal;
+        QString segTemp = baseTemp;
+        if (i > 0) {
+            if (segFinal.endsWith(".mp4", Qt::CaseInsensitive)) {
+                segFinal.insert(segFinal.length() - 4, QString("_%1").arg(i));
+            } else {
+                segFinal += QString("_%1").arg(i);
+            }
+            if (segTemp.endsWith(".pspart", Qt::CaseInsensitive)) {
+                segTemp.insert(segTemp.length() - 7, QString("_%1").arg(i));
+            } else {
+                segTemp += QString("_%1").arg(i);
+            }
+        }
+        m_segments[i].finalPath = segFinal;
+        m_segments[i].tempPath = segTemp;
+    }
+
+    m_isDownloading = true;
+    m_currentSegmentIndex = 0;
+    m_totalSegmentsCount = m_segments.size();
+    m_convertedSegmentsCount = 0;
+    emit isDownloadingChanged();
+
+    startNextSegment();
+}
+
+void HikvisionDownloader::startNextSegment()
+{
+    if (m_currentSegmentIndex >= m_segments.size()) {
+        m_isDownloading = false;
+        emit isDownloadingChanged();
+        
+        NET_DVR_Logout(m_lUserID);
+        m_lUserID = -1;
+        
+        QString summaryMsg = QString("Pobrano i przekonwertowano %1 z %2 plików.").arg(m_convertedSegmentsCount).arg(m_totalSegmentsCount);
+        m_statusText = summaryMsg;
+        emit statusTextChanged();
+        emit downloadFinished(true, summaryMsg);
+        return;
+    }
+
+    const DownloadSegment &seg = m_segments.at(m_currentSegmentIndex);
+    m_tempFilePath = seg.tempPath;
+    m_finalFilePath = seg.finalPath;
+
+    NET_DVR_PLAYCOND downloadCond;
+    std::memset(&downloadCond, 0, sizeof(NET_DVR_PLAYCOND));
+    downloadCond.dwChannel = static_cast<DWORD>(m_realSdkChannel);
+    downloadCond.struStartTime.dwYear = seg.startTime.date().year();
+    downloadCond.struStartTime.dwMonth = seg.startTime.date().month();
+    downloadCond.struStartTime.dwDay = seg.startTime.date().day();
+    downloadCond.struStartTime.dwHour = seg.startTime.time().hour();
+    downloadCond.struStartTime.dwMinute = seg.startTime.time().minute();
+    downloadCond.struStartTime.dwSecond = seg.startTime.time().second();
+
+    downloadCond.struStopTime.dwYear = seg.endTime.date().year();
+    downloadCond.struStopTime.dwMonth = seg.endTime.date().month();
+    downloadCond.struStopTime.dwDay = seg.endTime.date().day();
+    downloadCond.struStopTime.dwHour = seg.endTime.time().hour();
+    downloadCond.struStopTime.dwMinute = seg.endTime.time().minute();
+    downloadCond.struStopTime.dwSecond = seg.endTime.time().second();
 
     downloadCond.byStreamType = 0; // Main stream
     downloadCond.byCourseFile = 0;
-    downloadCond.byDownload = 0; // 0 is default network download, 1 might trigger NVR local USB backup
-
-    m_finalFilePath = saveFilePath;
-    m_tempFilePath = saveFilePath;
-    if (m_finalFilePath.endsWith(".mp4", Qt::CaseInsensitive)) {
-        m_tempFilePath.replace(m_tempFilePath.length() - 4, 4, ".ps");
-    }
+    downloadCond.byDownload = 0;
 
     QFileInfo fileInfo(m_tempFilePath);
     QDir().mkpath(fileInfo.absolutePath());
-
     QByteArray pathBytes = m_tempFilePath.toLocal8Bit();
-    
-    qDebug() << "[HikArchive] Downloading logical channel" << channelId << "(SDK channel" << realSdkChannel << ") from" << start << "to" << end << "into" << m_tempFilePath;
-    
-    m_lFileHandle = NET_DVR_GetFileByTime_V40(m_lUserID, pathBytes.data(), &downloadCond);
 
+    m_lFileHandle = NET_DVR_GetFileByTime_V40(m_lUserID, pathBytes.data(), &downloadCond);
     if (m_lFileHandle < 0) {
-        qDebug() << "[HikArchive] NET_DVR_GetFileByTime_V40 failed:" << NET_DVR_GetLastError();
-        // Fallback to older API
         NET_DVR_TIME startTimeOld;
         std::memset(&startTimeOld, 0, sizeof(NET_DVR_TIME));
-        startTimeOld.dwYear = start.date().year();
-        startTimeOld.dwMonth = start.date().month();
-        startTimeOld.dwDay = start.date().day();
-        startTimeOld.dwHour = start.time().hour();
-        startTimeOld.dwMinute = start.time().minute();
-        startTimeOld.dwSecond = start.time().second();
+        startTimeOld.dwYear = seg.startTime.date().year();
+        startTimeOld.dwMonth = seg.startTime.date().month();
+        startTimeOld.dwDay = seg.startTime.date().day();
+        startTimeOld.dwHour = seg.startTime.time().hour();
+        startTimeOld.dwMinute = seg.startTime.time().minute();
+        startTimeOld.dwSecond = seg.startTime.time().second();
         
         NET_DVR_TIME stopTimeOld;
         std::memset(&stopTimeOld, 0, sizeof(NET_DVR_TIME));
-        stopTimeOld.dwYear = end.date().year();
-        stopTimeOld.dwMonth = end.date().month();
-        stopTimeOld.dwDay = end.date().day();
-        stopTimeOld.dwHour = end.time().hour();
-        stopTimeOld.dwMinute = end.time().minute();
-        stopTimeOld.dwSecond = end.time().second();
+        stopTimeOld.dwYear = seg.endTime.date().year();
+        stopTimeOld.dwMonth = seg.endTime.date().month();
+        stopTimeOld.dwDay = seg.endTime.date().day();
+        stopTimeOld.dwHour = seg.endTime.time().hour();
+        stopTimeOld.dwMinute = seg.endTime.time().minute();
+        stopTimeOld.dwSecond = seg.endTime.time().second();
         
-        m_lFileHandle = NET_DVR_GetFileByTime(m_lUserID, realSdkChannel, &startTimeOld, &stopTimeOld, pathBytes.data());
+        m_lFileHandle = NET_DVR_GetFileByTime(m_lUserID, m_realSdkChannel, &startTimeOld, &stopTimeOld, pathBytes.data());
     }
 
     if (m_lFileHandle < 0) {
         int err = NET_DVR_GetLastError();
-        qDebug() << "[HikArchive] NET_DVR_GetFileByTime failed:" << err;
         NET_DVR_Logout(m_lUserID);
         m_lUserID = -1;
-        emit downloadFinished(false, QString("Błąd inicjalizacji pobierania: %1").arg(err));
+        m_isDownloading = false;
+        emit isDownloadingChanged();
+        emit downloadFinished(false, QString("Błąd inicjalizacji pobierania części %1: %2").arg(m_currentSegmentIndex + 1).arg(err));
         return;
     }
 
@@ -170,15 +270,19 @@ void HikvisionDownloader::startDownload(const QVariantMap &recorderInfo, int cha
         NET_DVR_Logout(m_lUserID);
         m_lFileHandle = -1;
         m_lUserID = -1;
-        emit downloadFinished(false, QString("Błąd startu pobierania: %1").arg(NET_DVR_GetLastError()));
+        m_isDownloading = false;
+        emit isDownloadingChanged();
+        emit downloadFinished(false, QString("Błąd startu pobierania części %1: %2").arg(m_currentSegmentIndex + 1).arg(NET_DVR_GetLastError()));
         return;
     }
 
-    m_isDownloading = true;
     m_progress = 0;
     m_lastFileSize = 0;
-    emit isDownloadingChanged();
     emit progressChanged();
+    emit overallProgressChanged();
+
+    m_statusText = QString("Pobieranie części %1 z %2...").arg(m_currentSegmentIndex + 1).arg(m_totalSegmentsCount);
+    emit statusTextChanged();
 
     m_timer->start();
 }
@@ -188,6 +292,7 @@ void HikvisionDownloader::stopDownload()
     if (!m_isDownloading) return;
 
     m_timer->stop();
+    m_segments.clear();
 
     if (m_ffmpegProcess->state() != QProcess::NotRunning) {
         m_ffmpegProcess->kill();
@@ -208,8 +313,11 @@ void HikvisionDownloader::stopDownload()
 
     m_isDownloading = false;
     m_progress = 0;
+    m_statusText = "Zatrzymano";
     emit isDownloadingChanged();
     emit progressChanged();
+    emit overallProgressChanged();
+    emit statusTextChanged();
     emit downloadFinished(false, "Pobieranie przerwane przez użytkownika.");
 }
 
@@ -232,9 +340,7 @@ void HikvisionDownloader::checkProgress()
     if (pos == 100 || pos == 200 || pos < 0) {
         m_timer->stop();
         NET_DVR_StopGetFile(m_lFileHandle);
-        NET_DVR_Logout(m_lUserID);
         m_lFileHandle = -1;
-        m_lUserID = -1;
         
         QFileInfo finalFi(m_tempFilePath);
         if (finalFi.exists()) {
@@ -251,50 +357,62 @@ void HikvisionDownloader::checkProgress()
         if (isSuccess) {
             m_progress = 100;
             emit progressChanged();
+            emit overallProgressChanged();
             
             if (m_finalFilePath.endsWith(".mp4", Qt::CaseInsensitive)) {
-                emit downloadFinished(true, pos == 100 ? "Konwertowanie na MP4..." : "Zakończono (z ostrzeżeniem). Konwertowanie na MP4...");
+                m_statusText = QString("Konwertowanie części %1 z %2...").arg(m_currentSegmentIndex + 1).arg(m_totalSegmentsCount);
+                emit statusTextChanged();
                 m_ffmpegProcess->start("ffmpeg", QStringList() << "-y" << "-i" << m_tempFilePath << "-c:v" << "copy" << "-c:a" << "aac" << m_finalFilePath);
             } else {
-                m_isDownloading = false;
-                emit isDownloadingChanged();
-                emit downloadFinished(true, pos == 100 ? "Pobieranie zakończone pomyślnie." : "Pobieranie zakończone (z ostrzeżeniem).");
+                m_convertedSegmentsCount++;
+                m_currentSegmentIndex++;
+                startNextSegment();
             }
         } else {
+            if (m_lUserID >= 0) {
+                NET_DVR_Logout(m_lUserID);
+                m_lUserID = -1;
+            }
             m_isDownloading = false;
             m_progress = 0;
             emit isDownloadingChanged();
             emit progressChanged();
-            emit downloadFinished(false, "Błąd w trakcie pobierania (np. błąd sieci lub brak pliku).");
+            emit overallProgressChanged();
+            emit downloadFinished(false, QString("Błąd w trakcie pobierania części %1.").arg(m_currentSegmentIndex + 1));
         }
     } else {
         if (m_progress != pos) {
             m_progress = pos;
             emit progressChanged();
+            emit overallProgressChanged();
         }
     }
 }
 
 void HikvisionDownloader::onFfmpegFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
-    m_isDownloading = false;
-    emit isDownloadingChanged();
-
     if (exitStatus == QProcess::NormalExit && exitCode == 0) {
         QFile::remove(m_tempFilePath);
-        emit downloadFinished(true, "Pobieranie i konwersja na MP4 zakończone pomyślnie.");
+        m_convertedSegmentsCount++;
+        m_currentSegmentIndex++;
+        m_statusText = QString("Pobrano i przekonwertowano %1 z %2 części...").arg(m_convertedSegmentsCount).arg(m_totalSegmentsCount);
+        emit statusTextChanged();
+        
+        startNextSegment();
     } else {
+        m_isDownloading = false;
+        emit isDownloadingChanged();
+        if (m_lUserID >= 0) {
+            NET_DVR_Logout(m_lUserID);
+            m_lUserID = -1;
+        }
         QByteArray stderrOutput = m_ffmpegProcess->readAllStandardError();
         QByteArray stdoutOutput = m_ffmpegProcess->readAllStandardOutput();
-        qDebug() << "[HikArchive] FFmpeg conversion failed with exitCode" << exitCode << "and status" << exitStatus;
-        qDebug() << "[HikArchive] FFmpeg stderr:" << stderrOutput;
-        qDebug() << "[HikArchive] FFmpeg stdout:" << stdoutOutput;
         
         QString shortError = QString::fromUtf8(stderrOutput.trimmed());
         if (shortError.isEmpty()) {
             shortError = "Błąd wewnętrzny FFmpeg";
         } else {
-            // Take the last line or first line that has the actual error
             QStringList lines = shortError.split('\n');
             if (!lines.isEmpty()) {
                 shortError = lines.last().trimmed();
@@ -303,6 +421,6 @@ void HikvisionDownloader::onFfmpegFinished(int exitCode, QProcess::ExitStatus ex
                 }
             }
         }
-        emit downloadFinished(false, QString("Pobieranie zakończone, ale konwersja na MP4 nie powiodła się: %1").arg(shortError.left(100)));
+        emit downloadFinished(false, QString("Konwersja części %1 na MP4 nie powiodła się: %2").arg(m_currentSegmentIndex + 1).arg(shortError.left(100)));
     }
 }

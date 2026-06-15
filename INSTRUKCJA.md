@@ -24,7 +24,7 @@ Program został zoptymalizowany pod kątem stabilności, płynności działania 
 ### Instalacja pakietu Arch Linux (Pacman)
 Aby zainstalować program z przygotowanej paczki binarnej, przejdź do katalogu `packaging/arch/` i wykonaj:
 ```bash
-sudo pacman -U cctv-viewer2-2.0.0-1-x86_64.pkg.tar.zst
+sudo pacman -U cctv-viewer2-2.0.6-1-x86_64.pkg.tar.zst
 ```
 Pakiet automatycznie zainstaluje program, plik aktywacyjny `.desktop` oraz wymagane biblioteki Hikvision SDK w systemowej ścieżce `/usr/lib/cctv-viewer2`.
 
@@ -127,7 +127,12 @@ Z poziomu okna Playback Archive możesz pobierać wybrane fragmenty nagrań bezp
 1. Kliknij ikonę pobierania (strzałka w dół) przy wybranej kamerze.
 2. Wybierz zakres czasu (początek i koniec nagrania).
 3. Wybierz lokalizację zapisu pliku docelowego.
-4. Kliknij **Pobierz**. Postęp pobierania jest wizualizowany na pasku postępu, a chwilowe zużycie pasma sieciowego podczas pobierania jest precyzyjnie uwzględniane na wykresie sieciowym w panelu statystyk.
+4. Kliknij **Pobierz**.
+
+### Zaawansowane Funkcje Pobierania (wprowadzone w wersji 2.0.6):
+* **Sekwencyjne pobieranie części (1GB)**: Program automatycznie dzieli zapytanie na fizyczne części (o rozmiarze ok. 1GB na dysku rejestratora) i pobiera oraz konwertuje je po kolei (jeden plik po drugim, za pomocą tymczasowych plików `.pspart` konwertowanych natychmiast na format `.mp4`). Pozwala to na stabilne pobieranie bardzo długich zakresów czasu bez ryzyka przepełnienia pamięci RAM lub zawieszenia konwersji FFmpeg.
+* **Wizualizacja postępu całkowitego**: Pasek postępu (w kolorze jasnoturkusowym) prezentuje całkowity postęp pobierania dla danej kamery (dla wszystkich części łącznie). Status opisowy nałożony na pasek wskazuje aktualną część, np. `Pobieranie części 1 z 3... 45% (Całkowity: 15%)`, a specjalna czcionka z obrysem zapewnia pełną czytelność tekstu.
+* **Oczyszczanie nazw plików**: Nazwy pobieranych plików wideo (oraz zrzutów ekranu) są automatycznie oczyszczane z adresów IP rejestratorów, pozostawiając czytelną nazwę i datę (np. `4_Wejscie_glowne_2026-06-15.mp4` zamiast `172.16.1.253_4_Wejscie...`).
 
 ---
 
