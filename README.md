@@ -210,8 +210,8 @@ If you are not using Arch Linux, you can build the application manually using CM
    ```
 
 For detailed usage instructions, check out the documentation files:
-- [English User Manual (INSTRUCTIONS.md)](file:///home/arkanis/cctv/cctv-viewer2/INSTRUCTIONS.md)
-- [Polish User Manual (INSTRUKCJA.md)](file:///home/arkanis/cctv/cctv-viewer2/INSTRUKCJA.md)
+- [English User Manual (INSTRUCTIONS.md)](INSTRUCTIONS.md)
+- [Polish User Manual (INSTRUKCJA.md)](INSTRUKCJA.md)
 
 ---
 
