@@ -135,7 +135,7 @@ From the Playback Archive window, you can download selected segments of recordin
 ### Advanced Download Features (introduced in version 2.0.6):
 * **Sequential Segment Downloading (1GB parts)**: The program automatically splits your time range query into physical file segments (roughly 1GB each on the NVR drive) and downloads and converts them one by one (using temporary `.pspart` files that are converted directly to `.mp4` format). This ensures highly stable downloads of long duration ranges without memory overflow or FFmpeg conversion hangs.
 * **Overall Progress Visualization**: The progress bar (bright teal color) displays the overall download progress for the camera across all segments. The status text overlaid on the progress bar shows the current part and percentages, e.g., `Downloading part 1 of 3... 45% (Overall: 15%)`, with an outline styling to guarantee legibility on any background.
-* **Filename IP Cleaning**: Video filenames (and live/archive snapshots) are automatically stripped of NVR/DVR IP addresses to keep them clean and human-readable (e.g. `4_Wejscie_glowne_2026-06-15.mp4` instead of `172.16.1.253_4_Wejscie...`).
+* **Filename IP Cleaning**: Video filenames (and live/archive snapshots) are automatically stripped of NVR/DVR IP addresses to keep them clean and human-readable (e.g. `4_Wejscie_glowne_2026-06-15.mp4` instead of `<RECORDER_IP>_4_Wejscie...`).
 
 ---
 

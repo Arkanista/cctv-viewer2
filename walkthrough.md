@@ -8,7 +8,7 @@ Z sukcesem wdrożyliśmy wszystkie poprawki zgłoszone w ostatniej serii zgłosz
 
 ### 1. Usuwanie adresu IP rejestratora z nazw plików
 Zintegrowaliśmy automatyczne usuwanie adresów IP (zarówno w formacie IPv4, jak i IPv6) z nazw rejestratorów przy zapisie plików:
-* **[DownloadDialog.qml](src/DownloadDialog.qml)**: Wyczyściliśmy nazwę rejestratora (`cam.recorderName`) za pomocą wyrażeń regularnych przed sformatowaniem nazwy pobieranego pliku `.mp4`. Dzięki temu nazwa pliku to np. `4_Wejscie_glowne_2026-06-15.mp4` zamiast `172.16.1.253_4_Wejscie_glowne_2026-06-15.mp4`.
+* **[DownloadDialog.qml](src/DownloadDialog.qml)**: Wyczyściliśmy nazwę rejestratora (`cam.recorderName`) za pomocą wyrażeń regularnych przed sformatowaniem nazwy pobieranego pliku `.mp4`. Dzięki temu nazwa pliku to np. `4_Wejscie_glowne_2026-06-15.mp4` zamiast `<IP_REJESTRATORA>_4_Wejscie_glowne_2026-06-15.mp4`.
 * **[Player.qml](src/Player.qml)** (stopklatki live) i **[PlaybackWindow.qml](src/PlaybackWindow.qml)** (stopklatki z archiwum): Zastosowaliśmy te same wyrażenia regularne do oczyszczenia `cameraNameInfo` przed zapisaniem pliku obrazu `.jpg`.
 
 ### 2. Ograniczenie wysokości okna i ScrollView
