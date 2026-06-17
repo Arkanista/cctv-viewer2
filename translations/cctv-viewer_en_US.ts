@@ -294,6 +294,50 @@
         <source>Assigned camera %1 Ch. %2 to viewport %3</source>
         <translation>Assigned camera %1 Ch. %2 to viewport %3</translation>
     </message>
+    <message>
+        <source>Change Camera Name</source>
+        <translation>Change Camera Name</translation>
+    </message>
+    <message>
+        <source>Channel: %1</source>
+        <translation>Channel: %1</translation>
+    </message>
+    <message>
+        <source>Original name: %1</source>
+        <translation>Original name: %1</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>None</translation>
+    </message>
+    <message>
+        <source>Enter new camera name...</source>
+        <translation>Enter new camera name...</translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation>Reset</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancel</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Save</translation>
+    </message>
+    <message>
+        <source>Przypisz do aktywnego podglądu</source>
+        <translation>Assign to active viewport</translation>
+    </message>
+    <message>
+        <source>Zmień nazwę kamery</source>
+        <translation>Rename camera</translation>
+    </message>
+    <message>
+        <source>Odśwież miniaturę kamery</source>
+        <translation>Refresh camera thumbnail</translation>
+    </message>
 </context>
 <context>
     <name>NvrSettingsPanel</name>
@@ -723,7 +767,7 @@
     </message>
     <message>
         <source>Siatka widoku:</source>
-        <translation>Grid view:</translation>
+        <translation type="vanished">Grid view:</translation>
     </message>
     <message>
         <source>Toggle Full Screen</source>
@@ -731,7 +775,7 @@
     </message>
     <message>
         <source>🔒 Blokuj zmianę</source>
-        <translation>🔒 Lock layout change</translation>
+        <translation type="vanished">🔒 Lock layout change</translation>
     </message>
     <message>
         <source>Więcej opcji</source>
@@ -739,7 +783,7 @@
     </message>
     <message>
         <source>Wybór widoku:</source>
-        <translation>View selection:</translation>
+        <translation type="vanished">View selection:</translation>
     </message>
     <message>
         <source>CCTV Viewer - Panel</source>
@@ -842,7 +886,7 @@
     </message>
     <message>
         <source>Automatically collapse sidebar</source>
-        <translation>Automatically collapse sidebar</translation>
+        <translation type="vanished">Automatically collapse sidebar</translation>
     </message>
     <message>
         <source>View</source>
@@ -850,11 +894,11 @@
     </message>
     <message>
         <source>Presets</source>
-        <translation>Presets</translation>
+        <translation type="vanished">Presets</translation>
     </message>
     <message>
         <source>Run presets carousel with interval (sec.):</source>
-        <translation>Run presets carousel with interval (sec.):</translation>
+        <translation type="vanished">Run presets carousel with interval (sec.):</translation>
     </message>
     <message>
         <source>Hide cursor in full screen mode</source>
@@ -1105,7 +1149,7 @@
     </message>
     <message>
         <source>Automatically collapse sidebar</source>
-        <translation>Automatically collapse sidebar</translation>
+        <translation type="vanished">Automatically collapse sidebar</translation>
     </message>
     <message>
         <source>Context Menu Settings</source>
@@ -1161,11 +1205,11 @@
     </message>
     <message>
         <source>Enable cyclic layouts carousel tour</source>
-        <translation>Enable cyclic layouts carousel tour</translation>
+        <translation type="vanished">Enable cyclic layouts carousel tour</translation>
     </message>
     <message>
         <source>Interval cycle (seconds):</source>
-        <translation>Interval cycle (seconds):</translation>
+        <translation type="vanished">Interval cycle (seconds):</translation>
     </message>
     <message>
         <source>Confirm Deletion</source>

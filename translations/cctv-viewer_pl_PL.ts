@@ -314,6 +314,50 @@
         <source>Generate thumbnails</source>
         <translation>Generuj miniatury</translation>
     </message>
+    <message>
+        <source>Change Camera Name</source>
+        <translation>Zmień nazwę kamery</translation>
+    </message>
+    <message>
+        <source>Channel: %1</source>
+        <translation>Kanał: %1</translation>
+    </message>
+    <message>
+        <source>Original name: %1</source>
+        <translation>Oryginalna nazwa: %1</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Brak</translation>
+    </message>
+    <message>
+        <source>Enter new camera name...</source>
+        <translation>Wprowadź nową nazwę kamery...</translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation>Resetuj</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Zapisz</translation>
+    </message>
+    <message>
+        <source>Przypisz do aktywnego podglądu</source>
+        <translation>Przypisz do aktywnego podglądu</translation>
+    </message>
+    <message>
+        <source>Zmień nazwę kamery</source>
+        <translation>Zmień nazwę kamery</translation>
+    </message>
+    <message>
+        <source>Odśwież miniaturę kamery</source>
+        <translation>Odśwież miniaturę kamery</translation>
+    </message>
 </context>
 <context>
     <name>NvrSettingsPanel</name>
@@ -720,11 +764,11 @@
     </message>
     <message>
         <source>Siatka widoku:</source>
-        <translation>Siatka widoku:</translation>
+        <translation type="vanished">Siatka widoku:</translation>
     </message>
     <message>
         <source>Wybór widoku:</source>
-        <translation>Wybór widoku:</translation>
+        <translation type="vanished">Wybór widoku:</translation>
     </message>
     <message>
         <source>CCTV Viewer - Panel</source>
@@ -752,7 +796,7 @@
     </message>
     <message>
         <source>🔒 Blokuj zmianę</source>
-        <translation>🔒 Blokuj zmianę</translation>
+        <translation type="vanished">🔒 Blokuj zmianę</translation>
     </message>
     <message>
         <source>📺 NOWE OKNO</source>
@@ -867,7 +911,7 @@
     </message>
     <message>
         <source>Automatically collapse sidebar</source>
-        <translation>Automatycznie zwijaj panel boczny</translation>
+        <translation type="vanished">Automatycznie zwijaj panel boczny</translation>
     </message>
     <message>
         <source>Allow swapping viewport places</source>
@@ -891,11 +935,11 @@
     </message>
     <message>
         <source>Presets</source>
-        <translation>Układy</translation>
+        <translation type="vanished">Układy</translation>
     </message>
     <message>
         <source>Run presets carousel with interval (sec.):</source>
-        <translation>Uruchom karuzelę układów z interwałem (sek.):</translation>
+        <translation type="vanished">Uruchom karuzelę układów z interwałem (sek.):</translation>
     </message>
     <message>
         <source>Enable stream selection</source>
@@ -1126,7 +1170,7 @@
     </message>
     <message>
         <source>Automatically collapse sidebar</source>
-        <translation>Automatycznie zwijaj panel boczny</translation>
+        <translation type="vanished">Automatycznie zwijaj panel boczny</translation>
     </message>
     <message>
         <source>Context Menu Settings</source>
@@ -1174,11 +1218,11 @@
     </message>
     <message>
         <source>Enable cyclic layouts carousel tour</source>
-        <translation>Włącz cykliczną karuzelę układów</translation>
+        <translation type="vanished">Włącz cykliczną karuzelę układów</translation>
     </message>
     <message>
         <source>Interval cycle (seconds):</source>
-        <translation>Czas cyklu (sekundy):</translation>
+        <translation type="vanished">Czas cyklu (sekundy):</translation>
     </message>
     <message>
         <source>Confirm Deletion</source>

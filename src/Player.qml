@@ -77,7 +77,7 @@ FocusScope {
                     if (rec.cameras) {
                         for (var j = 0; j < rec.cameras.length; ++j) {
                             if (parseInt(rec.cameras[j].channelId) === channelId) {
-                                camName = rec.cameras[j].name || "";
+                                camName = rec.cameras[j].customName || rec.cameras[j].name || "";
                                 break;
                             }
                         }

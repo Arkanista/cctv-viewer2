@@ -210,7 +210,7 @@ Window {
             "username": rec.username,
             "password": rec.password,
             "channelId": cam.channelId,
-            "cameraName": cam.name || ("Kamera " + cam.channelId),
+            "cameraName": cam.customName || cam.name || ("Kamera " + cam.channelId),
             "recorderName": rec.name || rec.ip
         };
         
@@ -1285,7 +1285,7 @@ Window {
                                                 spacing: 2
                                                 
                                                 Text {
-                                                    text: modelData.name || ("Kamera " + modelData.channelId)
+                                                    text: modelData.customName || modelData.name || ("Kamera " + modelData.channelId)
                                                     color: isCameraInGrid(parentRecorder.ip, modelData.channelId) ? "#00f5d4" : "white"
                                                     font.pixelSize: 11
                                                     font.bold: isCameraInGrid(parentRecorder.ip, modelData.channelId)

@@ -24,7 +24,7 @@ The program has been optimized for stability, smooth operation (60 FPS), and min
 ### Installing on Arch Linux (Pacman)
 To install the program from the prepared binary package, go to the `packaging/arch/` directory and run:
 ```bash
-sudo pacman -U cctv-viewer2-2.0.7-1-x86_64.pkg.tar.zst
+sudo pacman -U cctv-viewer2-2.0.7-2-x86_64.pkg.tar.zst
 ```
 The package will automatically install the program, the `.desktop` activation file, and the required Hikvision SDK libraries to the system path `/usr/lib/cctv-viewer2`.
 
@@ -68,6 +68,7 @@ To configure the connection to a Hikvision recorder:
 3. Click **Connect & Discover** (or **Save & Update**).
 4. Upon successful connection, the application will automatically detect all active cameras (channels) connected to the NVR/DVR and add them to the list.
 5. Clicking the **Generate Grid** button will automatically create a viewport layout (preset) containing all active cameras from that NVR in an optimal grid layout.
+6. **Local Camera Renaming**: On any camera tile in the NVR cameras list, click the **Edit** (pencil) icon. This opens a dialog allowing you to set a custom name for the camera. This name is saved locally and instantly updates across the live players, timeline, and tile views without modifying the physical NVR device. You can reset it to the default name at any time.
 
 ---
 

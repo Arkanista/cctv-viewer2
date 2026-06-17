@@ -27,6 +27,23 @@ ColumnLayout {
     // Track NVR editing state
     property int editingIndex: -1
 
+    // ── NvrCamerasWindow Component ──────────────────────────────────────
+    // Declared here (outside the Repeater) so its QML creation context
+    // belongs to rootPanel, NOT to any Repeater delegate.  When the
+    // Repeater rebuilds its delegates (e.g. after loadRecorders()),
+    // already-opened NvrCamerasWindow instances keep a valid context
+    // because rootPanel is never destroyed.
+    Component {
+        id: nvrCamerasWindowComponent
+        NvrCamerasWindow {}
+    }
+
+    function openCamerasWindow(recorderData) {
+        var win = nvrCamerasWindowComponent.createObject(rootWindow);
+        win.recorder = JSON.parse(JSON.stringify(recorderData));
+        win.show();
+    }
+
     Component.onCompleted: {
         loadRecorders();
     }
@@ -466,13 +483,7 @@ ColumnLayout {
                         }
 
                         onClicked: {
-                            var component = Qt.createComponent("NvrCamerasWindow.qml");
-                            if (component.status === Component.Ready) {
-                                var win = component.createObject(rootWindow, { "recorder": modelData });
-                                win.show();
-                            } else {
-                                console.log("Error loading NvrCamerasWindow:", component.errorString());
-                            }
+                            rootPanel.openCamerasWindow(modelData);
                         }
                     }
 

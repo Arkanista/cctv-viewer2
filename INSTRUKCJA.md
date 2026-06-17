@@ -24,7 +24,7 @@ Program został zoptymalizowany pod kątem stabilności, płynności działania 
 ### Instalacja pakietu Arch Linux (Pacman)
 Aby zainstalować program z przygotowanej paczki binarnej, przejdź do katalogu `packaging/arch/` i wykonaj:
 ```bash
-sudo pacman -U cctv-viewer2-2.0.7-1-x86_64.pkg.tar.zst
+sudo pacman -U cctv-viewer2-2.0.7-2-x86_64.pkg.tar.zst
 ```
 Pakiet automatycznie zainstaluje program, plik aktywacyjny `.desktop` oraz wymagane biblioteki Hikvision SDK w systemowej ścieżce `/usr/lib/cctv-viewer2`.
 
@@ -68,6 +68,7 @@ Aby skonfigurować połączenie z rejestratorem Hikvision:
 3. Kliknij **Połącz** (lub **Zapisz**).
 4. Po pomyślnym połączeniu aplikacja automatycznie wykryje wszystkie aktywne kamery (kanały) podłączone do NVR/DVR i doda je do listy.
 5. Kliknięcie przycisku **Generuj siatkę** automatycznie utworzy gotowy układ (preset) zawierający wszystkie działające kamery z danego NVR w optymalnym układzie siatki.
+6. **Lokalna zmiana nazw kamer**: Na kafelku kamery na liście kamer rejestratora NVR kliknij ikonę **Edycji** (ołówka). Otworzy to okno dialogowe, w którym możesz wpisać nową nazwę dla danej kamery. Zmiana ta jest zapisywana lokalnie w programie i natychmiast aktualizuje nazwę na kafelku, na żywo w odtwarzaczach oraz na osi czasu odtwarzacza archiwalnego, bez modyfikacji fizycznych ustawień na urządzeniu NVR. W dowolnej chwili nazwę można przywrócić do domyślnej, klikając przycisk „Resetuj”.
 
 ---
 

@@ -44,6 +44,7 @@ It is designed for Linux users who need a robust, lightweight, and smooth altern
 * **Auto-Discovery**: Enter your NVR/DVR IP address and credentials to automatically discover and list all active camera channels.
 * **Automatic NVR Preset Grid**: Click **"Generate Grid"** in the recorders panel to automatically generate a tailored viewport layout (preset) mapping all discovered cameras to an optimal grid size.
 * **Dynamic Quality Selection**: Manually toggle between **Main Stream** (high resolution) and **Sub Stream** (low bandwidth/CPU load) for any viewport via the context menu to save system resources and network bandwidth.
+* **Local Camera Renaming (Custom Names)**: Clicking the edit icon (pencil) on a camera tile in the recorder channel list allows setting a custom, local name for that camera. The name update is immediately reflected on the tile, live players, and playback timeline. Custom names are saved locally in the settings JSON and do not alter the physical NVR device. The custom name can be reset to the NVR default at any time.
 
 ### ⏱️ Synchronized Playback Archive
 * **Multi-Camera Synchronization**: Play back archived video recordings from multiple Hikvision recorders/cameras simultaneously in perfect time synchronization.
@@ -173,11 +174,11 @@ git clone --recurse-submodules https://github.com/arkanista/cctv-viewer2.git
 
 If you are running Arch Linux or CachyOS, you can skip compilation and install the pre-compiled Pacman package directly from the latest release:
 
-* **[Download cctv-viewer2-2.0.7-1-x86_64.pkg.tar.zst](https://github.com/Arkanista/cctv-viewer2/releases/download/v2.0.7/cctv-viewer2-2.0.7-1-x86_64.pkg.tar.zst)**
+* **[Download cctv-viewer2-2.0.7-2-x86_64.pkg.tar.zst](https://github.com/Arkanista/cctv-viewer2/releases/download/v2.0.7/cctv-viewer2-2.0.7-2-x86_64.pkg.tar.zst)**
 
 To install the downloaded package:
 ```bash
-sudo pacman -U cctv-viewer2-2.0.7-1-x86_64.pkg.tar.zst
+sudo pacman -U cctv-viewer2-2.0.7-2-x86_64.pkg.tar.zst
 ```
 
 ### Building from Source (Arch Linux / CachyOS)
