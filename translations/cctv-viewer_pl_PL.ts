@@ -445,6 +445,18 @@
         <source>Are you absolutely sure and aware of what you are doing?</source>
         <translation>Czy na pewno jesteś świadom tego, co robisz?</translation>
     </message>
+    <message>
+        <source>Pokaż listę kamer rejestratora</source>
+        <translation>Pokaż listę kamer rejestratora</translation>
+    </message>
+    <message>
+        <source>Edytuj dane połączenia rejestratora</source>
+        <translation>Edytuj dane połączenia rejestratora</translation>
+    </message>
+    <message>
+        <source>Usuń rejestrator z listy</source>
+        <translation>Usuń rejestrator z listy</translation>
+    </message>
 </context>
 <context>
     <name>PlaybackWindow</name>

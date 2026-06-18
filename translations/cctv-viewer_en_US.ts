@@ -425,6 +425,18 @@
         <source>Are you absolutely sure and aware of what you are doing?</source>
         <translation>Are you absolutely sure and aware of what you are doing?</translation>
     </message>
+    <message>
+        <source>Pokaż listę kamer rejestratora</source>
+        <translation>Show NVR cameras list</translation>
+    </message>
+    <message>
+        <source>Edytuj dane połączenia rejestratora</source>
+        <translation>Edit recorder connection details</translation>
+    </message>
+    <message>
+        <source>Usuń rejestrator z listy</source>
+        <translation>Delete recorder from list</translation>
+    </message>
 </context>
 <context>
     <name>PlaybackWindow</name>

@@ -463,49 +463,58 @@ ColumnLayout {
 
                     Button {
                         id: listBtn
-                        text: "📺"
-                        implicitWidth: 32
-                        implicitHeight: 32
+                        implicitWidth: 30
+                        implicitHeight: 30
                         Layout.alignment: Qt.AlignVCenter
 
-                        contentItem: Text {
-                            text: listBtn.text
-                            font.pixelSize: 16
-                            color: "white"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
+                        contentItem: Image {
+                            anchors.centerIn: parent
+                            width: 16
+                            height: 16
+                            source: {
+                                var colorStr = listBtn.hovered ? "%2300f5d4" : "%238898a6";
+                                return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='3' width='20' height='14' rx='2' ry='2'></rect><line x1='8' y1='21' x2='16' y2='21'></line><line x1='12' y1='17' x2='12' y2='21'></line></svg>";
+                            }
                         }
 
                         background: Rectangle {
-                            color: listBtn.pressed ? "#4000f5d4" : (listBtn.hovered ? "#2000f5d4" : "transparent")
-                            radius: 4
-                            border.color: listBtn.hovered ? "#00f5d4" : "transparent"
+                            color: listBtn.pressed ? "#cc121214" : (listBtn.hovered ? "#3a4550" : "#1c242c")
+                            radius: 15
+                            border.color: listBtn.hovered ? "#00f5d4" : "#2a3540"
+                            border.width: 1
                         }
 
                         onClicked: {
                             rootPanel.openCamerasWindow(modelData);
                         }
+
+                        ToolTip.delay: Compact.toolTipDelay
+                        ToolTip.timeout: Compact.toolTipTimeout
+                        ToolTip.visible: listBtn.hovered
+                        ToolTip.text: qsTr("Pokaż listę kamer rejestratora")
                     }
 
                     Button {
                         id: editBtn
-                        text: "✏️"
-                        implicitWidth: 32
-                        implicitHeight: 32
+                        implicitWidth: 30
+                        implicitHeight: 30
                         Layout.alignment: Qt.AlignVCenter
 
-                        contentItem: Text {
-                            text: editBtn.text
-                            font.pixelSize: 16
-                            color: "white"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
+                        contentItem: Image {
+                            anchors.centerIn: parent
+                            width: 16
+                            height: 16
+                            source: {
+                                var colorStr = editBtn.hovered ? "%23ff7a00" : "%238898a6";
+                                return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polygon points='16 3 21 8 8 21 3 21 3 16 16 3'></polygon></svg>";
+                            }
                         }
 
                         background: Rectangle {
-                            color: editBtn.pressed ? "#4000ff00" : (editBtn.hovered ? "#2000ff00" : "transparent")
-                            radius: 4
-                            border.color: editBtn.hovered ? "#00ff00" : "transparent"
+                            color: editBtn.pressed ? "#cc121214" : (editBtn.hovered ? "#3a4550" : "#1c242c")
+                            radius: 15
+                            border.color: editBtn.hovered ? "#ff7a00" : "#2a3540"
+                            border.width: 1
                         }
 
                         onClicked: {
@@ -517,27 +526,34 @@ ColumnLayout {
                             passField.text = modelData.password;
                             rootPanel.editingIndex = index;
                         }
+
+                        ToolTip.delay: Compact.toolTipDelay
+                        ToolTip.timeout: Compact.toolTipTimeout
+                        ToolTip.visible: editBtn.hovered
+                        ToolTip.text: qsTr("Edytuj dane połączenia rejestratora")
                     }
 
                     Button {
                         id: delBtn
-                        text: "🗑️"
-                        implicitWidth: 32
-                        implicitHeight: 32
+                        implicitWidth: 30
+                        implicitHeight: 30
                         Layout.alignment: Qt.AlignVCenter
 
-                        contentItem: Text {
-                            text: delBtn.text
-                            font.pixelSize: 16
-                            color: "white"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
+                        contentItem: Image {
+                            anchors.centerIn: parent
+                            width: 16
+                            height: 16
+                            source: {
+                                var colorStr = delBtn.hovered ? "%23ff4d4d" : "%238898a6";
+                                return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='3 6 5 6 21 6'></polyline><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'></path><line x1='10' y1='11' x2='10' y2='17'></line><line x1='14' y1='11' x2='14' y2='17'></line></svg>";
+                            }
                         }
 
                         background: Rectangle {
-                            color: delBtn.pressed ? "#40ff0000" : (delBtn.hovered ? "#20ff0000" : "transparent")
-                            radius: 4
-                            border.color: delBtn.hovered ? "#ff0000" : "transparent"
+                            color: delBtn.pressed ? "#cc121214" : (delBtn.hovered ? "#3a4550" : "#1c242c")
+                            radius: 15
+                            border.color: delBtn.hovered ? "#ff4d4d" : "#2a3540"
+                            border.width: 1
                         }
 
                         onClicked: {
@@ -545,6 +561,11 @@ ColumnLayout {
                             deleteConfirmDialog1.targetIp = modelData.ip;
                             deleteConfirmDialog1.open();
                         }
+
+                        ToolTip.delay: Compact.toolTipDelay
+                        ToolTip.timeout: Compact.toolTipTimeout
+                        ToolTip.visible: delBtn.hovered
+                        ToolTip.text: qsTr("Usuń rejestrator z listy")
                     }
                 }
             }
