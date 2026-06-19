@@ -24,6 +24,7 @@ public:
 
     // Login and discover channels for a specific recorder
     Q_INVOKABLE QVariantList discoverCameras(const QString &ip, int port, const QString &username, const QString &password);
+    Q_INVOKABLE void discoverCamerasAsync(const QString &ip, int port, const QString &username, const QString &password);
 
     // Logout from a recorder session
     Q_INVOKABLE void logout(const QString &ip);
@@ -46,6 +47,7 @@ public:
 
 signals:
     void sessionStatusChanged(const QString &ip, bool loggedIn);
+    void discoveryFinished(const QString &ip, const QVariantList &cameras, bool success, const QString &errorMsg);
 
 private:
     struct SessionInfo {

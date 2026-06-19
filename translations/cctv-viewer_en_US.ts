@@ -273,6 +273,13 @@
     </message>
 </context>
 <context>
+    <name>HikvisionManager</name>
+    <message>
+        <source>Login failed or no cameras discovered.</source>
+        <translation>Login failed or no cameras discovered.</translation>
+    </message>
+</context>
+<context>
     <name>NvrCamerasWindow</name>
     <message>
         <source>Cameras on %1</source>
@@ -436,6 +443,10 @@
     <message>
         <source>Usuń rejestrator z listy</source>
         <translation>Delete recorder from list</translation>
+    </message>
+    <message>
+        <source>Discovering...</source>
+        <translation>Discovering...</translation>
     </message>
 </context>
 <context>

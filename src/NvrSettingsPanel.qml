@@ -26,6 +26,7 @@ ColumnLayout {
 
     // Track NVR editing state
     property int editingIndex: -1
+    property bool isDiscovering: false
 
     // ── NvrCamerasWindow Component ──────────────────────────────────────
     // Declared here (outside the Repeater) so its QML creation context
@@ -61,6 +62,102 @@ ColumnLayout {
             var states = Object.assign({}, rootPanel.activeSessionIps);
             states[ip] = loggedIn;
             rootPanel.activeSessionIps = states;
+        }
+
+        function onDiscoveryFinished(ip, cameras, success, errorMsg) {
+            if (!rootPanel.isDiscovering) return;
+            rootPanel.isDiscovering = false;
+
+            if (!success) {
+                rootPanel.statusColor = "#ff3333";
+                rootPanel.statusMessage = errorMsg || qsTr("Login failed or no cameras discovered.");
+                return;
+            }
+
+            var newRecorder = {
+                name: nameField.text.trim(),
+                ip: ip,
+                port: parseInt(portField.text) || 8000,
+                username: userField.text.trim(),
+                password: passField.text,
+                cameras: cameras
+            };
+
+            if (rootPanel.editingIndex === -1) {
+                // ADD MODE
+                var arr = rootPanel.recorders.slice();
+                // Check if already added
+                for (var idx = 0; idx < arr.length; idx++) {
+                    if (arr[idx].ip === ip) {
+                        arr.splice(idx, 1); // overwrite
+                        break;
+                    }
+                }
+
+                arr.push(newRecorder);
+                rootPanel.recorders = arr;
+                saveRecorders();
+
+                // Generate a dynamic preset layout containing all discovered cameras
+                var numCams = cameras.length;
+                var gridSize = Math.ceil(Math.sqrt(numCams));
+                
+                var newLayout = layoutsCollectionModel.append();
+                newLayout.size = Qt.size(gridSize, gridSize);
+                newLayout.isNvr = true;
+                newLayout.nvrIp = ip;
+
+                for (var i = 0; i < numCams; ++i) {
+                    var vp = newLayout.get(i);
+                    if (vp) {
+                        // Store Hikvision URI
+                        vp.url = "hikvision://" + newRecorder.username + ":" + newRecorder.password + "@" + newRecorder.ip + ":" + newRecorder.port + "/" + cameras[i].channelId;
+                        vp.secondaryUrl = vp.url;
+                        vp.volume = 0;
+                    }
+                }
+
+                // Force navigation to the newly created preset!
+                stackLayout.currentIndex = layoutsCollectionModel.count - 1;
+
+            } else {
+                // EDIT MODE
+                var arr2 = rootPanel.recorders.slice();
+                var oldIp = arr2[rootPanel.editingIndex].ip;
+                arr2[rootPanel.editingIndex] = newRecorder;
+                rootPanel.recorders = arr2;
+                saveRecorders();
+
+                // Update corresponding NVR view layout
+                for (var j = 0; j < layoutsCollectionModel.count; ++j) {
+                    var l = layoutsCollectionModel.get(j);
+                    if (l && l.isNvr && l.nvrIp === oldIp) {
+                        l.nvrIp = newRecorder.ip;
+                        var numCams2 = cameras.length;
+                        var gridSize2 = Math.ceil(Math.sqrt(numCams2));
+                        l.size = Qt.size(gridSize2, gridSize2);
+
+                        for (var k = 0; k < numCams2; ++k) {
+                            var vp2 = l.get(k);
+                            if (vp2) {
+                                vp2.url = "hikvision://" + newRecorder.username + ":" + newRecorder.password + "@" + newRecorder.ip + ":" + newRecorder.port + "/" + cameras[k].channelId;
+                                vp2.secondaryUrl = vp2.url;
+                                vp2.volume = 0;
+                            }
+                        }
+                        break;
+                    }
+                }
+                rootPanel.editingIndex = -1;
+            }
+
+            // Clear fields & status
+            nameField.text = "";
+            ipField.text = "";
+            portField.text = "8000";
+            userField.text = "admin";
+            passField.text = "";
+            rootPanel.statusMessage = "";
         }
     }
 
@@ -118,6 +215,7 @@ ColumnLayout {
         ColumnLayout {
             width: parent.width
             spacing: 8
+            enabled: !rootPanel.isDiscovering
 
             TextField {
                 id: nameField
@@ -215,16 +313,35 @@ ColumnLayout {
 
                 Button {
                     id: addBtn
-                    text: rootPanel.editingIndex === -1 ? qsTr("Connect & Discover") : qsTr("Save & Update")
+                    text: rootPanel.isDiscovering ? qsTr("Discovering...") : (rootPanel.editingIndex === -1 ? qsTr("Connect & Discover") : qsTr("Save & Update"))
                     Layout.fillWidth: true
                     highlighted: true
 
-                    contentItem: Text {
-                        text: addBtn.text
-                        font.bold: true
-                        color: "white"
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
+                    contentItem: RowLayout {
+                        spacing: 8
+                        Image {
+                            source: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round'><path d='M12 2a10 10 0 1 0 10 10'></path></svg>"
+                            Layout.preferredWidth: 16
+                            Layout.preferredHeight: 16
+                            visible: rootPanel.isDiscovering
+                            fillMode: Image.PreserveAspectFit
+
+                            RotationAnimation on rotation {
+                                from: 0
+                                to: 360
+                                duration: 1000
+                                loops: Animation.Infinite
+                                running: rootPanel.isDiscovering
+                            }
+                        }
+                        Text {
+                            text: addBtn.text
+                            font.bold: true
+                            color: "white"
+                            Layout.fillWidth: true
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                        }
                     }
 
                     background: Rectangle {
@@ -239,106 +356,17 @@ ColumnLayout {
                             return;
                         }
 
-                        var ip = ipField.text;
+                        var ip = ipField.text.trim();
                         var port = parseInt(portField.text) || 8000;
-                        var user = userField.text;
+                        var user = userField.text.trim();
                         var pass = passField.text;
 
                         rootPanel.statusColor = "#00f5d4"; // Cyan glowing text for loading
                         rootPanel.statusMessage = qsTr("Connecting to NVR and discovering channels...");
+                        rootPanel.isDiscovering = true;
 
-                        // Log in and fetch camera channels from NVR
-                        var cameras = HikvisionManager.discoverCameras(ip, port, user, pass);
-                        if (cameras.length === 0) {
-                            rootPanel.statusColor = "#ff3333";
-                            rootPanel.statusMessage = qsTr("Login failed or no cameras discovered.");
-                            return;
-                        }
-
-                        var newRecorder = {
-                            name: nameField.text.trim(),
-                            ip: ip,
-                            port: port,
-                            username: user,
-                            password: pass,
-                            cameras: cameras
-                        };
-
-                        if (rootPanel.editingIndex === -1) {
-                            // ADD MODE
-                            var arr = rootPanel.recorders.slice();
-                            // Check if already added
-                            for (var idx = 0; idx < arr.length; idx++) {
-                                if (arr[idx].ip === ip) {
-                                    arr.splice(idx, 1); // overwrite
-                                    break;
-                                }
-                            }
-
-                            arr.push(newRecorder);
-                            rootPanel.recorders = arr;
-                            saveRecorders();
-
-                            // Generate a dynamic preset layout containing all discovered cameras
-                            var numCams = cameras.length;
-                            var gridSize = Math.ceil(Math.sqrt(numCams));
-                            
-                            var newLayout = layoutsCollectionModel.append();
-                            newLayout.size = Qt.size(gridSize, gridSize);
-                            newLayout.isNvr = true;
-                            newLayout.nvrIp = ip;
-
-                            for (var i = 0; i < numCams; ++i) {
-                                var vp = newLayout.get(i);
-                                if (vp) {
-                                    // Store Hikvision URI
-                                    vp.url = "hikvision://" + user + ":" + pass + "@" + ip + ":" + port + "/" + cameras[i].channelId;
-                                    vp.secondaryUrl = vp.url;
-                                    vp.volume = 0;
-                                }
-                            }
-
-                            // Force navigation to the newly created preset!
-                            stackLayout.currentIndex = layoutsCollectionModel.count - 1;
-
-                        } else {
-                            // EDIT MODE
-                            var arr = rootPanel.recorders.slice();
-                            var oldIp = arr[rootPanel.editingIndex].ip;
-                            arr[rootPanel.editingIndex] = newRecorder;
-                            rootPanel.recorders = arr;
-                            saveRecorders();
-
-                            // Update corresponding NVR view layout
-                            for (var j = 0; j < layoutsCollectionModel.count; ++j) {
-                                var l = layoutsCollectionModel.get(j);
-                                if (l && l.isNvr && l.nvrIp === oldIp) {
-                                    l.nvrIp = ip;
-                                    var numCams = cameras.length;
-                                    var gridSize = Math.ceil(Math.sqrt(numCams));
-                                    l.size = Qt.size(gridSize, gridSize);
-
-                                    for (var k = 0; k < numCams; ++k) {
-                                        var vp = l.get(k);
-                                        if (vp) {
-                                            vp.url = "hikvision://" + user + ":" + pass + "@" + ip + ":" + port + "/" + cameras[k].channelId;
-                                            vp.secondaryUrl = vp.url;
-                                            vp.volume = 0;
-                                        }
-                                    }
-                                    break;
-                                }
-                            }
-                            rootPanel.editingIndex = -1;
-                        }
-
-                         // Clear fields & status
-                        nameField.text = "";
-                        ipField.text = "";
-                        portField.text = "8000";
-                        userField.text = "admin";
-                        passField.text = "";
-                        rootPanel.statusMessage = "";
+                        // Log in and fetch camera channels from NVR asynchronously
+                        HikvisionManager.discoverCamerasAsync(ip, port, user, pass);
                     }
                 }
 

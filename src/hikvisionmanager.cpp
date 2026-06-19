@@ -4,6 +4,7 @@
 #include <QProcess>
 #include <QRegularExpression>
 #include <QRegularExpressionMatchIterator>
+#include <QThread>
 
 HikvisionManager* HikvisionManager::m_instance = nullptr;
 
@@ -247,6 +248,18 @@ QVariantList HikvisionManager::discoverCameras(const QString &ip, int port, cons
     }
 
     return cameraList;
+}
+
+void HikvisionManager::discoverCamerasAsync(const QString &ip, int port, const QString &username, const QString &password)
+{
+    QThread *thread = QThread::create([this, ip, port, username, password]() {
+        QVariantList cameras = discoverCameras(ip, port, username, password);
+        bool success = !cameras.isEmpty();
+        QString errorMsg = success ? "" : tr("Login failed or no cameras discovered.");
+        emit discoveryFinished(ip, cameras, success, errorMsg);
+    });
+    connect(thread, &QThread::finished, thread, &QThread::deleteLater);
+    thread->start();
 }
 
 void HikvisionManager::logout(const QString &ip)

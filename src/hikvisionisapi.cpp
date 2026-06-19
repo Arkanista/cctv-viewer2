@@ -66,8 +66,8 @@ void HikvisionISAPI::doSearchRequest(const QString &sessionId)
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/xml");
 
-    QString startTimeStr = session.startTime.toLocalTime().toString("yyyy-MM-ddThh:mm:ss") + "Z";
-    QString endTimeStr = session.endTime.toLocalTime().toString("yyyy-MM-ddThh:mm:ss") + "Z";
+    QString startTimeStr = session.startTime.toUTC().toString("yyyy-MM-ddThh:mm:ss") + "Z";
+    QString endTimeStr = session.endTime.toUTC().toString("yyyy-MM-ddThh:mm:ss") + "Z";
 
     qDebug() << "[ISAPI] doSearchRequest session:" << sessionId
              << "channelId:" << session.channelId
@@ -178,12 +178,10 @@ void HikvisionISAPI::onReplyFinished()
                 matchItemsCount++;
             } else if (inMatchItem && name == "startTime") {
                 QString val = xml.readElementText();
-                currentStart = QDateTime::fromString(val.left(19), "yyyy-MM-ddThh:mm:ss");
-                currentStart.setTimeSpec(Qt::LocalTime);
+                currentStart = QDateTime::fromString(val, Qt::ISODate).toLocalTime();
             } else if (inMatchItem && name == "endTime") {
                 QString val = xml.readElementText();
-                currentEnd = QDateTime::fromString(val.left(19), "yyyy-MM-ddThh:mm:ss");
-                currentEnd.setTimeSpec(Qt::LocalTime);
+                currentEnd = QDateTime::fromString(val, Qt::ISODate).toLocalTime();
             }
         } else if (token == QXmlStreamReader::EndElement) {
             QString name = xml.name().toString();
