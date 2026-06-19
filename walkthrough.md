@@ -173,3 +173,23 @@ Wszystkie ikony zostały przepisane na ultralekkie, jednolite i responsywne wekt
    - Projekt został pomyślnie skonfigurowany i skompilowany w katalogu `./build/` bez żadnych błędów.
    - Nowe/zmodyfikowane pliki QML skompilowały się pomyślnie w pamięci podręcznej QML.
    - Wszystkie testy przeszły pomyślnie.
+
+---
+
+## Naprawa Kompilacji Tłumaczeń i Polskich Opisów (v2.1.1-1)
+
+### 1. Problem z cykliczną zależnością i brakiem regeneracji plików `.qm`
+* **Diagnoza**: W konfiguracji CMake używano makra `qt5_create_translation` (które wywołuje pod spodem narzędzie `lupdate` w celu przeskanowania kodu źródłowego). Ponieważ pliki `.ts` oraz skompilowany plik zasobów `qrc_cctv-viewer_qmlcache.cpp` (lub `${RESOURCES}`) należały do celów docelowych binaru, generowanie kodu zasobów zależało od plików `.qm`, te z kolei od `.ts`, a te od skanowania źródeł (w tym wygenerowanego kodu zasobów). Tworzyło to **pętlę w grafie zależności (circular dependency)** w CMake.
+* **Skutek**: Podczas kompilacji CMake porzucał część zależności, a pliki `.qm` (szczególnie angielski `cctv-viewer_en_US.qm`) nie były regenerowane automatycznie podczas budowania. W konsekwencji program oraz paczka Pacman korzystały z przestarzałych plików binarnych tłumaczeń, co powodowało wyświetlanie polskich tekstów źródłowych (np. w dzienniku zmian Changelog oraz tooltipach) w angielskiej lokalizacji.
+
+### 2. Wdrożone Rozwiązanie
+* **Poprawka w [CMakeLists.txt](file:///home/robert/cctv/cctv-viewer2/CMakeLists.txt)**:
+  1. Usunięto problematyczne wywołania `qt5_create_translation` / `qt_create_translation` (które uruchamiały niepotrzebnie `lupdate` na każdym etapie kompilacji).
+  2. Zastąpiono je asynchronicznymi i bezproblemowymi makrami **`qt5_add_translation`** / **`qt_add_translation`** (które uruchamiają wyłącznie `lrelease` kompilujący `.ts` do `.qm` bez skanowania kodu).
+  3. Przeniesiono generowanie `QM_FILES` przed definicję `PROJ_FILES` i włączono `${QM_FILES}` bezpośrednio do listy źródeł binaru.
+  4. Gwarantuje to w pełni **acykliczny łańcuch zależności**: `${TS_FILES}` -> `lrelease` -> `${QM_FILES}` -> `rcc` (zasoby) -> kompilacja binaru. Pliki `.qm` są teraz automatycznie kompilowane przy każdej zmianie w tłumaczeniach.
+* **Przebudowa Paczki i Publikacja**:
+  * Pomyślnie skompilowano i spakowano nową wersję pakietu Pacman za pomocą `makepkg -f` w katalogu `packaging/arch`.
+  * Wypchnięto poprawki na repozytorium GitHub (gałąź `master`).
+  * Podmieniono paczkę binarną `cctv-viewer2-2.1.1-1-x86_64.pkg.tar.zst` bezpośrednio w wydaniu **Tag v2.1.1** na GitHubie.
+
