@@ -146,6 +146,14 @@ find_package(Qt5 5.12 COMPONENTS ${QT_LINK_DEPENDENCIES} QuickCompiler LinguistT
 
 file(GLOB TS_FILES "${CMAKE_SOURCE_DIR}/translations/*.ts")
 
+set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION "${CMAKE_SOURCE_DIR}/translations")
+if (${QT_VERSION_MAJOR} GREATER 5)
+    qt_add_translation(QM_FILES ${TS_FILES})
+else()
+    qt5_add_translation(QM_FILES ${TS_FILES})
+endif()
+
+
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     if (${QT_VERSION_MAJOR} GREATER 5)
         qt_add_resources(RESOURCES cctv-viewer.qrc)
@@ -175,6 +183,7 @@ set(PROJ_FILES
     src/DownloadDialog.qml
     ${RESOURCES}
     ${TS_FILES}
+    ${QM_FILES}
     )
 
 set(QML_IMPORT_PATH "${CMAKE_SOURCE_DIR}/src/imports" CACHE STRING "Additional import path used to resolve QML modules in Qt Creator's code model")
@@ -219,12 +228,6 @@ if (NOT ANDROID)
 endif()
 
 set_directory_properties(PROPERTIES CLEAN_NO_CUSTOM true)
-set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION "${CMAKE_SOURCE_DIR}/translations")
-if (${QT_VERSION_MAJOR} GREATER 5)
-    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
-else()
-    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
-endif()
 
 if (UNIX AND NOT ANDROID)
     include(GNUInstallDirs)
