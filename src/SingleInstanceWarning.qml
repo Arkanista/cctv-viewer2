@@ -12,43 +12,57 @@ Window {
     minimumHeight: 150
     maximumWidth: 380
     maximumHeight: 150
-    color: "#0f151b"
+    color: "#1c242c"
     title: qsTr("CCTV Viewer 2")
 
     flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowCloseButtonHint
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 20
-        spacing: 16
+        spacing: 0
 
-        RowLayout {
-            spacing: 16
+        // Header
+        Rectangle {
             Layout.fillWidth: true
-            Layout.fillHeight: true
+            height: 42
+            color: "#0f151b"
 
             Rectangle {
-                width: 36
-                height: 36
-                color: "#1c242c"
-                radius: 18
-                border.color: "#ffaa00"
-                border.width: 1
-                Layout.alignment: Qt.AlignVCenter
+                anchors.bottom: parent.bottom
+                width: parent.width
+                height: 1
+                color: "#2a3540"
+            }
 
-                Text {
-                    anchors.centerIn: parent
-                    text: "!"
-                    font.bold: true
-                    font.pixelSize: 20
-                    color: "#ffaa00"
-                }
+            Text {
+                anchors.fill: parent
+                anchors.leftMargin: 16
+                text: warningWindow.title
+                color: "#00f5d4"
+                font.bold: true
+                font.pixelSize: 13
+                verticalAlignment: Text.AlignVCenter
+            }
+        }
+
+        // Content
+        RowLayout {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.margins: 16
+            spacing: 16
+
+            Image {
+                source: "qrc:/images/icon-warning.svg"
+                Layout.preferredWidth: 28
+                Layout.preferredHeight: 28
+                fillMode: Image.PreserveAspectFit
+                Layout.alignment: Qt.AlignVCenter
             }
 
             Text {
                 text: qsTr("Program już działa, nie możesz uruchomić drugiego")
                 color: "white"
-                font.bold: true
                 font.pixelSize: 12
                 wrapMode: Text.Wrap
                 Layout.fillWidth: true
@@ -56,40 +70,52 @@ Window {
             }
         }
 
-        RowLayout {
+        // Footer
+        Rectangle {
             Layout.fillWidth: true
+            height: 48
+            color: "#0f151b"
 
-            Item { Layout.fillWidth: true }
-
-            Button {
-                id: closeBtn
-                text: qsTr("ZAMKNIJ")
-                implicitWidth: 100
-                implicitHeight: 30
-                Layout.alignment: Qt.AlignVCenter
-
-                contentItem: Text {
-                    text: closeBtn.text
-                    font.bold: true
-                    font.pixelSize: 11
-                    color: "white"
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-                background: Rectangle {
-                    color: closeBtn.pressed ? "#cc2929" : (closeBtn.hovered ? "#ff4d4d" : "#d63333")
-                    radius: 15
-                    border.color: closeBtn.hovered ? "#ff8080" : "transparent"
-                    border.width: 1
-                }
-
-                onClicked: {
-                    Qt.quit();
-                }
+            Rectangle {
+                anchors.top: parent.top
+                width: parent.width
+                height: 1
+                color: "#2a3540"
             }
 
-            Item { Layout.fillWidth: true }
+            RowLayout {
+                anchors.fill: parent
+                anchors.leftMargin: 16
+                anchors.rightMargin: 16
+                anchors.topMargin: 8
+                anchors.bottomMargin: 8
+
+                Item { Layout.fillWidth: true }
+
+                Button {
+                    id: closeBtn
+                    text: qsTr("ZAMKNIJ")
+                    Layout.preferredWidth: 80
+                    Layout.preferredHeight: 30
+
+                    contentItem: Text {
+                        text: closeBtn.text
+                        font.bold: true
+                        color: "white"
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    background: Rectangle {
+                        color: closeBtn.pressed ? "#cc2929" : (closeBtn.hovered ? "#ff4d4d" : "#d63333")
+                        radius: 4
+                    }
+
+                    onClicked: {
+                        Qt.quit();
+                    }
+                }
+            }
         }
     }
 }
