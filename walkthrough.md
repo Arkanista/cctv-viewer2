@@ -81,3 +81,26 @@ Projekt został w całości przebudowany w katalogu `./build/`:
 * **Naprawa stanu przycisku układu 1x1**: Rozwiązano problem, w którym po otwarciu archiwum bezpośrednio z ikony w porcie kamery (gdzie wideo słusznie otwiera się w widoku 1x1), przycisk układu 2x2 pozostawał niepoprawnie podświetlony, nie odzwierciedlając rzeczywistego stanu interfejsu.
 * **Wydanie pakietu Pacman `-2`**: Przebudowano pakiet pacmana `cctv-viewer2-2.0.9-2-x86_64.pkg.tar.zst` z obiema poprawkami, zaktualizowano odnośnik w pliku `README.md`, wysłano zmiany do repozytorium GitHub i zaktualizowano oficjalne wydanie (Release v2.0.9) na GitHubie.
 
+### 14. Korekta proporcji kółka zębatego oraz kolorowanie ikon paska górnego
+* **Proporcje ikony opcji (`optionsButton`)**: Naprawiono deformację kółka zębatego (wydłużenie w pionie), przywracając oryginalne, zbalansowane współrzędne wektorowe z biblioteki Feather Icons (usunięto uproszczenie cornerów do pojedynczych łuków, które zniekształcało symetrię zębów).
+* **Zabezpieczenie przed rozciąganiem SVG w Qt**: Dodano jawne atrybuty `width='24' height='24'` do znacznika `<svg>` oraz właściwości `sourceSize.width: 16`, `sourceSize.height: 16` i `fillMode: Image.PreserveAspectFit` w QML do komponentów `Image` we wszystkich oknach (`RootWindow.qml` oraz `AuxiliaryWindow.qml`). Uniemożliwia to rendererowi Qt rozciąganie wektorów pod wpływem rozmiarów kontenera.
+* **Kolorystyka ikon paska górnego**: Pokolorowano nowo dodane przyciski akcji na pasku górnym, aby były łatwo rozróżnialne i wizualnie atrakcyjne:
+  * **Opcje (`optionsButton`)**: Żywy pomarańczowy (`#ff7a00` / `#ff9e00` na hover).
+  * **Nowe okno pomocnicze (`newWindowButton`)**: Fioletowo-lawendowy (`#a855f7` / `#c084fc` na hover).
+  * **Archiwum (`archiveButton`)**: Morsko-turkusowy (`#00bfa5` / `#00f5d4` na hover).
+  * **Instrukcja obsługi (`instructionsButton`)**: Słoneczno-złoty (`#eab308` / `#facc15` na hover).
+
+### 15. Unifikacja paska górnego, pionowe linie rozdzielające, przyciski widoków w formie pigułek, uppercase oraz kontrast
+* **Dostosowanie przycisków wyboru siatki (`gridBtn`)**: Zmieniono wymiary przycisków wyboru siatki (od `1x1` do `9x9`) z 44x28px na idealne, okrągłe 30x30px z promieniem `radius: 15` w `RootWindow.qml` i `AuxiliaryWindow.qml`. Dzięki temu są całkowicie spójne z okrągłymi przyciskami po lewej stronie paska górnego.
+* **Nowe, okrągłe menu hamburgerowe (`moreOptionsButton`)**:
+  - W oknie głównym (`RootWindow.qml`) przekształcono menu hamburgerowe z kwadratowego (28x28px, `radius: 4`) na okrągłe 30x30px (`radius: 15`) z powiększoną do 16x16px ikoną SVG oraz jednolitym efektem hover/pressed.
+  - W oknie pomocniczym (`AuxiliaryWindow.qml`) zastąpiono tradycyjny przycisk tekstowy "Więcej opcji" okrągłym przyciskiem 30x30px z ikoną SVG i eleganckim dymkiem (ToolTip), ujednolicając w 100% interfejs z oknem głównym.
+* **Pionowe linie rozdzielające (Separatory)**: Wprowadzono estetyczne pionowe separatory (`Rectangle`, szerokość 1, wysokość 20, kolor `#2a3540`) tuż za przełącznikiem blokady siatki, oddzielając przyciski opcji od sekcji przycisków zmiany siatki.
+* **Przyciski widoków (`viewBtn`) jako pigułki (Pill buttons)**:
+  - Zwiększono ich wysokość z 28px do 30px i nadano im pełne zaokrąglenie (`radius: 15`) w obu plikach okien.
+  - Dodano marginesy wewnętrzne (`leftPadding: 12`, `rightPadding: 12`), zapobiegając nachodzeniu napisów na łuki zaokrągleń i poprawiając ich symetrię.
+* **Wymuszenie liter drukowanych (Uppercase)**: Wprowadzono automatyczne przekształcanie nazwy widoków do wielkich liter (`.toUpperCase()`) w komponencie Text przycisków widoków w obydwu plikach okien.
+* **Doskonały kontrast aktywnego widoku**: Naprawiono nieczytelność białego tekstu na bardzo jasnym seledynowym tle aktywnego przycisku widoku (`#00f5d4`), zmieniając kolor czcionki aktywnej opcji na ciemny antracyt/charcoal (`#121214`).
+
+
+

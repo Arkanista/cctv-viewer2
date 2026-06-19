@@ -67,6 +67,26 @@
         <source>Nie wybrano widoku, wybierz widok</source>
         <translation>No view selected, select a view</translation>
     </message>
+    <message>
+        <source>📖 INSTRUKCJA</source>
+        <translation type="vanished">📖 INSTRUCTIONS</translation>
+    </message>
+    <message>
+        <source>INSTRUKCJA</source>
+        <translation type="vanished">INSTRUCTIONS</translation>
+    </message>
+    <message>
+        <source>Opcje i ustawienia panelu bocznego</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Otwórz nowe okno pomocnicze</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Instrukcja obsługi programu</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConfirmDialog</name>
@@ -277,6 +297,21 @@
     <message>
         <source>Login failed or no cameras discovered.</source>
         <translation>Login failed or no cameras discovered.</translation>
+    </message>
+</context>
+<context>
+    <name>InstructionsWindow</name>
+    <message>
+        <source>CCTV Viewer 2 - Instrukcja Obsługi / Instructions</source>
+        <translation>CCTV Viewer 2 - User Manual / Instructions</translation>
+    </message>
+    <message>
+        <source>qrc:/INSTRUKCJA.md</source>
+        <translation>qrc:/INSTRUCTIONS.md</translation>
+    </message>
+    <message>
+        <source>Błąd ładowania instrukcji.</source>
+        <translation>Error loading instructions.</translation>
     </message>
 </context>
 <context>
@@ -896,6 +931,38 @@
         <source>Ładowanie nowego okna...</source>
         <translation>Loading new window...</translation>
     </message>
+    <message>
+        <source>📖 INSTRUKCJA</source>
+        <translation type="vanished">📖 INSTRUCTIONS</translation>
+    </message>
+    <message>
+        <source>INSTRUKCJA</source>
+        <translation type="vanished">INSTRUCTIONS</translation>
+    </message>
+    <message>
+        <source>Opcje i ustawienia panelu bocznego</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Otwórz nowe okno pomocnicze</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archiwum nagrań i odtwarzacz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Instrukcja obsługi programu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wyłącz statystyki zużycia zasobów</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Włącz statystyki zużycia zasobów</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsDialog</name>
@@ -1309,6 +1376,174 @@
     <message>
         <source>Automatically collapse top bar</source>
         <translation>Automatically collapse top bar</translation>
+    </message>
+    <message>
+        <source>Poprawka logowania i działania archiwum w oknach pomocniczych.</source>
+        <translation>Fixed login and playback issues in auxiliary windows.</translation>
+    </message>
+    <message>
+        <source>Naprawa stanu przycisków siatki (1x1 vs 2x2) przy bezpośrednim otwieraniu archiwum z kamery.</source>
+        <translation>Fixed layout button states (1x1 vs 2x2) when opening playback directly from camera.</translation>
+    </message>
+    <message>
+        <source>Dodano poprawną przestrzeń nazw XML w zapytaniach Hikvision ISAPI (eliminacja błędu &apos;Invalid XML Content&apos; na nowszym oprogramowaniu układowym rejestratorów).</source>
+        <translation>Added proper XML namespace in Hikvision ISAPI queries (fixes &apos;Invalid XML Content&apos; error on newer recorder firmware).</translation>
+    </message>
+    <message>
+        <source>Naprawa obsługi paginacji wyników wyszukiwania (obsługa tagu searchResultPostion).</source>
+        <translation>Fixed search results pagination handling (searchResultPostion tag).</translation>
+    </message>
+    <message>
+        <source>Przycisk &apos;Odśwież&apos; w oknie archiwum pozwalający na ręczne wyczyszczenie pamięci podręcznej i ponowne pobranie danych o dostępności nagrań.</source>
+        <translation>&apos;Refresh&apos; button in the playback window to manually clear cache and re-fetch recording availability data.</translation>
+    </message>
+    <message>
+        <source>Optymalizacja kolejki sieciowej (Prefetch) – ograniczenie pobierania wstecznego do 12 miesięcy, co eliminuje setki zbędnych zapytań o przedawnione nagrania i znacznie przyspiesza start odtwarzania.</source>
+        <translation>Network prefetching queue optimization – restricted background fetching to 12 months, eliminating hundreds of unnecessary queries and speeding up playback start.</translation>
+    </message>
+    <message>
+        <source>Asynchroniczna inicjalizacja SDK Hikvision w osobnym wątku, co całkowicie wyeliminowało zawieszanie się interfejsu (GUI Freeze) przy otwieraniu opcji.</source>
+        <translation>Asynchronous Hikvision SDK initialization in a background thread, completely eliminating GUI freezes when opening options.</translation>
+    </message>
+    <message>
+        <source>Bezpieczna wielowątkowa synchronizacja dostępu do metod SDK Hikvision.</source>
+        <translation>Thread-safe synchronization of access to Hikvision SDK methods.</translation>
+    </message>
+    <message>
+        <source>Oczyszczanie nazw pobieranych plików i zrzutów ekranu z adresów IP rejestratorów.</source>
+        <translation>Sanitizing downloaded file and screenshot names by removing recorder IP addresses.</translation>
+    </message>
+    <message>
+        <source>Elegancki styl paska postępu pobierania w kolorze jasnoturkusowym (#00f5d4) z nałożonym wycentrowanym tekstem z czarnym obrysem.</source>
+        <translation>Sleek download progress bar in turquoise (#00f5d4) with centered outlined text.</translation>
+    </message>
+    <message>
+        <source>Obliczanie globalnego postępu pobierania (overallProgress) dla nagrań składających się z wielu części.</source>
+        <translation>Calculation of global download progress (overallProgress) for multi-part recordings.</translation>
+    </message>
+    <message>
+        <source>Zmiana rozszerzenia plików tymczasowych pobierania z &apos;.ps&apos; na &apos;.pspart&apos;.</source>
+        <translation>Changed temporary download file extension from &apos;.ps&apos; to &apos;.pspart&apos;.</translation>
+    </message>
+    <message>
+        <source>Opcja i przycisk &apos;Pokazuj pola informacyjne tylko po najechaniu kursorem&apos; w ustawieniach interfejsu użytkownika.</source>
+        <translation>&apos;Show info fields only when hovering&apos; option and button in user interface settings.</translation>
+    </message>
+    <message>
+        <source>Wizualna informacja o procesie wyszukiwania kamer w panelu konfiguracji (obracająca się ikona, blokowanie formularza, tekst &apos;Wyszukiwanie...&apos;).</source>
+        <translation>Visual indicator for camera discovery in the configuration panel (rotating icon, form blocking, and &apos;Discovering...&apos; text).</translation>
+    </message>
+    <message>
+        <source>Pełna wielojęzyczność (dodanie oficjalnego wsparcia dla języków polskiego i angielskiego).</source>
+        <translation>Full localization (added official Polish and English translation support).</translation>
+    </message>
+    <message>
+        <source>Optymalizacja czasu uruchamiania okna pomocniczego – skrócenie startu z 3 sekund do poniżej 300 ms.</source>
+        <translation>Auxiliary window startup optimization – reduced load time from 3 seconds to under 300 ms.</translation>
+    </message>
+    <message>
+        <source>Estetyczna stylizacja pustego pola w oknie pomocniczym (&apos;Nie wybrano widoku&apos;) z seledynową ramką.</source>
+        <translation>Aesthetic placeholder in the auxiliary window (&apos;No view selected&apos;) with a turquoise border.</translation>
+    </message>
+    <message>
+        <source>Integracja z SDK Hikvision w trybie Live oraz odtwarzania archiwum.</source>
+        <translation>Hikvision SDK integration for Live view and Playback mode.</translation>
+    </message>
+    <message>
+        <source>Odtwarzacz nagrań archiwalnych z wieloma kamerami naraz, automatycznie pozycjonowaną i centrowaną osią czasu.</source>
+        <translation>Multi-camera playback player with automatic timeline positioning and centering.</translation>
+    </message>
+    <message>
+        <source>Wielowątkowy Monitor Systemowy (statystyki procesora, pamięci RAM, karty graficznej, pamięci VRAM oraz sieci).</source>
+        <translation>Multi-threaded System Monitor (CPU, RAM, GPU, VRAM, and network bandwidth statistics).</translation>
+    </message>
+    <message>
+        <source>Śledzenie wykorzystania pasma sieciowego w czasie rzeczywistym.</source>
+        <translation>Real-time network bandwidth consumption tracking.</translation>
+    </message>
+    <message>
+        <source>Nowa ikona aplikacji w wysokiej rozdzielczości oraz dopracowany ciemny motyw interfejsu.</source>
+        <translation>High-resolution app icon and refined dark theme interface.</translation>
+    </message>
+    <message>
+        <source>Automatyczny skrypt budowania pakietu Pacman dla systemu Arch Linux.</source>
+        <translation>Automatic Pacman package building script for Arch Linux.</translation>
+    </message>
+    <message>
+        <source>Changelog</source>
+        <translation>Changelog</translation>
+    </message>
+    <message>
+        <source>Dziennik zmian (Changelog)</source>
+        <translation>Changelog</translation>
+    </message>
+    <message>
+        <source>Historia ulepszeń, poprawek błędów i nowych funkcji w programie CCTV Viewer 2.</source>
+        <translation>History of improvements, bug fixes, and new features in CCTV Viewer 2.</translation>
+    </message>
+    <message>
+        <source>Aktywuj ten układ podglądu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usuń ten układ podglądu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aktywuj ten widok kamer NVR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usuń ten widok kamer NVR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aktywuj ten preset kamer NVR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usuń ten preset kamer NVR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ujednolicono przyciski wyboru siatki (1x1-9x9) do spójnych okrągłych przycisków 30x30px.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wymuszono automatyczne wyświetlanie nazw widoków wielkimi literami (Uppercase).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Poprawiono czytelność i kontrast aktywnego przycisku widoku – ciemny tekst (#121214) na jasnym seledynowym tle.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zastąpiono tekstowe przyciski akcji na górnym pasku (Opcje, Nowe okno, Archiwum, Instrukcje) dedykowanymi, kolorowymi ikonami SVG z pomocniczymi dymkami (Tooltip).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zastąpiono przełącznik statystyk interaktywną ikoną SVG odzwierciedlającą stan aktywności monitora systemowego.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dodano pionową linię rozdzielającą (separator) sekcję opcji od sekcji wyboru siatki.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Przebudowano przyciski widoków do eleganckiego, zaokrąglonego kształtu pigułki o wysokości 30px z zachowaniem marginesów bocznych.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ujednolicono i poprawiono ikony usuwania na liście rejestratorów i widoków oraz przycisk aktywacji presetu na ikony SVG z dymkami (Tooltip).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zmniejszono odległości między przyciskami na górnym pasku w celu optymalizacji przestrzeni interfejsu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Przywrócono brakującą ikonę minimalizowania w oknie pomocniczym.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

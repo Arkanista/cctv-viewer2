@@ -7,11 +7,14 @@
         <file>images/play_small.svg</file>
         <file>images/calendar.svg</file>
         <file>images/folder.svg</file>
+        <file>INSTRUCTIONS.md</file>
+        <file>INSTRUKCJA.md</file>
         <file>qtquickcontrols2.conf</file>
         <file>translations/cctv-viewer_pl_PL.qm</file>
         <file>translations/cctv-viewer_en_US.qm</file>
         <file>src/RootWindow.qml</file>
         <file>src/AuxiliaryWindow.qml</file>
+        <file>src/InstructionsWindow.qml</file>
         <file>src/SettingsDialog.qml</file>
         <file>src/ViewportSettingsDialog.qml</file>
         <file>src/ToolsWindow.qml</file>
@@ -31,6 +34,7 @@
         <file>images/menu-settings.svg</file>
         <file>images/menu-presets.svg</file>
         <file>images/menu-recorders.svg</file>
+        <file>images/menu-changelog.svg</file>
         <file>images/menu.svg</file>
         <file>images/menu-collapse.svg</file>
         <file>images/menu-item-collapse.svg</file>

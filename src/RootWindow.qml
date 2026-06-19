@@ -434,9 +434,9 @@ ApplicationWindow {
 
             RowLayout {
             anchors.fill: parent
-            anchors.leftMargin: 12
-            anchors.rightMargin: 12
-            spacing: 12
+            anchors.leftMargin: 8
+            anchors.rightMargin: 8
+            spacing: 6
 
             Button {
                 id: quitButton
@@ -582,24 +582,27 @@ ApplicationWindow {
 
             Button {
                 id: optionsButton
-                text: qsTr("⚙️ OPCJE")
-                Layout.preferredWidth: 90
+                Layout.preferredWidth: 30
                 Layout.preferredHeight: 30
                 Layout.alignment: Qt.AlignVCenter
 
-                contentItem: Text {
-                    text: optionsButton.text
-                    font.bold: true
-                    font.pixelSize: 10
-                    color: "white"
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
+                contentItem: Image {
+                    anchors.centerIn: parent
+                    width: 16
+                    height: 16
+                    sourceSize.width: 16
+                    sourceSize.height: 16
+                    fillMode: Image.PreserveAspectFit
+                    source: {
+                        var colorStr = optionsButton.hovered ? "%23ff9e00" : "%23ff7a00";
+                        return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='3'></circle><path d='M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z'></path></svg>";
+                    }
                 }
 
                 background: Rectangle {
-                    color: optionsButton.pressed ? "#cc121214" : (optionsButton.hovered ? "#aa1c242c" : "#66121214")
+                    color: optionsButton.pressed ? "#cc121214" : (optionsButton.hovered ? "#3a4550" : "#1c242c")
                     radius: 15
-                    border.color: optionsButton.hovered ? "#ff7a00" : "#44ffffff"
+                    border.color: optionsButton.hovered ? "#ff9e00" : "#2a3540"
                     border.width: 1
                 }
 
@@ -610,105 +613,150 @@ ApplicationWindow {
                         sidebarWindow.requestActivate();
                     }
                 }
+
+                ToolTip.delay: Compact.toolTipDelay
+                ToolTip.timeout: Compact.toolTipTimeout
+                ToolTip.visible: optionsButton.hovered
+                ToolTip.text: qsTr("Opcje i ustawienia panelu bocznego")
             }
 
             Button {
                 id: newWindowButton
-                text: qsTr("📺 NOWE OKNO")
-                Layout.preferredWidth: 110
+                Layout.preferredWidth: 30
                 Layout.preferredHeight: 30
                 Layout.alignment: Qt.AlignVCenter
 
-                contentItem: Text {
-                    text: newWindowButton.text
-                    font.bold: true
-                    font.pixelSize: 10
-                    color: "white"
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    topPadding: 3
+                contentItem: Image {
+                    anchors.centerIn: parent
+                    width: 16
+                    height: 16
+                    sourceSize.width: 16
+                    sourceSize.height: 16
+                    fillMode: Image.PreserveAspectFit
+                    source: {
+                        var colorStr = newWindowButton.hovered ? "%23c084fc" : "%23a855f7";
+                        return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='3' width='14' height='12' rx='2' ry='2'></rect><path d='M8 21h8'></path><path d='M12 17v4'></path><path d='M22 8v10a2 2 0 0 1-2 2H10'></path></svg>";
+                    }
                 }
 
                 background: Rectangle {
-                    color: newWindowButton.pressed ? "#cc121214" : (newWindowButton.hovered ? "#aa1c242c" : "#66121214")
+                    color: newWindowButton.pressed ? "#cc121214" : (newWindowButton.hovered ? "#3a4550" : "#1c242c")
                     radius: 15
-                    border.color: newWindowButton.hovered ? "#ff7a00" : "#44ffffff"
+                    border.color: newWindowButton.hovered ? "#c084fc" : "#2a3540"
                     border.width: 1
                 }
 
                 onClicked: {
                     rootWindow.openAuxiliaryWindow();
                 }
+
+                ToolTip.delay: Compact.toolTipDelay
+                ToolTip.timeout: Compact.toolTipTimeout
+                ToolTip.visible: newWindowButton.hovered
+                ToolTip.text: qsTr("Otwórz nowe okno pomocnicze")
             }
 
             Button {
                 id: archiveButton
-                text: qsTr("ARCHIVE")
-                Layout.preferredWidth: 105
+                Layout.preferredWidth: 30
                 Layout.preferredHeight: 30
                 Layout.alignment: Qt.AlignVCenter
 
-                contentItem: Text {
-                    text: archiveButton.text
-                    font.bold: true
-                    font.pixelSize: 10
-                    color: "white"
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
+                contentItem: Image {
+                    anchors.centerIn: parent
+                    width: 16
+                    height: 16
+                    sourceSize.width: 16
+                    sourceSize.height: 16
+                    fillMode: Image.PreserveAspectFit
+                    source: {
+                        var colorStr = archiveButton.hovered ? "%2300f5d4" : "%2300bfa5";
+                        return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><ellipse cx='12' cy='5' rx='9' ry='3'></ellipse><path d='M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5'></path><path d='M3 12c0 1.66 4 3 9 3s9-1.34 9-3'></path></svg>";
+                    }
                 }
 
                 background: Rectangle {
-                    color: archiveButton.pressed ? "#cc121214" : (archiveButton.hovered ? "#aa1c242c" : "#66121214")
+                    color: archiveButton.pressed ? "#cc121214" : (archiveButton.hovered ? "#3a4550" : "#1c242c")
                     radius: 15
-                    border.color: archiveButton.hovered ? "#00f5d4" : "#44ffffff"
+                    border.color: archiveButton.hovered ? "#00f5d4" : "#2a3540"
                     border.width: 1
                 }
 
                 onClicked: {
                     rootWindow.openPlaybackWindowEmpty();
                 }
+
+                ToolTip.delay: Compact.toolTipDelay
+                ToolTip.timeout: Compact.toolTipTimeout
+                ToolTip.visible: archiveButton.hovered
+                ToolTip.text: qsTr("Archiwum nagrań i odtwarzacz")
             }
 
-            Switch {
-                id: systemStatsSwitch
-                checked: false
-                text: qsTr("📊 STATYSTYKI")
-
-                Layout.preferredHeight: 28
+            Button {
+                id: instructionsButton
+                Layout.preferredWidth: 30
+                Layout.preferredHeight: 30
                 Layout.alignment: Qt.AlignVCenter
 
-                indicator: Rectangle {
-                    implicitWidth: 36
-                    implicitHeight: 18
-                    x: systemStatsSwitch.leftPadding
-                    y: parent.height / 2 - height / 2
-                    radius: 9
-                    color: systemStatsSwitch.checked ? "#00ff66" : "#1c242c"
-                    border.color: systemStatsSwitch.checked ? "#00cc52" : "#2a3540"
-                    border.width: 1
-
-                    Rectangle {
-                        x: systemStatsSwitch.checked ? parent.width - width - 2 : 2
-                        y: 2
-                        width: 14
-                        height: 14
-                        radius: 7
-                        color: "white"
-
-                        Behavior on x {
-                            NumberAnimation { duration: 150 }
-                        }
+                contentItem: Image {
+                    anchors.centerIn: parent
+                    width: 16
+                    height: 16
+                    sourceSize.width: 16
+                    sourceSize.height: 16
+                    fillMode: Image.PreserveAspectFit
+                    source: {
+                        var colorStr = instructionsButton.hovered ? "%23facc15" : "%23eab308";
+                        return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z'></path><path d='M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z'></path></svg>";
                     }
                 }
 
-                contentItem: Text {
-                    text: systemStatsSwitch.text
-                    font.bold: true
-                    font.pixelSize: 10
-                    color: systemStatsSwitch.checked ? "#00ff66" : (systemStatsSwitch.hovered ? "#ffffff" : "#8898a6")
-                    verticalAlignment: Text.AlignVCenter
-                    leftPadding: systemStatsSwitch.indicator.width + 6
+                background: Rectangle {
+                    color: instructionsButton.pressed ? "#cc121214" : (instructionsButton.hovered ? "#3a4550" : "#1c242c")
+                    radius: 15
+                    border.color: instructionsButton.hovered ? "#facc15" : "#2a3540"
+                    border.width: 1
                 }
+
+                onClicked: {
+                    instructionsWindow.show();
+                }
+
+                ToolTip.delay: Compact.toolTipDelay
+                ToolTip.timeout: Compact.toolTipTimeout
+                ToolTip.visible: instructionsButton.hovered
+                ToolTip.text: qsTr("Instrukcja obsługi programu")
+            }
+
+            Button {
+                id: systemStatsSwitch
+                checkable: true
+                checked: false
+                Layout.preferredWidth: 30
+                Layout.preferredHeight: 30
+                Layout.alignment: Qt.AlignVCenter
+
+                contentItem: Image {
+                    anchors.centerIn: parent
+                    width: 16
+                    height: 16
+                    source: {
+                        var colorStr = systemStatsSwitch.pressed ? "%23ffffff" : (systemStatsSwitch.checked ? "%2300ff66" : (systemStatsSwitch.hovered ? "%23ffffff" : "%238898a6"));
+                        return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><line x1='18' y1='20' x2='18' y2='10'></line><line x1='12' y1='20' x2='12' y2='4'></line><line x1='6' y1='20' x2='6' y2='14'></line></svg>";
+                    }
+                }
+
+                background: Rectangle {
+                    color: systemStatsSwitch.pressed ? "#cc121214" : (systemStatsSwitch.checked ? "#cc004d1a" : (systemStatsSwitch.hovered ? "#3a4550" : "#1c242c"))
+                    radius: 15
+                    border.color: systemStatsSwitch.checked ? "#00ff66" : (systemStatsSwitch.hovered ? "#8898a6" : "#2a3540")
+                    border.width: 1
+                }
+
+                ToolTip.delay: Compact.toolTipDelay
+                ToolTip.timeout: Compact.toolTipTimeout
+                ToolTip.visible: systemStatsSwitch.hovered
+                ToolTip.text: systemStatsSwitch.checked ? qsTr("Wyłącz statystyki zużycia zasobów") : qsTr("Włącz statystyki zużycia zasobów")
             }
 
             Rectangle {
@@ -719,7 +767,7 @@ ApplicationWindow {
             }
 
             RowLayout {
-                spacing: 6
+                spacing: 4
 
                 Switch {
                     id: lockGridSwitch
@@ -762,6 +810,13 @@ ApplicationWindow {
                     ToolTip.text: qsTr("Zablokuj zmianę rozmiaru siatki")
                 }
 
+                Rectangle {
+                    width: 1
+                    height: 20
+                    color: "#2a3540"
+                    Layout.alignment: Qt.AlignVCenter
+                }
+
                 Repeater {
                     model: [1, 2, 3, 4, 5, 6, 7, 8, 9]
                     delegate: Button {
@@ -770,8 +825,8 @@ ApplicationWindow {
                         text: gridSize + "x" + gridSize
                         enabled: !generalSettings.lockGridSize
 
-                        Layout.preferredWidth: 44
-                        Layout.preferredHeight: 28
+                        Layout.preferredWidth: 30
+                        Layout.preferredHeight: 30
 
                         // Highlight if this is the current active size!
                         property bool isActive: {
@@ -794,7 +849,7 @@ ApplicationWindow {
 
                         background: Rectangle {
                             color: gridBtn.isActive ? "#ff7a00" : (gridBtn.pressed ? "#cc121214" : (gridBtn.hovered ? "#3a4550" : "#1c242c"))
-                            radius: 4
+                            radius: 15
                             border.color: gridBtn.isActive ? "#ff9e00" : (gridBtn.hovered ? "#8898a6" : "#2a3540")
                             border.width: 1
                             opacity: gridBtn.enabled ? 1.0 : 0.4
@@ -815,14 +870,17 @@ ApplicationWindow {
 
                 Button {
                     id: moreOptionsButton
-                    Layout.preferredWidth: 28
-                    Layout.preferredHeight: 28
+                    Layout.preferredWidth: 30
+                    Layout.preferredHeight: 30
                     Layout.alignment: Qt.AlignVCenter
 
                     contentItem: Image {
                         anchors.centerIn: parent
-                        width: 14
-                        height: 14
+                        width: 16
+                        height: 16
+                        sourceSize.width: 16
+                        sourceSize.height: 16
+                        fillMode: Image.PreserveAspectFit
                         source: {
                             var colorStr = moreOptionsButton.hovered ? "white" : "%238898a6";
                             return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><line x1='3' y1='12' x2='21' y2='12'></line><line x1='3' y1='6' x2='21' y2='6'></line><line x1='3' y1='18' x2='21' y2='18'></line></svg>";
@@ -830,9 +888,9 @@ ApplicationWindow {
                     }
 
                     background: Rectangle {
-                        color: moreOptionsButton.pressed ? "#cc121214" : (moreOptionsButton.hovered ? "#aa1c242c" : "#1c242c")
-                        radius: 4
-                        border.color: moreOptionsButton.hovered ? "#ff7a00" : "#2a3540"
+                        color: moreOptionsButton.pressed ? "#cc121214" : (moreOptionsButton.hovered ? "#3a4550" : "#1c242c")
+                        radius: 15
+                        border.color: moreOptionsButton.hovered ? "#ff9e00" : "#2a3540"
                         border.width: 1
                     }
 
@@ -856,7 +914,7 @@ ApplicationWindow {
             }
 
             RowLayout {
-                spacing: 6
+                spacing: 4
 
                 Repeater {
                     model: layoutsCollectionModel
@@ -896,23 +954,25 @@ ApplicationWindow {
                             return "Widok " + (layoutIndex + 1);
                         }
 
-                        Layout.preferredHeight: 28
+                        Layout.preferredHeight: 30
+                        leftPadding: 12
+                        rightPadding: 12
 
                         // Highlight if this is the currently active view!
                         property bool isActive: stackLayout.currentIndex === layoutIndex
 
                         contentItem: Text {
-                            text: viewBtn.text
+                            text: viewBtn.text.toUpperCase()
                             font.bold: true
                             font.pixelSize: 10
-                            color: viewBtn.isActive ? "white" : (viewBtn.hovered ? "#ffffff" : "#8898a6")
+                            color: viewBtn.isActive ? "#121214" : (viewBtn.hovered ? "#ffffff" : "#8898a6")
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                         }
 
                         background: Rectangle {
                             color: viewBtn.isActive ? "#00f5d4" : (viewBtn.pressed ? "#cc121214" : (viewBtn.hovered ? "#3a4550" : "#1c242c"))
-                            radius: 4
+                            radius: 15
                             border.color: viewBtn.isActive ? "#00f5d4" : (viewBtn.hovered ? "#8898a6" : "#2a3540")
                             border.width: 1
                         }
@@ -1100,6 +1160,11 @@ ApplicationWindow {
 
     SettingsDialog {
         id: settingsDialog
+    }
+
+    InstructionsWindow {
+        id: instructionsWindow
+        visible: false
     }
 
     ConfirmDialog {

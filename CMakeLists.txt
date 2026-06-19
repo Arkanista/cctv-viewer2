@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.14)
 
 set(VER_MAJ 2)
-set(VER_MIN 0)
-set(VER_PAT 9)
-set(VER_REL 2)
+set(VER_MIN 1)
+set(VER_PAT 0)
+set(VER_REL 0)
 # set(REL_STATUS "alpha")
 
 set(APP_NAME "CCTV Viewer")

@@ -56,6 +56,78 @@ FocusScope {
         updateIndices();
     }
 
+    property var changelogData: [
+        {
+            version: "v2.1.0",
+            date: "19.06.2026",
+            changes: [
+                qsTr("Zastąpiono tekstowe przyciski akcji na górnym pasku (Opcje, Nowe okno, Archiwum, Instrukcje) dedykowanymi, kolorowymi ikonami SVG z pomocniczymi dymkami (Tooltip)."),
+                qsTr("Zastąpiono przełącznik statystyk interaktywną ikoną SVG odzwierciedlającą stan aktywności monitora systemowego."),
+                qsTr("Ujednolicono przyciski wyboru siatki (1x1-9x9) do spójnych okrągłych przycisków 30x30px."),
+                qsTr("Dodano pionową linię rozdzielającą (separator) sekcję opcji od sekcji wyboru siatki."),
+                qsTr("Przebudowano przyciski widoków do eleganckiego, zaokrąglonego kształtu pigułki o wysokości 30px z zachowaniem marginesów bocznych."),
+                qsTr("Wymuszono automatyczne wyświetlanie nazw widoków wielkimi literami (Uppercase)."),
+                qsTr("Poprawiono czytelność i kontrast aktywnego przycisku widoku – ciemny tekst (#121214) na jasnym seledynowym tle."),
+                qsTr("Ujednolicono i poprawiono ikony usuwania na liście rejestratorów i widoków oraz przycisk aktywacji presetu na ikony SVG z dymkami (Tooltip)."),
+                qsTr("Zmniejszono odległości między przyciskami na górnym pasku w celu optymalizacji przestrzeni interfejsu."),
+                qsTr("Przywrócono brakującą ikonę minimalizowania w oknie pomocniczym.")
+            ]
+        },
+        {
+            version: "v2.0.9-2 (Patch)",
+            date: "19.06.2026",
+            changes: [
+                qsTr("Poprawka logowania i działania archiwum w oknach pomocniczych."),
+                qsTr("Naprawa stanu przycisków siatki (1x1 vs 2x2) przy bezpośrednim otwieraniu archiwum z kamery.")
+            ]
+        },
+        {
+            version: "v2.0.9",
+            date: "19.06.2026",
+            changes: [
+                qsTr("Dodano poprawną przestrzeń nazw XML w zapytaniach Hikvision ISAPI (eliminacja błędu 'Invalid XML Content' na nowszym oprogramowaniu układowym rejestratorów)."),
+                qsTr("Naprawa obsługi paginacji wyników wyszukiwania (obsługa tagu searchResultPostion)."),
+                qsTr("Przycisk 'Odśwież' w oknie archiwum pozwalający na ręczne wyczyszczenie pamięci podręcznej i ponowne pobranie danych o dostępności nagrań."),
+                qsTr("Optymalizacja kolejki sieciowej (Prefetch) – ograniczenie pobierania wstecznego do 12 miesięcy, co eliminuje setki zbędnych zapytań o przedawnione nagrania i znacznie przyspiesza start odtwarzania.")
+            ]
+        },
+        {
+            version: "v2.0.7-8",
+            date: "17.06.2026",
+            changes: [
+                qsTr("Asynchroniczna inicjalizacja SDK Hikvision w osobnym wątku, co całkowicie wyeliminowało zawieszanie się interfejsu (GUI Freeze) przy otwieraniu opcji."),
+                qsTr("Bezpieczna wielowątkowa synchronizacja dostępu do metod SDK Hikvision.")
+            ]
+        },
+        {
+            version: "v2.0.6",
+            date: "15.06.2026",
+            changes: [
+                qsTr("Oczyszczanie nazw pobieranych plików i zrzutów ekranu z adresów IP rejestratorów."),
+                qsTr("Elegancki styl paska postępu pobierania w kolorze jasnoturkusowym (#00f5d4) z nałożonym wycentrowanym tekstem z czarnym obrysem."),
+                qsTr("Obliczanie globalnego postępu pobierania (overallProgress) dla nagrań składających się z wielu części."),
+                qsTr("Zmiana rozszerzenia plików tymczasowych pobierania z '.ps' na '.pspart'."),
+                qsTr("Opcja i przycisk 'Pokazuj pola informacyjne tylko po najechaniu kursorem' w ustawieniach interfejsu użytkownika."),
+                qsTr("Wizualna informacja o procesie wyszukiwania kamer w panelu konfiguracji (obracająca się ikona, blokowanie formularza, tekst 'Wyszukiwanie...')."),
+                qsTr("Pełna wielojęzyczność (dodanie oficjalnego wsparcia dla języków polskiego i angielskiego)."),
+                qsTr("Optymalizacja czasu uruchamiania okna pomocniczego – skrócenie startu z 3 sekund do poniżej 300 ms."),
+                qsTr("Estetyczna stylizacja pustego pola w oknie pomocniczym ('Nie wybrano widoku') z seledynową ramką.")
+            ]
+        },
+        {
+            version: "v2.0.0",
+            date: "05.06.2026",
+            changes: [
+                qsTr("Integracja z SDK Hikvision w trybie Live oraz odtwarzania archiwum."),
+                qsTr("Odtwarzacz nagrań archiwalnych z wieloma kamerami naraz, automatycznie pozycjonowaną i centrowaną osią czasu."),
+                qsTr("Wielowątkowy Monitor Systemowy (statystyki procesora, pamięci RAM, karty graficznej, pamięci VRAM oraz sieci)."),
+                qsTr("Śledzenie wykorzystania pasma sieciowego w czasie rzeczywistym."),
+                qsTr("Nowa ikona aplikacji w wysokiej rozdzielczości oraz dopracowany ciemny motyw interfejsu."),
+                qsTr("Automatyczny skrypt budowania pakietu Pacman dla systemu Arch Linux.")
+            ]
+        }
+    ]
+
     Settings {
         id: sideBarSettings
         fileName: Context.config.fileName
@@ -467,6 +539,65 @@ FocusScope {
                         }
 
                         onClicked: tabsColumn.selectTab(4)
+                    }
+
+                    // Changelog Page Button
+                    Button {
+                        id: btnChangelog
+                        Layout.fillWidth: true
+                        height: 40
+                        hoverEnabled: true
+
+                        background: Rectangle {
+                            color: tabsColumn.activeIndex === 5 ? "#1c242c" : (btnChangelog.hovered ? "#141a21" : "transparent")
+                            radius: 6
+
+                            Rectangle {
+                                anchors.left: parent.left
+                                width: 3
+                                height: parent.height
+                                color: "#00f5d4"
+                                visible: tabsColumn.activeIndex === 5
+                            }
+                        }
+
+                        contentItem: RowLayout {
+                            anchors.fill: parent
+                            anchors.leftMargin: 12
+                            spacing: 12
+
+                            Item {
+                                implicitWidth: 14
+                                implicitHeight: 14
+
+                                Image {
+                                    id: imgChangelog
+                                    source: "qrc:/images/menu-changelog.svg"
+                                    anchors.fill: parent
+                                    fillMode: Image.PreserveAspectFit
+                                    layer.enabled: true
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: imgChangelog
+                                    source: imgChangelog
+                                    color: tabsColumn.activeIndex === 5 ? "#00f5d4" : (btnChangelog.hovered ? "white" : "#8898a6")
+                                    cached: true
+                                }
+                            }
+
+                            Text {
+                                text: qsTr("Changelog")
+                                color: tabsColumn.activeIndex === 5 ? "#00f5d4" : (btnChangelog.hovered ? "white" : "#8898a6")
+                                font {
+                                    pixelSize: 12
+                                    bold: tabsColumn.activeIndex === 5
+                                }
+                                Layout.fillWidth: true
+                            }
+                        }
+
+                        onClicked: tabsColumn.selectTab(5)
                     }
                 }
 
@@ -1064,27 +1195,31 @@ FocusScope {
                                     // Activate button
                                     Button {
                                         id: activateBtn
-                                        text: qsTr("Activate")
-                                        implicitWidth: 70
+                                        implicitWidth: 28
                                         implicitHeight: 28
                                         highlighted: stackLayout.currentIndex === modelData
                                         onClicked: {
                                             stackLayout.currentIndex = modelData;
                                         }
+                                        contentItem: Image {
+                                            anchors.centerIn: parent
+                                            width: 14
+                                            height: 14
+                                            source: {
+                                                var colorStr = activateBtn.pressed ? "%23ffffff" : (activateBtn.highlighted ? "%23ffffff" : (activateBtn.hovered ? "%23ffffff" : "%238898a6"));
+                                                return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polygon points='6 3 20 12 6 21 6 3'></polygon></svg>";
+                                            }
+                                        }
                                         background: Rectangle {
                                             color: activateBtn.pressed ? "#cc121214" : (activateBtn.highlighted ? "#ff7a00" : (activateBtn.hovered ? "#3a4550" : "#1c242c"))
-                                            radius: 6
+                                            radius: 14
                                             border.color: activateBtn.highlighted ? "#ff9e00" : (activateBtn.hovered ? "#8898a6" : "#2a3540")
                                             border.width: 1
                                         }
-                                        contentItem: Text {
-                                            text: activateBtn.text
-                                            color: activateBtn.highlighted ? "#ffffff" : (activateBtn.hovered ? "#ffffff" : "#a0aec0")
-                                            font.bold: activateBtn.highlighted
-                                            font.pixelSize: 11
-                                            horizontalAlignment: Text.AlignHCenter
-                                            verticalAlignment: Text.AlignVCenter
-                                        }
+                                        ToolTip.delay: Compact.toolTipDelay
+                                        ToolTip.timeout: Compact.toolTipTimeout
+                                        ToolTip.visible: activateBtn.hovered
+                                        ToolTip.text: qsTr("Aktywuj ten układ podglądu")
                                     }
 
                                     // Delete icon button
@@ -1093,15 +1228,19 @@ FocusScope {
                                         implicitWidth: 28
                                         implicitHeight: 28
                                         visible: rootSideBar.regularIndices.length > 1
-                                        icon.source: "qrc:/images/icon-trash.svg"
-                                        icon.color: delPresetBtn.pressed ? "#ff4444" : (delPresetBtn.hovered ? "#ff6666" : "#ff8888")
-                                        icon.width: 14
-                                        icon.height: 14
-
+                                        contentItem: Image {
+                                            anchors.centerIn: parent
+                                            width: 14
+                                            height: 14
+                                            source: {
+                                                var colorStr = delPresetBtn.hovered ? "%23ff4d4d" : "%238898a6";
+                                                return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='3 6 5 6 21 6'></polyline><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'></path><line x1='10' y1='11' x2='10' y2='17'></line><line x1='14' y1='11' x2='14' y2='17'></line></svg>";
+                                            }
+                                        }
                                         background: Rectangle {
                                             color: delPresetBtn.pressed ? "#40ff0000" : (delPresetBtn.hovered ? "#20ff0000" : "transparent")
-                                            radius: 6
-                                            border.color: delPresetBtn.hovered ? "#ff4444" : "#2a3540"
+                                            radius: 14
+                                            border.color: delPresetBtn.hovered ? "#ff4d4d" : "#2a3540"
                                             border.width: 1
                                         }
 
@@ -1109,6 +1248,10 @@ FocusScope {
                                             presetDeleteDialog.index = modelData;
                                             presetDeleteDialog.open();
                                         }
+                                        ToolTip.delay: Compact.toolTipDelay
+                                        ToolTip.timeout: Compact.toolTipTimeout
+                                        ToolTip.visible: delPresetBtn.hovered
+                                        ToolTip.text: qsTr("Usuń ten układ podglądu")
                                     }
                                 }
                             }
@@ -1212,42 +1355,50 @@ FocusScope {
 
                                     Button {
                                         id: activateBtnNvr
-                                        text: qsTr("Activate")
-                                        implicitWidth: 70
+                                        implicitWidth: 28
                                         implicitHeight: 28
                                         highlighted: stackLayout.currentIndex === modelData
                                         onClicked: {
                                             stackLayout.currentIndex = modelData;
                                         }
+                                        contentItem: Image {
+                                            anchors.centerIn: parent
+                                            width: 14
+                                            height: 14
+                                            source: {
+                                                var colorStr = activateBtnNvr.pressed ? "%23ffffff" : (activateBtnNvr.highlighted ? "%23ffffff" : (activateBtnNvr.hovered ? "%23ffffff" : "%238898a6"));
+                                                return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polygon points='6 3 20 12 6 21 6 3'></polygon></svg>";
+                                            }
+                                        }
                                         background: Rectangle {
                                             color: activateBtnNvr.pressed ? "#cc121214" : (activateBtnNvr.highlighted ? "#ff7a00" : (activateBtnNvr.hovered ? "#3a4550" : "#1c242c"))
-                                            radius: 6
+                                            radius: 14
                                             border.color: activateBtnNvr.highlighted ? "#ff9e00" : (activateBtnNvr.hovered ? "#8898a6" : "#2a3540")
                                             border.width: 1
                                         }
-                                        contentItem: Text {
-                                            text: activateBtnNvr.text
-                                            color: activateBtnNvr.highlighted ? "#ffffff" : (activateBtnNvr.hovered ? "#ffffff" : "#a0aec0")
-                                            font.bold: activateBtnNvr.highlighted
-                                            font.pixelSize: 11
-                                            horizontalAlignment: Text.AlignHCenter
-                                            verticalAlignment: Text.AlignVCenter
-                                        }
+                                        ToolTip.delay: Compact.toolTipDelay
+                                        ToolTip.timeout: Compact.toolTipTimeout
+                                        ToolTip.visible: activateBtnNvr.hovered
+                                        ToolTip.text: qsTr("Aktywuj ten widok kamer NVR")
                                     }
 
                                     Button {
                                         id: delNvrBtn
                                         implicitWidth: 28
                                         implicitHeight: 28
-                                        icon.source: "qrc:/images/icon-trash.svg"
-                                        icon.color: delNvrBtn.pressed ? "#ff4444" : (delNvrBtn.hovered ? "#ff6666" : "#ff8888")
-                                        icon.width: 14
-                                        icon.height: 14
-
+                                        contentItem: Image {
+                                            anchors.centerIn: parent
+                                            width: 14
+                                            height: 14
+                                            source: {
+                                                var colorStr = delNvrBtn.hovered ? "%23ff4d4d" : "%238898a6";
+                                                return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='3 6 5 6 21 6'></polyline><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'></path><line x1='10' y1='11' x2='10' y2='17'></line><line x1='14' y1='11' x2='14' y2='17'></line></svg>";
+                                            }
+                                        }
                                         background: Rectangle {
                                             color: delNvrBtn.pressed ? "#40ff0000" : (delNvrBtn.hovered ? "#20ff0000" : "transparent")
-                                            radius: 6
-                                            border.color: delNvrBtn.hovered ? "#ff4444" : "#2a3540"
+                                            radius: 14
+                                            border.color: delNvrBtn.hovered ? "#ff4d4d" : "#2a3540"
                                             border.width: 1
                                         }
 
@@ -1255,6 +1406,10 @@ FocusScope {
                                             nvrPresetDeleteDialog.index = modelData;
                                             nvrPresetDeleteDialog.open();
                                         }
+                                        ToolTip.delay: Compact.toolTipDelay
+                                        ToolTip.timeout: Compact.toolTipTimeout
+                                        ToolTip.visible: delNvrBtn.hovered
+                                        ToolTip.text: qsTr("Usuń ten widok kamer NVR")
                                     }
                                 }
                             }
@@ -1332,42 +1487,50 @@ FocusScope {
 
                                     Button {
                                         id: activateBtnNvrPreset
-                                        text: qsTr("Activate")
-                                        implicitWidth: 70
+                                        implicitWidth: 28
                                         implicitHeight: 28
                                         highlighted: stackLayout.currentIndex === modelData
                                         onClicked: {
                                             stackLayout.currentIndex = modelData;
                                         }
+                                        contentItem: Image {
+                                            anchors.centerIn: parent
+                                            width: 14
+                                            height: 14
+                                            source: {
+                                                var colorStr = activateBtnNvrPreset.pressed ? "%23ffffff" : (activateBtnNvrPreset.highlighted ? "%23ffffff" : (activateBtnNvrPreset.hovered ? "%23ffffff" : "%238898a6"));
+                                                return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polygon points='6 3 20 12 6 21 6 3'></polygon></svg>";
+                                            }
+                                        }
                                         background: Rectangle {
                                             color: activateBtnNvrPreset.pressed ? "#cc121214" : (activateBtnNvrPreset.highlighted ? "#ff7a00" : (activateBtnNvrPreset.hovered ? "#3a4550" : "#1c242c"))
-                                            radius: 6
+                                            radius: 14
                                             border.color: activateBtnNvrPreset.highlighted ? "#ff9e00" : (activateBtnNvrPreset.hovered ? "#8898a6" : "#2a3540")
                                             border.width: 1
                                         }
-                                        contentItem: Text {
-                                            text: activateBtnNvrPreset.text
-                                            color: activateBtnNvrPreset.highlighted ? "#ffffff" : (activateBtnNvrPreset.hovered ? "#ffffff" : "#a0aec0")
-                                            font.bold: activateBtnNvrPreset.highlighted
-                                            font.pixelSize: 11
-                                            horizontalAlignment: Text.AlignHCenter
-                                            verticalAlignment: Text.AlignVCenter
-                                        }
+                                        ToolTip.delay: Compact.toolTipDelay
+                                        ToolTip.timeout: Compact.toolTipTimeout
+                                        ToolTip.visible: activateBtnNvrPreset.hovered
+                                        ToolTip.text: qsTr("Aktywuj ten preset kamer NVR")
                                     }
 
                                     Button {
                                         id: delNvrPresetBtn
                                         implicitWidth: 28
                                         implicitHeight: 28
-                                        icon.source: "qrc:/images/icon-trash.svg"
-                                        icon.color: delNvrPresetBtn.pressed ? "#ff4444" : (delNvrPresetBtn.hovered ? "#ff6666" : "#ff8888")
-                                        icon.width: 14
-                                        icon.height: 14
-
+                                        contentItem: Image {
+                                            anchors.centerIn: parent
+                                            width: 14
+                                            height: 14
+                                            source: {
+                                                var colorStr = delNvrPresetBtn.hovered ? "%23ff4d4d" : "%238898a6";
+                                                return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='3 6 5 6 21 6'></polyline><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'></path><line x1='10' y1='11' x2='10' y2='17'></line><line x1='14' y1='11' x2='14' y2='17'></line></svg>";
+                                            }
+                                        }
                                         background: Rectangle {
                                             color: delNvrPresetBtn.pressed ? "#40ff0000" : (delNvrPresetBtn.hovered ? "#20ff0000" : "transparent")
-                                            radius: 6
-                                            border.color: delNvrPresetBtn.hovered ? "#ff4444" : "#2a3540"
+                                            radius: 14
+                                            border.color: delNvrPresetBtn.hovered ? "#ff4d4d" : "#2a3540"
                                             border.width: 1
                                         }
 
@@ -1375,6 +1538,10 @@ FocusScope {
                                             nvrPresetDeleteDialog2.index = modelData;
                                             nvrPresetDeleteDialog2.open();
                                         }
+                                        ToolTip.delay: Compact.toolTipDelay
+                                        ToolTip.timeout: Compact.toolTipTimeout
+                                        ToolTip.visible: delNvrPresetBtn.hovered
+                                        ToolTip.text: qsTr("Usuń ten preset kamer NVR")
                                     }
                                 }
                             }
@@ -1930,6 +2097,100 @@ FocusScope {
                                     }
                                     onEditingFinished: {
                                         layoutsCollectionSettings.defaultAVFormatOptions = JSON.stringify(Utils.parseOptions(text));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // PAGE 5: Changelog
+            ScrollView {
+                id: page5ScrollView
+                clip: true
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                ColumnLayout {
+                    id: page5Layout
+                    x: 24
+                    width: page5ScrollView.width - 48
+                    spacing: 20
+
+                    Text {
+                        text: qsTr("Dziennik zmian (Changelog)")
+                        color: "#00f5d4"
+                        font {
+                            pixelSize: 16
+                            bold: true
+                        }
+                    }
+
+                    Text {
+                        text: qsTr("Historia ulepszeń, poprawek błędów i nowych funkcji w programie CCTV Viewer 2.")
+                        color: "#8898a6"
+                        font.pixelSize: 13
+                        wrapMode: Text.WordWrap
+                        Layout.fillWidth: true
+                    }
+
+                    // Repeater rendering each version entry beautifully
+                    Repeater {
+                        model: rootSideBar.changelogData
+                        delegate: ColumnLayout {
+                            Layout.fillWidth: true
+                            spacing: 10
+                            Layout.bottomMargin: 16
+
+                            RowLayout {
+                                Layout.fillWidth: true
+                                Text {
+                                    text: modelData.version
+                                    color: "#00f5d4"
+                                    font {
+                                        pixelSize: 14
+                                        bold: true
+                                    }
+                                }
+                                Item { Layout.fillWidth: true }
+                                Text {
+                                    text: modelData.date
+                                    color: "#8898a6"
+                                    font.pixelSize: 12
+                                }
+                            }
+
+                            // Divider line
+                            Rectangle {
+                                Layout.fillWidth: true
+                                height: 1
+                                color: "#2a3540"
+                            }
+
+                            ColumnLayout {
+                                Layout.fillWidth: true
+                                spacing: 8
+                                Layout.leftMargin: 8
+
+                                Repeater {
+                                    model: modelData.changes
+                                    delegate: RowLayout {
+                                        Layout.fillWidth: true
+                                        spacing: 8
+                                        Text {
+                                            text: "•"
+                                            color: "#00f5d4"
+                                            font.pixelSize: 14
+                                            Layout.alignment: Qt.AlignTop
+                                        }
+                                        Text {
+                                            text: modelData
+                                            color: "#eeeeee"
+                                            font.pixelSize: 12
+                                            wrapMode: Text.WordWrap
+                                            Layout.fillWidth: true
+                                        }
                                     }
                                 }
                             }
