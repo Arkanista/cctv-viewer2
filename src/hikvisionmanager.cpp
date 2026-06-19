@@ -13,11 +13,6 @@ HikvisionManager::HikvisionManager(QObject *parent)
     , m_initialized(false)
 {
     m_instance = this;
-    if (Context::isAuxiliary()) {
-        qDebug() << "[Hikvision] Skipping HCNetSDK initialization in auxiliary mode.";
-        m_initCompleted = true;
-        return;
-    }
 
     std::thread initThread([this]() {
         if (NET_DVR_Init()) {
