@@ -413,6 +413,9 @@ Window {
                 "cameraName": playbackWindow.cameraName,
                 "recorderName": recName
             }]
+            // Single-camera open: force 1×1 layout so the grid button matches reality
+            gridLayoutColumns = 1;
+            gridLayoutRows = 1;
             
             playbackWindow.isPlaying = true
             
