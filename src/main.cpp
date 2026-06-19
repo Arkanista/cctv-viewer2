@@ -100,7 +100,18 @@ int main(int argc, char *argv[])
 
     SingleApplication singleApp;
     if (singleApp.isRunning()) {
-        return 0;
+        Context::init();
+        Context::initLanguage();
+        QQmlApplicationEngine engine;
+        Context::setEngine(&engine);
+        engine.addImportPath(":/src/imports");
+        const QUrl url(QStringLiteral("qrc:/src/SingleInstanceWarning.qml"));
+        QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app, [url](QObject *obj, const QUrl &objUrl) {
+            if (!obj && url == objUrl)
+                QCoreApplication::exit(-1);
+        }, Qt::QueuedConnection);
+        engine.load(url);
+        return app.exec();
     }
 
     Context::init();

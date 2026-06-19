@@ -34,8 +34,8 @@ public:
             // Connected! Another instance is running.
             m_running = true;
             // Send the request to open a new window
-            socket.write("openNewWindow");
-            socket.waitForBytesWritten(1000);
+            // socket.write("openNewWindow");
+            // socket.waitForBytesWritten(1000);
             socket.disconnectFromServer();
         } else {
             // Not running. We are the first instance!

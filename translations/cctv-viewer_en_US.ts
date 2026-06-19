@@ -1304,6 +1304,21 @@
     </message>
 </context>
 <context>
+    <name>SingleInstanceWarning</name>
+    <message>
+        <source>CCTV Viewer 2</source>
+        <translation>CCTV Viewer 2</translation>
+    </message>
+    <message>
+        <source>Program już działa, nie możesz uruchomić drugiego</source>
+        <translation>The program is already running, you cannot start a second one</translation>
+    </message>
+    <message>
+        <source>ZAMKNIJ</source>
+        <translation>CLOSE</translation>
+    </message>
+</context>
+<context>
     <name>ToolsWindow</name>
     <message>
         <source>Layout &amp; Grid Tools</source>
