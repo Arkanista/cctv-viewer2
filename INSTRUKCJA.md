@@ -25,7 +25,7 @@ Program został zoptymalizowany pod kątem stabilności, płynności działania 
 ### Instalacja pakietu Arch Linux (Pacman)
 Aby zainstalować program z przygotowanej paczki binarnej, przejdź do katalogu `packaging/arch/` i wykonaj:
 ```bash
-sudo pacman -U cctv-viewer2-2.1.1-1-x86_64.pkg.tar.zst
+sudo pacman -U cctv-viewer2-2.1.2-1-x86_64.pkg.tar.zst
 ```
 Pakiet automatycznie zainstaluje program, plik aktywacyjny `.desktop` oraz wymagane biblioteki Hikvision SDK w systemowej ścieżce `/usr/lib/cctv-viewer2`.
 

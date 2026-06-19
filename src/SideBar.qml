@@ -58,6 +58,13 @@ FocusScope {
 
     property var changelogData: [
         {
+            version: "v2.1.2",
+            date: "19.06.2026",
+            changes: [
+                qsTr("Poprawiono przesunięcie paska dostępności nagrań o 2-3 godziny w oknie odtwarzacza archiwum, synchronizując oś czasu ze strefą czasową klienta (z poprawną obsługą czasu letniego/zimowego DST).")
+            ]
+        },
+        {
             version: "v2.1.1",
             date: "19.06.2026",
             changes: [

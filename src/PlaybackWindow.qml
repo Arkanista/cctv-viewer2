@@ -334,14 +334,27 @@ Window {
             delete tempFetching[fetchKey];
             activePlayersFetching = tempFetching;
 
+            // Adjust segments timezone offset to align with local timezone of the client
+            var adjustedSegments = [];
+            if (segments) {
+                for (var i = 0; i < segments.length; i++) {
+                    var seg = segments[i];
+                    var localOffsetMs = new Date(seg.startTime).getTimezoneOffset() * 60000;
+                    adjustedSegments.push({
+                        "startTime": seg.startTime + localOffsetMs,
+                        "endTime": seg.endTime + localOffsetMs
+                    });
+                }
+            }
+
             var tempSegments = Object.assign({}, rootWindow.playbackSegmentsCache);
-            tempSegments[cacheKey] = segments;
+            tempSegments[cacheKey] = adjustedSegments;
             rootWindow.playbackSegmentsCache = tempSegments;
 
             if (dateKey === getDateKey(currentDate)) {
                 timeline.requestPaint();
                 if (playbackWindow.recorderInfo && recorderIp === playbackWindow.recorderInfo.ip && channelId === playbackWindow.channelId) {
-                    timeline.segments = segments
+                    timeline.segments = adjustedSegments
                 }
             }
 
