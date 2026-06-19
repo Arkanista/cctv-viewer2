@@ -1036,6 +1036,9 @@ ApplicationWindow {
 
         onVisibleChanged: {
             if (visible) {
+                if (sideBarLoader.source == "" && !Context.config.kioskMode) {
+                    sideBarLoader.source = "SideBar.qml";
+                }
                 var defaultWidth = Math.round(rootWindow.width * 0.85);
                 var defaultHeight = Math.round(rootWindow.height * 0.85);
                 if (sidebarWindow.width === 320 || sidebarWindow.width <= 0) {
@@ -1060,12 +1063,6 @@ ApplicationWindow {
         Loader {
             id: sideBarLoader
             anchors.fill: parent
-            
-            Component.onCompleted: {
-                if (!Context.config.kioskMode) {
-                    source = "SideBar.qml";
-                }
-            }
         }
     }
 
