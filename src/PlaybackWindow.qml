@@ -1479,7 +1479,7 @@ Window {
                                                  width: 24
                                                  height: 24
                                                  radius: 12
-                                                 color: addButtonMouseArea.pressed ? "#00ccb0" : (addButtonMouseArea.containsMouse ? "#00ffd8" : "#00f5d4")
+                                                 color: addButtonMouseArea.pressed ? "#00806f" : (addButtonMouseArea.containsMouse ? "#00bfa5" : "#00f5d4")
                                                  border.color: color
                                                  border.width: 1
                                                  Layout.alignment: Qt.AlignVCenter
