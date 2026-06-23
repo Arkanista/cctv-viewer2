@@ -164,6 +164,16 @@ QVariant Context::readSetting(const QString &category, const QString &key, const
     if (!category.isEmpty()) {
         settings.endGroup();
     }
+    
+    // Coerce the returned QVariant to the same type as defaultValue
+    // to prevent QML from receiving strings (e.g. "false") which are truthy in JavaScript.
+    if (defaultValue.type() == QVariant::Bool) {
+        return val.toBool();
+    } else if (defaultValue.type() == QVariant::Int) {
+        return val.toInt();
+    } else if (defaultValue.type() == QVariant::Double) {
+        return val.toDouble();
+    }
     return val;
 }
 
