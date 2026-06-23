@@ -31,6 +31,40 @@ Window {
     property int playbackSpeed: 1
     property bool playbackStoppedForDownload: false
 
+    property bool sidebarVisible: true
+    property bool topBarAutoCollapse: true
+    property bool hideTimelineOption: false
+    readonly property bool isBottomPanelFloating: (fullScreenPlayerIndex !== -1) || (playbackWindow.visibility === Window.FullScreen)
+
+    Timer {
+        id: keepVisibleTimer
+        interval: 350
+        repeat: false
+    }
+    property int fullScreenPlayerIndex: -1
+
+    onGridLayoutColumnsChanged: fullScreenPlayerIndex = -1
+    onGridLayoutRowsChanged: fullScreenPlayerIndex = -1
+
+    function toggleWindowFullScreen() {
+        if (playbackWindow.visibility === Window.FullScreen) {
+            playbackWindow.visibility = Window.Windowed;
+        } else {
+            playbackWindow.visibility = Window.FullScreen;
+        }
+    }
+
+    Shortcut {
+        sequences: ["F11", StandardKey.FullScreen]
+        onActivated: toggleWindowFullScreen()
+        onActivatedAmbiguously: toggleWindowFullScreen()
+    }
+
+    Shortcut {
+        sequences: ["F9", "Ctrl+B"]
+        onActivated: sidebarVisible = !sidebarVisible
+    }
+
     property var daysWithRecords: {
         if (typeof rootWindow === 'undefined' || !rootWindow || !recorderInfo) return [];
         var key = recorderInfo.ip + "_" + channelId + "_" + currentDate.getFullYear() + "-" + currentDate.getMonth();
@@ -263,6 +297,10 @@ Window {
     function removeCameraFromGrid(index) {
         if (index < 0 || index >= activePlayersList.length) {
             return;
+        }
+        
+        if (fullScreenPlayerIndex === index) {
+            fullScreenPlayerIndex = -1;
         }
         
         var removedCam = activePlayersList[index];
@@ -1189,13 +1227,15 @@ Window {
 
     RowLayout {
         anchors.fill: parent
+        anchors.topMargin: !playbackWindow.topBarAutoCollapse ? 44 : 0
         spacing: 0
 
         // Left Sidebar: Camera List
         Rectangle {
             id: sidebarPanel
             Layout.fillHeight: true
-            width: 280
+            width: sidebarVisible ? 280 : 0
+            visible: sidebarVisible
             color: "#0b0f13"
             
             // Separation line
@@ -1219,77 +1259,6 @@ Window {
                     Layout.fillWidth: true
                 }
                 
-                // Grid layout selection buttons
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    spacing: 4
-                    
-                    Text {
-                        text: qsTr("Układ siatki (maks. 2x2)")
-                        color: "#8898a6"
-                        font.bold: true
-                        font.pixelSize: 10
-                    }
-                    
-                    RowLayout {
-                        Layout.fillWidth: true
-                        spacing: 4
-                        
-                        Repeater {
-                            model: ["1x1", "1x2", "2x1", "2x2"]
-                            
-                            delegate: Button {
-                                text: modelData
-                                Layout.fillWidth: true
-                                Layout.preferredHeight: 24
-                                hoverEnabled: true
-                                
-                                property bool isActive: {
-                                    if (modelData === "1x1") return gridLayoutColumns === 1 && gridLayoutRows === 1;
-                                    if (modelData === "1x2") return gridLayoutColumns === 1 && gridLayoutRows === 2;
-                                    if (modelData === "2x1") return gridLayoutColumns === 2 && gridLayoutRows === 1;
-                                    if (modelData === "2x2") return gridLayoutColumns === 2 && gridLayoutRows === 2;
-                                    return false;
-                                }
-                                
-                                contentItem: Text {
-                                    text: parent.text
-                                    color: parent.isActive ? "#00f5d4" : "white"
-                                    font.bold: parent.isActive
-                                    font.pixelSize: 10
-                                    horizontalAlignment: Text.AlignHCenter
-                                    verticalAlignment: Text.AlignVCenter
-                                }
-                                
-                                background: Rectangle {
-                                    color: parent.isActive ? "#1c242c" : (parent.pressed ? "#22ffffff" : (parent.hovered ? "#11ffffff" : "transparent"))
-                                    border.color: parent.isActive ? "#00f5d4" : "#1c242c"
-                                    border.width: 1
-                                    radius: 3
-                                }
-                                
-                                onClicked: {
-                                    if (modelData === "1x1") {
-                                        gridLayoutColumns = 1;
-                                        gridLayoutRows = 1;
-                                    } else if (modelData === "1x2") {
-                                        gridLayoutColumns = 1;
-                                        gridLayoutRows = 2;
-                                    } else if (modelData === "2x1") {
-                                        gridLayoutColumns = 2;
-                                        gridLayoutRows = 1;
-                                    } else if (modelData === "2x2") {
-                                        gridLayoutColumns = 2;
-                                        gridLayoutRows = 2;
-                                    }
-                                    
-                                    var maxCams = gridLayoutColumns * gridLayoutRows;
-                                    resizeActivePlayersList(maxCams);
-                                }
-                            }
-                        }
-                    }
-                }
                 
                 RowLayout {
                     Layout.fillWidth: true
@@ -1548,15 +1517,18 @@ Window {
         }
 
         // Right Area: Grid of Players & Controls
-        ColumnLayout {
+        Item {
+            id: rightArea
             Layout.fillWidth: true
             Layout.fillHeight: true
-            spacing: 0
 
             // Video Grid Area
             Rectangle {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
+                id: videoGridWrapper
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: (isBottomPanelFloating || playbackWindow.hideTimelineOption) ? parent.bottom : bottomPanel.top
                 color: "black"
                 
                 Item {
@@ -1584,6 +1556,7 @@ Window {
                                 color: "black"
                                 border.color: (index === selectedPlayerIndex) ? "#00f5d4" : "#1c242c"
                                 border.width: 1
+                                z: fullScreen ? 100 : 1
                                 
                                 property alias playerInstance: playerItem
                                 property bool isSelected: index === selectedPlayerIndex
@@ -1597,6 +1570,7 @@ Window {
                                 property real zoomY: 0
                                 property real zoomWidth: 1.0
                                 property real zoomHeight: 1.0
+                                property bool fullScreen: index === fullScreenPlayerIndex && modelData !== null
 
                                 onIsOneToOneChanged: {
                                     if (isOneToOne) {
@@ -1609,12 +1583,55 @@ Window {
                                         oneToOneY = 0;
                                     }
                                 }
+
+                                Item {
+                                    id: tileContent
+                                    width: parent.width
+                                    height: parent.height
+
+                                    states: [
+                                        State {
+                                            name: "fullScreen"
+                                            when: tileContainer.fullScreen
+
+                                            PropertyChanges {
+                                                target: tileContent
+                                                x: -tileContainer.x
+                                                y: -tileContainer.y
+                                                width: playerGrid.width
+                                                height: playerGrid.height
+                                                z: 100
+                                            }
+                                        }
+                                    ]
+
+                                    transitions: [
+                                        Transition {
+                                            ParallelAnimation {
+                                                PropertyAnimation {
+                                                    properties: "x, y, width, height"
+                                                    easing.type: Easing.OutQuad
+                                                    duration: 200
+                                                }
+                                            }
+                                        }
+                                    ]
                                 
                                 MouseArea {
                                     anchors.fill: parent
                                     enabled: !tileContainer.isZoomSelectionMode
                                     onClicked: {
                                         selectedPlayerIndex = index;
+                                    }
+                                    onDoubleClicked: {
+                                        selectedPlayerIndex = index;
+                                        if (modelData !== null) {
+                                            if (fullScreenPlayerIndex === index) {
+                                                fullScreenPlayerIndex = -1;
+                                            } else {
+                                                fullScreenPlayerIndex = index;
+                                            }
+                                        }
                                     }
                                 }
                                 
@@ -1784,7 +1801,8 @@ Window {
                                             isHovered = playerHoverAreaMouseArea.containsMouse ||
                                                         snapshotMouseAreaBtn.containsMouse ||
                                                         oneToOneMouseAreaBtn.containsMouse ||
-                                                        zoomMouseAreaBtn.containsMouse;
+                                                        zoomMouseAreaBtn.containsMouse ||
+                                                        fullScreenMouseAreaBtn.containsMouse;
                                         }
                                         Component.onCompleted: updateHoverState()
                                         Connections {
@@ -1804,6 +1822,10 @@ Window {
                                             function onContainsMouseChanged() { playerHoverArea.updateHoverState() }
                                         }
                                         Connections {
+                                            target: fullScreenMouseAreaBtn
+                                            function onContainsMouseChanged() { playerHoverArea.updateHoverState() }
+                                        }
+                                        Connections {
                                             target: tileContainer
                                             function onVisibleChanged() { playerHoverArea.updateHoverState() }
                                         }
@@ -1819,10 +1841,11 @@ Window {
                                     // Controls overlay on the bottom right
                                     Row {
                                         anchors {
-                                            right: parent.right
-                                            bottom: parent.bottom
-                                            margins: 6
-                                        }
+                                             right: parent.right
+                                             bottom: parent.bottom
+                                             margins: 6
+                                             bottomMargin: (tileContainer.fullScreen && !playbackWindow.hideTimelineOption) ? (bottomPanel.height + 6) : 6
+                                         }
                                         spacing: 6
                                         z: 10
                                         visible: (modelData !== null) && (!rootWindow.viewSettings.hoverControlIcons || playerHoverArea.isHovered)
@@ -2011,6 +2034,55 @@ Window {
                                             ToolTip.timeout: 5000
                                             ToolTip.visible: zoomMouseAreaBtn.containsMouse
                                             ToolTip.text: tileContainer.isZoomed ? qsTr("Reset Zoom") : (tileContainer.isZoomSelectionMode ? qsTr("Zaznacz obszar żeby przybliżyć") : qsTr("Wybierz obszar do zbliżenia"))
+                                        }
+
+                                        Control {
+                                            id: fullScreenBadge
+                                            implicitWidth: 24
+                                            implicitHeight: 24
+                                            padding: 5
+
+                                            background: Rectangle {
+                                                radius: 12
+                                                color: tileContainer.fullScreen ?
+                                                    (fullScreenMouseAreaBtn.pressed ? "#4400f5d4" : (fullScreenMouseAreaBtn.containsMouse ? "#3300f5d4" : "#2200f5d4")) :
+                                                    (fullScreenMouseAreaBtn.pressed ? "#4a5560" : (fullScreenMouseAreaBtn.containsMouse ? "#3a4550" : "#cc121214"))
+                                                border.color: tileContainer.fullScreen ?
+                                                    "#cc00f5d4" :
+                                                    ((fullScreenMouseAreaBtn.containsMouse || fullScreenMouseAreaBtn.pressed) ? "#cc8898a6" : "#802a3540")
+                                                border.width: 1
+                                            }
+
+                                            contentItem: Image {
+                                                sourceSize: Qt.size(32, 32)
+                                                fillMode: Image.PreserveAspectFit
+                                                source: tileContainer.fullScreen ?
+                                                    "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300f5d4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 14h6v6m10-6h-6v6M4 10h6V4m10 6h-6V4'></path></svg>" :
+                                                    (fullScreenMouseAreaBtn.containsMouse ?
+                                                        "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300f5d4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3'></path></svg>" :
+                                                        "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3'></path></svg>"
+                                                    )
+                                            }
+
+                                            MouseArea {
+                                                id: fullScreenMouseAreaBtn
+                                                anchors.fill: parent
+                                                hoverEnabled: true
+                                                cursorShape: Qt.PointingHandCursor
+                                                onClicked: {
+                                                    selectedPlayerIndex = index;
+                                                    if (fullScreenPlayerIndex === index) {
+                                                        fullScreenPlayerIndex = -1;
+                                                    } else {
+                                                        fullScreenPlayerIndex = index;
+                                                    }
+                                                }
+                                            }
+
+                                            ToolTip.delay: 500
+                                            ToolTip.timeout: 5000
+                                            ToolTip.visible: fullScreenMouseAreaBtn.containsMouse
+                                            ToolTip.text: tileContainer.fullScreen ? qsTr("Przywróć widok siatki") : qsTr("Pokaż na pełnym ekranie")
                                         }
                                     }
                                 }
@@ -2216,14 +2288,20 @@ Window {
                                 }
                             }
                         }
+                        }
                     }
                 }
             }
 
             Rectangle {
-                Layout.fillWidth: true
-                height: 100 + Math.max(0, (getLoadedCameras().length - 1) * 16)
-                color: "#1c242c"
+                id: bottomPanel
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                height: 70 + Math.max(0, (getLoadedCameras().length - 1) * 8)
+                color: isBottomPanelFloating ? "#331c242c" : "#1c242c"
+                visible: !playbackWindow.hideTimelineOption
+                z: 200
                 
                 ColumnLayout {
                     anchors.fill: parent
@@ -2235,6 +2313,7 @@ Window {
                         Layout.leftMargin: 15
                         Layout.rightMargin: 15
                         spacing: 15
+                        opacity: isBottomPanelFloating ? 0.75 : 1.0
                         
                         // Date selector
                         RowLayout {
@@ -2429,7 +2508,7 @@ Window {
                                 onClicked: jumpTime(60000)
                             }
                         }
-                        
+
                         Item { Layout.fillWidth: true }
                     }
                     
@@ -2437,7 +2516,8 @@ Window {
                     Canvas {
                         id: timeline
                         Layout.fillWidth: true
-                        Layout.fillHeight: true
+                        Layout.fillHeight: !playbackWindow.hideTimelineOption
+                        visible: !playbackWindow.hideTimelineOption
                         clip: true
                         
                         onWidthChanged: requestPaint()
@@ -2449,7 +2529,7 @@ Window {
                             var ctx = getContext("2d")
                             ctx.clearRect(0, 0, width, height)
                             
-                            ctx.fillStyle = "#0a0f14"
+                            ctx.fillStyle = isBottomPanelFloating ? "#330a0f14" : "#0a0f14"
                             ctx.fillRect(0, 0, width, height)
                             
                             var viewDurationMs = zoomHours * 3600000
@@ -2486,7 +2566,7 @@ Window {
                             var colors = ["#00f5d4", "#e0aaff", "#70e000", "#ff5c8a"]
                             var activeCams = getLoadedCameras()
                             var N = activeCams.length
-                            var barsTotalHeight = N * 16
+                            var barsTotalHeight = N * 8
                             
                             // Find the start date and end date of the visible range
                             var startDate = new Date(sodTime + panOffsetMs)
@@ -2498,7 +2578,7 @@ Window {
                             for (var i = 0; i < N; i++) {
                                 var cam = activeCams[i]
                                 var barColor = colors[i % colors.length]
-                                var barY = height - (N - i) * 16
+                                var barY = height - (N - i) * 8
                                 
                                 ctx.fillStyle = barColor
                                 
@@ -2525,7 +2605,7 @@ Window {
                                                 ctx.save();
                                                 ctx.globalAlpha = 0.25;
                                                 ctx.fillStyle = barColor;
-                                                ctx.fillRect(drawX, barY, drawW, 12);
+                                                ctx.fillRect(drawX, barY, drawW, 6);
                                                 ctx.restore();
                                             }
                                         }
@@ -2548,7 +2628,7 @@ Window {
                                         if (x2 >= 0 && x1 <= width) {
                                             var drawX = Math.max(0, x1)
                                             var drawW = Math.max(1, Math.min(width - drawX, x2 - drawX))
-                                            ctx.fillRect(drawX, barY, drawW, 12)
+                                            ctx.fillRect(drawX, barY, drawW, 6)
                                         }
                                     }
                                 }
@@ -2558,9 +2638,9 @@ Window {
                                 ctx.font = "9px sans-serif"
                                 var textW = ctx.measureText(labelText).width
                                 ctx.fillStyle = "rgba(10, 15, 20, 0.85)"
-                                ctx.fillRect(4, barY, textW + 8, 12)
+                                ctx.fillRect(4, barY, textW + 8, 7)
                                 ctx.fillStyle = "#ffffff"
-                                ctx.fillText(labelText, 8, barY + 9)
+                                ctx.fillText(labelText, 8, barY + 6)
                             }
                             
                             // Draw day boundaries
@@ -2638,17 +2718,19 @@ Window {
                                         ctx.fillStyle = "white"
                                         ctx.font = "bold 12px sans-serif"
                                         var pt = new Date(currentDate.getTime() + activePlayheadMs)
-                                        ctx.fillText(Qt.formatTime(pt, "hh:mm:ss"), px + 5, 30)
+                                        ctx.fillText(Qt.formatTime(pt, "hh:mm:ss"), px + 5, Math.max(12, height - barsTotalHeight - 5))
                                     }
                                 }
                             }
 
                             // Draw loading text overlay
                             if (playbackWindow.isSearchingRecordings) {
-                                var boxW = 320;
-                                var boxH = 40;
+                                var isCompact = height < 44;
+                                var boxW = isCompact ? 280 : 320;
+                                var boxH = isCompact ? 20 : 40;
                                 var boxX = width - boxW - 20;
-                                var boxY = 20;
+                                var boxY = isCompact ? (height - boxH) / 2 : 20;
+                                var r = isCompact ? 6 : 12;
                                 
                                 // Elegant glassmorphic background pill
                                 ctx.fillStyle = "rgba(10, 15, 20, 0.85)"
@@ -2656,9 +2738,8 @@ Window {
                                 ctx.lineWidth = 1
                                 ctx.beginPath()
                                 if (typeof ctx.roundRect === "function") {
-                                    ctx.roundRect(boxX, boxY, boxW, boxH, 12)
+                                    ctx.roundRect(boxX, boxY, boxW, boxH, r)
                                 } else {
-                                    var r = 12
                                     ctx.moveTo(boxX + r, boxY)
                                     ctx.lineTo(boxX + boxW - r, boxY)
                                     ctx.arcTo(boxX + boxW, boxY, boxX + boxW, boxY + r, r)
@@ -2675,21 +2756,21 @@ Window {
 
                                 // Loading spinner
                                 ctx.save()
-                                ctx.translate(boxX + 24, boxY + boxH / 2)
+                                ctx.translate(boxX + (isCompact ? 16 : 24), boxY + boxH / 2)
                                 ctx.rotate(Date.now() / 150)
                                 ctx.beginPath()
-                                ctx.arc(0, 0, 8, 0, Math.PI * 1.5)
+                                ctx.arc(0, 0, isCompact ? 5 : 8, 0, Math.PI * 1.5)
                                 ctx.strokeStyle = "#00f5d4"
-                                ctx.lineWidth = 2
+                                ctx.lineWidth = isCompact ? 1.5 : 2
                                 ctx.stroke()
                                 ctx.restore()
 
                                 // Text inside pill
                                 ctx.fillStyle = "#00f5d4"
-                                ctx.font = "bold 10px sans-serif"
+                                ctx.font = isCompact ? "bold 8px sans-serif" : "bold 10px sans-serif"
                                 var text = qsTr("Trwa ładowanie informacji o dostępności nagrania...")
                                 var textW = ctx.measureText(text).width
-                                ctx.fillText(text, boxX + (boxW - textW) / 2 + 10, boxY + 24)
+                                ctx.fillText(text, boxX + (boxW - textW) / 2 + (isCompact ? 8 : 10), boxY + (isCompact ? 13 : 24))
                             }
                         }
                         
@@ -2783,6 +2864,331 @@ Window {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    // Sleek premium horizontal top bar for settings and grid layout options
+    Rectangle {
+        id: topToolBar
+        height: 44
+        anchors.left: parent.left
+        anchors.right: parent.right
+        color: "#cc121214"
+        z: 9999
+
+        // Slide animation based on hover states of the top edge or the bar itself
+        y: (!playbackWindow.topBarAutoCollapse || hoverArea.containsMouse || topToolBarMouseArea.containsMouse || keepVisibleTimer.running) ? 0 : -height
+
+        Behavior on y {
+            NumberAnimation {
+                duration: 200
+                easing.type: Easing.OutCubic
+            }
+        }
+
+        Rectangle {
+            anchors.bottom: parent.bottom
+            width: parent.width
+            height: 1
+            color: "#2a3540"
+            z: 10 // draw line on top of background
+        }
+
+        MouseArea {
+            id: topToolBarMouseArea
+            anchors.fill: parent
+            hoverEnabled: true
+            onContainsMouseChanged: {
+                if (containsMouse) {
+                    keepVisibleTimer.stop();
+                } else if (!hoverArea.containsMouse) {
+                    keepVisibleTimer.start();
+                }
+            }
+
+            RowLayout {
+                anchors.fill: parent
+                anchors.leftMargin: 8
+                anchors.rightMargin: 8
+                spacing: 6
+
+                Button {
+                    id: closeButton
+                    Layout.preferredWidth: 30
+                    Layout.preferredHeight: 30
+                    Layout.alignment: Qt.AlignVCenter
+
+                    contentItem: Text {
+                        text: "✕"
+                        font.bold: true
+                        font.pixelSize: 14
+                        color: "white"
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    background: Rectangle {
+                        color: closeButton.pressed ? "#cc2929" : (closeButton.hovered ? "#ff4d4d" : "#d63333")
+                        radius: 15
+                    }
+
+                    onClicked: {
+                        playbackWindow.close();
+                    }
+
+                    ToolTip.delay: Compact.toolTipDelay
+                    ToolTip.timeout: Compact.toolTipTimeout
+                    ToolTip.visible: closeButton.hovered
+                    ToolTip.text: qsTr("Zamknij okno")
+                }
+
+                // Layout buttons on the left
+                RowLayout {
+                    spacing: 4
+                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+
+                    Repeater {
+                        model: ["1x1", "1x2", "2x1", "2x2"]
+                        delegate: Button {
+                            id: gridBtn
+                            text: modelData
+                            Layout.preferredWidth: 34
+                            Layout.preferredHeight: 30
+                            Layout.alignment: Qt.AlignVCenter
+                            hoverEnabled: true
+
+                            property bool isActive: {
+                                if (modelData === "1x1") return gridLayoutColumns === 1 && gridLayoutRows === 1;
+                                if (modelData === "1x2") return gridLayoutColumns === 1 && gridLayoutRows === 2;
+                                if (modelData === "2x1") return gridLayoutColumns === 2 && gridLayoutRows === 1;
+                                if (modelData === "2x2") return gridLayoutColumns === 2 && gridLayoutRows === 2;
+                                return false;
+                            }
+
+                            contentItem: Text {
+                                text: gridBtn.text
+                                font.bold: true
+                                font.pixelSize: 10
+                                color: gridBtn.isActive ? "white" : (gridBtn.hovered ? "#ffffff" : "#8898a6")
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                            }
+
+                            background: Rectangle {
+                                color: gridBtn.isActive ? "#00f5d4" : (gridBtn.pressed ? "#cc121214" : (gridBtn.hovered ? "#3a4550" : "#1c242c"))
+                                radius: 15
+                                border.color: gridBtn.isActive ? "#00f5d4" : (gridBtn.hovered ? "#8898a6" : "#2a3540")
+                                border.width: 1
+                            }
+
+                            onClicked: {
+                                if (modelData === "1x1") {
+                                    gridLayoutColumns = 1;
+                                    gridLayoutRows = 1;
+                                } else if (modelData === "1x2") {
+                                    gridLayoutColumns = 1;
+                                    gridLayoutRows = 2;
+                                } else if (modelData === "2x1") {
+                                    gridLayoutColumns = 2;
+                                    gridLayoutRows = 1;
+                                } else if (modelData === "2x2") {
+                                    gridLayoutColumns = 2;
+                                    gridLayoutRows = 2;
+                                }
+
+                                var maxCams = gridLayoutColumns * gridLayoutRows;
+                                resizeActivePlayersList(maxCams);
+                            }
+                        }
+                    }
+                }
+
+                // Spacer
+                Item {
+                    Layout.fillWidth: true
+                }
+
+                // Controls on the right
+                RowLayout {
+                    spacing: 6
+                    Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+
+                    Button {
+                        id: timelineToggleBtn
+                        Layout.preferredWidth: 30
+                        Layout.preferredHeight: 30
+                        Layout.alignment: Qt.AlignVCenter
+                        hoverEnabled: true
+
+                        contentItem: Image {
+                            anchors.centerIn: parent
+                            width: 16
+                            height: 16
+                            sourceSize.width: 16
+                            sourceSize.height: 16
+                            fillMode: Image.PreserveAspectFit
+                            source: {
+                                var colorStr = timelineToggleBtn.hovered ? "white" : "%238898a6";
+                                return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'></circle><polyline points='12 6 12 12 16 14'></polyline></svg>";
+                            }
+                        }
+
+                        background: Rectangle {
+                            color: timelineToggleBtn.pressed ? "#cc121214" : (timelineToggleBtn.hovered ? "#3a4550" : "#1c242c")
+                            radius: 15
+                            border.color: timelineToggleBtn.hovered ? "#8898a6" : "#2a3540"
+                            border.width: 1
+                        }
+
+                        onClicked: {
+                            playbackWindow.hideTimelineOption = !playbackWindow.hideTimelineOption;
+                        }
+
+                        ToolTip.delay: Compact.toolTipDelay
+                        ToolTip.timeout: Compact.toolTipTimeout
+                        ToolTip.visible: timelineToggleBtn.hovered
+                        ToolTip.text: playbackWindow.hideTimelineOption ? qsTr("Pokaż oś czasu") : qsTr("Ukryj oś czasu")
+                    }
+
+                    Button {
+                        id: sidebarToggleBtn
+                        Layout.preferredWidth: 30
+                        Layout.preferredHeight: 30
+                        Layout.alignment: Qt.AlignVCenter
+                        hoverEnabled: true
+
+                        contentItem: Image {
+                            anchors.centerIn: parent
+                            width: 16
+                            height: 16
+                            source: {
+                                var colorStr = sidebarToggleBtn.hovered ? "white" : "%238898a6";
+                                return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='3' width='18' height='18' rx='2' ry='2'></rect><line x1='9' y1='3' x2='9' y2='21'></line></svg>";
+                            }
+                        }
+
+                        background: Rectangle {
+                            color: sidebarToggleBtn.pressed ? "#cc121214" : (sidebarToggleBtn.hovered ? "#3a4550" : "#1c242c")
+                            radius: 15
+                            border.color: sidebarToggleBtn.hovered ? "#8898a6" : "#2a3540"
+                            border.width: 1
+                        }
+
+                        onClicked: {
+                            playbackWindow.sidebarVisible = !playbackWindow.sidebarVisible;
+                        }
+
+                        ToolTip.delay: Compact.toolTipDelay
+                        ToolTip.timeout: Compact.toolTipTimeout
+                        ToolTip.visible: sidebarToggleBtn.hovered
+                        ToolTip.text: playbackWindow.sidebarVisible ? qsTr("Ukryj pasek boczny") : qsTr("Pokaż pasek boczny")
+                    }
+
+                    Button {
+                        id: fullScreenBtn
+                        Layout.preferredWidth: 30
+                        Layout.preferredHeight: 30
+                        Layout.alignment: Qt.AlignVCenter
+                        hoverEnabled: true
+
+                        property bool isActive: playbackWindow.visibility === Window.FullScreen
+
+                        contentItem: Image {
+                            anchors.centerIn: parent
+                            width: 16
+                            height: 16
+                            source: {
+                                var colorStr = fullScreenBtn.hovered ? "%2300f5d4" : (fullScreenBtn.isActive ? "%2300f5d4" : "%2300b09b");
+                                if (fullScreenBtn.isActive) {
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='m14 10 7-7m-7 7h6m-6 0V4M10 14 3 21m7-7H4m6 0v6M14 14l7 7m-7-7v6m0-6h6M10 10 3 3m7 7V4m0 6H4'></path></svg>";
+                                } else {
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='m21 21-6-6m6 6V15m0 6h-6M3 3l6 6M3 3v6M3 3h6M3 21l6-6M3 21v-6M3 21h6M21 3l-6 6M21 3v6M21 3h-6'></path></svg>";
+                                }
+                            }
+                        }
+
+                        background: Rectangle {
+                            color: fullScreenBtn.pressed ? "#cc121214" : (fullScreenBtn.hovered ? "#3a4550" : "#1c242c")
+                            radius: 15
+                            border.color: fullScreenBtn.hovered ? "#00f5d4" : "#2a3540"
+                            border.width: 1
+                        }
+
+                        onClicked: {
+                            toggleWindowFullScreen();
+                        }
+
+                        ToolTip.delay: Compact.toolTipDelay
+                        ToolTip.timeout: Compact.toolTipTimeout
+                        ToolTip.visible: fullScreenBtn.hovered
+                        ToolTip.text: fullScreenBtn.isActive ? qsTr("Wyjdź z pełnego ekranu") : qsTr("Pełny ekran okna")
+                    }
+
+                    Button {
+                        id: pinButton
+                        Layout.preferredWidth: 30
+                        Layout.preferredHeight: 30
+                        Layout.alignment: Qt.AlignVCenter
+                        hoverEnabled: true
+
+                        property bool isPinned: !playbackWindow.topBarAutoCollapse
+
+                        contentItem: Image {
+                            anchors.centerIn: parent
+                            width: 16
+                            height: 16
+                            rotation: pinButton.isPinned ? 0 : -45
+
+                            Behavior on rotation {
+                                NumberAnimation { duration: 150; easing.type: Easing.InOutQuad }
+                            }
+
+                            source: {
+                                var colorStr = pinButton.hovered ? "white" : "%238898a6";
+                                if (pinButton.isPinned) {
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='" + colorStr + "' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='12' x2='12' y1='17' y2='22'></line><path d='M5 17h14v-1.76a2 2 0 0 0-.44-1.24l-2.78-3.56A2 2 0 0 1 15 9.2V5a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4.2a2 2 0 0 1-.78 1.24L5.44 14a2 2 0 0 0-.44 1.24Z'></path></svg>";
+                                } else {
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='12' x2='12' y1='17' y2='22'></line><path d='M5 17h14v-1.76a2 2 0 0 0-.44-1.24l-2.78-3.56A2 2 0 0 1 15 9.2V5a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4.2a2 2 0 0 1-.78 1.24L5.44 14a2 2 0 0 0-.44 1.24Z'></path></svg>";
+                                }
+                            }
+                        }
+
+                        background: Rectangle {
+                            color: pinButton.pressed ? "#cc121214" : (pinButton.hovered ? "#3a4550" : "#1c242c")
+                            radius: 15
+                            border.color: pinButton.hovered ? "#8898a6" : "#2a3540"
+                            border.width: 1
+                        }
+
+                        onClicked: {
+                            playbackWindow.topBarAutoCollapse = !playbackWindow.topBarAutoCollapse;
+                        }
+
+                        ToolTip.delay: Compact.toolTipDelay
+                        ToolTip.timeout: Compact.toolTipTimeout
+                        ToolTip.visible: pinButton.hovered
+                        ToolTip.text: pinButton.isPinned ? qsTr("Odepnij pasek górny") : qsTr("Przypnij pasek górny")
+                    }
+                }
+            }
+        }
+    }
+
+    // Top edge mouse detection area for sliding bar
+    MouseArea {
+        id: hoverArea
+        height: 12
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        hoverEnabled: true
+        z: 9998
+        onContainsMouseChanged: {
+            if (containsMouse) {
+                keepVisibleTimer.stop();
+            } else if (!topToolBarMouseArea.containsMouse) {
+                keepVisibleTimer.start();
             }
         }
     }
