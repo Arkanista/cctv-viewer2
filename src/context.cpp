@@ -181,6 +181,7 @@ void Context::initLanguage()
 {
     QSettings settings(m_config ? m_config->fileName() : QSettings().fileName(), QSettings::IniFormat);
     QString lang = settings.value("language", "system").toString();
+    m_language = lang;
     
     if (m_translator) {
         QCoreApplication::removeTranslator(m_translator);
@@ -212,6 +213,8 @@ void Context::initLanguage()
 
 void Context::setLanguage(const QString &lang)
 {
+    m_language = lang;
+    
     if (m_translator) {
         QCoreApplication::removeTranslator(m_translator);
     }
@@ -250,8 +253,7 @@ void Context::setLanguage(const QString &lang)
 
 QString Context::getLanguage() const
 {
-    QSettings settings(m_config ? m_config->fileName() : QSettings().fileName(), QSettings::IniFormat);
-    return settings.value("language", "system").toString();
+    return m_language.isEmpty() ? "system" : m_language;
 }
 
 bool Context::mkpath(const QString &dirPath) const

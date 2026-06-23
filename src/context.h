@@ -68,6 +68,7 @@ private:
     inline static QTranslator *m_translator = nullptr;
     inline static QFileSystemWatcher *m_watcher = nullptr;
     inline static QList<Context*> m_instances;
+    inline static QString m_language;
 };
 
 #endif // CONTEXT_H
