@@ -1535,7 +1535,7 @@ Window {
                 anchors.top: parent.top
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.bottom: (isBottomPanelFloating || playbackWindow.hideTimelineOption) ? parent.bottom : bottomPanel.top
+                anchors.bottom: parent.bottom
                 color: "black"
                 
                 Item {
@@ -1578,6 +1578,7 @@ Window {
                                 property real zoomWidth: 1.0
                                 property real zoomHeight: 1.0
                                 property bool fullScreen: index === fullScreenPlayerIndex && modelData !== null
+                                readonly property real bottomOverlap: (fullScreen || (Math.floor(index / gridLayoutColumns) === gridLayoutRows - 1)) ? Math.max(0, rightArea.height - bottomPanel.y) : 0
 
                                 onIsOneToOneChanged: {
                                     if (isOneToOne) {
@@ -1850,8 +1851,8 @@ Window {
                                         anchors {
                                              right: parent.right
                                              bottom: parent.bottom
-                                             margins: 6
-                                             bottomMargin: (tileContainer.fullScreen && !playbackWindow.hideTimelineOption) ? (bottomPanel.height + 6) : 6
+                                             rightMargin: 6
+                                             bottomMargin: bottomOverlap + 6
                                          }
                                         spacing: 6
                                         z: 10
@@ -2264,7 +2265,8 @@ Window {
                                     anchors {
                                         left: parent.left
                                         bottom: parent.bottom
-                                        margins: 6
+                                        leftMargin: 6
+                                        bottomMargin: bottomOverlap + 6
                                     }
                                     z: 15
                                     visible: modelData !== null
@@ -2306,7 +2308,7 @@ Window {
                 anchors.right: parent.right
                 y: isBottomPanelShowed ? (parent.height - height) : parent.height
                 height: 70 + Math.max(0, (getLoadedCameras().length - 1) * 8)
-                color: isBottomPanelFloating ? "#331c242c" : "#1c242c"
+                color: "#aa1c242c"
                 visible: true
                 z: 200
 
@@ -2339,15 +2341,20 @@ Window {
                         Layout.leftMargin: 15
                         Layout.rightMargin: 15
                         spacing: 15
-                        opacity: isBottomPanelFloating ? 0.75 : 1.0
+                        opacity: 1.0
                         
                         // Date selector
                         RowLayout {
                             spacing: 5
+                            Layout.fillWidth: false
                             CctvButton {
-                                text: "<"
-                                width: 30
+                                id: prevDayBtn
+                                text: ""
                                 isSmall: true
+                                iconSource: {
+                                    var colorStr = prevDayBtn.hovered ? "%2300f5d4" : "%238898a6"
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='15 18 9 12 15 6'></polyline></svg>"
+                                }
                                 onClicked: {
                                     var d = new Date(currentDate.getTime() - 86400000)
                                     d.setHours(0, 0, 0, 0)
@@ -2356,11 +2363,18 @@ Window {
                                     searchRecordingsForDate(currentDate)
                                     playAtTime(currentDate, timeOfDay)
                                 }
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("Poprzedni dzień")
                             }
                             CctvButton {
                                 id: calendarButton
                                 text: Qt.formatDate(currentDate, "yyyy-MM-dd")
-                                iconSource: "qrc:/images/calendar.svg"
+                                iconSource: {
+                                    var colorStr = calendarButton.hovered ? "%2300f5d4" : "%238898a6"
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2' ry='2'></rect><line x1='16' y1='2' x2='16' y2='6'></line><line x1='8' y1='2' x2='8' y2='6'></line><line x1='3' y1='10' x2='21' y2='10'></line></svg>"
+                                }
                                 isSmall: true
                                 onClicked: {
                                     var pt = mapToItem(null, 0, 0)
@@ -2368,11 +2382,19 @@ Window {
                                     calendarPopup.y = pt.y - calendarPopup.height - 10
                                     calendarPopup.open()
                                 }
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("Wybierz datę z kalendarza")
                             }
                             CctvButton {
-                                text: ">"
-                                width: 30
+                                id: nextDayBtn
+                                text: ""
                                 isSmall: true
+                                iconSource: {
+                                    var colorStr = nextDayBtn.hovered ? "%2300f5d4" : "%238898a6"
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='9 18 15 12 9 6'></polyline></svg>"
+                                }
                                 onClicked: {
                                     var d = new Date(currentDate.getTime() + 86400000)
                                     d.setHours(0, 0, 0, 0)
@@ -2381,9 +2403,18 @@ Window {
                                     searchRecordingsForDate(currentDate)
                                     playAtTime(currentDate, timeOfDay)
                                 }
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("Następny dzień")
                             }
                             CctvButton {
+                                id: todayBtn
                                 text: qsTr("Dzisiaj")
+                                iconSource: {
+                                    var colorStr = todayBtn.hovered ? "%2300f5d4" : "%238898a6"
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2' ry='2'></rect><line x1='16' y1='2' x2='16' y2='6'></line><line x1='8' y1='2' x2='8' y2='6'></line><line x1='3' y1='10' x2='21' y2='10'></line><circle cx='12' cy='16' r='2' fill='" + colorStr + "'></circle></svg>"
+                                }
                                 isSmall: true
                                 onClicked: {
                                     var d = new Date()
@@ -2393,10 +2424,19 @@ Window {
                                     searchRecordingsForDate(currentDate)
                                     playAtTime(currentDate, timeOfDay)
                                 }
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("Przejdź do dzisiejszego dnia")
                             }
                             CctvButton {
-                                text: qsTr("Odśwież")
+                                id: refreshBtn
+                                text: ""
                                 isSmall: true
+                                iconSource: {
+                                    var colorStr = refreshBtn.hovered ? "%2300f5d4" : "%238898a6"
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M23 4v6h-6'></path><path d='M20.49 15a9 9 0 1 1-2.12-9.36L23 10'></path></svg>"
+                                }
                                 onClicked: {
                                     for (var i = 0; i < activePlayersList.length; i++) {
                                         var cam = activePlayersList[i];
@@ -2406,34 +2446,71 @@ Window {
                                     }
                                     searchRecordingsForDate(currentDate)
                                 }
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("Odśwież nagrania")
                             }
                         }
                         
                         // Zoom shortcuts
                         RowLayout {
                             spacing: 5
+                            Layout.fillWidth: false
                             CctvButton {
-                                text: qsTr("Ostatnia 1h")
+                                id: zoom1hBtn
+                                text: ""
                                 isSmall: true
+                                iconSource: {
+                                    var colorStr = zoom1hBtn.hovered ? "%2300f5d4" : "%238898a6"
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'></circle><polyline points='12 6 12 12 14 14' opacity='0.4'></polyline><text x='12' y='15.5' font-family='sans-serif' font-size='9.5' font-weight='bold' fill='" + colorStr + "' stroke='none' text-anchor='middle'>1h</text></svg>"
+                                }
                                 onClicked: zoomToLast(1)
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("Powiększ do ostatniej 1 godziny")
                             }
                             CctvButton {
-                                text: qsTr("Ostatnie 8h")
+                                id: zoom8hBtn
+                                text: ""
                                 isSmall: true
+                                iconSource: {
+                                    var colorStr = zoom8hBtn.hovered ? "%2300f5d4" : "%238898a6"
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'></circle><polyline points='12 6 12 12 14 14' opacity='0.4'></polyline><text x='12' y='15.5' font-family='sans-serif' font-size='9.5' font-weight='bold' fill='" + colorStr + "' stroke='none' text-anchor='middle'>8h</text></svg>"
+                                }
                                 onClicked: zoomToLast(8)
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("Powiększ do ostatnich 8 godzin")
                             }
                             CctvButton {
-                                text: qsTr("Cały dzień")
+                                id: zoom24hBtn
+                                text: ""
                                 isSmall: true
+                                iconSource: {
+                                    var colorStr = zoom24hBtn.hovered ? "%2300f5d4" : "%238898a6"
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2' ry='2'></rect><line x1='16' y1='2' x2='16' y2='6'></line><line x1='8' y1='2' x2='8' y2='6'></line><line x1='3' y1='10' x2='21' y2='10'></line><text x='12' y='18' font-family='sans-serif' font-size='8.5' font-weight='bold' fill='" + colorStr + "' stroke='none' text-anchor='middle'>24h</text></svg>"
+                                }
                                 onClicked: {
                                     zoomHours = 24
                                     panOffsetMs = 0
                                     timeline.requestPaint()
                                 }
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("Pokaż cały dzień na osi czasu")
                             }
                             CctvButton {
-                                text: qsTr("Wycentruj")
+                                id: centerBtn
+                                text: ""
                                 isSmall: true
+                                iconSource: {
+                                    var colorStr = centerBtn.hovered ? "%2300f5d4" : "%238898a6"
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'></circle><circle cx='12' cy='12' r='3'></circle><line x1='12' y1='1' x2='12' y2='4'></line><line x1='12' y1='20' x2='12' y2='23'></line><line x1='1' y1='12' x2='4' y2='12'></line><line x1='20' y1='12' x2='23' y2='12'></line></svg>"
+                                }
                                 onClicked: {
                                     autoFollowEnabled = true
                                     var viewDurationMs = zoomHours * 3600000
@@ -2441,6 +2518,10 @@ Window {
                                     normalizePanOffset()
                                     timeline.requestPaint()
                                 }
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("Wycentruj oś czasu na aktualnym punkcie odtwarzania")
                             }
                         }
                         
@@ -2449,21 +2530,28 @@ Window {
                         // Playback speed shortcuts
                         RowLayout {
                             spacing: 3
+                            Layout.fillWidth: false
                             Text { text: qsTr("Prędkość:"); color: "white"; font.bold: true; font.pixelSize: 10 }
                             
                             Repeater {
                                 model: [1, 2, 4, 8]
                                 CctvButton {
+                                    id: speedBtn
+                                    text: ""
                                     isSmall: true
-                                    property bool isSlow: modelData < 0
-                                    property int absSpeed: Math.abs(modelData)
-                                    text: absSpeed + "x"
-                                    iconSource: isSlow ? "qrc:/images/rewind.svg" : (absSpeed === 1 ? "qrc:/images/play_small.svg" : "qrc:/images/forward.svg")
+                                    iconSource: {
+                                        var colorStr = speedBtn.hovered ? "%2300f5d4" : (playbackWindow.playbackSpeed === modelData ? "%23ffffff" : "%238898a6")
+                                        return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3.26 19.74a10 10 0 1 1 17.48 0' opacity='0.4'></path><text x='12' y='15.5' font-family='sans-serif' font-size='9.5' font-weight='bold' fill='" + colorStr + "' stroke='none' text-anchor='middle'>" + modelData + "x</text></svg>"
+                                    }
                                     isPrimary: playbackWindow.playbackSpeed === modelData
                                     onClicked: {
                                         playbackWindow.playbackSpeed = modelData
                                         forEachPlayer(function(p) { p.setPlaybackSpeed(modelData); })
                                     }
+                                    ToolTip.delay: Compact.toolTipDelay
+                                    ToolTip.timeout: Compact.toolTipTimeout
+                                    ToolTip.visible: hovered
+                                    ToolTip.text: qsTr("Ustaw prędkość odtwarzania na %1x").arg(modelData)
                                 }
                             }
                         }
@@ -2471,9 +2559,12 @@ Window {
                         // Download Controls
                         RowLayout {
                             spacing: 3
+                            Layout.fillWidth: false
                             CctvButton {
                                 text: qsTr("Pobierz")
                                 isSmall: true
+                                isCeladon: true
+                                iconSource: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23121214' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'></path><polyline points='7 10 12 15 17 10'></polyline><line x1='12' y1='15' x2='12' y2='3'></line></svg>"
                                 enabled: getLoadedCameras().length > 0
                                 onClicked: {
                                     var loadedCams = getLoadedCameras();
@@ -2482,6 +2573,10 @@ Window {
                                     downloadDialog.targetDate = currentDate;
                                     downloadDialog.open();
                                 }
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("Pobierz wycinki wideo z zaznaczonego przedziału czasu")
                             }
                         }
 
@@ -2490,48 +2585,109 @@ Window {
                         // VCR Controls
                         RowLayout {
                             spacing: 3
+                            Layout.fillWidth: false
                             CctvButton {
-                                text: "60s"
-                                iconSource: "qrc:/images/rewind.svg"
+                                id: rw60Btn
+                                text: ""
                                 isSmall: true
+                                iconSource: {
+                                    var colorStr = rw60Btn.hovered ? "%2300f5d4" : "%238898a6"
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3a9 9 0 1 0 6.36 2.64'></path><polyline points='12 7 12 3 8 3'></polyline><text x='12' y='15' font-family='sans-serif' font-size='9' font-weight='bold' fill='" + colorStr + "' stroke='none' text-anchor='middle'>60</text></svg>"
+                                }
                                 onClicked: jumpTime(-60000)
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("Cofnij o 60 sekund")
                             }
                             CctvButton {
-                                text: "45s"
-                                iconSource: "qrc:/images/rewind.svg"
+                                id: rw45Btn
+                                text: ""
                                 isSmall: true
+                                iconSource: {
+                                    var colorStr = rw45Btn.hovered ? "%2300f5d4" : "%238898a6"
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3a9 9 0 1 0 6.36 2.64'></path><polyline points='12 7 12 3 8 3'></polyline><text x='12' y='15' font-family='sans-serif' font-size='9' font-weight='bold' fill='" + colorStr + "' stroke='none' text-anchor='middle'>45</text></svg>"
+                                }
                                 onClicked: jumpTime(-45000)
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("Cofnij o 45 sekund")
                             }
                             CctvButton {
-                                text: "15s"
-                                iconSource: "qrc:/images/rewind.svg"
+                                id: rw15Btn
+                                text: ""
                                 isSmall: true
+                                iconSource: {
+                                    var colorStr = rw15Btn.hovered ? "%2300f5d4" : "%238898a6"
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3a9 9 0 1 0 6.36 2.64'></path><polyline points='12 7 12 3 8 3'></polyline><text x='12' y='15' font-family='sans-serif' font-size='9' font-weight='bold' fill='" + colorStr + "' stroke='none' text-anchor='middle'>15</text></svg>"
+                                }
                                 onClicked: jumpTime(-15000)
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("Cofnij o 15 sekund")
                             }
                             CctvButton {
-                                text: isPlaying ? qsTr("Pauza") : qsTr("Play")
-                                iconSource: isPlaying ? "qrc:/images/pause.svg" : "qrc:/images/play.svg"
+                                id: playPauseBtn
+                                text: ""
                                 isSmall: true
                                 isPrimary: true
+                                iconSource: {
+                                    var colorStr = "%23ffffff"
+                                    if (isPlaying) {
+                                        return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='" + colorStr + "' stroke='none'><rect x='6' y='4' width='4' height='16' rx='1'></rect><rect x='14' y='4' width='4' height='16' rx='1'></rect></svg>"
+                                    } else {
+                                        return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='" + colorStr + "' stroke='none'><polygon points='8 5 19 12 8 19 8 5'></polygon></svg>"
+                                    }
+                                }
                                 onClicked: togglePlayPause()
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: isPlaying ? qsTr("Wstrzymaj odtwarzanie") : qsTr("Rozpocznij odtwarzanie")
                             }
                             CctvButton {
-                                text: "15s"
-                                iconSource: "qrc:/images/forward.svg"
+                                id: ff15Btn
+                                text: ""
                                 isSmall: true
+                                iconSource: {
+                                    var colorStr = ff15Btn.hovered ? "%2300f5d4" : "%238898a6"
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3a9 9 0 1 1-6.36 2.64'></path><polyline points='12 7 12 3 16 3'></polyline><text x='12' y='15' font-family='sans-serif' font-size='9' font-weight='bold' fill='" + colorStr + "' stroke='none' text-anchor='middle'>15</text></svg>"
+                                }
                                 onClicked: jumpTime(15000)
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("Przewiń o 15 sekund")
                             }
                             CctvButton {
-                                text: "45s"
-                                iconSource: "qrc:/images/forward.svg"
+                                id: ff45Btn
+                                text: ""
                                 isSmall: true
+                                iconSource: {
+                                    var colorStr = ff45Btn.hovered ? "%2300f5d4" : "%238898a6"
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3a9 9 0 1 1-6.36 2.64'></path><polyline points='12 7 12 3 16 3'></polyline><text x='12' y='15' font-family='sans-serif' font-size='9' font-weight='bold' fill='" + colorStr + "' stroke='none' text-anchor='middle'>45</text></svg>"
+                                }
                                 onClicked: jumpTime(45000)
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("Przewiń o 45 sekund")
                             }
                             CctvButton {
-                                text: "60s"
-                                iconSource: "qrc:/images/forward.svg"
+                                id: ff60Btn
+                                text: ""
                                 isSmall: true
+                                iconSource: {
+                                    var colorStr = ff60Btn.hovered ? "%2300f5d4" : "%238898a6"
+                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3a9 9 0 1 1-6.36 2.64'></path><polyline points='12 7 12 3 16 3'></polyline><text x='12' y='15' font-family='sans-serif' font-size='9' font-weight='bold' fill='" + colorStr + "' stroke='none' text-anchor='middle'>60</text></svg>"
+                                }
                                 onClicked: jumpTime(60000)
+                                ToolTip.delay: Compact.toolTipDelay
+                                ToolTip.timeout: Compact.toolTipTimeout
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("Przewiń o 60 sekund")
                             }
                         }
 
@@ -2605,7 +2761,7 @@ Window {
                             var ctx = getContext("2d")
                             ctx.clearRect(0, 0, width, height)
                             
-                            ctx.fillStyle = isBottomPanelFloating ? "#330a0f14" : "#0a0f14"
+                            ctx.fillStyle = "#660a0f14"
                             ctx.fillRect(0, 0, width, height)
                             
                             var viewDurationMs = zoomHours * 3600000
@@ -3219,19 +3375,15 @@ Window {
                     ToolTip.text: playbackWindow.hideTimelineOption ? qsTr("Pokaż oś czasu") : qsTr("Ukryj oś czasu")
                 }
 
-                Rectangle {
-                    width: 1
-                    height: 20
-                    color: "#2a3540"
-                    Layout.alignment: Qt.AlignVCenter
-                    Layout.leftMargin: 6
-                    Layout.rightMargin: 6
+                Item {
+                    Layout.fillWidth: true
                 }
 
-                // Layout buttons on the left
+                // Layout buttons on the right
                 RowLayout {
                     spacing: 4
-                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                    Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                    Layout.fillWidth: false
 
                     Repeater {
                         model: ["1x1", "1x2", "2x1", "2x2"]
@@ -3288,8 +3440,6 @@ Window {
                         }
                     }
                 }
-
-
             }
         }
     }

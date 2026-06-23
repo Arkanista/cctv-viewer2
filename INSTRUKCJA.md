@@ -158,17 +158,22 @@ Dostępny po kliknięciu ikony zegara/odtwarzania przy danej kamerze lub rejestr
 * **Szybki start (15 minut wstecz)**: Przy otwarciu archiwum z widoku live, odtwarzacz automatycznie startuje od momentu wypadającego **dokładnie 15 minut przed aktualnym czasem systemowym** (zamiast od północy). Pozwala to na natychmiastowy podgląd zdarzenia, które przed chwilą miało miejsce.
 * **Nawigacja**: Oś czasu można przesuwać w lewo i w prawo poprzez przeciąganie jej lewym klawiszem myszy.
 * **Zoom (Skalowanie)**: Kółkiem myszy (lub przyciskami Zoom) można płynnie zmieniać skalę osi czasu – od widoku całego dnia do precyzyjnego podglądu z dokładnością do 10 minut.
-* **Skróty szybkiego zoomu**: Na dolnym pasku kontrolnym znajdują się przyciski pozwalające na błyskawiczne przeskalowanie osi czasu do wybranego wycinka:
-  * **„Ostatnia 1h”**: Skaluje widok osi czasu do szczegółowego podglądu z rozdzielczością 1 godziny.
-  * **„Ostatnie 8h”**: Skaluje oś czasu do wycinka 8-godzinnego.
-  * **„Cały dzień”**: Resetuje zbliżenie i pokazuje pełne 24 godziny na jednym ekranie.
+* **Skróty szybkiego zoomu**: Na dolnym pasku kontrolnym znajdują się dedykowane okrągłe przyciski ikonowe pozwalające na błyskawiczne przeskalowanie widoku:
+  * **Ikona „1h”**: Skaluje widok osi czasu do szczegółowego podglądu z rozdzielczością 1 godziny.
+  * **Ikona „8h”**: Skaluje oś czasu do wycinka 8-godzinnego.
+  * **Ikona „24h”**: Resetuje zbliżenie i pokazuje pełne 24 godziny na jednym ekranie.
+  * **Ikona Centrowania (celownik)**: Natychmiast przesuwa oś czasu tak, aby czerwona linia odtwarzania znalazła się dokładnie na środku ekranu (zastępuje dawny przycisk tekstowy).
 * **Nawigacja datami (Kalendarz i Dni)**: Obok wyświetlanej daty znajdują się przyciski sterujące:
-  * **Przycisk „<” (Poprzedni dzień)** oraz **„>” (Następny dzień)**: Pozwalają na szybkie przeskoczenie o 24 godziny wstecz lub w przód bez otwierania kalendarza.
-  * **Przycisk „Dzisiaj”**: Natychmiast przestawia aktywną datę i kalendarz na bieżący dzień dzisiejszy.
-* **Przycisk „Odśwież” (Czyszczenie cache)**: Służy do wymuszenia ponownego wyszukiwania nagrań. Jeśli klikniesz ten przycisk, program wyczyści lokalną pamięć podręczną (cache) segmentów nagrań dla wszystkich aktualnie otwartych kanałów i wyśle nowe zapytania do rejestratora, co jest przydatne do zaktualizowania najświeższych plików nagranych przed chwilą.
+  * **Przyciski „<” (Poprzedni dzień)** oraz **„>” (Następny dzień)**: Pozwalają na szybkie przeskoczenie o 24 godziny wstecz lub w przód bez otwierania kalendarza.
+  * **Ikona kalendarza**: Otwiera wyskakujące okno kalendarza w celu wyboru konkretnej daty.
+  * **Ikona odświeżenia**: Wymusza ponowne wyszukiwanie nagrań. Czyści lokalną pamięć podręczną (cache) i wysyła nowe zapytania do rejestratora (zastępuje dawny przycisk tekstowy „Odśwież”).
+  * **Ikona dzisiejszego dnia (numer dnia)**: Natychmiast przestawia aktywną datę i kalendarz na bieżący dzień dzisiejszy (zastępuje dawny przycisk tekstowy „Dzisiaj”).
+* **Skróty prędkości odtwarzania**:
+  * **Ikony „1x”, „2x”, „4x” oraz „8x”**: Pozwalają na natychmiastową zmianę mnożnika prędkości odtwarzania (zastępują dawne przyciski tekstowe).
+* **Przyciski skoku VCR**:
+  * **Ikony ze strzałkami „15”, „45” oraz „60” sekund**: Pozwalają na szybkie cofnięcie lub przewinięcie nagrania o wskazaną liczbę sekund.
 * **Paski Dostępności Nagrań**: Pod osią czasu renderowane są kolorowe paski reprezentujące znalezione segmenty wideo na dysku rejestratora. System cache zapobiega ich migotaniu podczas przesuwania osi.
 * **Auto-follow (Śledzenie wskaźnika)**: Wskaźnik odtwarzania (pionowa czerwona linia) jest stale monitorowany. Jeśli wskaźnik wyjdzie poza widoczny zakres osi czasu, widok automatycznie się przesunie i wyśrodkuje. Opcja ta jest inteligentnie blokowana na czas ręcznego przeciągania wskaźnika przez użytkownika.
-* **Przycisk Ręcznego Centrowania**: Przycisk **„Wycentruj”** natychmiast przesuwa oś czasu tak, aby czerwona linia odtwarzania znalazła się dokładnie na środku ekranu.
 
 ### Panel boczny kamer w oknie archiwum
 W prawej części okna odtwarzacza archiwum znajduje się pionowa lista zawierająca wszystkie dodane do programu rejestratory NVR wraz z ich kamerami:

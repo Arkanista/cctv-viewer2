@@ -1,3 +1,12 @@
+cctv-viewer (2.1.8-1) jammy; urgency=medium
+
+  * Enlarged playback control icons (speed, zoom, VCR controls) in the archive window for improved visibility and legibility
+  * Increased text font size inside generated SVGs for zoom, speed, and VCR buttons
+  * Removed duplicate text zoom shortcut buttons in the archive window, leaving only icon-only circular buttons
+  * Added bilingual tooltip translations (Polish and English) for archive playback control buttons
+
+ -- arkanis <arkanis@cctv-viewer2.org>  Tue, 23 Jun 2026 16:55:00 +0200
+
 cctv-viewer (2.1.7-1) jammy; urgency=medium
 
   * Real-time bidirectional configuration synchronization between main and auxiliary windows

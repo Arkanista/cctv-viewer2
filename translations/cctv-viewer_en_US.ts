@@ -520,7 +520,7 @@
     </message>
     <message>
         <source>Układ siatki (maks. 2x2)</source>
-        <translation>Grid layout (max 2x2)</translation>
+        <translation type="vanished">Grid layout (max 2x2)</translation>
     </message>
     <message>
         <source>Wyłącz tryb 1:1</source>
@@ -749,6 +749,134 @@
     <message>
         <source>Wyczyść wyszukiwanie</source>
         <translation>Clear search</translation>
+    </message>
+    <message>
+        <source>Przywróć widok siatki</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pokaż na pełnym ekranie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zamknij okno</source>
+        <translation type="unfinished">Close window</translation>
+    </message>
+    <message>
+        <source>Pokaż oś czasu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ukryj oś czasu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ukryj pasek boczny</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pokaż pasek boczny</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wyjdź z pełnego ekranu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pełny ekran okna</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Odepnij pasek górny</source>
+        <translation type="unfinished">Unpin top bar</translation>
+    </message>
+    <message>
+        <source>Przypnij pasek górny</source>
+        <translation type="unfinished">Pin top bar</translation>
+    </message>
+    <message>
+        <source>Poprzedni dzień</source>
+        <translation>Previous day</translation>
+    </message>
+    <message>
+        <source>Wybierz datę z kalendarza</source>
+        <translation>Select date from calendar</translation>
+    </message>
+    <message>
+        <source>Następny dzień</source>
+        <translation>Next day</translation>
+    </message>
+    <message>
+        <source>Przejdź do dzisiejszego dnia</source>
+        <translation>Go to today</translation>
+    </message>
+    <message>
+        <source>Odśwież nagrania</source>
+        <translation>Refresh recordings</translation>
+    </message>
+    <message>
+        <source>Powiększ do ostatniej 1 godziny</source>
+        <translation>Zoom to last 1 hour</translation>
+    </message>
+    <message>
+        <source>Powiększ do ostatnich 8 godzin</source>
+        <translation>Zoom to last 8 hours</translation>
+    </message>
+    <message>
+        <source>Pokaż cały dzień na osi czasu</source>
+        <translation>Show full day on timeline</translation>
+    </message>
+    <message>
+        <source>Wycentruj oś czasu na aktualnym punkcie odtwarzania</source>
+        <translation>Center timeline on current playback time</translation>
+    </message>
+    <message>
+        <source>Ustaw prędkość odtwarzania na %1x</source>
+        <translation>Set playback speed to %1x</translation>
+    </message>
+    <message>
+        <source>Pobierz wycinki wideo z zaznaczonego przedziału czasu</source>
+        <translation>Download video clips from selected time range</translation>
+    </message>
+    <message>
+        <source>Cofnij o 60 sekund</source>
+        <translation>Rewind 60 seconds</translation>
+    </message>
+    <message>
+        <source>Cofnij o 45 sekund</source>
+        <translation>Rewind 45 seconds</translation>
+    </message>
+    <message>
+        <source>Cofnij o 15 sekund</source>
+        <translation>Rewind 15 seconds</translation>
+    </message>
+    <message>
+        <source>Wstrzymaj odtwarzanie</source>
+        <translation>Pause playback</translation>
+    </message>
+    <message>
+        <source>Rozpocznij odtwarzanie</source>
+        <translation>Start playback</translation>
+    </message>
+    <message>
+        <source>Przewiń o 15 sekund</source>
+        <translation>Forward 15 seconds</translation>
+    </message>
+    <message>
+        <source>Przewiń o 45 sekund</source>
+        <translation>Forward 45 seconds</translation>
+    </message>
+    <message>
+        <source>Przewiń o 60 sekund</source>
+        <translation>Forward 60 seconds</translation>
+    </message>
+    <message>
+        <source>Odepnij pasek dolny</source>
+        <translation>Unpin bottom bar</translation>
+    </message>
+    <message>
+        <source>Przypnij pasek dolny</source>
+        <translation>Pin bottom bar</translation>
     </message>
 </context>
 <context>
@@ -1632,6 +1760,18 @@
     <message>
         <source>Wprowadzono dwukierunkową synchronizację konfiguracji w czasie rzeczywistym między oknem głównym a pomocniczymi z obsługą unikalnych, automatycznych ID okien pomocniczych.</source>
         <translation>Introduced real-time bidirectional configuration synchronization between the main window and auxiliary windows with support for unique, automatic auxiliary window IDs.</translation>
+    </message>
+    <message>
+        <source>Powiększono ikony sterowania prędkością, zoomem i VCR w archiwum w celu poprawy ich czytelności, a także zwiększono napisy wewnątrz ikon SVG.</source>
+        <translation>Enlarged speed, zoom, and VCR control icons in the archive to improve visibility, and increased text size inside the SVG icons.</translation>
+    </message>
+    <message>
+        <source>Usunięto zduplikowane przyciski tekstowe dla skrótów zoomu w archiwum, zastępując je w pełni ikonami okrągłymi.</source>
+        <translation>Removed duplicate text buttons for zoom shortcuts in the archive, fully replacing them with circular icons.</translation>
+    </message>
+    <message>
+        <source>Dodano kompletne angielskie i polskie tłumaczenia dla wszystkich tooltipów w oknie archiwum.</source>
+        <translation>Added complete English and Polish translations for all tooltips in the archive window.</translation>
     </message>
 </context>
 <context>

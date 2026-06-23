@@ -560,7 +560,7 @@
     </message>
     <message>
         <source>Układ siatki (maks. 2x2)</source>
-        <translation>Układ siatki (maks. 2x2)</translation>
+        <translation type="vanished">Układ siatki (maks. 2x2)</translation>
     </message>
     <message>
         <source>Wyłącz tryb 1:1</source>
@@ -769,6 +769,134 @@
     <message>
         <source>Wyczyść wyszukiwanie</source>
         <translation>Wyczyść wyszukiwanie</translation>
+    </message>
+    <message>
+        <source>Przywróć widok siatki</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pokaż na pełnym ekranie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zamknij okno</source>
+        <translation type="unfinished">Zamknij okno</translation>
+    </message>
+    <message>
+        <source>Pokaż oś czasu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ukryj oś czasu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ukryj pasek boczny</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pokaż pasek boczny</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wyjdź z pełnego ekranu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pełny ekran okna</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Odepnij pasek górny</source>
+        <translation type="unfinished">Odepnij pasek górny</translation>
+    </message>
+    <message>
+        <source>Przypnij pasek górny</source>
+        <translation type="unfinished">Przypnij pasek górny</translation>
+    </message>
+    <message>
+        <source>Poprzedni dzień</source>
+        <translation>Poprzedni dzień</translation>
+    </message>
+    <message>
+        <source>Wybierz datę z kalendarza</source>
+        <translation>Wybierz datę z kalendarza</translation>
+    </message>
+    <message>
+        <source>Następny dzień</source>
+        <translation>Następny dzień</translation>
+    </message>
+    <message>
+        <source>Przejdź do dzisiejszego dnia</source>
+        <translation>Przejdź do dzisiejszego dnia</translation>
+    </message>
+    <message>
+        <source>Odśwież nagrania</source>
+        <translation>Odśwież nagrania</translation>
+    </message>
+    <message>
+        <source>Powiększ do ostatniej 1 godziny</source>
+        <translation>Powiększ do ostatniej 1 godziny</translation>
+    </message>
+    <message>
+        <source>Powiększ do ostatnich 8 godzin</source>
+        <translation>Powiększ do ostatnich 8 godzin</translation>
+    </message>
+    <message>
+        <source>Pokaż cały dzień na osi czasu</source>
+        <translation>Pokaż cały dzień na osi czasu</translation>
+    </message>
+    <message>
+        <source>Wycentruj oś czasu na aktualnym punkcie odtwarzania</source>
+        <translation>Wycentruj oś czasu na aktualnym punkcie odtwarzania</translation>
+    </message>
+    <message>
+        <source>Ustaw prędkość odtwarzania na %1x</source>
+        <translation>Ustaw prędkość odtwarzania na %1x</translation>
+    </message>
+    <message>
+        <source>Pobierz wycinki wideo z zaznaczonego przedziału czasu</source>
+        <translation>Pobierz wycinki wideo z zaznaczonego przedziału czasu</translation>
+    </message>
+    <message>
+        <source>Cofnij o 60 sekund</source>
+        <translation>Cofnij o 60 sekund</translation>
+    </message>
+    <message>
+        <source>Cofnij o 45 sekund</source>
+        <translation>Cofnij o 45 sekund</translation>
+    </message>
+    <message>
+        <source>Cofnij o 15 sekund</source>
+        <translation>Cofnij o 15 sekund</translation>
+    </message>
+    <message>
+        <source>Wstrzymaj odtwarzanie</source>
+        <translation>Wstrzymaj odtwarzanie</translation>
+    </message>
+    <message>
+        <source>Rozpocznij odtwarzanie</source>
+        <translation>Rozpocznij odtwarzanie</translation>
+    </message>
+    <message>
+        <source>Przewiń o 15 sekund</source>
+        <translation>Przewiń o 15 sekund</translation>
+    </message>
+    <message>
+        <source>Przewiń o 45 sekund</source>
+        <translation>Przewiń o 45 sekund</translation>
+    </message>
+    <message>
+        <source>Przewiń o 60 sekund</source>
+        <translation>Przewiń o 60 sekund</translation>
+    </message>
+    <message>
+        <source>Odepnij pasek dolny</source>
+        <translation>Odepnij pasek dolny</translation>
+    </message>
+    <message>
+        <source>Przypnij pasek dolny</source>
+        <translation>Przypnij pasek dolny</translation>
     </message>
 </context>
 <context>
@@ -1705,6 +1833,18 @@
     <message>
         <source>Wprowadzono dwukierunkową synchronizację konfiguracji w czasie rzeczywistym między oknem głównym a pomocniczymi z obsługą unikalnych, automatycznych ID okien pomocniczych.</source>
         <translation>Wprowadzono dwukierunkową synchronizację konfiguracji w czasie rzeczywistym między oknem głównym a pomocniczymi z obsługą unikalnych, automatycznych ID okien pomocniczych.</translation>
+    </message>
+    <message>
+        <source>Powiększono ikony sterowania prędkością, zoomem i VCR w archiwum w celu poprawy ich czytelności, a także zwiększono napisy wewnątrz ikon SVG.</source>
+        <translation>Powiększono ikony sterowania prędkością, zoomem i VCR w archiwum w celu poprawy ich czytelności, a także zwiększono napisy wewnątrz ikon SVG.</translation>
+    </message>
+    <message>
+        <source>Usunięto zduplikowane przyciski tekstowe dla skrótów zoomu w archiwum, zastępując je w pełni ikonami okrągłymi.</source>
+        <translation>Usunięto zduplikowane przyciski tekstowe dla skrótów zoomu w archiwum, zastępując je w pełni ikonami okrągłymi.</translation>
+    </message>
+    <message>
+        <source>Dodano kompletne angielskie i polskie tłumaczenia dla wszystkich tooltipów w oknie archiwum.</source>
+        <translation>Dodano kompletne angielskie i polskie tłumaczenia dla wszystkich tooltipów w oknie archiwum.</translation>
     </message>
 </context>
 <context>

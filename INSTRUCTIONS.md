@@ -158,17 +158,22 @@ Available by clicking the clock/play icon next to a specific camera or recorder.
 * **Quick Start (15 minutes back)**: When opening the archive from the live view, the player automatically starts from a moment falling **exactly 15 minutes before the current system time** (instead of starting at midnight). This allows for immediate viewing of an event that just occurred.
 * **Navigation**: The timeline can be scrolled left and right by dragging it with the left mouse button.
 * **Zoom (Scaling)**: You can smoothly change the timeline scale with the mouse scroll wheel (or Zoom buttons) – from viewing the entire day down to a precise 10-minute precision view.
-* **Quick Zoom Shortcuts**: The bottom control bar features dedicated buttons to instantly scale the timeline view:
-  * **„Ostatnia 1h” (Last 1h)**: Zooms the timeline in for detailed inspection over a 1-hour span.
-  * **„Ostatnie 8h” (Last 8h)**: Zooms the timeline to display an 8-hour span.
-  * **„Cały dzień” (Whole day)**: Resets zoom to fit the full 24-hour day on a single screen.
+* **Quick Zoom Shortcuts**: The bottom control bar features dedicated circular icon buttons to instantly scale the timeline view:
+  * **„1h” icon**: Zooms the timeline in for detailed inspection over a 1-hour span.
+  * **„8h” icon**: Zooms the timeline to display an 8-hour span.
+  * **„24h” icon**: Resets zoom to fit the full 24-hour day on a single screen.
+  * **Center (Target) icon**: Immediately centers the timeline so that the red playback indicator is exactly in the middle of the screen (replacing the old text button).
 * **Date Navigation (Calendar & Days)**: Controls beside the displayed date allow rapid jumps:
   * **„<” (Previous Day)** and **„>” (Next Day)** buttons: Let you jump 24 hours back or forward instantly without opening the calendar dialog.
-  * **„Dzisiaj” (Today)** button: Instantly jumps back to the current day.
-* **„Odśwież” (Refresh / Clear cache)** button: Forces a fresh search of recordings. Clicking it sweeps the local cache of recording availability segments for all active channels and submits new queries to the NVR, which is highly useful to load files recorded just a few moments ago.
+  * **Calendar icon**: Opens the calendar popup to select a specific date.
+  * **Refresh icon**: Forces a fresh search of recordings. Clicking it sweeps the local cache of recording availability segments for all active channels and submits new queries to the NVR, which is highly useful to load files recorded just a few moments ago (replacing the old text button).
+  * **Today (Today's date/number) icon**: Instantly jumps back to the current day (replacing the old text button).
+* **Playback Speed Shortcuts**:
+  * **„1x”, „2x”, „4x”, and „8x” icons**: Instantly change the playback speed multiplier.
+* **VCR Jump Buttons**:
+  * **„15”, „45”, and „60” icons with circular arrows**: Let you quickly skip backward or forward by the specified number of seconds.
 * **Recording Availability Bars**: Colored bars representing the found video segments on the recorder's disk are rendered below the timeline. A caching system prevents them from flickering while dragging.
 * **Auto-follow (Indicator tracking)**: The playback indicator (vertical red line) is constantly monitored. If the indicator goes outside the visible range of the timeline, the view will automatically scroll to center it. This option is intelligently locked during manual indicator dragging by the user.
-* **Manual Center Button**: The **„Center”** button immediately centers the timeline so that the red playback indicator is exactly in the middle of the screen.
 
 ### Camera Side Panel in Playback Window
 A vertical side list on the right edge of the player lists all configured NVRs and their camera channels:

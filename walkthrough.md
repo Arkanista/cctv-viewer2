@@ -153,4 +153,20 @@ W wersji `v2.1.7-1` dodaliśmy zaawansowany system dwukierunkowej synchronizacji
 4. **Lokalizacja i kompilacja:** Nowe teksty zostały przetłumaczone w plikach `.ts` (zarówno dla wersji polskiej, jak i angielskiej).
 5. **Budowanie pakietów i wersjonowanie:** Zaktualizowano wersję projektu do `2.1.7-1` w `CMakeLists.txt`, `packaging/arch/PKGBUILD` oraz `debian/changelog`. Cały projekt został z powodzeniem przebudowany, a pakiety binarne `.pkg.tar.zst` wygenerowane za pomocą polecenia `makepkg`.
 
+---
+
+## 13. Poprawa wyglądu ikon prędkości, usunięcie duplikatów przycisków i tłumaczenia angielskie
+
+Wdrożyliśmy następujące poprawki wyglądu i spójności interfejsu paska sterowania odtwarzaniem archiwalnym:
+1. **Powiększenie ikon bez tekstu (Speed & VCR):**
+   - Zmodyfikowaliśmy komponent `CctvButton.qml`, zwiększając wymiary obrazka dla przycisków bez tekstu (`text === ""`) z `18x18px` do `22x22px` (dla małych przycisków `isSmall: true`, takich jak przyciski wyboru prędkości, Zoom i VCR) oraz z `20x20px` do `24x24px` (dla standardowych przycisków). Dzięki temu ikony wewnątrz okręgów o średnicy 30px są o ok. 50% większe powierzchniowo i znacznie bardziej czytelne.
+2. **Poprawa czytelności napisów wewnątrz wygenerowanych ikon SVG:**
+   - Zwiększyliśmy rozmiar czcionki (font-size) napisów wewnątrz ikon SVG dla skrótów Zoom (`1h`, `8h` do `9.5pt`, `24h` do `8.5pt`), prędkości odtwarzania (`1x`, `2x` itd. do `9.5pt`) oraz przycisków VCR (`15`, `45`, `60` do `9pt`), co w połączeniu z większym rozmiarem ikon znacznie poprawiło ich czytelność na ekranie.
+3. **Usunięcie duplikatów przycisków tekstowych:**
+   - Całkowicie usunęliśmy stare przyciski tekstowe ("Ostatnia 1h", "Ostatnie 8h", "Cały dzień") z pliku `PlaybackWindow.qml`, pozostawiając wyłącznie estetyczne, okrągłe przyciski ikonowe z tooltipami.
+4. **Tłumaczenia angielskie i polskie tooltipów:**
+   - Za pomocą narzędzia `lupdate` wyeksportowaliśmy wszystkie nowo dodane etykiety tooltipów i uzupełniliśmy kompletne tłumaczenia w plikach lokalizacyjnych `translations/cctv-viewer_en_US.ts` oraz `translations/cctv-viewer_pl_PL.ts`.
+   - Zbudowaliśmy pliki binarne tłumaczeń `.qm`, które są automatycznie kompilowane i integrowane z zasobami aplikacji przy budowaniu CMake.
+
+
 

@@ -58,6 +58,15 @@ FocusScope {
 
     property var changelogData: [
         {
+            version: "v2.1.8",
+            date: "23.06.2026",
+            changes: [
+                qsTr("Powiększono ikony sterowania prędkością, zoomem i VCR w archiwum w celu poprawy ich czytelności, a także zwiększono napisy wewnątrz ikon SVG."),
+                qsTr("Usunięto zduplikowane przyciski tekstowe dla skrótów zoomu w archiwum, zastępując je w pełni ikonami okrągłymi."),
+                qsTr("Dodano kompletne angielskie i polskie tłumaczenia dla wszystkich tooltipów w oknie archiwum.")
+            ]
+        },
+        {
             version: "v2.1.7",
             date: "23.06.2026",
             changes: [
