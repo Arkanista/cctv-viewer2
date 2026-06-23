@@ -1233,7 +1233,7 @@ Window {
 
     RowLayout {
         anchors.fill: parent
-        anchors.topMargin: !playbackWindow.topBarAutoCollapse ? 44 : 0
+        anchors.topMargin: 0
         spacing: 0
 
         // Left Sidebar: Camera List
@@ -1255,6 +1255,7 @@ Window {
             ColumnLayout {
                 anchors.fill: parent
                 anchors.margins: 10
+                anchors.topMargin: 44
                 spacing: 8
                 
                 Text {
@@ -2535,14 +2536,64 @@ Window {
                         }
 
                         Item { Layout.fillWidth: true }
+
+                        Button {
+                            id: bottomPinButton
+                            Layout.preferredWidth: 30
+                            Layout.preferredHeight: 30
+                            Layout.alignment: Qt.AlignVCenter
+                            hoverEnabled: true
+
+                            property bool isPinned: !playbackWindow.hideTimelineOption
+
+                            contentItem: Image {
+                                anchors.centerIn: parent
+                                width: 16
+                                height: 16
+                                rotation: bottomPinButton.isPinned ? 0 : -45
+
+                                Behavior on rotation {
+                                    NumberAnimation { duration: 150; easing.type: Easing.InOutQuad }
+                                }
+
+                                source: {
+                                    var colorStr = bottomPinButton.isPinned
+                                        ? (bottomPinButton.hovered ? "%23ffb703" : "%23ff7a00")
+                                        : (bottomPinButton.hovered ? "%23ffcc66" : "%23e0a96d");
+                                    if (bottomPinButton.isPinned) {
+                                        return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='" + colorStr + "' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='12' x2='12' y1='17' y2='22'></line><path d='M5 17h14v-1.76a2 2 0 0 0-.44-1.24l-2.78-3.56A2 2 0 0 1 15 9.2V5a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4.2a2 2 0 0 1-.78 1.24L5.44 14a2 2 0 0 0-.44 1.24Z'></path></svg>";
+                                    } else {
+                                        return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='12' x2='12' y1='17' y2='22'></line><path d='M5 17h14v-1.76a2 2 0 0 0-.44-1.24l-2.78-3.56A2 2 0 0 1 15 9.2V5a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4.2a2 2 0 0 1-.78 1.24L5.44 14a2 2 0 0 0-.44 1.24Z'></path></svg>";
+                                    }
+                                }
+                            }
+
+                            background: Rectangle {
+                                color: bottomPinButton.pressed ? "#cc121214" : (bottomPinButton.hovered ? "#3a4550" : "#1c242c")
+                                radius: 15
+                                border.color: bottomPinButton.isPinned
+                                    ? (bottomPinButton.hovered ? "#ffb703" : "#ff7a00")
+                                    : (bottomPinButton.hovered ? "#e0a96d" : "#2a3540")
+                                border.width: 1
+                            }
+
+                            onClicked: {
+                                playbackWindow.hideTimelineOption = !playbackWindow.hideTimelineOption;
+                            }
+
+                            ToolTip.delay: Compact.toolTipDelay
+                            ToolTip.timeout: Compact.toolTipTimeout
+                            ToolTip.visible: bottomPinButton.hovered
+                            ToolTip.text: bottomPinButton.isPinned ? qsTr("Odepnij pasek dolny") : qsTr("Przypnij pasek dolny")
+                        }
                     }
                     
                     // Timeline
                     Canvas {
                         id: timeline
                         Layout.fillWidth: true
-                        Layout.fillHeight: !playbackWindow.hideTimelineOption
-                        visible: !playbackWindow.hideTimelineOption
+                        Layout.fillHeight: true
+                        visible: true
                         clip: true
                         
                         onWidthChanged: requestPaint()
@@ -2909,61 +2960,7 @@ Window {
                 }
             }
 
-            Button {
-                id: bottomPinButton
-                width: 30
-                height: 30
-                z: 201
-                hoverEnabled: true
 
-                anchors.right: parent.right
-                anchors.rightMargin: 15
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: isBottomPanelShowed ? (bottomPanel.height - 35) : 10
-
-                Behavior on anchors.bottomMargin {
-                    NumberAnimation {
-                        duration: 200
-                        easing.type: Easing.OutCubic
-                    }
-                }
-
-                contentItem: Image {
-                    anchors.centerIn: parent
-                    width: 16
-                    height: 16
-                    rotation: (!playbackWindow.hideTimelineOption) ? 0 : -45
-
-                    Behavior on rotation {
-                        NumberAnimation { duration: 150; easing.type: Easing.InOutQuad }
-                    }
-
-                    source: {
-                        var colorStr = bottomPinButton.hovered ? "%23ffb703" : "%23ff7a00";
-                        if (!playbackWindow.hideTimelineOption) {
-                            return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='" + colorStr + "' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='12' x2='12' y1='17' y2='22'></line><path d='M5 17h14v-1.76a2 2 0 0 0-.44-1.24l-2.78-3.56A2 2 0 0 1 15 9.2V5a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4.2a2 2 0 0 1-.78 1.24L5.44 14a2 2 0 0 0-.44 1.24Z'></path></svg>";
-                        } else {
-                            return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='12' x2='12' y1='17' y2='22'></line><path d='M5 17h14v-1.76a2 2 0 0 0-.44-1.24l-2.78-3.56A2 2 0 0 1 15 9.2V5a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4.2a2 2 0 0 1-.78 1.24L5.44 14a2 2 0 0 0-.44 1.24Z'></path></svg>";
-                        }
-                    }
-                }
-
-                background: Rectangle {
-                    color: bottomPinButton.pressed ? "#cc121214" : (bottomPinButton.hovered ? "#3a4550" : "#1c242c")
-                    radius: 15
-                    border.color: bottomPinButton.hovered ? "#ff9e00" : "#2a3540"
-                    border.width: 1
-                }
-
-                onClicked: {
-                    playbackWindow.hideTimelineOption = !playbackWindow.hideTimelineOption;
-                }
-
-                ToolTip.delay: Compact.toolTipDelay
-                ToolTip.timeout: Compact.toolTipTimeout
-                ToolTip.visible: bottomPinButton.hovered
-                ToolTip.text: (!playbackWindow.hideTimelineOption) ? qsTr("Odepnij pasek dolny") : qsTr("Przypnij pasek dolny")
-            }
         }
     }
 
@@ -3090,6 +3087,46 @@ Window {
                     ToolTip.timeout: Compact.toolTipTimeout
                     ToolTip.visible: pinButton.hovered
                     ToolTip.text: pinButton.isPinned ? qsTr("Odepnij pasek górny") : qsTr("Przypnij pasek górny")
+                }
+
+                Button {
+                    id: fullScreenBtn
+                    Layout.preferredWidth: 30
+                    Layout.preferredHeight: 30
+                    Layout.alignment: Qt.AlignVCenter
+                    hoverEnabled: true
+
+                    property bool isActive: playbackWindow.visibility === Window.FullScreen
+
+                    contentItem: Image {
+                        anchors.centerIn: parent
+                        width: 16
+                        height: 16
+                        source: {
+                            var colorStr = fullScreenBtn.hovered ? "%2300f5d4" : (fullScreenBtn.isActive ? "%2300f5d4" : "%2300b09b");
+                            if (fullScreenBtn.isActive) {
+                                return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='m14 10 7-7m-7 7h6m-6 0V4M10 14 3 21m7-7H4m6 0v6M14 14l7 7m-7-7v6m0-6h6M10 10 3 3m7 7V4m0 6H4'></path></svg>";
+                            } else {
+                                return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='m21 21-6-6m6 6V15m0 6h-6M3 3l6 6M3 3v6M3 3h6M3 21l6-6M3 21v-6M3 21h6M21 3l-6 6M21 3v6M21 3h-6'></path></svg>";
+                            }
+                        }
+                    }
+
+                    background: Rectangle {
+                        color: fullScreenBtn.pressed ? "#cc121214" : (fullScreenBtn.hovered ? "#3a4550" : "#1c242c")
+                        radius: 15
+                        border.color: fullScreenBtn.hovered ? "#00f5d4" : "#2a3540"
+                        border.width: 1
+                    }
+
+                    onClicked: {
+                        toggleWindowFullScreen();
+                    }
+
+                    ToolTip.delay: Compact.toolTipDelay
+                    ToolTip.timeout: Compact.toolTipTimeout
+                    ToolTip.visible: fullScreenBtn.hovered
+                    ToolTip.text: fullScreenBtn.isActive ? qsTr("Wyjdź z pełnego ekranu") : qsTr("Pełny ekran okna")
                 }
 
                 Button {
@@ -3252,56 +3289,7 @@ Window {
                     }
                 }
 
-                // Spacer
-                Item {
-                    Layout.fillWidth: true
-                }
 
-                // Controls on the right
-                RowLayout {
-                    spacing: 6
-                    Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-
-                    Button {
-                        id: fullScreenBtn
-                        Layout.preferredWidth: 30
-                        Layout.preferredHeight: 30
-                        Layout.alignment: Qt.AlignVCenter
-                        hoverEnabled: true
-
-                        property bool isActive: playbackWindow.visibility === Window.FullScreen
-
-                        contentItem: Image {
-                            anchors.centerIn: parent
-                            width: 16
-                            height: 16
-                            source: {
-                                var colorStr = fullScreenBtn.hovered ? "%2300f5d4" : (fullScreenBtn.isActive ? "%2300f5d4" : "%2300b09b");
-                                if (fullScreenBtn.isActive) {
-                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='m14 10 7-7m-7 7h6m-6 0V4M10 14 3 21m7-7H4m6 0v6M14 14l7 7m-7-7v6m0-6h6M10 10 3 3m7 7V4m0 6H4'></path></svg>";
-                                } else {
-                                    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='m21 21-6-6m6 6V15m0 6h-6M3 3l6 6M3 3v6M3 3h6M3 21l6-6M3 21v-6M3 21h6M21 3l-6 6M21 3v6M21 3h-6'></path></svg>";
-                                }
-                            }
-                        }
-
-                        background: Rectangle {
-                            color: fullScreenBtn.pressed ? "#cc121214" : (fullScreenBtn.hovered ? "#3a4550" : "#1c242c")
-                            radius: 15
-                            border.color: fullScreenBtn.hovered ? "#00f5d4" : "#2a3540"
-                            border.width: 1
-                        }
-
-                        onClicked: {
-                            toggleWindowFullScreen();
-                        }
-
-                        ToolTip.delay: Compact.toolTipDelay
-                        ToolTip.timeout: Compact.toolTipTimeout
-                        ToolTip.visible: fullScreenBtn.hovered
-                        ToolTip.text: fullScreenBtn.isActive ? qsTr("Wyjdź z pełnego ekranu") : qsTr("Pełny ekran okna")
-                    }
-                }
             }
         }
     }
