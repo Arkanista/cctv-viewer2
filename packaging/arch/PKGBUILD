@@ -1,8 +1,8 @@
 # Maintainer: arkanista <arkanista@cctv-viewer2.org>
 
 pkgname=cctv-viewer2
-pkgver=2.1.9
-pkgrel=4
+pkgver=2.2.0
+pkgrel=1
 pkgdesc="CCTV Viewer - viewer and mounter video streams with Hikvision SDK integration"
 arch=('x86_64')
 url="https://github.com/arkanista/cctv-viewer2"
