@@ -1,20 +1,16 @@
 cmake_minimum_required(VERSION 3.14)
 
 set(VER_MAJ 2)
-set(VER_MIN 1)
-set(VER_PAT 9)
-set(VER_REL 3)
+set(VER_MIN 2)
+set(VER_PAT 0)
+set(VER_REL 0)
 # set(REL_STATUS "alpha")
 
 set(APP_NAME "CCTV Viewer")
 set(ORG_NAME "CCTV Viewer")
 set(ORG_DOMAIN "cctv-viewer2.org")
 
-set(VERSION "${VER_MAJ}.${VER_MIN}")
-
-if(${VER_PAT} GREATER 0)
-    set(VERSION "${VERSION}.${VER_PAT}")
-endif()
+set(VERSION "${VER_MAJ}.${VER_MIN}.${VER_PAT}")
 
 project(cctv-viewer VERSION ${VERSION} HOMEPAGE_URL "https://github.com/arkanista/cctv-viewer2" LANGUAGES C CXX)
 
