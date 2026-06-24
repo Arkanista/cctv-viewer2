@@ -212,3 +212,15 @@ W wersji `v2.1.9-3` wprowadziliśmy następujące zmiany:
 * **Okno list kamer rejestratora:** Zwiększono jego domyślną wysokość o 40% (z 600px do 840px), co pozwala na wygodniejsze przeglądanie kafelków z podglądem kamer w pionie bez konieczności ciągłego przewijania.
 * **Nowy przycisk generowania miniatur:** Zastąpiono tekstowy przycisk "Generuj miniatury" estetycznym, okrągłym przyciskiem z jaskrawo-seledynowym akcentem (kolor `#00f5d4` zgodny z resztą programu) oraz ikoną SVG przedstawiającą aparat fotograficzny z pętlą odświeżania. Przycisk zyskał również dedykowany tooltip oraz animację przejścia przy najechaniu myszą.
 
+---
+
+## 17. Safe Destructor, Player Pooling i Optymalizacja Statystyk GPU/VRAM w Wydaniu v2.1.9-4
+
+W wersji `v2.1.9-4` wprowadziliśmy zaawansowane poprawki stabilności i wydajności w zarządzaniu pamięcią wideo oraz monitorowaniu zasobów systemowych:
+* **Bezpieczny destruktor odtwarzacza archiwalnego:** Zwiększono limit oczekiwania (safeguard) z 500 ms (100 iteracji) do 5000 ms (1000 iteracji) w `~HikvisionArchivePlayer` przy zwalnianiu wątków i usuwaniu zadań dekodowania w tle (`YV12ToRGBTask`). Eliminuje to ryzyko wyścigów danych i awarii (crashy) programu przy zamykaniu okna podglądu przy silnie obciążonym procesorze.
+* **QML Player Pooling (Pula Odtwarzaczy):** Przepisano architekturę dynamicznego tworzenia odtwarzaczy w `ViewportsLayout.qml`. Zamiast ciągłego niszczenia i tworzenia komponentów wideo od zera przy zmianie układu kamer (co powodowało alokacje u sterowników graficznych i błędy *Presenting frames*), wprowadziliśmy reużywalną pulę obiektów w locie. Obiekty `Player` są teraz reparentowane do nowych kontenerów siatki, a ich właściwości są dynamicznie bindowane. Pozwala to na płynne przełączanie układów bez migotania obrazu i fragmentacji pamięci RAM.
+* **Lekkie monitorowanie GPU/VRAM:** Całkowicie wyeliminowano uruchamianie zewnętrznych procesów `nvidia-smi` co 1 sekundę. Zamiast tego zaimplementowano lekki i uniwersalny mechanizm:
+  - Dla kart **NVIDIA** dynamicznie ładujemy bibliotekę `libnvidia-ml.so` i odczytujemy obciążenie procesów za pomocą natywnych wywołań NVML.
+  - Jako uniwersalny mechanizm dla kart **AMD** oraz **Intel** (oraz jako rezerwowy dla Nvidii) parsujemy standardowe statystyki **DRM Client Stats** z jądra Linux `/proc/<pid>/fdinfo/<fd>`, wyliczając rzeczywiste, procesowe zużycie pamięci VRAM oraz silnika renderowania GPU.
+  - W razie braku szczegółowych danych procesowych, aplikacja płynnie przechodzi do odczytu węzłów systemowych sysfs `/sys/class/drm/card0/device/` lub systemowych wskaźników NVML.
+
