@@ -223,5 +223,5 @@ W wersji `v2.2.0` wprowadziliśmy zaawansowane poprawki stabilności i wydajnoś
   - Dla kart **NVIDIA** dynamicznie ładujemy bibliotekę `libnvidia-ml.so` i odczytujemy obciążenie procesów za pomocą natywnych wywołań NVML.
   - Jako uniwersalny mechanizm dla kart **AMD** oraz **Intel** (oraz jako rezerwowy dla Nvidii) parsujemy standardowe statystyki **DRM Client Stats** z jądra Linux `/proc/<pid>/fdinfo/<fd>`, wyliczając rzeczywiste, procesowe zużycie pamięci VRAM oraz silnika renderowania GPU. **Uwaga: te statystyki dla kart AMD oraz Intel nie zostały przetestowane na rzeczywistym sprzęcie.**
   - W razie braku szczegółowych danych procesowych, aplikacja płynnie przechodzi do odczytu węzłów systemowych sysfs `/sys/class/drm/card0/device/` lub systemowych wskaźników NVML.
+* **Rozszerzanie panelu statystyk systemowych:** Umożliwiono dynamiczną zmianę rozmiaru panelu poprzez przeciąganie za jego krawędzie oraz narożniki. Wykresy CPU, GPU i sieci automatycznie skalują swoją szerokość i wysokość, dopasowując się płynnie do nowych wymiarów panelu w czasie rzeczywistym.
 * **Natychmiastowe zamykanie programu (UX):** Wprowadzono wywołanie `hide()` na oknach przed wywołaniem `Qt.quit()` w oknach dialogowych wyjścia. Sprawia to, że interfejs programu znika natychmiast z ekranu użytkownika, a faktyczne zwalnianie zasobów i wątków w tle odbywa się niezauważalnie.
-

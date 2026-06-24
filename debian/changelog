@@ -3,6 +3,7 @@ cctv-viewer (2.2.0-1) jammy; urgency=medium
   * Fixed potential data race/crash in HikvisionArchivePlayer destructor
   * Implemented Player Pooling to reuse video player components during layout switches
   * Optimized GPU/VRAM statistics to avoid external process spawning and support NVIDIA/AMD/Intel process-specific tracking (AMD/Intel stats are untested)
+  * Allowed resizing the system stats panel by dragging its edges and corners with auto-scaling graphs
   * Implemented instant window hide on quit confirmation for clean shutdown UX
 
  -- arkanis <arkanis@cctv-viewer2.org>  Wed, 24 Jun 2026 14:15:00 +0200
