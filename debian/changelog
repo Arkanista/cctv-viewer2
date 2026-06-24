@@ -1,3 +1,10 @@
+cctv-viewer (2.2.1-1) jammy; urgency=medium
+
+  * Optimized the audio output engine by recycling QAudioOutput objects to eliminate memory and thread leaks on Linux systems
+  * Added proper cleanup of the static configuration file watcher (QFileSystemWatcher) upon application exit
+
+ -- arkanis <arkanis@cctv-viewer2.org>  Thu, 25 Jun 2026 00:30:00 +0200
+
 cctv-viewer (2.2.0-1) jammy; urgency=medium
 
   * Fixed potential data race/crash in HikvisionArchivePlayer destructor

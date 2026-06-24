@@ -17,6 +17,10 @@ QmlAVPlayer::QmlAVPlayer(QObject *parent)
 QmlAVPlayer::~QmlAVPlayer()
 {
     stop();
+    if (m_audioOutput) {
+        delete m_audioOutput;
+        m_audioOutput = nullptr;
+    }
 }
 
 void QmlAVPlayer::componentComplete()
@@ -62,8 +66,6 @@ void QmlAVPlayer::stop()
 
     if (m_audioOutput) {
         m_audioOutput->stop();
-        m_audioOutput->deleteLater();
-        m_audioOutput = nullptr;
     }
 
     m_audioIODevice.clear();
@@ -157,9 +159,9 @@ void QmlAVPlayer::frameHandler(const std::shared_ptr<QmlAVFrame> frame)
 
             m_audioIODevice.enqueue(af);
 
-            if (!m_audioOutput) {
-                if (af->audioFormat().isValid()) {
-                    auto f = af->audioFormat();
+            if (af->audioFormat().isValid()) {
+                auto f = af->audioFormat();
+                if (!m_audioOutput) {
                     logDebug() << "Starting with: " << f;
                     auto outputDevice = QAudioDeviceInfo::defaultOutputDevice();
                     m_audioOutput = new QAudioOutput(outputDevice, f);
@@ -170,6 +172,21 @@ void QmlAVPlayer::frameHandler(const std::shared_ptr<QmlAVFrame> frame)
                     // at a volume other than 1.0f. In addition, the use of a buffer (as queue) improves sound quality.
                     m_audioOutput->start(&m_audioIODevice);
                     setHasAudio(true);
+                } else {
+                    if (m_audioOutput->format() != f) {
+                        logDebug() << "Audio format changed, recreating QAudioOutput. Old:" << m_audioOutput->format() << "New:" << f;
+                        m_audioOutput->stop();
+                        m_audioOutput->deleteLater();
+                        auto outputDevice = QAudioDeviceInfo::defaultOutputDevice();
+                        m_audioOutput = new QAudioOutput(outputDevice, f);
+                        m_audioOutput->setVolume(QAudio::convertVolume(m_volume,
+                                                                       QAudio::LogarithmicVolumeScale,
+                                                                       QAudio::LinearVolumeScale));
+                        m_audioOutput->start(&m_audioIODevice);
+                    } else if (m_audioOutput->state() == QAudio::StoppedState) {
+                        logDebug() << "Reusing existing QAudioOutput with same format";
+                        m_audioOutput->start(&m_audioIODevice);
+                    }
                 }
             }
         }

@@ -58,6 +58,14 @@ FocusScope {
 
     property var changelogData: [
         {
+            version: "v2.2.1",
+            date: "25.06.2026",
+            changes: [
+                qsTr("Zoptymalizowano silnik wyjściowy audio poprzez ponowne użycie (recykling) obiektów QAudioOutput w celu wyeliminowania wycieków pamięci i wątków na systemach Linux."),
+                qsTr("Dodano poprawne czyszczenie pamięci statycznego detektora plików konfiguracyjnych (QFileSystemWatcher) przy wyjściu z aplikacji.")
+            ]
+        },
+        {
             version: "v2.2.0",
             date: "24.06.2026",
             changes: [

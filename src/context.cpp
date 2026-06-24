@@ -28,6 +28,11 @@ Context::~Context()
         }
         delete m_config;
         m_config = nullptr;
+
+        if (m_watcher) {
+            delete m_watcher;
+            m_watcher = nullptr;
+        }
     }
 }
 

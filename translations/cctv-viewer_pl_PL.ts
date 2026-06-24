@@ -1642,6 +1642,14 @@
         <source>Umożliwiono zmianę rozmiaru panelu statystyk systemowych poprzez przeciąganie za jego krawędzie i narożniki z automatycznym skalowaniem wykresów.</source>
         <translation>Umożliwiono zmianę rozmiaru panelu statystyk systemowych poprzez przeciąganie za jego krawędzie i narożniki z automatycznym skalowaniem wykresów.</translation>
     </message>
+    <message>
+        <source>Zoptymalizowano silnik wyjściowy audio poprzez ponowne użycie (recykling) obiektów QAudioOutput w celu wyeliminowania wycieków pamięci i wątków na systemach Linux.</source>
+        <translation>Zoptymalizowano silnik wyjściowy audio poprzez ponowne użycie (recykling) obiektów QAudioOutput w celu wyeliminowania wycieków pamięci i wątków na systemach Linux.</translation>
+    </message>
+    <message>
+        <source>Dodano poprawne czyszczenie pamięci statycznego detektora plików konfiguracyjnych (QFileSystemWatcher) przy wyjściu z aplikacji.</source>
+        <translation>Dodano poprawne czyszczenie pamięci statycznego detektora plików konfiguracyjnych (QFileSystemWatcher) przy wyjściu z aplikacji.</translation>
+    </message>
 </context>
 <context>
     <name>SideBarItem</name>
