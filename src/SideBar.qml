@@ -58,6 +58,13 @@ FocusScope {
 
     property var changelogData: [
         {
+            version: "v2.2.4",
+            date: "25.06.2026",
+            changes: [
+                qsTr("Wyeliminowano wyciek pamięci (ok. 50MB na każde przełączenie układu kamer) poprzez poprawne rozłączanie sygnałów błędu (mediaError) za pomocą oryginalnych funkcji gniazd oraz zerowanie dynamicznych powiązań QML zwolnionego odtwarzacza przed ponownym użyciem z puli.")
+            ]
+        },
+        {
             version: "v2.2.3",
             date: "25.06.2026",
             changes: [

@@ -961,91 +961,91 @@
     <name>SettingsDialog</name>
     <message>
         <source>Settings</source>
-        <translation>Settings</translation>
+        <translation type="vanished">Settings</translation>
     </message>
     <message>
         <source>General</source>
-        <translation>General</translation>
+        <translation type="vanished">General</translation>
     </message>
     <message>
         <source>Allow running multiple application instances</source>
-        <translation>Allow running multiple application instances</translation>
+        <translation type="vanished">Allow running multiple application instances</translation>
     </message>
     <message>
         <source>View</source>
-        <translation>View</translation>
+        <translation type="vanished">View</translation>
     </message>
     <message>
         <source>Hide cursor in full screen mode</source>
-        <translation>Hide cursor in full screen mode</translation>
+        <translation type="vanished">Hide cursor in full screen mode</translation>
     </message>
     <message>
         <source>Allow swapping viewport places</source>
-        <translation>Allow swapping viewport places</translation>
+        <translation type="vanished">Allow swapping viewport places</translation>
     </message>
     <message>
         <source>Allow changing viewport settings</source>
-        <translation>Allow changing viewport settings</translation>
+        <translation type="vanished">Allow changing viewport settings</translation>
     </message>
     <message>
         <source>Enable stream selection</source>
-        <translation>Enable stream selection</translation>
+        <translation type="vanished">Enable stream selection</translation>
     </message>
     <message>
         <source>Language:</source>
-        <translation>Language:</translation>
+        <translation type="vanished">Language:</translation>
     </message>
     <message>
         <source>System default</source>
-        <translation>System default</translation>
+        <translation type="vanished">System default</translation>
     </message>
     <message>
         <source>Zapis</source>
-        <translation>Saving</translation>
+        <translation type="vanished">Saving</translation>
     </message>
     <message>
         <source>Domyślna ścieżka stopklatek:</source>
-        <translation>Default snapshot path:</translation>
+        <translation type="vanished">Default snapshot path:</translation>
     </message>
     <message>
         <source>Domyślna ścieżka nagrań:</source>
-        <translation>Default recordings path:</translation>
+        <translation type="vanished">Default recordings path:</translation>
     </message>
     <message>
         <source>Wybierz folder dla stopklatek</source>
-        <translation>Choose folder for snapshots</translation>
+        <translation type="vanished">Choose folder for snapshots</translation>
     </message>
     <message>
         <source>Wybierz folder dla nagrań</source>
-        <translation>Choose folder for recordings</translation>
+        <translation type="vanished">Choose folder for recordings</translation>
     </message>
     <message>
         <source>User Interface Settings</source>
-        <translation>User Interface Settings</translation>
+        <translation type="vanished">User Interface Settings</translation>
     </message>
     <message>
         <source>Show channel status in the top left corner of the viewport</source>
-        <translation>Show channel status in the top left corner of the viewport</translation>
+        <translation type="vanished">Show channel status in the top left corner of the viewport</translation>
     </message>
     <message>
         <source>Show camera info in the bottom left corner of the viewport</source>
-        <translation>Show camera info in the bottom left corner of the viewport</translation>
+        <translation type="vanished">Show camera info in the bottom left corner of the viewport</translation>
     </message>
     <message>
         <source>Show control icons in the bottom right corner of the viewport only when hovering</source>
-        <translation>Show control icons in the bottom right corner of the viewport only when hovering</translation>
+        <translation type="vanished">Show control icons in the bottom right corner of the viewport only when hovering</translation>
     </message>
     <message>
         <source>Show info fields only when hovering</source>
-        <translation>Show info fields only when hovering</translation>
+        <translation type="vanished">Show info fields only when hovering</translation>
     </message>
     <message>
         <source>Automatically collapse top bar</source>
-        <translation>Automatically collapse top bar</translation>
+        <translation type="vanished">Automatically collapse top bar</translation>
     </message>
     <message>
         <source>Disable audio entirely</source>
-        <translation>Disable audio entirely</translation>
+        <translation type="vanished">Disable audio entirely</translation>
     </message>
 </context>
 <context>
@@ -1669,6 +1669,10 @@
     <message>
         <source>Disable audio entirely</source>
         <translation>Disable audio entirely</translation>
+    </message>
+    <message>
+        <source>Wyeliminowano wyciek pamięci (ok. 50MB na każde przełączenie układu kamer) poprzez poprawne rozłączanie sygnałów błędu (mediaError) za pomocą oryginalnych funkcji gniazd oraz zerowanie dynamicznych powiązań QML zwolnionego odtwarzacza przed ponownym użyciem z puli.</source>
+        <translation>Eliminated a memory leak (approx. 50MB per camera layout switch) by correctly disconnecting error signals (mediaError) using stored signal slot functions and explicitly clearing dynamic QML bindings on released players before reuse from the pool.</translation>
     </message>
 </context>
 <context>

@@ -25,6 +25,7 @@ FocusScope {
 
         property var pool: []
         property var activePlayersMap: ({}) // index -> Player
+        property var mediaErrorSlotsMap: ({}) // index -> function
 
         function acquirePlayer(index, parentContainer, viewportItem) {
             if (activePlayersMap[index] !== undefined) {
@@ -107,12 +108,14 @@ FocusScope {
             player.loops = MediaPlayer.Infinite;
 
             // Connect mediaError signal
-            player.mediaError.connect(function(errorSource) {
+            var slot = function(errorSource) {
                 var vItem = root.model.get(index);
                 if (vItem && errorSource === String(vItem.secondaryUrl)) {
                     viewportItem.d2SecondaryUrlFailed = true;
                 }
-            });
+            };
+            player.mediaError.connect(slot);
+            mediaErrorSlotsMap[index] = slot;
 
             activePlayersMap[index] = player;
             return player;
@@ -123,9 +126,27 @@ FocusScope {
             if (player) {
                 player.parent = null;
                 try {
-                    player.mediaError.disconnect();
+                    var slot = mediaErrorSlotsMap[index];
+                    if (slot) {
+                        player.mediaError.disconnect(slot);
+                    }
                 } catch(e) {}
+                delete mediaErrorSlotsMap[index];
+                
+                // Clear bindings so they don't capture parentContainer and viewportItem anymore!
+                player.visible = false;
+                player.index = -1;
+                player.color = "black";
+                player.volume = 0;
+                player.avOptions = ({});
                 player.source = "";
+                player.isSubStream = false;
+                player.scale = 1.0;
+                player.x = 0;
+                player.y = 0;
+                player.width = 0;
+                player.height = 0;
+
                 pool.push(player);
                 delete activePlayersMap[index];
             }

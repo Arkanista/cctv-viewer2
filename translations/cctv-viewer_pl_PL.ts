@@ -961,91 +961,91 @@
     <name>SettingsDialog</name>
     <message>
         <source>Settings</source>
-        <translation>Ustawienia</translation>
+        <translation type="vanished">Ustawienia</translation>
     </message>
     <message>
         <source>General</source>
-        <translation>Ogólne</translation>
+        <translation type="vanished">Ogólne</translation>
     </message>
     <message>
         <source>Allow running multiple application instances</source>
-        <translation>Zezwalaj na uruchamianie wielu instancji aplikacji</translation>
+        <translation type="vanished">Zezwalaj na uruchamianie wielu instancji aplikacji</translation>
     </message>
     <message>
         <source>Allow swapping viewport places</source>
-        <translation>Zezwalaj na zamianę miejsc viewportów</translation>
+        <translation type="vanished">Zezwalaj na zamianę miejsc viewportów</translation>
     </message>
     <message>
         <source>Allow changing viewport settings</source>
-        <translation>Zezwalaj na zmianę ustawień viewportów</translation>
+        <translation type="vanished">Zezwalaj na zmianę ustawień viewportów</translation>
     </message>
     <message>
         <source>View</source>
-        <translation>Widok</translation>
+        <translation type="vanished">Widok</translation>
     </message>
     <message>
         <source>Hide cursor in full screen mode</source>
-        <translation>Ukryj kursor w trybie pełnoekranowym</translation>
+        <translation type="vanished">Ukryj kursor w trybie pełnoekranowym</translation>
     </message>
     <message>
         <source>Enable stream selection</source>
-        <translation>Włącz wybór strumienia</translation>
+        <translation type="vanished">Włącz wybór strumienia</translation>
     </message>
     <message>
         <source>Language:</source>
-        <translation>Język:</translation>
+        <translation type="vanished">Język:</translation>
     </message>
     <message>
         <source>System default</source>
-        <translation>Domyślny systemowy</translation>
+        <translation type="vanished">Domyślny systemowy</translation>
     </message>
     <message>
         <source>Zapis</source>
-        <translation>Zapis</translation>
+        <translation type="vanished">Zapis</translation>
     </message>
     <message>
         <source>Domyślna ścieżka stopklatek:</source>
-        <translation>Domyślna ścieżka stopklatek:</translation>
+        <translation type="vanished">Domyślna ścieżka stopklatek:</translation>
     </message>
     <message>
         <source>Domyślna ścieżka nagrań:</source>
-        <translation>Domyślna ścieżka nagrań:</translation>
+        <translation type="vanished">Domyślna ścieżka nagrań:</translation>
     </message>
     <message>
         <source>Wybierz folder dla stopklatek</source>
-        <translation>Wybierz folder dla stopklatek</translation>
+        <translation type="vanished">Wybierz folder dla stopklatek</translation>
     </message>
     <message>
         <source>Wybierz folder dla nagrań</source>
-        <translation>Wybierz folder dla nagrań</translation>
+        <translation type="vanished">Wybierz folder dla nagrań</translation>
     </message>
     <message>
         <source>User Interface Settings</source>
-        <translation>Ustawienia interfejsu użytkownika</translation>
+        <translation type="vanished">Ustawienia interfejsu użytkownika</translation>
     </message>
     <message>
         <source>Show channel status in the top left corner of the viewport</source>
-        <translation>Pokazuj status kanału w lewym górnym rogu viewportu</translation>
+        <translation type="vanished">Pokazuj status kanału w lewym górnym rogu viewportu</translation>
     </message>
     <message>
         <source>Show camera info in the bottom left corner of the viewport</source>
-        <translation>Pokazuj informację o kamerze w dolnym lewym rogu viewportu</translation>
+        <translation type="vanished">Pokazuj informację o kamerze w dolnym lewym rogu viewportu</translation>
     </message>
     <message>
         <source>Show control icons in the bottom right corner of the viewport only when hovering</source>
-        <translation>Pokazuj ikony sterowania w dolnym prawym rogu viewportu tylko po najechaniu kursorem na viewport</translation>
+        <translation type="vanished">Pokazuj ikony sterowania w dolnym prawym rogu viewportu tylko po najechaniu kursorem na viewport</translation>
     </message>
     <message>
         <source>Show info fields only when hovering</source>
-        <translation>Pokazuj pola informacyjne tylko po najechaniu kursorem</translation>
+        <translation type="vanished">Pokazuj pola informacyjne tylko po najechaniu kursorem</translation>
     </message>
     <message>
         <source>Automatically collapse top bar</source>
-        <translation>Automatycznie zwijaj pasek górny</translation>
+        <translation type="vanished">Automatycznie zwijaj pasek górny</translation>
     </message>
     <message>
         <source>Disable audio entirely</source>
-        <translation>Wyłącz obsługę audio całkowicie</translation>
+        <translation type="vanished">Wyłącz obsługę audio całkowicie</translation>
     </message>
 </context>
 <context>
@@ -1669,6 +1669,10 @@
     <message>
         <source>Disable audio entirely</source>
         <translation>Wyłącz obsługę audio całkowicie</translation>
+    </message>
+    <message>
+        <source>Wyeliminowano wyciek pamięci (ok. 50MB na każde przełączenie układu kamer) poprzez poprawne rozłączanie sygnałów błędu (mediaError) za pomocą oryginalnych funkcji gniazd oraz zerowanie dynamicznych powiązań QML zwolnionego odtwarzacza przed ponownym użyciem z puli.</source>
+        <translation>Wyeliminowano wyciek pamięci (ok. 50MB na każde przełączenie układu kamer) poprzez poprawne rozłączanie sygnałów błędu (mediaError) za pomocą oryginalnych funkcji gniazd oraz zerowanie dynamicznych powiązań QML zwolnionego odtwarzacza przed ponownym użyciem z puli.</translation>
     </message>
 </context>
 <context>
