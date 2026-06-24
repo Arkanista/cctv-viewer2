@@ -96,6 +96,7 @@ AVFramePtr QmlAVVideoBuffer::swsScale(const QmlAVPixelFormat &dstFormat)
 
         sws_scale(m_swsCtx, m_videoFrame.avFrame()->data, m_videoFrame.avFrame()->linesize, 0, m_videoFrame.avFrame()->height, avFrameSws->data, avFrameSws->linesize);
         sws_freeContext(m_swsCtx);
+        m_swsCtx = nullptr;
     }
 
     return avFrameSws;

@@ -58,6 +58,14 @@ FocusScope {
 
     property var changelogData: [
         {
+            version: "v2.2.2",
+            date: "25.06.2026",
+            changes: [
+                qsTr("Wyeliminowano wycieki pamięci (ok. 50MB na przełączenie) podczas zamiennego przełączania układów kamer (np. OGÓLNE i ZEWNĘTRZNY) poprzez bezwarunkowe zwalnianie i niszczenie obiektów wyjściowych audio (QAudioOutput) przy zatrzymaniu odtwarzacza."),
+                qsTr("Dodano resetowanie i zerowanie kontekstu skalowania obrazu (SwsContext) w buforach wideo w celu zapobiegania wyciekom pamięci w bibliotece libswscale.")
+            ]
+        },
+        {
             version: "v2.2.1",
             date: "25.06.2026",
             changes: [

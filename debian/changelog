@@ -1,3 +1,10 @@
+cctv-viewer (2.2.2-1) jammy; urgency=medium
+
+  * Resolved memory leaks (approx 50MB per layout switch) when switching layouts by unconditionally freeing and destroying QAudioOutput audio output objects upon player stop
+  * Added resetting and nullifying of image scaling context (SwsContext) in video buffers to prevent memory leaks inside libswscale
+
+ -- arkanis <arkanis@cctv-viewer2.org>  Thu, 25 Jun 2026 00:46:00 +0200
+
 cctv-viewer (2.2.1-1) jammy; urgency=medium
 
   * Optimized the audio output engine by recycling QAudioOutput objects to eliminate memory and thread leaks on Linux systems

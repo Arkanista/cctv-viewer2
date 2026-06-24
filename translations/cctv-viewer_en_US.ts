@@ -1650,6 +1650,14 @@
         <source>Dodano poprawne czyszczenie pamięci statycznego detektora plików konfiguracyjnych (QFileSystemWatcher) przy wyjściu z aplikacji.</source>
         <translation>Added proper cleanup of the static configuration file watcher (QFileSystemWatcher) upon application exit.</translation>
     </message>
+    <message>
+        <source>Wyeliminowano wycieki pamięci (ok. 50MB na przełączenie) podczas zamiennego przełączania układów kamer (np. OGÓLNE i ZEWNĘTRZNY) poprzez bezwarunkowe zwalnianie i niszczenie obiektów wyjściowych audio (QAudioOutput) przy zatrzymaniu odtwarzacza.</source>
+        <translation>Resolved memory leaks (approx 50MB per layout switch) when alternately switching camera layouts (e.g., OGÓLNE and ZEWNĘTRZNY) by unconditionally freeing and destroying QAudioOutput audio output objects upon player stop.</translation>
+    </message>
+    <message>
+        <source>Dodano resetowanie i zerowanie kontekstu skalowania obrazu (SwsContext) w buforach wideo w celu zapobiegania wyciekom pamięci w bibliotece libswscale.</source>
+        <translation>Added resetting and nullifying of image scaling context (SwsContext) in video buffers to prevent memory leaks inside the libswscale library.</translation>
+    </message>
 </context>
 <context>
     <name>SideBarItem</name>
