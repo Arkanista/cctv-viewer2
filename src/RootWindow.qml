@@ -1336,6 +1336,7 @@ ApplicationWindow {
         isDanger: true
         onAccepted: {
             rootWindow.closeAccepted = true;
+            rootWindow.hide();
             Qt.quit();
         }
     }

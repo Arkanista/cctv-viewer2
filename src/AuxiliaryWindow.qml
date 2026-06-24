@@ -683,6 +683,7 @@ Window {
         isDanger: true
         onAccepted: {
             auxWindow.closeAccepted = true;
+            auxWindow.hide();
             Qt.quit();
         }
     }
