@@ -1360,6 +1360,9 @@ ApplicationWindow {
         z: 99999
         visible: systemStatsSwitch.checked
 
+        property int minWidth: 250
+        property int minHeight: 220
+
         property var cpuHistory: []
         property var gpuHistory: []
         property var netHistory: []
@@ -1483,7 +1486,10 @@ ApplicationWindow {
             Canvas {
                 id: cpuCanvas
                 Layout.fillWidth: true
+                Layout.fillHeight: true
                 Layout.preferredHeight: 28
+                onWidthChanged: requestPaint()
+                onHeightChanged: requestPaint()
 
                 onPaint: {
                     var ctx = getContext("2d");
@@ -1562,7 +1568,10 @@ ApplicationWindow {
             Canvas {
                 id: gpuCanvas
                 Layout.fillWidth: true
+                Layout.fillHeight: true
                 Layout.preferredHeight: 28
+                onWidthChanged: requestPaint()
+                onHeightChanged: requestPaint()
 
                 onPaint: {
                     var ctx = getContext("2d");
@@ -1641,7 +1650,10 @@ ApplicationWindow {
             Canvas {
                 id: netCanvas
                 Layout.fillWidth: true
+                Layout.fillHeight: true
                 Layout.preferredHeight: 28
+                onWidthChanged: requestPaint()
+                onHeightChanged: requestPaint()
 
                 onPaint: {
                     var ctx = getContext("2d");
@@ -1716,6 +1728,285 @@ ApplicationWindow {
                             ctx.lineTo(x, yVal);
                         }
                         ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Resize Handlers (Self-contained self-mapping MouseAreas)
+        MouseArea {
+            id: resizeLeft
+            width: 6
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.topMargin: 6
+            anchors.bottomMargin: 6
+            cursorShape: Qt.SizeHorCursor
+            z: 10
+            property real clickX: 0
+            property real initX: 0
+            property real initW: 0
+            onPressed: {
+                var p = mapToItem(statsPanel.parent, mouse.x, mouse.y)
+                clickX = p.x
+                initX = statsPanel.x
+                initW = statsPanel.width
+            }
+            onPositionChanged: {
+                if (pressed) {
+                    var p = mapToItem(statsPanel.parent, mouse.x, mouse.y)
+                    var deltaX = p.x - clickX
+                    var newWidth = initW - deltaX
+                    if (newWidth >= statsPanel.minWidth) {
+                        statsPanel.x = initX + deltaX
+                        statsPanel.width = newWidth
+                    }
+                }
+            }
+        }
+
+        MouseArea {
+            id: resizeRight
+            width: 6
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.topMargin: 6
+            anchors.bottomMargin: 6
+            cursorShape: Qt.SizeHorCursor
+            z: 10
+            property real clickX: 0
+            property real initW: 0
+            onPressed: {
+                var p = mapToItem(statsPanel.parent, mouse.x, mouse.y)
+                clickX = p.x
+                initW = statsPanel.width
+            }
+            onPositionChanged: {
+                if (pressed) {
+                    var p = mapToItem(statsPanel.parent, mouse.x, mouse.y)
+                    var deltaX = p.x - clickX
+                    var newWidth = initW + deltaX
+                    if (newWidth >= statsPanel.minWidth) {
+                        statsPanel.width = newWidth
+                    }
+                }
+            }
+        }
+
+        MouseArea {
+            id: resizeTop
+            height: 6
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.leftMargin: 6
+            anchors.rightMargin: 6
+            cursorShape: Qt.SizeVerCursor
+            z: 10
+            property real clickY: 0
+            property real initY: 0
+            property real initH: 0
+            onPressed: {
+                var p = mapToItem(statsPanel.parent, mouse.x, mouse.y)
+                clickY = p.y
+                initY = statsPanel.y
+                initH = statsPanel.height
+            }
+            onPositionChanged: {
+                if (pressed) {
+                    var p = mapToItem(statsPanel.parent, mouse.x, mouse.y)
+                    var deltaY = p.y - clickY
+                    var newHeight = initH - deltaY
+                    if (newHeight >= statsPanel.minHeight) {
+                        statsPanel.y = initY + deltaY
+                        statsPanel.height = newHeight
+                    }
+                }
+            }
+        }
+
+        MouseArea {
+            id: resizeBottom
+            height: 6
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.leftMargin: 6
+            anchors.rightMargin: 6
+            cursorShape: Qt.SizeVerCursor
+            z: 10
+            property real clickY: 0
+            property real initH: 0
+            onPressed: {
+                var p = mapToItem(statsPanel.parent, mouse.x, mouse.y)
+                clickY = p.y
+                initH = statsPanel.height
+            }
+            onPositionChanged: {
+                if (pressed) {
+                    var p = mapToItem(statsPanel.parent, mouse.x, mouse.y)
+                    var deltaY = p.y - clickY
+                    var newHeight = initH + deltaY
+                    if (newHeight >= statsPanel.minHeight) {
+                        statsPanel.height = newHeight
+                    }
+                }
+            }
+        }
+
+        MouseArea {
+            id: resizeTopLeft
+            width: 8
+            height: 8
+            anchors.left: parent.left
+            anchors.top: parent.top
+            cursorShape: Qt.SizeFDiagCursor
+            z: 10
+            property real clickX: 0
+            property real clickY: 0
+            property real initX: 0
+            property real initY: 0
+            property real initW: 0
+            property real initH: 0
+            onPressed: {
+                var p = mapToItem(statsPanel.parent, mouse.x, mouse.y)
+                clickX = p.x
+                clickY = p.y
+                initX = statsPanel.x
+                initY = statsPanel.y
+                initW = statsPanel.width
+                initH = statsPanel.height
+            }
+            onPositionChanged: {
+                if (pressed) {
+                    var p = mapToItem(statsPanel.parent, mouse.x, mouse.y)
+                    var deltaX = p.x - clickX
+                    var deltaY = p.y - clickY
+                    var newWidth = initW - deltaX
+                    var newHeight = initH - deltaY
+                    if (newWidth >= statsPanel.minWidth) {
+                        statsPanel.x = initX + deltaX
+                        statsPanel.width = newWidth
+                    }
+                    if (newHeight >= statsPanel.minHeight) {
+                        statsPanel.y = initY + deltaY
+                        statsPanel.height = newHeight
+                    }
+                }
+            }
+        }
+
+        MouseArea {
+            id: resizeTopRight
+            width: 8
+            height: 8
+            anchors.right: parent.right
+            anchors.top: parent.top
+            cursorShape: Qt.SizeBDiagCursor
+            z: 10
+            property real clickX: 0
+            property real clickY: 0
+            property real initY: 0
+            property real initW: 0
+            property real initH: 0
+            onPressed: {
+                var p = mapToItem(statsPanel.parent, mouse.x, mouse.y)
+                clickX = p.x
+                clickY = p.y
+                initY = statsPanel.y
+                initW = statsPanel.width
+                initH = statsPanel.height
+            }
+            onPositionChanged: {
+                if (pressed) {
+                    var p = mapToItem(statsPanel.parent, mouse.x, mouse.y)
+                    var deltaX = p.x - clickX
+                    var deltaY = p.y - clickY
+                    var newWidth = initW + deltaX
+                    var newHeight = initH - deltaY
+                    if (newWidth >= statsPanel.minWidth) {
+                        statsPanel.width = newWidth
+                    }
+                    if (newHeight >= statsPanel.minHeight) {
+                        statsPanel.y = initY + deltaY
+                        statsPanel.height = newHeight
+                    }
+                }
+            }
+        }
+
+        MouseArea {
+            id: resizeBottomLeft
+            width: 8
+            height: 8
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+            cursorShape: Qt.SizeBDiagCursor
+            z: 10
+            property real clickX: 0
+            property real clickY: 0
+            property real initX: 0
+            property real initW: 0
+            property real initH: 0
+            onPressed: {
+                var p = mapToItem(statsPanel.parent, mouse.x, mouse.y)
+                clickX = p.x
+                clickY = p.y
+                initX = statsPanel.x
+                initW = statsPanel.width
+                initH = statsPanel.height
+            }
+            onPositionChanged: {
+                if (pressed) {
+                    var p = mapToItem(statsPanel.parent, mouse.x, mouse.y)
+                    var deltaX = p.x - clickX
+                    var deltaY = p.y - clickY
+                    var newWidth = initW - deltaX
+                    var newHeight = initH + deltaY
+                    if (newWidth >= statsPanel.minWidth) {
+                        statsPanel.x = initX + deltaX
+                        statsPanel.width = newWidth
+                    }
+                    if (newHeight >= statsPanel.minHeight) {
+                        statsPanel.height = newHeight
+                    }
+                }
+            }
+        }
+
+        MouseArea {
+            id: resizeBottomRight
+            width: 8
+            height: 8
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            cursorShape: Qt.SizeFDiagCursor
+            z: 10
+            property real clickX: 0
+            property real clickY: 0
+            property real initW: 0
+            property real initH: 0
+            onPressed: {
+                var p = mapToItem(statsPanel.parent, mouse.x, mouse.y)
+                clickX = p.x
+                clickY = p.y
+                initW = statsPanel.width
+                initH = statsPanel.height
+            }
+            onPositionChanged: {
+                if (pressed) {
+                    var p = mapToItem(statsPanel.parent, mouse.x, mouse.y)
+                    var deltaX = p.x - clickX
+                    var deltaY = p.y - clickY
+                    var newWidth = initW + deltaX
+                    var newHeight = initH + deltaY
+                    if (newWidth >= statsPanel.minWidth) {
+                        statsPanel.width = newWidth
+                    }
+                    if (newHeight >= statsPanel.minHeight) {
+                        statsPanel.height = newHeight
                     }
                 }
             }
