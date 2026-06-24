@@ -1666,6 +1666,10 @@
         <source>Dodano globalną opcję w ustawieniach &apos;Wyłącz obsługę audio całkowicie&apos; (Disable audio entirely), która całkowicie ignoruje przetwarzanie dźwięku w odtwarzaczach wideo, eliminując wszelkie potencjalne narzuty wydajnościowe i wycieki pamięci związane z obsługą audio.</source>
         <translation>Added global setting &apos;Disable audio entirely&apos; which completely ignores audio processing in video players, eliminating any potential performance overhead and memory leaks associated with audio handling.</translation>
     </message>
+    <message>
+        <source>Disable audio entirely</source>
+        <translation>Disable audio entirely</translation>
+    </message>
 </context>
 <context>
     <name>SideBarItem</name>

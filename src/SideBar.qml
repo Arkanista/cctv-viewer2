@@ -1750,6 +1750,13 @@ FocusScope {
                                 onCheckedChanged: rootWindowSettings.topBarAutoCollapse = checked
                                 Layout.fillWidth: true
                             }
+
+                            CheckBox {
+                                text: qsTr("Disable audio entirely")
+                                checked: generalSettings.disableAudio
+                                onCheckedChanged: generalSettings.disableAudio = checked
+                                Layout.fillWidth: true
+                            }
                         }
                     }
 
