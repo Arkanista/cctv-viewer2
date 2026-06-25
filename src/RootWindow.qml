@@ -24,6 +24,7 @@ ApplicationWindow {
     property bool closeAccepted: false
     property string lastLoadedModelsJson: ""
     property string lastSavedModelsJson: ""
+    property bool isSyncing: false
 
     onClosing: {
         if (!closeAccepted) {
@@ -45,6 +46,19 @@ ApplicationWindow {
             } else {
                 rootWindow.showNormal();
             }
+        }
+    }
+
+    Timer {
+        id: saveTimer
+        interval: 350
+        repeat: false
+        onTriggered: {
+            if (rootWindow.isSyncing) return;
+            var json = JSON.stringify(layoutsCollectionModel.toJSValue());
+            rootWindow.lastSavedModelsJson = json;
+            layoutsCollectionSettings.models = json;
+            console.log("[Sync] Debounced layouts save completed.");
         }
     }
 
@@ -248,10 +262,13 @@ ApplicationWindow {
                     rootWindow.lastLoadedModelsJson = diskModels;
                     rootWindow.lastSavedModelsJson = diskModels;
                     layoutsCollectionSettings.models = diskModels;
+                    rootWindow.isSyncing = true;
                     try {
                         layoutsCollectionModel.fromJSValue(JSON.parse(diskModels));
                     } catch(e) {
                         console.log("[Sync] Error parsing updated layouts:", e);
+                    } finally {
+                        rootWindow.isSyncing = false;
                     }
                 }
             }
@@ -499,6 +516,7 @@ ApplicationWindow {
             get(0).get(1).url = "rtmp://live.a71.ru/demo/1";
 
             var initialModels = "";
+            rootWindow.isSyncing = true;
             try {
                 if (!layoutsCollectionSettings.models.isEmpty()) {
                     initialModels = layoutsCollectionSettings.models;
@@ -506,14 +524,15 @@ ApplicationWindow {
                 }
             } catch(err) {
                 Utils.log_error(qsTr("Error reading configuration!"));
+            } finally {
+                rootWindow.isSyncing = false;
             }
             rootWindow.lastLoadedModelsJson = initialModels;
             rootWindow.lastSavedModelsJson = initialModels;
 
             layoutsCollectionModel.changed.connect(function () {
-                var json = JSON.stringify(toJSValue());
-                rootWindow.lastSavedModelsJson = json;
-                layoutsCollectionSettings.models = json;
+                if (rootWindow.isSyncing) return;
+                saveTimer.restart();
             });
 
             if (Context.isAuxiliary) {
@@ -1333,6 +1352,15 @@ ApplicationWindow {
         cancelButtonText: qsTr("NIE")
         isDanger: true
         onAccepted: {
+            if (saveTimer.running) {
+                saveTimer.stop();
+                if (!rootWindow.isSyncing) {
+                    var json = JSON.stringify(layoutsCollectionModel.toJSValue());
+                    rootWindow.lastSavedModelsJson = json;
+                    layoutsCollectionSettings.models = json;
+                    console.log("[Sync] Emergency immediate layouts save completed on close.");
+                }
+            }
             rootWindow.closeAccepted = true;
             rootWindow.hide();
             Qt.quit();
