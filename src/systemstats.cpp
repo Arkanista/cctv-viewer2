@@ -117,6 +117,15 @@ StatsWorker::StatsWorker(QObject *parent)
 StatsWorker::~StatsWorker()
 {
     delete m_nvml;
+
+    qint64 selfPid = getpid();
+    uid_t myUid = getuid();
+    QString shmDir = "/dev/shm";
+    if (!QDir(shmDir).exists() || !QFileInfo(shmDir).isWritable()) {
+        shmDir = QDir::tempPath();
+    }
+    QString myNetFile = QString("%1/cctv-viewer2-net-%2-%3").arg(shmDir).arg(myUid).arg(selfPid);
+    QFile::remove(myNetFile);
 }
 
 void StatsWorker::doWork()
@@ -136,7 +145,7 @@ void StatsWorker::doWork()
 
     calculateCpuAndRam(pids, cpu, ram);
     calculateGpuAndVram(pids, gpu, vram);
-    calculateNetUsage(net);
+    calculateNetUsage(pids, net);
 
     emit workDone(cpu, gpu, ram, vram, net);
 }
@@ -207,12 +216,14 @@ QVector<qint64> StatsWorker::getProgramPids()
     pids.append(selfPid);
 
     uid_t myUid = getuid();
+    QString selfExe = QFile::symLinkTarget(QString("/proc/%1/exe").arg(selfPid));
 
     struct ProcessInfo {
         qint64 pid;
         qint64 ppid;
         uid_t uid;
         QString name;
+        QString exePath;
     };
     QVector<ProcessInfo> allProcs;
 
@@ -232,16 +243,21 @@ QVector<qint64> StatsWorker::getProgramPids()
         if (statusFile.open(QIODevice::ReadOnly)) {
             QString content = QString::fromUtf8(statusFile.readAll());
             statusFile.close();
-            static const QRegularExpression whitespaceRe("\\s+");
             QStringList lines = content.split('\n');
             for (const QString &line : lines) {
                 if (line.startsWith("Uid:")) {
                     int colonIdx = line.indexOf(':');
                     if (colonIdx != -1) {
                         QString valStr = line.mid(colonIdx + 1).trimmed();
-                        int spaceIdx = valStr.indexOf(' ');
-                        if (spaceIdx != -1) {
-                            valStr = valStr.left(spaceIdx);
+                        int firstWsIdx = -1;
+                        for (int i = 0; i < valStr.length(); ++i) {
+                            if (valStr[i].isSpace()) {
+                                firstWsIdx = i;
+                                break;
+                            }
+                        }
+                        if (firstWsIdx != -1) {
+                            valStr = valStr.left(firstWsIdx);
                         }
                         info.uid = valStr.toUInt();
                     }
@@ -249,9 +265,15 @@ QVector<qint64> StatsWorker::getProgramPids()
                     int colonIdx = line.indexOf(':');
                     if (colonIdx != -1) {
                         QString valStr = line.mid(colonIdx + 1).trimmed();
-                        int spaceIdx = valStr.indexOf(' ');
-                        if (spaceIdx != -1) {
-                            valStr = valStr.left(spaceIdx);
+                        int firstWsIdx = -1;
+                        for (int i = 0; i < valStr.length(); ++i) {
+                            if (valStr[i].isSpace()) {
+                                firstWsIdx = i;
+                                break;
+                            }
+                        }
+                        if (firstWsIdx != -1) {
+                            valStr = valStr.left(firstWsIdx);
                         }
                         info.ppid = valStr.toLongLong();
                     }
@@ -263,6 +285,7 @@ QVector<qint64> StatsWorker::getProgramPids()
 
         // check executable name via symlink first
         QString exePath = QFile::symLinkTarget(QString("/proc/%1/exe").arg(pid));
+        info.exePath = exePath;
         info.name = QFileInfo(exePath).fileName();
 
         // fallback to cmdline
@@ -280,9 +303,16 @@ QVector<qint64> StatsWorker::getProgramPids()
         allProcs.append(info);
     }
 
-    // Pass 1: Find all direct cctv-viewer processes
+    // Pass 1: Find all direct cctv-viewer processes or same executable instances
     for (const ProcessInfo &info : allProcs) {
-        if (info.name == "cctv-viewer2" || info.name == "cctv-viewer") {
+        bool matches = false;
+        if (!selfExe.isEmpty() && !info.exePath.isEmpty() && info.exePath == selfExe) {
+            matches = true;
+        } else if (info.name == "cctv-viewer2" || info.name == "cctv-viewer") {
+            matches = true;
+        }
+
+        if (matches) {
             if (!pids.contains(info.pid)) {
                 pids.append(info.pid);
             }
@@ -600,13 +630,68 @@ void StatsWorker::calculateGpuAndVram(const QVector<qint64> &pids, double &gpu, 
     }
 }
 
-void StatsWorker::calculateNetUsage(double &net)
+void StatsWorker::calculateNetUsage(const QVector<qint64> &pids, double &net)
 {
     qint64 diffBytes = g_networkBytesAccumulator.exchange(0, std::memory_order_relaxed);
     qint64 elapsedMs = m_netTimer.restart();
     if (elapsedMs <= 0) elapsedMs = 1000;
 
-    // Convert to Megabits per second (Mbps)
+    // Convert to bits per second (bps)
     double bps = (static_cast<double>(diffBytes) * 8.0) / (elapsedMs / 1000.0);
-    net = bps / 1000000.0;
+
+    qint64 selfPid = getpid();
+    uid_t myUid = getuid();
+
+    // Determine secure shared memory directory
+    QString shmDir = "/dev/shm";
+    if (!QDir(shmDir).exists() || !QFileInfo(shmDir).isWritable()) {
+        shmDir = QDir::tempPath();
+    }
+
+    // Write own network bps to shared file
+    QString myNetFile = QString("%1/cctv-viewer2-net-%2-%3").arg(shmDir).arg(myUid).arg(selfPid);
+    QFile f(myNetFile);
+    if (f.open(QIODevice::WriteOnly)) {
+        QTextStream stream(&f);
+        stream << QString::number(bps, 'f', 1);
+        f.close();
+    }
+
+    // Sum network bps of all active pids
+    double totalBps = 0.0;
+    for (qint64 pid : pids) {
+        if (pid == selfPid) {
+            totalBps += bps;
+        } else {
+            QString otherNetFile = QString("%1/cctv-viewer2-net-%2-%3").arg(shmDir).arg(myUid).arg(pid);
+            QFile fOther(otherNetFile);
+            if (fOther.open(QIODevice::ReadOnly)) {
+                double otherBps = 0.0;
+                QTextStream streamOther(&fOther);
+                streamOther >> otherBps;
+                totalBps += otherBps;
+                fOther.close();
+            }
+        }
+    }
+
+    // Convert to Megabits per second (Mbps)
+    net = totalBps / 1000000.0;
+
+    // Clean up stale shared files of processes that are no longer running
+    static int cleanTicks = 0;
+    if (++cleanTicks >= 10) {
+        cleanTicks = 0;
+        QDir dir(shmDir);
+        QString prefix = QString("cctv-viewer2-net-%1-").arg(myUid);
+        QStringList files = dir.entryList(QStringList() << prefix + "*", QDir::Files);
+        for (const QString &fileName : files) {
+            QString pidPart = fileName.mid(prefix.length());
+            bool ok = false;
+            qint64 pid = pidPart.toLongLong(&ok);
+            if (ok && !pids.contains(pid) && pid != selfPid) {
+                dir.remove(fileName);
+            }
+        }
+    }
 }

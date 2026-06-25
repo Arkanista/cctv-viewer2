@@ -26,7 +26,7 @@ private:
     QVector<qint64> getProgramPids();
     void calculateCpuAndRam(const QVector<qint64> &pids, double &cpu, double &ram);
     void calculateGpuAndVram(const QVector<qint64> &pids, double &gpu, double &vram);
-    void calculateNetUsage(double &net);
+    void calculateNetUsage(const QVector<qint64> &pids, double &net);
 
     struct NvmlContext;
     NvmlContext *m_nvml = nullptr;
