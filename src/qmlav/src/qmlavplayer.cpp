@@ -1,6 +1,7 @@
 #include "qmlavplayer.h"
 #include <QDateTime>
 #include <QDebug>
+#include <QImage>
 #include <atomic>
 
 static std::atomic<int> s_qmlAvPlayerCount{0};
@@ -72,8 +73,15 @@ void QmlAVPlayer::stop()
         m_demuxer = nullptr;
     }
 
-    if (m_videoSurface && m_videoSurface->isActive()) {
-        m_videoSurface->present(QVideoFrame());
+    if (m_videoSurface) {
+        if (!m_videoSurface->isActive()) {
+            QVideoSurfaceFormat format(QSize(1, 1), QVideoFrame::Format_RGB32);
+            m_videoSurface->start(format);
+        }
+        QImage blackImg(1, 1, QImage::Format_RGB32);
+        blackImg.fill(Qt::black);
+        QVideoFrame blackFrame(blackImg);
+        m_videoSurface->present(blackFrame);
         m_videoSurface->stop();
     }
 
