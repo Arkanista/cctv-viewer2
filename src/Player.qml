@@ -188,6 +188,23 @@ FocusScope {
         }
     }
 
+    function checkSeamlessSwitch(playerIndex) {
+        if (playerIndex === activePlayerIndex) {
+            return;
+        }
+        
+        var player = playerIndex === 1 ? qmlAvPlayer1 : qmlAvPlayer2;
+        if (player.status === MediaPlayer.Buffered && (player.hasVideo || player.hasAudio)) {
+            console.log("[Player] Seamless switch: Inactive player " + playerIndex + " is ready with frames. Switching.");
+            player.muted = root.muted; // Restore user's mute settings for the now-active player
+            
+            activePlayerIndex = playerIndex;
+            
+            var otherPlayer = playerIndex === 1 ? qmlAvPlayer2 : qmlAvPlayer1;
+            otherPlayer.source = "";
+        }
+    }
+
     function handlePlayerStatus(playerIndex, status) {
         if (status === MediaPlayer.InvalidMedia) {
             root.mediaError(String(playerIndex === 1 ? qmlAvPlayer1.source : qmlAvPlayer2.source));
@@ -198,14 +215,7 @@ FocusScope {
         }
         
         if (status === MediaPlayer.Buffered) {
-            console.log("[Player] Seamless switch: Inactive player " + playerIndex + " is now Buffered. Switching.");
-            var activePlayer = playerIndex === 1 ? qmlAvPlayer1 : qmlAvPlayer2;
-            activePlayer.muted = root.muted; // Restore user's mute settings for the now-active player
-            
-            activePlayerIndex = playerIndex;
-            
-            var otherPlayer = playerIndex === 1 ? qmlAvPlayer2 : qmlAvPlayer1;
-            otherPlayer.source = "";
+            checkSeamlessSwitch(playerIndex);
         }
         else if (status === MediaPlayer.InvalidMedia) {
             console.log("[Player] Seamless switch failed: Inactive player " + playerIndex + " failed to load. Switching to show error.");
@@ -418,6 +428,14 @@ FocusScope {
                 updateMessageText();
             }
 
+            onHasVideoChanged: {
+                checkSeamlessSwitch(1);
+            }
+
+            onHasAudioChanged: {
+                checkSeamlessSwitch(1);
+            }
+
             onBufferProgressChanged: {
                 updateMessageText();
             }
@@ -440,6 +458,14 @@ FocusScope {
             onStatusChanged: {
                 handlePlayerStatus(2, status);
                 updateMessageText();
+            }
+
+            onHasVideoChanged: {
+                checkSeamlessSwitch(2);
+            }
+
+            onHasAudioChanged: {
+                checkSeamlessSwitch(2);
             }
 
             onBufferProgressChanged: {
