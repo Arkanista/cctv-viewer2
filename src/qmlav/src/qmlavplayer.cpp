@@ -74,10 +74,12 @@ void QmlAVPlayer::stop()
     }
 
     if (m_videoSurface) {
-        if (!m_videoSurface->isActive()) {
-            QVideoSurfaceFormat format(QSize(1, 1), QVideoFrame::Format_RGB32);
-            m_videoSurface->start(format);
+        if (m_videoSurface->isActive()) {
+            m_videoSurface->stop();
         }
+        QVideoSurfaceFormat format(QSize(1, 1), QVideoFrame::Format_RGB32);
+        m_videoSurface->start(format);
+        
         QImage blackImg(1, 1, QImage::Format_RGB32);
         blackImg.fill(Qt::black);
         QVideoFrame blackFrame(blackImg);
@@ -120,6 +122,10 @@ void QmlAVPlayer::frameHandler(const std::shared_ptr<QmlAVFrame> frame)
             QVideoFrame qvf = *vf;
 
             if (m_videoSurface) {
+                if (m_videoSurface->isActive() && m_videoSurface->surfaceFormat().frameSize() != qvf.size()) {
+                    m_videoSurface->stop();
+                }
+
                 if (!m_videoSurface->isActive()) {
                     QVideoSurfaceFormat f(qvf.size(), qvf.pixelFormat(), qvf.handleType());
 
@@ -156,6 +162,9 @@ void QmlAVPlayer::frameHandler(const std::shared_ptr<QmlAVFrame> frame)
                 if (m_videoSurface->isActive()) {
                     if (m_videoSurface->present(qvf)) {
                         m_fpsCounter++;
+                        if (!m_hasVideo) {
+                            setHasVideo(true);
+                        }
                     } else {
                         m_videoSurface->stop();
                     }
