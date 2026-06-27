@@ -57,5 +57,6 @@
         <file>src/CursorShape.qml</file>
         <file>src/CctvButton.qml</file>
         <file>src/SingleInstanceWarning.qml</file>
+        <file>src/AuxiliaryLimitWarning.qml</file>
     </qresource>
 </RCC>

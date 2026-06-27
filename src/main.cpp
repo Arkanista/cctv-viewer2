@@ -228,7 +228,7 @@ int main(int argc, char *argv[])
     if (Context::isAuxiliary()) {
         QString configPath = Context::config() ? Context::config()->fileName() : QSettings().fileName();
         QSettings settings(configPath, QSettings::IniFormat);
-        int limit = settings.value("auxiliaryLimit", 1).toInt();
+        int limit = settings.value("General/auxiliaryLimit", 1).toInt();
         if (limit < 0) limit = 0;
         if (limit > 3) limit = 3;
 
