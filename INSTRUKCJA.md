@@ -1,6 +1,6 @@
-# Instrukcja Obsługi programu CCTV Viewer 2
+# Instrukcja Obsługi programu KVision
 
-**CCTV Viewer 2** to zaawansowana aplikacja przeznaczona do jednoczesnego podglądu strumieni wideo na żywo (RTSP/ONVIF) oraz integracji z rejestratorami NVR/DVR firmy Hikvision (zarówno w trybie Live, jak i odtwarzania archiwum Playback). 
+**KVision** to zaawansowana aplikacja przeznaczona do jednoczesnego podglądu strumieni wideo na żywo (RTSP/ONVIF) oraz integracji z rejestratorami NVR/DVR firmy Hikvision (zarówno w trybie Live, jak i odtwarzania archiwum Playback). 
 
 Program został zoptymalizowany pod kątem stabilności, płynności działania (60 FPS) oraz minimalnego obciążenia zasobów systemowych.
 
@@ -25,9 +25,9 @@ Program został zoptymalizowany pod kątem stabilności, płynności działania 
 ### Instalacja pakietu Arch Linux (Pacman)
 Aby zainstalować program z przygotowanej paczki binarnej, przejdź do katalogu `packaging/arch/` i wykonaj:
 ```bash
-sudo pacman -U cctv-viewer2-2.1.4-1-x86_64.pkg.tar.zst
+sudo pacman -U kvision-2.2.6-3-x86_64.pkg.tar.zst
 ```
-Pakiet automatycznie zainstaluje program, plik aktywacyjny `.desktop` oraz wymagane biblioteki Hikvision SDK w systemowej ścieżce `/usr/lib/cctv-viewer2`.
+Pakiet automatycznie zainstaluje program, plik aktywacyjny `.desktop` oraz wymagane biblioteki Hikvision SDK w systemowej ścieżce `/usr/lib/kvision`.
 
 ### Ręczna kompilacja (ze źródeł)
 Jeśli zamiast gotowej paczki chcesz skompilować program ręcznie (np. na innej dystrybucji Linuksa):
@@ -52,7 +52,7 @@ Jeśli zamiast gotowej paczki chcesz skompilować program ręcznie (np. na innej
 ### Uruchamianie
 Program można uruchomić z menu systemowego lub wpisując w terminalu:
 ```bash
-cctv-viewer2
+kvision
 ```
 
 ---
@@ -141,7 +141,7 @@ Po otwarciu panelu hamburgera (Więcej opcji) pojawia się dedykowany przybornik
 
 Wysuwany z lewej krawędzi ekranu Live View panel służy do monitorowania kondycji komputera oraz obciążenia generowanego przez aplikację:
 * **Monitorowane parametry**:
-  * **CPU / RAM**: Zużycie procesora głównego (w % wszystkich rdzeni) oraz pamięci RAM zużywanej bezpośrednio przez proces `cctv-viewer2` i powiązane z nim podprocesy pobierające.
+  * **CPU / RAM**: Zużycie procesora głównego (w % wszystkich rdzeni) oraz pamięci RAM zużywanej bezpośrednio przez proces `kvision` i powiązane z nim podprocesy pobierające.
   * **GPU / VRAM**: Zużycie rdzenia karty graficznej (w %) oraz ilość pamięci graficznej VRAM zajmowanej przez renderowanie i sprzętowe dekodowanie (obsługuje pełny wykaz procesów graficznych za pomocą parsera XML z `nvidia-smi`).
   * **SIEĆ (Network)**: Rzeczywista prędkość transferu pobieranego przez aplikację ze wszystkich aktywnych odtwarzaczy na żywo, odtwarzaczy archiwum oraz procesów pobierania nagrań.
 * **Wielowątkowość (Brak zacięć)**: Zbieranie danych o procesach i karcie GPU odbywa się na osobnym wątku systemowym (`StatsWorker`). Zapobiega to jakimkolwiek mikro-przycięciom w wyświetlaniu wideo (brak gubienia klatek).

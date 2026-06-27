@@ -1,4 +1,4 @@
-# CCTV Viewer 2
+# KVision
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
@@ -15,9 +15,9 @@
 
 ---
 
-## About CCTV Viewer 2
+## About KVision
 
-**CCTV Viewer 2** is a high-performance desktop application designed for simultaneous viewing of live video feeds (RTSP/ONVIF) and deep integration with Hikvision NVR/DVR video recorders (both Live view and synchronized Playback archives).
+**KVision** is a high-performance desktop application designed for simultaneous viewing of live video feeds (RTSP/ONVIF) and deep integration with Hikvision NVR/DVR video recorders (both Live view and synchronized Playback archives).
 
 It is designed for Linux users who need a robust, lightweight, and smooth alternative to bloated proprietary software.
 
@@ -70,7 +70,7 @@ It is designed for Linux users who need a robust, lightweight, and smooth altern
 ### 📊 Multi-Threaded System Statistics Panel
 * **Slide-Out Overlay**: Hover and slide the left edge of the screen to reveal a diagnostic monitoring overlay.
 * **Metrics Tracked**:
-  * **CPU & RAM**: Total system CPU load (%) and the memory consumed by `cctv-viewer2` and its download subprocesses.
+  * **CPU & RAM**: Total system CPU load (%) and the memory consumed by `kvision` and its download subprocesses.
   * **GPU & VRAM**: Core graphics card utilization and video memory usage (real-time XML parsing of `nvidia-smi` data, filtering only relevant process allocations).
   * **Network Bandwidth**: Live download speed aggregated from all active video players and download subprocesses.
 * **Pin Feature**: Click the pin icon to keep the stats panel locked open, or let it slide away automatically.
