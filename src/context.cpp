@@ -185,6 +185,7 @@ void Context::startAuxiliaryProcess()
 
     m_childIds[process] = nextId;
     m_childProcesses.append(process);
+    process->setProcessChannelMode(QProcess::ForwardedChannels);
     process->start(exePath, arguments);
 }
 

@@ -228,19 +228,28 @@ int main(int argc, char *argv[])
     if (Context::isAuxiliary()) {
         QString configPath = Context::config() ? Context::config()->fileName() : QSettings().fileName();
         QSettings settings(configPath, QSettings::IniFormat);
-        int limit = settings.value("General/auxiliaryLimit", 1).toInt();
+        int limit = settings.value("auxiliaryLimit", 1).toInt();
         if (limit < 0) limit = 0;
         if (limit > 3) limit = 3;
 
         int activeAuxCount = countAuxiliaryProcesses();
+        fprintf(stderr, "[Limit Check] Auxiliary process starting (PID: %lld). Active aux windows: %d, Limit: %d\n", 
+                (long long)getpid(), activeAuxCount, limit);
+        fflush(stderr);
+
         if (activeAuxCount >= limit) {
+            fprintf(stderr, "[Limit Check] Limit reached! Loading warning popup...\n");
+            fflush(stderr);
             QQmlApplicationEngine engine;
             Context::setEngine(&engine);
             engine.addImportPath(":/src/imports");
             const QUrl url(QStringLiteral("qrc:/src/AuxiliaryLimitWarning.qml"));
             QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app, [url](QObject *obj, const QUrl &objUrl) {
-                if (!obj && url == objUrl)
+                if (!obj && url == objUrl) {
+                    fprintf(stderr, "[Limit Check] Failed to load AuxiliaryLimitWarning.qml from resources!\n");
+                    fflush(stderr);
                     QCoreApplication::exit(-1);
+                }
             }, Qt::QueuedConnection);
             engine.load(url);
             return app.exec();
