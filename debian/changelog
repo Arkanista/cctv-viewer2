@@ -1,3 +1,11 @@
+cctv-viewer (2.2.6-3) jammy; urgency=medium
+
+  * Resolved auxiliary window limit check warning popup failing to render by adding the missing QML resource to the QRC bundle.
+  * Corrected QSettings configuration lookup path for auxiliary limit to look in the default General group.
+  * Fixed application icon under Wayland compositor shells by setting the desktopFileName property on the QApplication instance and installing application icons into standard hicolor icon theme directories.
+
+ -- arkanis <arkanis@cctv-viewer2.org>  Sat, 27 Jun 2026 12:28:00 +0200
+
 cctv-viewer (2.2.6-2) jammy; urgency=medium
 
   * Implemented interactive validation on 'Pobierz' (Download) button click in the download dialog: triggers sequential format and chronological checks, highlights the first invalid field, and forces its red error tooltip to open.

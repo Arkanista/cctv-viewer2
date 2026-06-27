@@ -2,7 +2,7 @@
 
 pkgname=kvision
 pkgver=2.2.6
-pkgrel=2
+pkgrel=3
 pkgdesc="KVision - viewer and mounter video streams with Hikvision SDK integration"
 arch=('x86_64')
 url="https://github.com/arkanista/kvision"
