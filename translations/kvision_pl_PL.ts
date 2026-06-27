@@ -1,433 +1,451 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en_US">
+<TS version="2.1" language="pl_PL">
 <context>
     <name>AuxiliaryLimitWarning</name>
     <message>
         <source>CCTV Viewer 2</source>
-        <translation>CCTV Viewer 2</translation>
+        <translation type="vanished">CCTV Viewer 2</translation>
     </message>
     <message>
         <source>Nie możesz włączyć więcej okien pomocniczych</source>
-        <translation>You cannot open more auxiliary windows</translation>
+        <translation>Nie możesz włączyć więcej okien pomocniczych</translation>
     </message>
     <message>
         <source>ZAMKNIJ</source>
-        <translation>CLOSE</translation>
+        <translation>ZAMKNIJ</translation>
+    </message>
+    <message>
+        <source>KVision</source>
+        <translation>KVision</translation>
     </message>
 </context>
 <context>
     <name>AuxiliaryWindow</name>
     <message>
         <source>CCTV Viewer - Okno pomocnicze</source>
-        <translation>CCTV Viewer - Auxiliary Window</translation>
+        <translation type="vanished">CCTV Viewer - Okno pomocnicze</translation>
     </message>
     <message>
         <source>Wybierz widok z menu na górnym pasku, aby rozpocząć wyświetlanie kamer.</source>
-        <translation>Select a view from the top menu to start displaying cameras.</translation>
+        <translation>Wybierz widok z menu na górnym pasku, aby rozpocząć wyświetlanie kamer.</translation>
     </message>
     <message>
         <source>Siatka widoku:</source>
-        <translation>Grid view:</translation>
+        <translation>Siatka widoku:</translation>
     </message>
     <message>
         <source>Toggle Full Screen</source>
-        <translation>Toggle Full Screen</translation>
+        <translation>Przełącz pełny ekran</translation>
     </message>
     <message>
         <source>🔒 Blokuj zmianę</source>
-        <translation>🔒 Lock layout change</translation>
+        <translation>🔒 Blokuj zmianę</translation>
     </message>
     <message>
         <source>Więcej opcji</source>
-        <translation>More options</translation>
+        <translation>Więcej opcji</translation>
     </message>
     <message>
         <source>Wybór widoku:</source>
-        <translation>View selection:</translation>
+        <translation>Wybór widoku:</translation>
     </message>
     <message>
         <source>Zamknij program</source>
-        <translation>Close program</translation>
+        <translation>Zamknij program</translation>
     </message>
     <message>
         <source>Czy na pewno zamknąć program?</source>
-        <translation>Are you sure you want to close the program?</translation>
+        <translation>Czy na pewno zamknąć program?</translation>
     </message>
     <message>
         <source>TAK</source>
-        <translation>YES</translation>
+        <translation>TAK</translation>
     </message>
     <message>
         <source>NIE</source>
-        <translation>NO</translation>
+        <translation>NIE</translation>
     </message>
     <message>
         <source>Nie wybrano widoku, wybierz widok</source>
-        <translation>No view selected, select a view</translation>
+        <translation>Nie wybrano widoku, wybierz widok</translation>
     </message>
     <message>
         <source>Opcje i ustawienia panelu bocznego</source>
-        <translation>Options and settings of the sidebar panel</translation>
+        <translation>Opcje i ustawienia panelu bocznego</translation>
     </message>
     <message>
         <source>Otwórz nowe okno pomocnicze</source>
-        <translation>Open new auxiliary window</translation>
+        <translation>Otwórz nowe okno pomocnicze</translation>
     </message>
     <message>
         <source>Instrukcja obsługi programu</source>
-        <translation>Program user manual</translation>
+        <translation>Instrukcja obsługi programu</translation>
+    </message>
+    <message>
+        <source>KVision - Okno pomocnicze</source>
+        <translation>KVision - Okno pomocnicze</translation>
     </message>
 </context>
 <context>
     <name>ConfirmDialog</name>
     <message>
         <source>Yes</source>
-        <translation>Yes</translation>
+        <translation>Tak</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>No</translation>
+        <translation>Nie</translation>
     </message>
 </context>
 <context>
     <name>Context</name>
     <message>
         <source>Path to the config file.</source>
-        <translation>Path to the config file.</translation>
+        <translation>Ścieżka do pliku konfiguracyjnego.</translation>
     </message>
     <message>
         <source>Index of the current preset.</source>
-        <translation>Index of the current preset.</translation>
-    </message>
-    <message>
-        <source>CCTV Viewer - viewer and mounter video streams.</source>
-        <translation>CCTV Viewer - viewer and mounter video streams.</translation>
+        <translation>Indeks bieżącego układu.</translation>
     </message>
     <message>
         <source>Force full-screen mode.</source>
-        <translation>Force full-screen mode.</translation>
+        <translation>Wymuś tryb pełnoekranowy.</translation>
     </message>
     <message>
         <source>Kiosk mode functionality.</source>
-        <translation>Kiosk mode functionality.</translation>
+        <translation>Funkcjonalność trybu kiosku.</translation>
     </message>
     <message>
         <source>Log level [%1...%2].</source>
-        <translation>Log level [%1...%2].</translation>
+        <translation>Poziom logowania [%1...%2].</translation>
+    </message>
+    <message>
+        <source>CCTV Viewer - viewer and mounter video streams.</source>
+        <translation type="vanished">CCTV Viewer - przeglądarka i instalator strumieni wideo.</translation>
     </message>
     <message>
         <source>Start as an auxiliary window.</source>
-        <translation>Start as an auxiliary window.</translation>
+        <translation>Uruchom jako okno pomocnicze.</translation>
     </message>
     <message>
         <source>Pokaż szczegółowe logi w konsoli (verbose logging).</source>
-        <translation>Show verbose logs in console (verbose logging).</translation>
+        <translation>Pokaż szczegółowe logi w konsoli (verbose logging).</translation>
     </message>
     <message>
         <source>ID of the auxiliary window.</source>
-        <translation>ID of the auxiliary window.</translation>
+        <translation>ID okna pomocniczego.</translation>
     </message>
     <message>
         <source>Włącz śledzenie obiektów w logach dla debugowania wycieków pamięci.</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącz śledzenie obiektów w logach dla debugowania wycieków pamięci.</translation>
+    </message>
+    <message>
+        <source>KVision - viewer and mounter video streams.</source>
+        <translation>KVision - viewer and mounter video streams.</translation>
     </message>
 </context>
 <context>
     <name>DownloadDialog</name>
     <message>
         <source>Styczeń</source>
-        <translation>January</translation>
+        <translation>Styczeń</translation>
     </message>
     <message>
         <source>Luty</source>
-        <translation>February</translation>
+        <translation>Luty</translation>
     </message>
     <message>
         <source>Marzec</source>
-        <translation>March</translation>
+        <translation>Marzec</translation>
     </message>
     <message>
         <source>Kwiecień</source>
-        <translation>April</translation>
+        <translation>Kwiecień</translation>
     </message>
     <message>
         <source>Maj</source>
-        <translation>May</translation>
+        <translation>Maj</translation>
     </message>
     <message>
         <source>Czerwiec</source>
-        <translation>June</translation>
+        <translation>Czerwiec</translation>
     </message>
     <message>
         <source>Lipiec</source>
-        <translation>July</translation>
+        <translation>Lipiec</translation>
     </message>
     <message>
         <source>Sierpień</source>
-        <translation>August</translation>
+        <translation>Sierpień</translation>
     </message>
     <message>
         <source>Wrzesień</source>
-        <translation>September</translation>
+        <translation>Wrzesień</translation>
     </message>
     <message>
         <source>Październik</source>
-        <translation>October</translation>
+        <translation>Październik</translation>
     </message>
     <message>
         <source>Listopad</source>
-        <translation>November</translation>
+        <translation>Listopad</translation>
     </message>
     <message>
         <source>Grudzień</source>
-        <translation>December</translation>
+        <translation>Grudzień</translation>
     </message>
     <message>
         <source>Pobieranie nagrań</source>
-        <translation>Download recordings</translation>
+        <translation>Pobieranie nagrań</translation>
     </message>
     <message>
         <source>Od:</source>
-        <translation>From:</translation>
+        <translation>Od:</translation>
     </message>
     <message>
         <source>Do:</source>
-        <translation>To:</translation>
+        <translation>Do:</translation>
     </message>
     <message>
         <source>Anuluj</source>
-        <translation>Cancel</translation>
+        <translation>Anuluj</translation>
     </message>
     <message>
         <source>Zatrzymaj</source>
-        <translation>Stop</translation>
+        <translation>Zatrzymaj</translation>
     </message>
     <message>
         <source>Pobierz</source>
-        <translation>Download</translation>
+        <translation>Pobierz</translation>
     </message>
     <message>
         <source>Całkowity:</source>
-        <translation>Total:</translation>
+        <translation>Całkowity:</translation>
     </message>
     <message>
         <source>Pobieranie...</source>
-        <translation>Downloading...</translation>
+        <translation>Pobieranie...</translation>
     </message>
     <message>
         <source>Błąd:</source>
-        <translation>Error:</translation>
+        <translation>Błąd:</translation>
     </message>
     <message>
         <source>Inicjalizacja...</source>
-        <translation>Initializing...</translation>
+        <translation>Inicjalizacja...</translation>
     </message>
     <message>
         <source>Zatrzymano</source>
-        <translation>Stopped</translation>
+        <translation>Zatrzymano</translation>
     </message>
     <message>
         <source>Poprzedni miesiąc</source>
-        <translation>Previous month</translation>
+        <translation>Poprzedni miesiąc</translation>
     </message>
     <message>
         <source>Następny miesiąc</source>
-        <translation>Next month</translation>
+        <translation>Następny miesiąc</translation>
     </message>
     <message>
         <source>otwórz folder zapisu</source>
-        <translation>open save folder</translation>
+        <translation>otwórz folder zapisu</translation>
     </message>
     <message>
         <source>Wybierz czas</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz czas</translation>
     </message>
     <message>
         <source>Godz</source>
-        <translation type="unfinished"></translation>
+        <translation>Godz</translation>
     </message>
     <message>
         <source>Min</source>
-        <translation type="unfinished"></translation>
+        <translation>Min</translation>
     </message>
     <message>
         <source>Sek</source>
-        <translation type="unfinished"></translation>
+        <translation>Sek</translation>
     </message>
     <message>
         <source>Zatwierdź</source>
-        <translation type="unfinished"></translation>
+        <translation>Zatwierdź</translation>
     </message>
     <message>
         <source>Błędny format daty! Wymagany format: DD.MM.RRRR (np. 26.06.2026)</source>
-        <translation>Incorrect date format! Required format: DD.MM.YYYY (e.g. 26.06.2026)</translation>
+        <translation>Błędny format daty! Wymagany format: DD.MM.RRRR (np. 26.06.2026)</translation>
     </message>
     <message>
         <source>Błędny format czasu! Wymagany format: HH.MM.SS lub HH:MM:SS (np. 12:30:00 lub 12.30.00)</source>
-        <translation>Incorrect time format! Required format: HH:MM:SS or HH.MM.SS (e.g. 12:30:00 or 12.30.00)</translation>
+        <translation>Błędny format czasu! Wymagany format: HH.MM.SS lub HH:MM:SS (np. 12:30:00 lub 12.30.00)</translation>
     </message>
     <message>
         <source>Data i czas końcowy muszą być późniejsze niż początkowe!</source>
-        <translation>End date and time must be later than start date and time!</translation>
+        <translation>Data i czas końcowy muszą być późniejsze niż początkowe!</translation>
     </message>
 </context>
 <context>
     <name>HikvisionDownloader</name>
     <message>
         <source>Pobieranie już trwa.</source>
-        <translation>Download is already in progress.</translation>
+        <translation>Pobieranie już trwa.</translation>
     </message>
     <message>
         <source>Błąd logowania do urządzenia: %1</source>
-        <translation>Error logging in to device: %1</translation>
+        <translation>Błąd logowania do urządzenia: %1</translation>
     </message>
     <message>
         <source>Brak nagrań w wybranym przedziale czasowym dla tej kamery.</source>
-        <translation>No recordings in the selected time range for this camera.</translation>
+        <translation>Brak nagrań w wybranym przedziale czasowym dla tej kamery.</translation>
     </message>
     <message>
         <source>Pobrano i przekonwertowano %1 z %2 plików.</source>
-        <translation>Downloaded and converted %1 of %2 files.</translation>
+        <translation>Pobrano i przekonwertowano %1 z %2 plików.</translation>
     </message>
     <message>
         <source>Błąd inicjalizacji pobierania części %1: %2</source>
-        <translation>Error initializing download of part %1: %2</translation>
+        <translation>Błąd inicjalizacji pobierania części %1: %2</translation>
     </message>
     <message>
         <source>Błąd startu pobierania części %1: %2</source>
-        <translation>Error starting download of part %1: %2</translation>
+        <translation>Błąd startu pobierania części %1: %2</translation>
     </message>
     <message>
         <source>Pobieranie części %1 z %2...</source>
-        <translation>Downloading part %1 of %2...</translation>
+        <translation>Pobieranie części %1 z %2...</translation>
     </message>
     <message>
         <source>Zatrzymano</source>
-        <translation>Stopped</translation>
+        <translation>Zatrzymano</translation>
     </message>
     <message>
         <source>Pobieranie przerwane przez użytkownika.</source>
-        <translation>Download interrupted by user.</translation>
+        <translation>Pobieranie przerwane przez użytkownika.</translation>
     </message>
     <message>
         <source>Konwertowanie części %1 z %2...</source>
-        <translation>Converting part %1 of %2...</translation>
+        <translation>Konwertowanie części %1 z %2...</translation>
     </message>
     <message>
         <source>Błąd w trakcie pobierania części %1.</source>
-        <translation>Error downloading part %1.</translation>
+        <translation>Błąd w trakcie pobierania części %1.</translation>
     </message>
     <message>
         <source>Pobrano i przekonwertowano %1 z %2 części...</source>
-        <translation>Downloaded and converted %1 of %2 parts...</translation>
+        <translation>Pobrano i przekonwertowano %1 z %2 części...</translation>
     </message>
     <message>
         <source>Błąd wewnętrzny FFmpeg</source>
-        <translation>Internal FFmpeg error</translation>
+        <translation>Błąd wewnętrzny FFmpeg</translation>
     </message>
     <message>
         <source>Konwersja części %1 na MP4 nie powiodła się: %2</source>
-        <translation>Conversion of part %1 to MP4 failed: %2</translation>
+        <translation>Konwersja części %1 na MP4 nie powiodła się: %2</translation>
     </message>
     <message>
         <source>Inicjalizacja wyszukiwania plików...</source>
-        <translation>Initializing file search...</translation>
+        <translation>Inicjalizacja wyszukiwania plików...</translation>
     </message>
     <message>
         <source>Podana ścieżka do zapisu jest nieprawidłowa lub brak do niej dostępu:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Podana ścieżka do zapisu jest nieprawidłowa lub brak do niej dostępu:
+%1</translation>
     </message>
     <message>
         <source>Brak uprawnień do zapisu w katalogu:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak uprawnień do zapisu w katalogu:
+%1</translation>
     </message>
 </context>
 <context>
     <name>HikvisionManager</name>
     <message>
         <source>Login failed or no cameras discovered.</source>
-        <translation>Login failed or no cameras discovered.</translation>
+        <translation>Logowanie nie powiodło się lub nie wykryto kamer.</translation>
     </message>
 </context>
 <context>
     <name>InstructionsWindow</name>
     <message>
         <source>CCTV Viewer 2 - Instrukcja Obsługi / Instructions</source>
-        <translation>CCTV Viewer 2 - User Manual / Instructions</translation>
+        <translation type="vanished">CCTV Viewer 2 - Instrukcja Obsługi / Instructions</translation>
     </message>
     <message>
         <source>qrc:/INSTRUKCJA.md</source>
-        <translation>qrc:/INSTRUCTIONS.md</translation>
+        <translation>qrc:/INSTRUKCJA.md</translation>
     </message>
     <message>
         <source>Błąd ładowania instrukcji.</source>
-        <translation>Error loading instructions.</translation>
+        <translation>Błąd ładowania instrukcji.</translation>
+    </message>
+    <message>
+        <source>KVision - Instrukcja Obsługi / Instructions</source>
+        <translation>KVision - Instrukcja Obsługi / Instructions</translation>
     </message>
 </context>
 <context>
     <name>NvrCamerasWindow</name>
     <message>
         <source>Cameras on %1</source>
-        <translation>Cameras on %1</translation>
+        <translation>Kamery w %1</translation>
     </message>
     <message>
         <source>IP: %1 | Port: %2 | %3 channels</source>
-        <translation>IP: %1 | Port: %2 | %3 channels</translation>
+        <translation>IP: %1 | Port: %2 | kanały: %3</translation>
     </message>
     <message>
         <source>Camera %1</source>
-        <translation>Camera %1</translation>
+        <translation>Kamera %1</translation>
     </message>
     <message>
         <source>Assigned camera %1 Ch. %2 to viewport %3</source>
-        <translation>Assigned camera %1 Ch. %2 to viewport %3</translation>
+        <translation>Przypisano kamerę %1 kan. %2 do viewportu %3</translation>
     </message>
     <message>
         <source>Change Camera Name</source>
-        <translation>Change Camera Name</translation>
+        <translation>Zmień nazwę kamery</translation>
     </message>
     <message>
         <source>Channel: %1</source>
-        <translation>Channel: %1</translation>
+        <translation>Kanał: %1</translation>
     </message>
     <message>
         <source>Original name: %1</source>
-        <translation>Original name: %1</translation>
+        <translation>Oryginalna nazwa: %1</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>None</translation>
+        <translation>Brak</translation>
     </message>
     <message>
         <source>Enter new camera name...</source>
-        <translation>Enter new camera name...</translation>
+        <translation>Wprowadź nową nazwę kamery...</translation>
     </message>
     <message>
         <source>Reset</source>
-        <translation>Reset</translation>
+        <translation>Resetuj</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancel</translation>
+        <translation>Anuluj</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Save</translation>
+        <translation>Zapisz</translation>
     </message>
     <message>
         <source>Przypisz do aktywnego podglądu</source>
-        <translation>Assign to active viewport</translation>
+        <translation>Przypisz do aktywnego podglądu</translation>
     </message>
     <message>
         <source>Zmień nazwę kamery</source>
-        <translation>Rename camera</translation>
+        <translation>Zmień nazwę kamery</translation>
     </message>
     <message>
         <source>Odśwież miniaturę kamery</source>
-        <translation>Refresh camera thumbnail</translation>
+        <translation>Odśwież miniaturę kamery</translation>
     </message>
     <message>
         <source>Cameras</source>
@@ -435,22 +453,22 @@
     </message>
     <message>
         <source>Generuj miniatury dla wszystkich kamer</source>
-        <translation>Generate thumbnails for all cameras</translation>
+        <translation>Generuj miniatury dla wszystkich kamer</translation>
     </message>
 </context>
 <context>
     <name>NvrSettingsPanel</name>
     <message>
         <source>Add Hikvision Recorder</source>
-        <translation>Add Hikvision Recorder</translation>
+        <translation>Dodaj rejestrator Hikvision</translation>
     </message>
     <message>
         <source>Recorder Name (optional)</source>
-        <translation>Recorder Name (optional)</translation>
+        <translation>Nazwa rejestratora (opcjonalnie)</translation>
     </message>
     <message>
         <source>IP Address</source>
-        <translation>IP Address</translation>
+        <translation>Adres IP</translation>
     </message>
     <message>
         <source>Port (8000)</source>
@@ -458,138 +476,138 @@
     </message>
     <message>
         <source>Username</source>
-        <translation>Username</translation>
+        <translation>Nazwa użytkownika</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation>Password</translation>
+        <translation>Hasło</translation>
     </message>
     <message>
         <source>Connect &amp; Discover</source>
-        <translation>Connect &amp; Discover</translation>
+        <translation>Połącz i wykryj</translation>
     </message>
     <message>
         <source>Save &amp; Update</source>
-        <translation>Save &amp; Update</translation>
+        <translation>Zapisz i zaktualizuj</translation>
     </message>
     <message>
         <source>Error: IP and Password are required.</source>
-        <translation>Error: IP and Password are required.</translation>
+        <translation>Błąd: Adres IP i hasło są wymagane.</translation>
     </message>
     <message>
         <source>Connecting to NVR and discovering channels...</source>
-        <translation>Connecting to NVR and discovering channels...</translation>
+        <translation>Łączenie z rejestratorem i wykrywanie kanałów...</translation>
     </message>
     <message>
         <source>Login failed or no cameras discovered.</source>
-        <translation>Login failed or no cameras discovered.</translation>
+        <translation>Logowanie nie powiodło się lub nie wykryto kamer.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancel</translation>
+        <translation>Anuluj</translation>
     </message>
     <message>
         <source>Connected Recorders</source>
-        <translation>Connected Recorders</translation>
+        <translation>Połączone rejestratory</translation>
     </message>
     <message>
         <source>%1 cameras connected</source>
-        <translation>%1 cameras connected</translation>
+        <translation>Połączone kamery: %1</translation>
     </message>
     <message>
         <source>LOGGED IN</source>
-        <translation>LOGGED IN</translation>
+        <translation>ZALOGOWANO</translation>
     </message>
     <message>
         <source>NOT LOGGED IN</source>
-        <translation>NOT LOGGED IN</translation>
+        <translation>NIEZALOGOWANO</translation>
     </message>
     <message>
         <source>Green: Active SDK session (PTZ/Archive). Red: No active session (RTSP stream works independently).</source>
-        <translation>Green: Active SDK session (PTZ/Archive). Red: No active session (RTSP stream works independently).</translation>
+        <translation>Zielony: Aktywna sesja SDK (PTZ/Archiwum). Czerwony: Brak aktywnej sesji (obraz RTSP działa niezależnie).</translation>
     </message>
     <message>
         <source>Confirm NVR Deletion</source>
-        <translation>Confirm NVR Deletion</translation>
+        <translation>Potwierdź usunięcie rejestratora</translation>
     </message>
     <message>
         <source>Are you sure you want to delete this NVR?</source>
-        <translation>Are you sure you want to delete this NVR?</translation>
+        <translation>Czy na pewno chcesz usunąć ten rejestrator?</translation>
     </message>
     <message>
         <source>Warning!</source>
-        <translation>Warning!</translation>
+        <translation>Ostrzeżenie!</translation>
     </message>
     <message>
         <source>Are you absolutely sure and aware of what you are doing?</source>
-        <translation>Are you absolutely sure and aware of what you are doing?</translation>
+        <translation>Czy na pewno jesteś świadom tego, co robisz?</translation>
     </message>
     <message>
         <source>Pokaż listę kamer rejestratora</source>
-        <translation>Show NVR cameras list</translation>
+        <translation>Pokaż listę kamer rejestratora</translation>
     </message>
     <message>
         <source>Edytuj dane połączenia rejestratora</source>
-        <translation>Edit recorder connection details</translation>
+        <translation>Edytuj dane połączenia rejestratora</translation>
     </message>
     <message>
         <source>Usuń rejestrator z listy</source>
-        <translation>Delete recorder from list</translation>
+        <translation>Usuń rejestrator z listy</translation>
     </message>
     <message>
         <source>Discovering...</source>
-        <translation>Discovering...</translation>
+        <translation>Wyszukiwanie...</translation>
     </message>
 </context>
 <context>
     <name>PlaybackWindow</name>
     <message>
-        <source>Kamery</source>
-        <translation>Cameras</translation>
-    </message>
-    <message>
-        <source>Wyłącz tryb 1:1</source>
-        <translation>Disable 1:1 mode</translation>
-    </message>
-    <message>
-        <source>Włącz tryb 1:1 (piksel w piksel)</source>
-        <translation>Enable 1:1 mode (pixel-to-pixel)</translation>
+        <source>Dzisiaj</source>
+        <translation>Dzisiaj</translation>
     </message>
     <message>
         <source>Reset Zoom</source>
-        <translation>Reset Zoom</translation>
+        <translation>Resetuj zbliżenie</translation>
     </message>
     <message>
         <source>Zaznacz obszar żeby przybliżyć</source>
-        <translation>Select area to zoom</translation>
+        <translation>Zaznacz obszar żeby przybliżyć</translation>
     </message>
     <message>
         <source>Wybierz obszar do zbliżenia</source>
-        <translation>Select area to zoom</translation>
-    </message>
-    <message>
-        <source>Pusty viewport</source>
-        <translation>Empty viewport</translation>
-    </message>
-    <message>
-        <source>Zaznacz to okno, wybierz kamerę z listy i kliknij + aby ją dodać</source>
-        <translation>Select this window, choose a camera from the list and click + to add it</translation>
-    </message>
-    <message>
-        <source>Dzisiaj</source>
-        <translation>Today</translation>
+        <translation>Wybierz obszar do zbliżenia</translation>
     </message>
     <message>
         <source>Trwa ładowanie informacji o dostępności nagrania...</source>
-        <translation>Loading recording availability info...</translation>
+        <translation>Trwa ładowanie informacji o dostępności nagrania...</translation>
+    </message>
+    <message>
+        <source>Kamery</source>
+        <translation>Kamery</translation>
+    </message>
+    <message>
+        <source>Wyłącz tryb 1:1</source>
+        <translation>Wyłącz tryb 1:1</translation>
+    </message>
+    <message>
+        <source>Włącz tryb 1:1 (piksel w piksel)</source>
+        <translation>Włącz tryb 1:1 (piksel w piksel)</translation>
+    </message>
+    <message>
+        <source>Pusty viewport</source>
+        <translation>Pusty viewport</translation>
+    </message>
+    <message>
+        <source>Zaznacz to okno, wybierz kamerę z listy i kliknij + aby ją dodać</source>
+        <translation>Zaznacz to okno, wybierz kamerę z listy i kliknij + aby ją dodać</translation>
     </message>
     <message>
         <source>Pobieranie dostępności...</source>
-        <translation>Fetching availability...</translation>
+        <translation>Pobieranie dostępności...</translation>
     </message>
     <message>
         <source>Wybierz datę archiwalną</source>
-        <translation>Select archive date</translation>
+        <translation>Wybierz datę archiwalną</translation>
     </message>
     <message>
         <source>Archive - </source>
@@ -673,285 +691,285 @@
     </message>
     <message>
         <source>Prędkość:</source>
-        <translation>Speed:</translation>
+        <translation>Prędkość:</translation>
     </message>
     <message>
         <source>Pobierz</source>
-        <translation>Download</translation>
+        <translation>Pobierz</translation>
     </message>
     <message>
         <source>Wykonaj stopklatkę w pełnej rozdzielczości</source>
-        <translation>Take snapshot in full resolution</translation>
+        <translation>Wykonaj stopklatkę w pełnej rozdzielczości</translation>
     </message>
     <message>
         <source>Szukaj kamery...</source>
-        <translation>Search camera...</translation>
+        <translation>Szukaj kamery...</translation>
     </message>
     <message>
         <source>Wyczyść wyszukiwanie</source>
-        <translation>Clear search</translation>
+        <translation>Wyczyść wyszukiwanie</translation>
     </message>
     <message>
         <source>Zamknij okno</source>
-        <translation>Close window</translation>
+        <translation>Zamknij okno</translation>
     </message>
     <message>
         <source>Odepnij pasek górny</source>
-        <translation>Unpin top bar</translation>
+        <translation>Odepnij pasek górny</translation>
     </message>
     <message>
         <source>Przypnij pasek górny</source>
-        <translation>Pin top bar</translation>
+        <translation>Przypnij pasek górny</translation>
     </message>
     <message>
         <source>Poprzedni dzień</source>
-        <translation>Previous day</translation>
+        <translation>Poprzedni dzień</translation>
     </message>
     <message>
         <source>Wybierz datę z kalendarza</source>
-        <translation>Select date from calendar</translation>
+        <translation>Wybierz datę z kalendarza</translation>
     </message>
     <message>
         <source>Następny dzień</source>
-        <translation>Next day</translation>
+        <translation>Następny dzień</translation>
     </message>
     <message>
         <source>Przejdź do dzisiejszego dnia</source>
-        <translation>Go to today</translation>
+        <translation>Przejdź do dzisiejszego dnia</translation>
     </message>
     <message>
         <source>Odśwież nagrania</source>
-        <translation>Refresh recordings</translation>
+        <translation>Odśwież nagrania</translation>
     </message>
     <message>
         <source>Powiększ do ostatniej 1 godziny</source>
-        <translation>Zoom to last 1 hour</translation>
+        <translation>Powiększ do ostatniej 1 godziny</translation>
     </message>
     <message>
         <source>Powiększ do ostatnich 8 godzin</source>
-        <translation>Zoom to last 8 hours</translation>
+        <translation>Powiększ do ostatnich 8 godzin</translation>
     </message>
     <message>
         <source>Pokaż cały dzień na osi czasu</source>
-        <translation>Show full day on timeline</translation>
+        <translation>Pokaż cały dzień na osi czasu</translation>
     </message>
     <message>
         <source>Wycentruj oś czasu na aktualnym punkcie odtwarzania</source>
-        <translation>Center timeline on current playback time</translation>
+        <translation>Wycentruj oś czasu na aktualnym punkcie odtwarzania</translation>
     </message>
     <message>
         <source>Ustaw prędkość odtwarzania na %1x</source>
-        <translation>Set playback speed to %1x</translation>
+        <translation>Ustaw prędkość odtwarzania na %1x</translation>
     </message>
     <message>
         <source>Pobierz wycinki wideo z zaznaczonego przedziału czasu</source>
-        <translation>Download video clips from selected time range</translation>
+        <translation>Pobierz wycinki wideo z zaznaczonego przedziału czasu</translation>
     </message>
     <message>
         <source>Cofnij o 60 sekund</source>
-        <translation>Rewind 60 seconds</translation>
+        <translation>Cofnij o 60 sekund</translation>
     </message>
     <message>
         <source>Cofnij o 45 sekund</source>
-        <translation>Rewind 45 seconds</translation>
+        <translation>Cofnij o 45 sekund</translation>
     </message>
     <message>
         <source>Cofnij o 15 sekund</source>
-        <translation>Rewind 15 seconds</translation>
+        <translation>Cofnij o 15 sekund</translation>
     </message>
     <message>
         <source>Wstrzymaj odtwarzanie</source>
-        <translation>Pause playback</translation>
+        <translation>Wstrzymaj odtwarzanie</translation>
     </message>
     <message>
         <source>Rozpocznij odtwarzanie</source>
-        <translation>Start playback</translation>
+        <translation>Rozpocznij odtwarzanie</translation>
     </message>
     <message>
         <source>Przewiń o 15 sekund</source>
-        <translation>Forward 15 seconds</translation>
+        <translation>Przewiń o 15 sekund</translation>
     </message>
     <message>
         <source>Przewiń o 45 sekund</source>
-        <translation>Forward 45 seconds</translation>
+        <translation>Przewiń o 45 sekund</translation>
     </message>
     <message>
         <source>Przewiń o 60 sekund</source>
-        <translation>Forward 60 seconds</translation>
+        <translation>Przewiń o 60 sekund</translation>
     </message>
     <message>
         <source>Odepnij pasek dolny</source>
-        <translation>Unpin bottom bar</translation>
+        <translation>Odepnij pasek dolny</translation>
     </message>
     <message>
         <source>Przypnij pasek dolny</source>
-        <translation>Pin bottom bar</translation>
+        <translation>Przypnij pasek dolny</translation>
     </message>
     <message>
         <source>Poprzedni miesiąc</source>
-        <translation>Previous month</translation>
+        <translation>Poprzedni miesiąc</translation>
     </message>
     <message>
         <source>Następny miesiąc</source>
-        <translation>Next month</translation>
+        <translation>Następny miesiąc</translation>
     </message>
     <message>
         <source>Przywróć widok siatki</source>
-        <translation>Restore grid view</translation>
+        <translation>Przywróć widok siatki</translation>
     </message>
     <message>
         <source>Pokaż na pełnym ekranie</source>
-        <translation>Show in full screen</translation>
+        <translation>Pokaż na pełnym ekranie</translation>
     </message>
     <message>
         <source>Usuń kamerę z widoku</source>
-        <translation>Remove camera from view</translation>
+        <translation>Usuń kamerę z widoku</translation>
     </message>
     <message>
         <source>Wyjdź z pełnego ekranu</source>
-        <translation>Exit full screen</translation>
+        <translation>Wyjdź z pełnego ekranu</translation>
     </message>
     <message>
         <source>Pełny ekran okna</source>
-        <translation>Window full screen</translation>
+        <translation>Pełny ekran okna</translation>
     </message>
     <message>
         <source>Ukryj pasek boczny</source>
-        <translation>Hide sidebar</translation>
+        <translation>Ukryj pasek boczny</translation>
     </message>
     <message>
         <source>Pokaż pasek boczny</source>
-        <translation>Show sidebar</translation>
+        <translation>Pokaż pasek boczny</translation>
     </message>
     <message>
         <source>Pokaż oś czasu</source>
-        <translation>Show timeline</translation>
+        <translation>Pokaż oś czasu</translation>
     </message>
     <message>
         <source>Ukryj oś czasu</source>
-        <translation>Hide timeline</translation>
+        <translation>Ukryj oś czasu</translation>
     </message>
     <message>
         <source>Otwórz folder nagrań</source>
-        <translation>Open recordings folder</translation>
+        <translation>Otwórz folder nagrań</translation>
     </message>
     <message>
         <source>Otwórz folder stopklatek</source>
-        <translation>Open snapshots folder</translation>
+        <translation>Otwórz folder stopklatek</translation>
     </message>
 </context>
 <context>
     <name>Player</name>
     <message>
+        <source>No media</source>
+        <translation>Brak multimediów</translation>
+    </message>
+    <message>
         <source>Loading...</source>
-        <translation>Loading...</translation>
+        <translation>Ładowanie...</translation>
     </message>
     <message>
         <source>Loaded</source>
-        <translation>Loaded</translation>
+        <translation>Załadowano</translation>
     </message>
     <message>
         <source>Stalled</source>
-        <translation>Stalled</translation>
+        <translation>Wstrzymano</translation>
     </message>
     <message>
         <source>End of media</source>
-        <translation>End of media</translation>
-    </message>
-    <message>
-        <source>Buffering %1%</source>
-        <translation>Buffering %1%</translation>
-    </message>
-    <message>
-        <source>No media</source>
-        <translation>No media</translation>
+        <translation>Koniec multimediów</translation>
     </message>
     <message>
         <source>Error!</source>
-        <translation>Error!</translation>
+        <translation>Błąd!</translation>
     </message>
     <message>
-        <source>Archiwum nagrań</source>
-        <translation>Playback archive</translation>
-    </message>
-    <message>
-        <source>Wyłącz tryb 1:1</source>
-        <translation>Disable 1:1 mode</translation>
-    </message>
-    <message>
-        <source>Włącz tryb 1:1 (piksel w piksel)</source>
-        <translation>Enable 1:1 mode (pixel-to-pixel)</translation>
+        <source>Buffering %1%</source>
+        <translation>Buforowanie %1%</translation>
     </message>
     <message>
         <source>Reset Zoom</source>
-        <translation>Reset Zoom</translation>
+        <translation>Resetuj zbliżenie</translation>
     </message>
     <message>
         <source>Click and drag on camera feed to zoom</source>
-        <translation>Click and drag on camera feed to zoom</translation>
+        <translation>Kliknij i przeciągnij na obrazie, aby powiększyć</translation>
     </message>
     <message>
         <source>Select region to zoom</source>
-        <translation>Select region to zoom</translation>
+        <translation>Zaznacz obszar do powiększenia</translation>
+    </message>
+    <message>
+        <source>Archiwum nagrań</source>
+        <translation>Archiwum nagrań</translation>
+    </message>
+    <message>
+        <source>Wyłącz tryb 1:1</source>
+        <translation>Wyłącz tryb 1:1</translation>
+    </message>
+    <message>
+        <source>Włącz tryb 1:1 (piksel w piksel)</source>
+        <translation>Włącz tryb 1:1 (piksel w piksel)</translation>
     </message>
     <message>
         <source>Wykonaj stopklatkę w pełnej rozdzielczości</source>
-        <translation>Take snapshot in full resolution</translation>
+        <translation>Wykonaj stopklatkę w pełnej rozdzielczości</translation>
     </message>
 </context>
 <context>
     <name>RootWindow</name>
     <message>
         <source>CCTV Viewer</source>
-        <translation>CCTV Viewer</translation>
+        <translation type="vanished">CCTV Viewer</translation>
     </message>
     <message>
         <source>Error reading configuration!</source>
-        <translation>Error reading configuration!</translation>
-    </message>
-    <message>
-        <source>CCTV Viewer - Okno pomocnicze</source>
-        <translation>CCTV Viewer - Auxiliary Window</translation>
-    </message>
-    <message>
-        <source>Toggle Full Screen</source>
-        <translation>Toggle Full Screen</translation>
-    </message>
-    <message>
-        <source>Więcej opcji</source>
-        <translation>More options</translation>
+        <translation>Błąd odczytu konfiguracji!</translation>
     </message>
     <message>
         <source>CCTV Viewer - Panel</source>
-        <translation>CCTV Viewer - Panel</translation>
+        <translation type="vanished">CCTV Viewer - Panel</translation>
     </message>
     <message>
-        <source>Zamknij okno</source>
-        <translation>Close window</translation>
+        <source>Więcej opcji</source>
+        <translation>Więcej opcji</translation>
+    </message>
+    <message>
+        <source>Toggle Full Screen</source>
+        <translation>Przełącz pełny ekran</translation>
     </message>
     <message>
         <source>Zamknij program</source>
-        <translation>Close program</translation>
-    </message>
-    <message>
-        <source>Czy na pewno zamknąć to okno?</source>
-        <translation>Are you sure you want to close this window?</translation>
+        <translation>Zamknij program</translation>
     </message>
     <message>
         <source>Czy na pewno zamknąć program?</source>
-        <translation>Are you sure you want to close the program?</translation>
+        <translation>Czy na pewno zamknąć program?</translation>
     </message>
     <message>
         <source>TAK</source>
-        <translation>YES</translation>
+        <translation>TAK</translation>
     </message>
     <message>
         <source>NIE</source>
-        <translation>NO</translation>
+        <translation>NIE</translation>
+    </message>
+    <message>
+        <source>CCTV Viewer - Okno pomocnicze</source>
+        <translation type="vanished">CCTV Viewer - Okno pomocnicze</translation>
+    </message>
+    <message>
+        <source>Zamknij okno</source>
+        <translation>Zamknij okno</translation>
+    </message>
+    <message>
+        <source>Czy na pewno zamknąć to okno?</source>
+        <translation>Czy na pewno zamknąć to okno?</translation>
     </message>
     <message>
         <source>📊 SYSTEM STATS</source>
-        <translation>📊 SYSTEM STATS</translation>
+        <translation>📊 STATYSTYKI SYSTEMU</translation>
     </message>
     <message>
         <source>RAM: </source>
@@ -975,166 +993,166 @@
     </message>
     <message>
         <source>Nie wybrano widoku, wybierz widok</source>
-        <translation>No view selected, select a view</translation>
+        <translation>Nie wybrano widoku, wybierz widok</translation>
     </message>
     <message>
         <source>Wybierz widok z menu na górnym pasku, aby rozpocząć wyświetlanie kamer.</source>
-        <translation>Select a view from the top menu to start displaying cameras.</translation>
+        <translation>Wybierz widok z menu na górnym pasku, aby rozpocząć wyświetlanie kamer.</translation>
     </message>
     <message>
         <source>Odepnij pasek górny</source>
-        <translation>Unpin top bar</translation>
+        <translation>Odepnij pasek górny</translation>
     </message>
     <message>
         <source>Przypnij pasek górny</source>
-        <translation>Pin top bar</translation>
+        <translation>Przypnij pasek górny</translation>
     </message>
     <message>
         <source>Zablokuj zmianę rozmiaru siatki</source>
-        <translation>Lock grid size changes</translation>
+        <translation>Zablokuj zmianę rozmiaru siatki</translation>
     </message>
     <message>
         <source>Minimalizuj okno</source>
-        <translation>Minimize window</translation>
+        <translation>Minimalizuj okno</translation>
     </message>
     <message>
         <source>Ładowanie nowego okna...</source>
-        <translation>Loading new window...</translation>
+        <translation>Ładowanie nowego okna...</translation>
     </message>
     <message>
         <source>Opcje i ustawienia panelu bocznego</source>
-        <translation>Options and settings of the sidebar panel</translation>
+        <translation>Opcje i ustawienia panelu bocznego</translation>
     </message>
     <message>
         <source>Otwórz nowe okno pomocnicze</source>
-        <translation>Open new auxiliary window</translation>
+        <translation>Otwórz nowe okno pomocnicze</translation>
     </message>
     <message>
         <source>Archiwum nagrań i odtwarzacz</source>
-        <translation>Recording archive and player</translation>
+        <translation>Archiwum nagrań i odtwarzacz</translation>
     </message>
     <message>
         <source>Instrukcja obsługi programu</source>
-        <translation>Program user manual</translation>
+        <translation>Instrukcja obsługi programu</translation>
     </message>
     <message>
         <source>Wyłącz statystyki zużycia zasobów</source>
-        <translation>Disable resource usage statistics</translation>
+        <translation>Wyłącz statystyki zużycia zasobów</translation>
     </message>
     <message>
         <source>Włącz statystyki zużycia zasobów</source>
-        <translation>Enable resource usage statistics</translation>
+        <translation>Włącz statystyki zużycia zasobów</translation>
     </message>
     <message>
         <source>Przeciągnij panel statystyk</source>
-        <translation>Drag statistics panel</translation>
+        <translation>Przeciągnij panel statystyk</translation>
+    </message>
+    <message>
+        <source>KVision - Okno pomocnicze</source>
+        <translation>KVision - Okno pomocnicze</translation>
+    </message>
+    <message>
+        <source>KVision</source>
+        <translation>KVision</translation>
+    </message>
+    <message>
+        <source>KVision - Panel</source>
+        <translation>KVision - Panel</translation>
     </message>
 </context>
 <context>
     <name>SettingsDialog</name>
     <message>
         <source>Settings</source>
-        <translation type="vanished">Settings</translation>
+        <translation>Ustawienia</translation>
     </message>
     <message>
         <source>General</source>
-        <translation type="vanished">General</translation>
+        <translation>Ogólne</translation>
     </message>
     <message>
         <source>Allow running multiple application instances</source>
-        <translation type="vanished">Allow running multiple application instances</translation>
-    </message>
-    <message>
-        <source>View</source>
-        <translation type="vanished">View</translation>
-    </message>
-    <message>
-        <source>Hide cursor in full screen mode</source>
-        <translation type="vanished">Hide cursor in full screen mode</translation>
+        <translation>Zezwalaj na uruchamianie wielu instancji aplikacji</translation>
     </message>
     <message>
         <source>Allow swapping viewport places</source>
-        <translation type="vanished">Allow swapping viewport places</translation>
+        <translation>Zezwalaj na zamianę miejsc viewportów</translation>
     </message>
     <message>
         <source>Allow changing viewport settings</source>
-        <translation type="vanished">Allow changing viewport settings</translation>
+        <translation>Zezwalaj na zmianę ustawień viewportów</translation>
+    </message>
+    <message>
+        <source>View</source>
+        <translation>Widok</translation>
+    </message>
+    <message>
+        <source>Hide cursor in full screen mode</source>
+        <translation>Ukryj kursor w trybie pełnoekranowym</translation>
     </message>
     <message>
         <source>Enable stream selection</source>
-        <translation type="vanished">Enable stream selection</translation>
+        <translation>Włącz wybór strumienia</translation>
     </message>
     <message>
         <source>Language:</source>
-        <translation type="vanished">Language:</translation>
+        <translation>Język:</translation>
     </message>
     <message>
         <source>System default</source>
-        <translation type="vanished">System default</translation>
+        <translation>Domyślny systemowy</translation>
     </message>
     <message>
         <source>Zapis</source>
-        <translation type="vanished">Saving</translation>
+        <translation>Zapis</translation>
     </message>
     <message>
         <source>Domyślna ścieżka stopklatek:</source>
-        <translation type="vanished">Default snapshot path:</translation>
+        <translation>Domyślna ścieżka stopklatek:</translation>
     </message>
     <message>
         <source>Domyślna ścieżka nagrań:</source>
-        <translation type="vanished">Default recordings path:</translation>
+        <translation>Domyślna ścieżka nagrań:</translation>
     </message>
     <message>
         <source>Wybierz folder dla stopklatek</source>
-        <translation type="vanished">Choose folder for snapshots</translation>
+        <translation>Wybierz folder dla stopklatek</translation>
     </message>
     <message>
         <source>Wybierz folder dla nagrań</source>
-        <translation type="vanished">Choose folder for recordings</translation>
+        <translation>Wybierz folder dla nagrań</translation>
     </message>
     <message>
         <source>User Interface Settings</source>
-        <translation type="vanished">User Interface Settings</translation>
+        <translation>Ustawienia interfejsu użytkownika</translation>
     </message>
     <message>
         <source>Show channel status in the top left corner of the viewport</source>
-        <translation type="vanished">Show channel status in the top left corner of the viewport</translation>
+        <translation>Pokazuj status kanału w lewym górnym rogu viewportu</translation>
     </message>
     <message>
         <source>Show camera info in the bottom left corner of the viewport</source>
-        <translation type="vanished">Show camera info in the bottom left corner of the viewport</translation>
+        <translation>Pokazuj informację o kamerze w dolnym lewym rogu viewportu</translation>
     </message>
     <message>
         <source>Show control icons in the bottom right corner of the viewport only when hovering</source>
-        <translation type="vanished">Show control icons in the bottom right corner of the viewport only when hovering</translation>
+        <translation>Pokazuj ikony sterowania w dolnym prawym rogu viewportu tylko po najechaniu kursorem na viewport</translation>
     </message>
     <message>
         <source>Show info fields only when hovering</source>
-        <translation type="vanished">Show info fields only when hovering</translation>
+        <translation>Pokazuj pola informacyjne tylko po najechaniu kursorem</translation>
     </message>
     <message>
         <source>Automatically collapse top bar</source>
-        <translation type="vanished">Automatically collapse top bar</translation>
+        <translation>Automatycznie zwijaj pasek górny</translation>
     </message>
     <message>
         <source>Disable audio entirely</source>
-        <translation type="vanished">Disable audio entirely</translation>
+        <translation type="vanished">Wyłącz obsługę audio całkowicie</translation>
     </message>
 </context>
 <context>
     <name>SideBar</name>
-    <message>
-        <source>Tools</source>
-        <translation>Tools</translation>
-    </message>
-    <message>
-        <source>Error reading configuration!</source>
-        <translation>Error reading configuration!</translation>
-    </message>
-    <message>
-        <source>x</source>
-        <translation>x</translation>
-    </message>
     <message>
         <source>Viewport%1</source>
         <translation>Viewport%1</translation>
@@ -1144,16 +1162,228 @@
         <translation> #%1</translation>
     </message>
     <message>
+        <source>Tools</source>
+        <translation>Narzędzia</translation>
+    </message>
+    <message>
+        <source>Recorders</source>
+        <translation>Rejestratory</translation>
+    </message>
+    <message>
         <source>Presets</source>
-        <translation>Presets</translation>
+        <translation>Układy</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Settings</translation>
+        <translation>Ustawienia</translation>
+    </message>
+    <message>
+        <source>Viewport Details</source>
+        <translation>Szczegóły Viewportu</translation>
+    </message>
+    <message>
+        <source>Please select a viewport in the main grid to customize its settings.</source>
+        <translation>Wybierz viewport na siatce głównej, aby dostosować jego ustawienia.</translation>
+    </message>
+    <message>
+        <source>Unlock config pane</source>
+        <translation>Odblokuj panel konfiguracji</translation>
+    </message>
+    <message>
+        <source>Active Stream Connection</source>
+        <translation>Aktywne połączenie strumienia</translation>
+    </message>
+    <message>
+        <source>Primary Stream URL</source>
+        <translation>Adres URL głównego strumienia</translation>
+    </message>
+    <message>
+        <source>Secondary Backup URL</source>
+        <translation>Adres URL zapasowego strumienia</translation>
+    </message>
+    <message>
+        <source>Audio &amp; Rendering Options</source>
+        <translation>Opcje dźwięku i renderowania</translation>
+    </message>
+    <message>
+        <source>Mute / Unmute Audio</source>
+        <translation>Wycisz / włącz dźwięk</translation>
+    </message>
+    <message>
+        <source>FFmpeg Options Override</source>
+        <translation>Nadpisanie opcji FFmpeg</translation>
+    </message>
+    <message>
+        <source>Layout &amp; Grid Tools</source>
+        <translation>Narzędzia układu i siatki</translation>
+    </message>
+    <message>
+        <source>Unlock tools pane</source>
+        <translation>Odblokuj panel narzędzi</translation>
+    </message>
+    <message>
+        <source>Window Division</source>
+        <translation>Podział okna</translation>
+    </message>
+    <message>
+        <source>Error reading configuration!</source>
+        <translation>Błąd odczytu konfiguracji!</translation>
+    </message>
+    <message>
+        <source>Hold to edit division value</source>
+        <translation>Przytrzymaj, aby edytować wartość podziału</translation>
+    </message>
+    <message>
+        <source>x</source>
+        <translation>x</translation>
+    </message>
+    <message>
+        <source>Geometry Ratio</source>
+        <translation>Proporcje geometrii</translation>
+    </message>
+    <message>
+        <source>Toggle Full Screen</source>
+        <translation>Przełącz pełny ekran</translation>
+    </message>
+    <message>
+        <source>Grid Operations</source>
+        <translation>Operacje na siatce</translation>
+    </message>
+    <message>
+        <source>Merge Highlighted Cells</source>
+        <translation>Scal zaznaczone komórki</translation>
+    </message>
+    <message>
+        <source>NVR / Hikvision Recorders Manager</source>
+        <translation>Menedżer rejestratorów NVR / Hikvision</translation>
+    </message>
+    <message>
+        <source>Presets &amp; Quick Layout Views</source>
+        <translation>Układy i szybkie widoki</translation>
+    </message>
+    <message>
+        <source>ONVIF and RTSP Layout settings</source>
+        <translation>Ustawienia układów ONVIF i RTSP</translation>
+    </message>
+    <message>
+        <source>Layout %1</source>
+        <translation>Układ %1</translation>
+    </message>
+    <message>
+        <source>Visible</source>
+        <translation>Widoczny</translation>
+    </message>
+    <message>
+        <source>NVR View Layouts</source>
+        <translation>Układy widoków NVR</translation>
+    </message>
+    <message>
+        <source>NVR View</source>
+        <translation>Widok NVR</translation>
+    </message>
+    <message>
+        <source>NVR Presets (Grid views)</source>
+        <translation>Układy NVR (Widoki siatki)</translation>
+    </message>
+    <message>
+        <source>NVR Preset #%1</source>
+        <translation>Układ NVR #%1</translation>
+    </message>
+    <message>
+        <source>System Settings</source>
+        <translation>Ustawienia systemowe</translation>
+    </message>
+    <message>
+        <source>General Settings</source>
+        <translation>Ustawienia ogólne</translation>
+    </message>
+    <message>
+        <source>Allow running multiple application instances</source>
+        <translation>Zezwalaj na uruchamianie wielu instancji aplikacji</translation>
+    </message>
+    <message>
+        <source>Context Menu Settings</source>
+        <translation>Ustawienia menu podręcznego</translation>
+    </message>
+    <message>
+        <source>Enable right-click context menu</source>
+        <translation>Włącz menu podręczne prawego przycisku myszy</translation>
+    </message>
+    <message>
+        <source>Allow swapping viewport places</source>
+        <translation>Zezwalaj na zamianę miejsc viewportów</translation>
+    </message>
+    <message>
+        <source>Enable &apos;Remove camera&apos; option</source>
+        <translation>Włącz opcję „Usuń kamerę”</translation>
+    </message>
+    <message>
+        <source>Allow changing viewport settings</source>
+        <translation>Zezwalaj na zmianę ustawień viewportów</translation>
+    </message>
+    <message>
+        <source>Interface &amp; View Settings</source>
+        <translation>Ustawienia interfejsu i widoku</translation>
+    </message>
+    <message>
+        <source>Hide mouse cursor in Full Screen mode</source>
+        <translation>Ukryj kursor myszy w trybie pełnoekranowym</translation>
+    </message>
+    <message>
+        <source>Automatically unmute when entering Full Screen</source>
+        <translation>Automatycznie włączaj dźwięk przy wejściu w pełny ekran</translation>
+    </message>
+    <message>
+        <source>System Media Configuration</source>
+        <translation>Konfiguracja multimediów systemowych</translation>
+    </message>
+    <message>
+        <source>Default FFmpeg command-line options</source>
+        <translation>Domyślne opcje linii komend FFmpeg</translation>
+    </message>
+    <message>
+        <source>Confirm Deletion</source>
+        <translation>Potwierdź usunięcie</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete preset &quot;%1&quot;? This action is completely irreversible.</source>
+        <translation>Czy na pewno chcesz usunąć układ „%1”? Ta operacja jest całkowicie nieodwracalna.</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete preset #%1? This action is completely irreversible.</source>
+        <translation>Czy na pewno chcesz usunąć układ #%1? Ta operacja jest całkowicie nieodwracalna.</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete NVR view &quot;%1&quot;? This action is completely irreversible.</source>
+        <translation>Czy na pewno chcesz usunąć widok NVR „%1”? Ta operacja jest całkowicie nieodwracalna.</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete this NVR view layout? This action is completely irreversible.</source>
+        <translation>Czy na pewno chcesz usunąć ten układ widoku NVR? Ta operacja jest całkowicie nieodwracalna.</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete NVR Preset &quot;%1&quot;? This action is completely irreversible.</source>
+        <translation>Czy na pewno chcesz usunąć układ NVR „%1”? Ta operacja jest całkowicie nieodwracalna.</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete this NVR Preset? This action is completely irreversible.</source>
+        <translation>Czy na pewno chcesz usunąć ten układ NVR? Ta operacja jest całkowicie nieodwracalna.</translation>
+    </message>
+    <message>
+        <source>Add Preset Layout</source>
+        <translation>Dodaj układ użytkownika</translation>
+    </message>
+    <message>
+        <source>Add NVR Preset</source>
+        <translation>Dodaj układ NVR</translation>
+    </message>
+    <message>
+        <source>Enable &apos;Stream selection&apos; option</source>
+        <translation>Włącz opcję „Wybór strumienia”</translation>
     </message>
     <message>
         <source>CCTV Viewer 2</source>
-        <translation>CCTV Viewer 2</translation>
+        <translation type="vanished">CCTV Viewer 2</translation>
     </message>
     <message>
         <source>Wersja %1</source>
@@ -1165,351 +1395,151 @@
     </message>
     <message>
         <source>Modyfikacja: arkanista (z pomocą AI)</source>
-        <translation>Modification: arkanista (with AI assistance)</translation>
-    </message>
-    <message>
-        <source>Recorders</source>
-        <translation>Recorders</translation>
-    </message>
-    <message>
-        <source>Viewport Details</source>
-        <translation>Viewport Details</translation>
-    </message>
-    <message>
-        <source>Please select a viewport in the main grid to customize its settings.</source>
-        <translation>Please select a viewport in the main grid to customize its settings.</translation>
-    </message>
-    <message>
-        <source>Unlock config pane</source>
-        <translation>Unlock config pane</translation>
-    </message>
-    <message>
-        <source>Active Stream Connection</source>
-        <translation>Active Stream Connection</translation>
-    </message>
-    <message>
-        <source>Primary Stream URL</source>
-        <translation>Primary Stream URL</translation>
-    </message>
-    <message>
-        <source>Secondary Backup URL</source>
-        <translation>Secondary Backup URL</translation>
-    </message>
-    <message>
-        <source>Audio &amp; Rendering Options</source>
-        <translation>Audio &amp; Rendering Options</translation>
-    </message>
-    <message>
-        <source>Mute / Unmute Audio</source>
-        <translation>Mute / Unmute Audio</translation>
-    </message>
-    <message>
-        <source>FFmpeg Options Override</source>
-        <translation>FFmpeg Options Override</translation>
-    </message>
-    <message>
-        <source>Layout &amp; Grid Tools</source>
-        <translation>Layout &amp; Grid Tools</translation>
-    </message>
-    <message>
-        <source>Unlock tools pane</source>
-        <translation>Unlock tools pane</translation>
-    </message>
-    <message>
-        <source>Window Division</source>
-        <translation>Window Division</translation>
-    </message>
-    <message>
-        <source>Hold to edit division value</source>
-        <translation>Hold to edit division value</translation>
-    </message>
-    <message>
-        <source>Geometry Ratio</source>
-        <translation>Geometry Ratio</translation>
-    </message>
-    <message>
-        <source>Toggle Full Screen</source>
-        <translation>Toggle Full Screen</translation>
-    </message>
-    <message>
-        <source>Grid Operations</source>
-        <translation>Grid Operations</translation>
-    </message>
-    <message>
-        <source>Merge Highlighted Cells</source>
-        <translation>Merge Highlighted Cells</translation>
-    </message>
-    <message>
-        <source>NVR / Hikvision Recorders Manager</source>
-        <translation>NVR / Hikvision Recorders Manager</translation>
-    </message>
-    <message>
-        <source>Presets &amp; Quick Layout Views</source>
-        <translation>Presets &amp; Quick Layout Views</translation>
-    </message>
-    <message>
-        <source>ONVIF and RTSP Layout settings</source>
-        <translation>ONVIF and RTSP Layout settings</translation>
-    </message>
-    <message>
-        <source>Layout %1</source>
-        <translation>Layout %1</translation>
-    </message>
-    <message>
-        <source>Visible</source>
-        <translation>Visible</translation>
-    </message>
-    <message>
-        <source>Add Preset Layout</source>
-        <translation>Add Preset Layout</translation>
-    </message>
-    <message>
-        <source>NVR View Layouts</source>
-        <translation>NVR View Layouts</translation>
-    </message>
-    <message>
-        <source>NVR View</source>
-        <translation>NVR View</translation>
-    </message>
-    <message>
-        <source>NVR Presets (Grid views)</source>
-        <translation>NVR Presets (Grid views)</translation>
-    </message>
-    <message>
-        <source>NVR Preset #%1</source>
-        <translation>NVR Preset #%1</translation>
-    </message>
-    <message>
-        <source>Add NVR Preset</source>
-        <translation>Add NVR Preset</translation>
-    </message>
-    <message>
-        <source>System Settings</source>
-        <translation>System Settings</translation>
-    </message>
-    <message>
-        <source>General Settings</source>
-        <translation>General Settings</translation>
-    </message>
-    <message>
-        <source>Allow running multiple application instances</source>
-        <translation>Allow running multiple application instances</translation>
-    </message>
-    <message>
-        <source>Context Menu Settings</source>
-        <translation>Context Menu Settings</translation>
-    </message>
-    <message>
-        <source>Enable right-click context menu</source>
-        <translation>Enable right-click context menu</translation>
-    </message>
-    <message>
-        <source>Allow swapping viewport places</source>
-        <translation>Allow swapping viewport places</translation>
-    </message>
-    <message>
-        <source>Enable &apos;Remove camera&apos; option</source>
-        <translation>Enable &apos;Remove camera&apos; option</translation>
-    </message>
-    <message>
-        <source>Allow changing viewport settings</source>
-        <translation>Allow changing viewport settings</translation>
-    </message>
-    <message>
-        <source>Enable &apos;Stream selection&apos; option</source>
-        <translation>Enable &apos;Stream selection&apos; option</translation>
-    </message>
-    <message>
-        <source>Interface &amp; View Settings</source>
-        <translation>Interface &amp; View Settings</translation>
-    </message>
-    <message>
-        <source>Hide mouse cursor in Full Screen mode</source>
-        <translation>Hide mouse cursor in Full Screen mode</translation>
-    </message>
-    <message>
-        <source>Automatically unmute when entering Full Screen</source>
-        <translation>Automatically unmute when entering Full Screen</translation>
+        <translation>Modyfikacja: arkanista (z pomocą AI)</translation>
     </message>
     <message>
         <source>Language:</source>
-        <translation>Language:</translation>
+        <translation>Język:</translation>
     </message>
     <message>
         <source>System default</source>
-        <translation>System default</translation>
-    </message>
-    <message>
-        <source>System Media Configuration</source>
-        <translation>System Media Configuration</translation>
-    </message>
-    <message>
-        <source>Default FFmpeg command-line options</source>
-        <translation>Default FFmpeg command-line options</translation>
-    </message>
-    <message>
-        <source>Confirm Deletion</source>
-        <translation>Confirm Deletion</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to delete preset &quot;%1&quot;? This action is completely irreversible.</source>
-        <translation>Are you sure you want to delete preset &quot;%1&quot;? This action is completely irreversible.</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to delete preset #%1? This action is completely irreversible.</source>
-        <translation>Are you sure you want to delete preset #%1? This action is completely irreversible.</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to delete NVR view &quot;%1&quot;? This action is completely irreversible.</source>
-        <translation>Are you sure you want to delete NVR view &quot;%1&quot;? This action is completely irreversible.</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to delete this NVR view layout? This action is completely irreversible.</source>
-        <translation>Are you sure you want to delete this NVR view layout? This action is completely irreversible.</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to delete NVR Preset &quot;%1&quot;? This action is completely irreversible.</source>
-        <translation>Are you sure you want to delete NVR Preset &quot;%1&quot;? This action is completely irreversible.</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to delete this NVR Preset? This action is completely irreversible.</source>
-        <translation>Are you sure you want to delete this NVR Preset? This action is completely irreversible.</translation>
+        <translation>Domyślny systemowy</translation>
     </message>
     <message>
         <source>Zapis</source>
-        <translation>Saving</translation>
+        <translation>Zapis</translation>
     </message>
     <message>
         <source>Domyślna ścieżka stopklatek:</source>
-        <translation>Default snapshot path:</translation>
+        <translation>Domyślna ścieżka stopklatek:</translation>
     </message>
     <message>
         <source>Domyślna ścieżka nagrań:</source>
-        <translation>Default recordings path:</translation>
+        <translation>Domyślna ścieżka nagrań:</translation>
     </message>
     <message>
         <source>Wybierz folder dla stopklatek</source>
-        <translation>Choose folder for snapshots</translation>
+        <translation>Wybierz folder dla stopklatek</translation>
     </message>
     <message>
         <source>Wybierz folder dla nagrań</source>
-        <translation>Choose folder for recordings</translation>
+        <translation>Wybierz folder dla nagrań</translation>
     </message>
     <message>
         <source>User Interface Settings</source>
-        <translation>User Interface Settings</translation>
+        <translation>Ustawienia interfejsu użytkownika</translation>
     </message>
     <message>
         <source>Show channel status in the top left corner of the viewport</source>
-        <translation>Show channel status in the top left corner of the viewport</translation>
+        <translation>Pokazuj status kanału w lewym górnym rogu viewportu</translation>
     </message>
     <message>
         <source>Show camera info in the bottom left corner of the viewport</source>
-        <translation>Show camera info in the bottom left corner of the viewport</translation>
+        <translation>Pokazuj informację o kamerze w dolnym lewym rogu viewportu</translation>
     </message>
     <message>
         <source>Show control icons in the bottom right corner of the viewport only when hovering</source>
-        <translation>Show control icons in the bottom right corner of the viewport only when hovering</translation>
+        <translation>Pokazuj ikony sterowania w dolnym prawym rogu viewportu tylko po najechaniu kursorem na viewport</translation>
     </message>
     <message>
         <source>Show info fields only when hovering</source>
-        <translation>Show info fields only when hovering</translation>
+        <translation>Pokazuj pola informacyjne tylko po najechaniu kursorem</translation>
     </message>
     <message>
         <source>Automatically collapse top bar</source>
-        <translation type="vanished">Automatically collapse top bar</translation>
+        <translation type="vanished">Automatycznie zwijaj pasek górny</translation>
     </message>
     <message>
         <source>Poprawka logowania i działania archiwum w oknach pomocniczych.</source>
-        <translation>Fixed login and playback issues in auxiliary windows.</translation>
+        <translation>Poprawka logowania i działania archiwum w oknach pomocniczych.</translation>
     </message>
     <message>
         <source>Naprawa stanu przycisków siatki (1x1 vs 2x2) przy bezpośrednim otwieraniu archiwum z kamery.</source>
-        <translation>Fixed layout button states (1x1 vs 2x2) when opening playback directly from camera.</translation>
+        <translation>Naprawa stanu przycisków siatki (1x1 vs 2x2) przy bezpośrednim otwieraniu archiwum z kamery.</translation>
     </message>
     <message>
         <source>Dodano poprawną przestrzeń nazw XML w zapytaniach Hikvision ISAPI (eliminacja błędu &apos;Invalid XML Content&apos; na nowszym oprogramowaniu układowym rejestratorów).</source>
-        <translation>Added proper XML namespace in Hikvision ISAPI queries (fixes &apos;Invalid XML Content&apos; error on newer recorder firmware).</translation>
+        <translation>Dodano poprawną przestrzeń nazw XML w zapytaniach Hikvision ISAPI (eliminacja błędu &apos;Invalid XML Content&apos; na nowszym oprogramowaniu układowym rejestratorów).</translation>
     </message>
     <message>
         <source>Naprawa obsługi paginacji wyników wyszukiwania (obsługa tagu searchResultPostion).</source>
-        <translation>Fixed search results pagination handling (searchResultPostion tag).</translation>
+        <translation>Naprawa obsługi paginacji wyników wyszukiwania (obsługa tagu searchResultPostion).</translation>
     </message>
     <message>
         <source>Przycisk &apos;Odśwież&apos; w oknie archiwum pozwalający na ręczne wyczyszczenie pamięci podręcznej i ponowne pobranie danych o dostępności nagrań.</source>
-        <translation>&apos;Refresh&apos; button in the playback window to manually clear cache and re-fetch recording availability data.</translation>
+        <translation>Przycisk &apos;Odśwież&apos; w oknie archiwum pozwalający na ręczne wyczyszczenie pamięci podręcznej i ponowne pobranie danych o dostępności nagrań.</translation>
     </message>
     <message>
         <source>Optymalizacja kolejki sieciowej (Prefetch) – ograniczenie pobierania wstecznego do 12 miesięcy, co eliminuje setki zbędnych zapytań o przedawnione nagrania i znacznie przyspiesza start odtwarzania.</source>
-        <translation>Network prefetching queue optimization – restricted background fetching to 12 months, eliminating hundreds of unnecessary queries and speeding up playback start.</translation>
+        <translation>Optymalizacja kolejki sieciowej (Prefetch) – ograniczenie pobierania wstecznego do 12 miesięcy, co eliminuje setki zbędnych zapytań o przedawnione nagrania i znacznie przyspiesza start odtwarzania.</translation>
     </message>
     <message>
         <source>Asynchroniczna inicjalizacja SDK Hikvision w osobnym wątku, co całkowicie wyeliminowało zawieszanie się interfejsu (GUI Freeze) przy otwieraniu opcji.</source>
-        <translation>Asynchronous Hikvision SDK initialization in a background thread, completely eliminating GUI freezes when opening options.</translation>
+        <translation>Asynchroniczna inicjalizacja SDK Hikvision w osobnym wątku, co całkowicie wyeliminowało zawieszanie się interfejsu (GUI Freeze) przy otwieraniu opcji.</translation>
     </message>
     <message>
         <source>Bezpieczna wielowątkowa synchronizacja dostępu do metod SDK Hikvision.</source>
-        <translation>Thread-safe synchronization of access to Hikvision SDK methods.</translation>
+        <translation>Bezpieczna wielowątkowa synchronizacja dostępu do metod SDK Hikvision.</translation>
     </message>
     <message>
         <source>Oczyszczanie nazw pobieranych plików i zrzutów ekranu z adresów IP rejestratorów.</source>
-        <translation>Sanitizing downloaded file and screenshot names by removing recorder IP addresses.</translation>
+        <translation>Oczyszczanie nazw pobieranych plików i zrzutów ekranu z adresów IP rejestratorów.</translation>
     </message>
     <message>
         <source>Elegancki styl paska postępu pobierania w kolorze jasnoturkusowym (#00f5d4) z nałożonym wycentrowanym tekstem z czarnym obrysem.</source>
-        <translation>Sleek download progress bar in turquoise (#00f5d4) with centered outlined text.</translation>
+        <translation>Elegancki styl paska postępu pobierania w kolorze jasnoturkusowym (#00f5d4) z nałożonym wycentrowanym tekstem z czarnym obrysem.</translation>
     </message>
     <message>
         <source>Obliczanie globalnego postępu pobierania (overallProgress) dla nagrań składających się z wielu części.</source>
-        <translation>Calculation of global download progress (overallProgress) for multi-part recordings.</translation>
+        <translation>Obliczanie globalnego postępu pobierania (overallProgress) dla nagrań składających się z wielu części.</translation>
     </message>
     <message>
         <source>Zmiana rozszerzenia plików tymczasowych pobierania z &apos;.ps&apos; na &apos;.pspart&apos;.</source>
-        <translation>Changed temporary download file extension from &apos;.ps&apos; to &apos;.pspart&apos;.</translation>
+        <translation>Zmiana rozszerzenia plików tymczasowych pobierania z &apos;.ps&apos; na &apos;.pspart&apos;.</translation>
     </message>
     <message>
         <source>Opcja i przycisk &apos;Pokazuj pola informacyjne tylko po najechaniu kursorem&apos; w ustawieniach interfejsu użytkownika.</source>
-        <translation>&apos;Show info fields only when hovering&apos; option and button in user interface settings.</translation>
+        <translation>Opcja i przycisk &apos;Pokazuj pola informacyjne tylko po najechaniu kursorem&apos; w ustawieniach interfejsu użytkownika.</translation>
     </message>
     <message>
         <source>Wizualna informacja o procesie wyszukiwania kamer w panelu konfiguracji (obracająca się ikona, blokowanie formularza, tekst &apos;Wyszukiwanie...&apos;).</source>
-        <translation>Visual indicator for camera discovery in the configuration panel (rotating icon, form blocking, and &apos;Discovering...&apos; text).</translation>
+        <translation>Wizualna informacja o procesie wyszukiwania kamer w panelu konfiguracji (obracająca się ikona, blokowanie formularza, tekst &apos;Wyszukiwanie...&apos;).</translation>
     </message>
     <message>
         <source>Pełna wielojęzyczność (dodanie oficjalnego wsparcia dla języków polskiego i angielskiego).</source>
-        <translation>Full localization (added official Polish and English translation support).</translation>
+        <translation>Pełna wielojęzyczność (dodanie oficjalnego wsparcia dla języków polskiego i angielskiego).</translation>
     </message>
     <message>
         <source>Optymalizacja czasu uruchamiania okna pomocniczego – skrócenie startu z 3 sekund do poniżej 300 ms.</source>
-        <translation>Auxiliary window startup optimization – reduced load time from 3 seconds to under 300 ms.</translation>
+        <translation>Optymalizacja czasu uruchamiania okna pomocniczego – skrócenie startu z 3 sekund do poniżej 300 ms.</translation>
     </message>
     <message>
         <source>Estetyczna stylizacja pustego pola w oknie pomocniczym (&apos;Nie wybrano widoku&apos;) z seledynową ramką.</source>
-        <translation>Aesthetic placeholder in the auxiliary window (&apos;No view selected&apos;) with a turquoise border.</translation>
+        <translation>Estetyczna stylizacja pustego pola w oknie pomocniczym (&apos;Nie wybrano widoku&apos;) z seledynową ramką.</translation>
     </message>
     <message>
         <source>Integracja z SDK Hikvision w trybie Live oraz odtwarzania archiwum.</source>
-        <translation>Hikvision SDK integration for Live view and Playback mode.</translation>
+        <translation>Integracja z SDK Hikvision w trybie Live oraz odtwarzania archiwum.</translation>
     </message>
     <message>
         <source>Odtwarzacz nagrań archiwalnych z wieloma kamerami naraz, automatycznie pozycjonowaną i centrowaną osią czasu.</source>
-        <translation>Multi-camera playback player with automatic timeline positioning and centering.</translation>
+        <translation>Odtwarzacz nagrań archiwalnych z wieloma kamerami naraz, automatycznie pozycjonowaną i centrowaną osią czasu.</translation>
     </message>
     <message>
         <source>Wielowątkowy Monitor Systemowy (statystyki procesora, pamięci RAM, karty graficznej, pamięci VRAM oraz sieci).</source>
-        <translation>Multi-threaded System Monitor (CPU, RAM, GPU, VRAM, and network bandwidth statistics).</translation>
+        <translation>Wielowątkowy Monitor Systemowy (statystyki procesora, pamięci RAM, karty graficznej, pamięci VRAM oraz sieci).</translation>
     </message>
     <message>
         <source>Śledzenie wykorzystania pasma sieciowego w czasie rzeczywistym.</source>
-        <translation>Real-time network bandwidth consumption tracking.</translation>
+        <translation>Śledzenie wykorzystania pasma sieciowego w czasie rzeczywistym.</translation>
     </message>
     <message>
         <source>Nowa ikona aplikacji w wysokiej rozdzielczości oraz dopracowany ciemny motyw interfejsu.</source>
-        <translation>High-resolution app icon and refined dark theme interface.</translation>
+        <translation>Nowa ikona aplikacji w wysokiej rozdzielczości oraz dopracowany ciemny motyw interfejsu.</translation>
     </message>
     <message>
         <source>Automatyczny skrypt budowania pakietu Pacman dla systemu Arch Linux.</source>
-        <translation>Automatic Pacman package building script for Arch Linux.</translation>
+        <translation>Automatyczny skrypt budowania pakietu Pacman dla systemu Arch Linux.</translation>
     </message>
     <message>
         <source>Changelog</source>
@@ -1517,376 +1547,384 @@
     </message>
     <message>
         <source>Dziennik zmian (Changelog)</source>
-        <translation>Changelog</translation>
+        <translation>Dziennik zmian (Changelog)</translation>
     </message>
     <message>
         <source>Historia ulepszeń, poprawek błędów i nowych funkcji w programie CCTV Viewer 2.</source>
-        <translation>History of improvements, bug fixes, and new features in CCTV Viewer 2.</translation>
+        <translation type="vanished">Historia ulepszeń, poprawek błędów i nowych funkcji w programie CCTV Viewer 2.</translation>
     </message>
     <message>
         <source>Aktywuj ten układ podglądu</source>
-        <translation>Activate this preview layout</translation>
+        <translation>Aktywuj ten układ podglądu</translation>
     </message>
     <message>
         <source>Usuń ten układ podglądu</source>
-        <translation>Delete this preview layout</translation>
+        <translation>Usuń ten układ podglądu</translation>
     </message>
     <message>
         <source>Aktywuj ten widok kamer NVR</source>
-        <translation>Activate this NVR cameras view</translation>
+        <translation>Aktywuj ten widok kamer NVR</translation>
     </message>
     <message>
         <source>Usuń ten widok kamer NVR</source>
-        <translation>Delete this NVR cameras view</translation>
+        <translation>Usuń ten widok kamer NVR</translation>
     </message>
     <message>
         <source>Aktywuj ten preset kamer NVR</source>
-        <translation>Activate this NVR cameras preset</translation>
+        <translation>Aktywuj ten preset kamer NVR</translation>
     </message>
     <message>
         <source>Usuń ten preset kamer NVR</source>
-        <translation>Delete this NVR cameras preset</translation>
+        <translation>Usuń ten preset kamer NVR</translation>
     </message>
     <message>
         <source>Ujednolicono przyciski wyboru siatki (1x1-9x9) do spójnych okrągłych przycisków 30x30px.</source>
-        <translation>Unified grid selection buttons (1x1-9x9) into consistent 30x30px circular buttons.</translation>
+        <translation>Ujednolicono przyciski wyboru siatki (1x1-9x9) do spójnych okrągłych przycisków 30x30px.</translation>
     </message>
     <message>
         <source>Wymuszono automatyczne wyświetlanie nazw widoków wielkimi literami (Uppercase).</source>
-        <translation>Enforced automatic uppercase display for view names.</translation>
+        <translation>Wymuszono automatyczne wyświetlanie nazw widoków wielkimi literami (Uppercase).</translation>
     </message>
     <message>
         <source>Poprawiono czytelność i kontrast aktywnego przycisku widoku – ciemny tekst (#121214) na jasnym seledynowym tle.</source>
-        <translation>Improved readability and contrast of the active view button – dark text (#121214) on a bright seledyn background.</translation>
+        <translation>Poprawiono czytelność i kontrast aktywnego przycisku widoku – ciemny tekst (#121214) na jasnym seledynowym tle.</translation>
     </message>
     <message>
         <source>Zastąpiono tekstowe przyciski akcji na górnym pasku (Opcje, Nowe okno, Archiwum, Instrukcje) dedykowanymi, kolorowymi ikonami SVG z pomocniczymi dymkami (Tooltip).</source>
-        <translation>Replaced text action buttons on the top bar (Options, New window, Archive, Instructions) with dedicated, colored SVG icons with helpful tooltips.</translation>
+        <translation>Zastąpiono tekstowe przyciski akcji na górnym pasku (Opcje, Nowe okno, Archiwum, Instrukcje) dedykowanymi, kolorowymi ikonami SVG z pomocniczymi dymkami (Tooltip).</translation>
     </message>
     <message>
         <source>Zastąpiono przełącznik statystyk interaktywną ikoną SVG odzwierciedlającą stan aktywności monitora systemowego.</source>
-        <translation>Replaced the system stats toggle with an interactive SVG icon reflecting the system monitor activity state.</translation>
+        <translation>Zastąpiono przełącznik statystyk interaktywną ikoną SVG odzwierciedlającą stan aktywności monitora systemowego.</translation>
     </message>
     <message>
         <source>Dodano pionową linię rozdzielającą (separator) sekcję opcji od sekcji wyboru siatki.</source>
-        <translation>Added a vertical separator line between the options section and the grid selection section.</translation>
+        <translation>Dodano pionową linię rozdzielającą (separator) sekcję opcji od sekcji wyboru siatki.</translation>
     </message>
     <message>
         <source>Przebudowano przyciski widoków do eleganckiego, zaokrąglonego kształtu pigułki o wysokości 30px z zachowaniem marginesów bocznych.</source>
-        <translation>Redesigned view buttons to an elegant, rounded pill shape with 30px height, preserving side margins.</translation>
+        <translation>Przebudowano przyciski widoków do eleganckiego, zaokrąglonego kształtu pigułki o wysokości 30px z zachowaniem marginesów bocznych.</translation>
     </message>
     <message>
         <source>Ujednolicono i poprawiono ikony usuwania na liście rejestratorów i widoków oraz przycisk aktywacji presetu na ikony SVG z dymkami (Tooltip).</source>
-        <translation>Unified and improved delete icons on the recorders and views list and the preset activation button into SVG icons with tooltips.</translation>
+        <translation>Ujednolicono i poprawiono ikony usuwania na liście rejestratorów i widoków oraz przycisk aktywacji presetu na ikony SVG z dymkami (Tooltip).</translation>
     </message>
     <message>
         <source>Zmniejszono odległości między przyciskami na górnym pasku w celu optymalizacji przestrzeni interfejsu.</source>
-        <translation>Decreased spacing between top bar buttons to optimize interface space.</translation>
+        <translation>Zmniejszono odległości między przyciskami na górnym pasku w celu optymalizacji przestrzeni interfejsu.</translation>
     </message>
     <message>
         <source>Przywrócono brakującą ikonę minimalizowania w oknie pomocniczym.</source>
-        <translation>Restored the missing minimize icon in the auxiliary window.</translation>
+        <translation>Przywrócono brakującą ikonę minimalizowania w oknie pomocniczym.</translation>
     </message>
     <message>
         <source>Zastąpiono słabo widoczną czarną ikonę emoji 📺 w pustym widoku eleganckim seledynowym monitorem wektorowym SVG High-DPI.</source>
-        <translation>Replaced the low-contrast black emoji 📺 in empty views with an elegant seledyn High-DPI vector monitor SVG.</translation>
+        <translation>Zastąpiono słabo widoczną czarną ikonę emoji 📺 w pustym widoku eleganckim seledynowym monitorem wektorowym SVG High-DPI.</translation>
     </message>
     <message>
         <source>Zwiększono czytelność pasków rejestratorów w oknie archiwum (wysokość zwiększona z 22px do 28px, powiększona czcionka z 9px do 11px, większa strzałka rozwijania).</source>
-        <translation>Improved readability of recorder bars in the archive window (height increased from 22px to 28px, font size from 9px to 11px, larger expand arrow).</translation>
+        <translation>Zwiększono czytelność pasków rejestratorów w oknie archiwum (wysokość zwiększona z 22px do 28px, powiększona czcionka z 9px do 11px, większa strzałka rozwijania).</translation>
     </message>
     <message>
         <source>Dodano pełny, dynamiczny efekt hover dla pasków rejestratorów z wyraźną zmianą kolorystyki tła, tekstu oraz ikon na seledynowy/biały.</source>
-        <translation>Added full, dynamic hover effects for recorder bars with distinct changes in background, text, and icon colors to seledyn/white.</translation>
+        <translation>Dodano pełny, dynamiczny efekt hover dla pasków rejestratorów z wyraźną zmianą kolorystyki tła, tekstu oraz ikon na seledynowy/biały.</translation>
     </message>
     <message>
         <source>Poprawiono przesunięcie paska dostępności nagrań o 2-3 godziny w oknie odtwarzacza archiwum, synchronizując oś czasu ze strefą czasową klienta (z poprawną obsługą czasu letniego/zimowego DST).</source>
-        <translation>Fixed the 2-3 hour shift of the recording availability timeline bar in the archive player window, synchronizing the timeline with the client&apos;s local timezone (with correct daylight saving time DST support).</translation>
+        <translation>Poprawiono przesunięcie paska dostępności nagrań o 2-3 godziny w oknie odtwarzacza archiwum, synchronizując oś czasu ze strefą czasową klienta (z poprawną obsługą czasu letniego/zimowego DST).</translation>
     </message>
     <message>
         <source>Dodano dynamiczną wyszukiwarkę kamer w oknie archiwum z przyciskiem resetowania i automatycznym rozwijaniem pasujących rejestratorów.</source>
-        <translation>Added a dynamic camera search field in the archive window with a reset button and auto-expanding matching recorders.</translation>
+        <translation>Dodano dynamiczną wyszukiwarkę kamer w oknie archiwum z przyciskiem resetowania i automatycznym rozwijaniem pasujących rejestratorów.</translation>
     </message>
     <message>
         <source>Włączono zawijanie zbyt długich nazw kamer na kafelkach listy w archiwum.</source>
-        <translation>Enabled wrapping of long camera names on list tiles in the archive.</translation>
+        <translation>Włączono zawijanie zbyt długich nazw kamer na kafelkach listy w archiwum.</translation>
     </message>
     <message>
         <source>Powiększono i odwrócono kolory przycisku plus (+) na kafelkach kamer (seledynowe tło) dla lepszej widoczności, dodając wyraźne stany hover/pressed.</source>
-        <translation>Enlarged and inverted colors of the plus button (+) on camera tiles (mint background) for better visibility, with clear hover/pressed states.</translation>
+        <translation>Powiększono i odwrócono kolory przycisku plus (+) na kafelkach kamer (seledynowe tło) dla lepszej widoczności, dodając wyraźne stany hover/pressed.</translation>
     </message>
     <message>
         <source>Rozwiązano problem rezydualnego zużycia pamięci RAM (20-30 MB) po zamknięciu okna Archiwum poprzez wieloetapowe oczyszczanie sterty oraz optymalizację pamięci podręcznej silnika QML.</source>
-        <translation>Resolved the residual RAM usage (20-30 MB) after closing the Archive window through multi-step heap cleanup and QML engine cache optimizations.</translation>
+        <translation>Rozwiązano problem rezydualnego zużycia pamięci RAM (20-30 MB) po zamknięciu okna Archiwum poprzez wieloetapowe oczyszczanie sterty oraz optymalizację pamięci podręcznej silnika QML.</translation>
     </message>
     <message>
         <source>Zoptymalizowano zużycie pamięci RAM przy skalowaniu i powiększaniu widoku kamer w viewportach, zapobiegając nadmiernemu wzrostowi alokacji pamięci podczas ciągłej zmiany rozmiaru okien strumieni wideo.</source>
-        <translation>Optimized RAM usage during camera scaling and viewport resizing/zooming, preventing excessive memory accumulation during continuous video stream layout changes.</translation>
+        <translation>Zoptymalizowano zużycie pamięci RAM przy skalowaniu i powiększaniu widoku kamer w viewportach, zapobiegając nadmiernemu wzrostowi alokacji pamięci podczas ciągłej zmiany rozmiaru okien strumieni wideo.</translation>
     </message>
     <message>
         <source>Dodano precyzyjny, rzeczywisty wskaźnik klatek na sekundę (FPS) w lewym górnym rogu każdego viewportu dla strumieni na żywo i odtwarzacza archiwalnego.</source>
-        <translation>Added a precise, real-time frames per second (FPS) indicator in the upper-left corner of each viewport for both live and archive playback streams.</translation>
+        <translation>Dodano precyzyjny, rzeczywisty wskaźnik klatek na sekundę (FPS) w lewym górnym rogu każdego viewportu dla strumieni na żywo i odtwarzacza archiwalnego.</translation>
     </message>
     <message>
         <source>Wdrożono bezpieczne zamykanie i zwalnianie wątków pobierania plików w downloaderze Hikvision, zapewniając stabilne i natychmiastowe zamykanie programu bez blokowania zasobów systemowych.</source>
-        <translation>Implemented safe termination and release of download threads in the Hikvision downloader, ensuring stable and immediate application shutdown without blocking system resources.</translation>
+        <translation>Wdrożono bezpieczne zamykanie i zwalnianie wątków pobierania plików w downloaderze Hikvision, zapewniając stabilne i natychmiastowe zamykanie programu bez blokowania zasobów systemowych.</translation>
     </message>
     <message>
         <source>Wyeliminowano problem potencjalnego wycieku wątków i zawieszenia dekoderów wideo FFmpeg podczas zmiany widoków poprzez przejście na bezpieczne odwołania std::weak_ptr dla kontekstu dekodera.</source>
-        <translation>Eliminated potential thread leaks and FFmpeg video decoder hangs during layout switching by adopting safe std::weak_ptr references for decoder media contexts.</translation>
+        <translation>Wyeliminowano problem potencjalnego wycieku wątków i zawieszenia dekoderów wideo FFmpeg podczas zmiany widoków poprzez przejście na bezpieczne odwołania std::weak_ptr dla kontekstu dekodera.</translation>
     </message>
     <message>
         <source>Naprawiono wyciek pamięci modeli układów widoków (ViewportsLayouts) poprzez bezpieczne niszczenie obiektów za pomocą deleteLater().</source>
-        <translation>Fixed a memory leak in ViewportsLayouts models by safely deleting layout objects using deleteLater().</translation>
+        <translation>Naprawiono wyciek pamięci modeli układów widoków (ViewportsLayouts) poprzez bezpieczne niszczenie obiektów za pomocą deleteLater().</translation>
     </message>
     <message>
         <source>Złagodzono błąd uruchamiania powierzchni rysowania wideo OpenGL (start wideo surface) przy bardzo szybkiej zmianie zakładki NVR – logi zostały wyciszone do poziomu Debug, a system w tle ponawia automatycznie próbę renderowania po zwolnieniu buforów karty graficznej.</source>
-        <translation>Mitigated video rendering surface start errors (OpenGL) during rapid NVR tab changes - logs were demoted to Debug level, and the system silently retries rendering in the background after GPU buffers are released.</translation>
+        <translation>Złagodzono błąd uruchamiania powierzchni rysowania wideo OpenGL (start wideo surface) przy bardzo szybkiej zmianie zakładki NVR – logi zostały wyciszone do poziomu Debug, a system w tle ponawia automatycznie próbę renderowania po zwolnieniu buforów karty graficznej.</translation>
     </message>
     <message>
         <source>Dodano automatyczne wznawianie sesji (auto-reconnect) w odtwarzaczu archiwum Hikvision po zakończeniu pobierania nagrań lub zerwaniu połączenia przez rejestrator.</source>
-        <translation>Added automatic session recovery (auto-reconnect) in the Hikvision archive player after downloads complete or connections are dropped by the recorder.</translation>
+        <translation>Dodano automatyczne wznawianie sesji (auto-reconnect) w odtwarzaczu archiwum Hikvision po zakończeniu pobierania nagrań lub zerwaniu połączenia przez rejestrator.</translation>
     </message>
     <message>
         <source>Wprowadzono dwukierunkową synchronizację konfiguracji w czasie rzeczywistym między oknem głównym a pomocniczymi z obsługą unikalnych, automatycznych ID okien pomocniczych.</source>
-        <translation>Introduced real-time bidirectional configuration synchronization between the main window and auxiliary windows with support for unique, automatic auxiliary window IDs.</translation>
+        <translation>Wprowadzono dwukierunkową synchronizację konfiguracji w czasie rzeczywistym między oknem głównym a pomocniczymi z obsługą unikalnych, automatycznych ID okien pomocniczych.</translation>
     </message>
     <message>
         <source>Powiększono ikony sterowania prędkością, zoomem i VCR w archiwum w celu poprawy ich czytelności, a także zwiększono napisy wewnątrz ikon SVG.</source>
-        <translation>Enlarged speed, zoom, and VCR control icons in the archive to improve visibility, and increased text size inside the SVG icons.</translation>
+        <translation>Powiększono ikony sterowania prędkością, zoomem i VCR w archiwum w celu poprawy ich czytelności, a także zwiększono napisy wewnątrz ikon SVG.</translation>
     </message>
     <message>
         <source>Usunięto zduplikowane przyciski tekstowe dla skrótów zoomu w archiwum, zastępując je w pełni ikonami okrągłymi.</source>
-        <translation>Removed duplicate text buttons for zoom shortcuts in the archive, fully replacing them with circular icons.</translation>
+        <translation>Usunięto zduplikowane przyciski tekstowe dla skrótów zoomu w archiwum, zastępując je w pełni ikonami okrągłymi.</translation>
     </message>
     <message>
         <source>Dodano kompletne angielskie i polskie tłumaczenia dla wszystkich tooltipów w oknie archiwum.</source>
-        <translation>Added complete English and Polish translations for all tooltips in the archive window.</translation>
+        <translation>Dodano kompletne angielskie i polskie tłumaczenia dla wszystkich tooltipów w oknie archiwum.</translation>
     </message>
     <message>
         <source>Przekształcono górny pasek narzędzi w oknach LIVE i ARCHIWUM w wyśrodkowane pływające doki (dok LIVE ma dynamiczną szerokość).</source>
-        <translation>Converted top toolbars in both LIVE and ARCHIVE windows into centered floating docks (LIVE dock has dynamic width).</translation>
+        <translation>Przekształcono górny pasek narzędzi w oknach LIVE i ARCHIWUM w wyśrodkowane pływające doki (dok LIVE ma dynamiczną szerokość).</translation>
     </message>
     <message>
         <source>Dodano pionowy separator oddzielający opcje siatki od widoków w dokach na pasku górnym.</source>
-        <translation>Added a vertical separator in the top bar docks between grid options and layouts.</translation>
+        <translation>Dodano pionowy separator oddzielający opcje siatki od widoków w dokach na pasku górnym.</translation>
     </message>
     <message>
         <source>Zwiększono przezroczystość pasków górnego i dolnego w archiwum (60% w oknie, 26% na pełnym ekranie) oraz ustawiono przezroczyste tło osi czasu.</source>
-        <translation>Increased transparency of archive top and bottom bars (60% in windowed mode, 26% in full screen) and set timeline background to transparent.</translation>
+        <translation>Zwiększono przezroczystość pasków górnego i dolnego w archiwum (60% w oknie, 26% na pełnym ekranie) oraz ustawiono przezroczyste tło osi czasu.</translation>
     </message>
     <message>
         <source>Uproszczono ikony prędkości odtwarzania w archiwum do czytelnego tekstu (1x, 2x, 4x) i usunięto niestabilną prędkość 8x.</source>
-        <translation>Simplified playback speed icons in the archive to clear text (1x, 2x, 4x) and removed the unstable 8x speed option.</translation>
+        <translation>Uproszczono ikony prędkości odtwarzania w archiwum do czytelnego tekstu (1x, 2x, 4x) i usunięto niestabilną prędkość 8x.</translation>
     </message>
     <message>
         <source>Zastąpiono tekstowe przyciski nawigacji miesięcy w kalendarzu archiwum i pobierania graficznymi strzałkami (chevronami).</source>
-        <translation>Replaced monthly navigation text buttons in archive and downloader calendars with graphical arrows (chevrons).</translation>
+        <translation>Zastąpiono tekstowe przyciski nawigacji miesięcy w kalendarzu archiwum i pobierania graficznymi strzałkami (chevronami).</translation>
     </message>
     <message>
         <source>Przeniesiono przycisk usuwania kamery z prawego górnego rogu wideo na dolny pasek kontrolny viewportów, zapobiegając przypadkowym kliknięciom.</source>
-        <translation>Relocated camera viewport close button from the top-right corner to the bottom-right controls area to prevent accidental clicks.</translation>
+        <translation>Przeniesiono przycisk usuwania kamery z prawego górnego rogu wideo na dolny pasek kontrolny viewportów, zapobiegając przypadkowym kliknięciom.</translation>
     </message>
     <message>
         <source>Zoptymalizowano kontrast tekstu przycisków wyboru siatki w archiwum (ciemny tekst na seledynowym tle).</source>
-        <translation>Optimized selected grid layout text contrast in the archive window (dark text on a celadon background).</translation>
+        <translation>Zoptymalizowano kontrast tekstu przycisków wyboru siatki w archiwum (ciemny tekst na seledynowym tle).</translation>
     </message>
     <message>
         <source>Przekształcono panel statystyk w okno pływające i przeciągane za pomocą nowego dedykowanego uchwytu (z zachowaniem click-through).</source>
-        <translation>Converted the system statistics panel into a draggable floating panel (with click-through) using a new dedicated grab handle.</translation>
+        <translation>Przekształcono panel statystyk w okno pływające i przeciągane za pomocą nowego dedykowanego uchwytu (z zachowaniem click-through).</translation>
     </message>
     <message>
         <source>Naprawiono krytyczny błąd synchronizacji i pętli zwrotnej zapisu konfiguracyjnego przy usuwaniu układów podglądu.</source>
-        <translation>Resolved critical settings synchronization loop and UI freeze when deleting viewport layouts.</translation>
+        <translation>Naprawiono krytyczny błąd synchronizacji i pętli zwrotnej zapisu konfiguracyjnego przy usuwaniu układów podglądu.</translation>
     </message>
     <message>
         <source>Zabezpieczono destruktor odtwarzacza archiwalnego przed wyścigami danych przy usuwaniu zadań RGB.</source>
-        <translation>Protected archive player destructor from data races when cleaning up pending RGB tasks.</translation>
+        <translation>Zabezpieczono destruktor odtwarzacza archiwalnego przed wyścigami danych przy usuwaniu zadań RGB.</translation>
     </message>
     <message>
         <source>Wprowadzono pooling odtwarzaczy wideo w celu eliminacji skoków zużycia pamięci i migotania obrazu przy przełączaniu układów kamer.</source>
-        <translation>Implemented video player pooling to eliminate RAM usage spikes and flickering when switching layouts.</translation>
+        <translation>Wprowadzono pooling odtwarzaczy wideo w celu eliminacji skoków zużycia pamięci i migotania obrazu przy przełączaniu układów kamer.</translation>
     </message>
     <message>
         <source>Zoptymalizowano monitorowanie obciążenia GPU i pamięci VRAM do trybu procesowego (bez wywołań nvidia-smi) z natywnym wsparciem dla układów NVIDIA, AMD i Intel (statystyki dla AMD/Intel są nieprzetestowane).</source>
-        <translation>Optimized GPU/VRAM monitoring to a process-specific model (no nvidia-smi spawning) with native support for NVIDIA, AMD, and Intel GPUs (AMD/Intel statistics are untested).</translation>
+        <translation>Zoptymalizowano monitorowanie obciążenia GPU i pamięci VRAM do trybu procesowego (bez wywołań nvidia-smi) z natywnym wsparciem dla układów NVIDIA, AMD i Intel (statystyki dla AMD/Intel są nieprzetestowane).</translation>
     </message>
     <message>
         <source>Wprowadzono natychmiastowe ukrywanie okna głównego i pomocniczego przy potwierdzeniu wyjścia, co sprawia, że program zamyka się natychmiastowo dla użytkownika, a zwalnianie wątków i pamięci odbywa się bezpiecznie w tle.</source>
-        <translation>Implemented instant hiding of the main and auxiliary windows on quit confirmation, making shutdown appear immediate to the user while thread and memory cleanup runs safely in the background.</translation>
+        <translation>Wprowadzono natychmiastowe ukrywanie okna głównego i pomocniczego przy potwierdzeniu wyjścia, co sprawia, że program zamyka się natychmiastowo dla użytkownika, a zwalnianie wątków i pamięci odbywa się bezpiecznie w tle.</translation>
     </message>
     <message>
         <source>Umożliwiono zmianę rozmiaru panelu statystyk systemowych poprzez przeciąganie za jego krawędzie i narożniki z automatycznym skalowaniem wykresów.</source>
-        <translation>Allowed resizing the system stats panel by dragging its edges and corners with auto-scaling graphs.</translation>
+        <translation>Umożliwiono zmianę rozmiaru panelu statystyk systemowych poprzez przeciąganie za jego krawędzie i narożniki z automatycznym skalowaniem wykresów.</translation>
     </message>
     <message>
         <source>Zoptymalizowano silnik wyjściowy audio poprzez ponowne użycie (recykling) obiektów QAudioOutput w celu wyeliminowania wycieków pamięci i wątków na systemach Linux.</source>
-        <translation type="vanished">Optimized the audio output engine by recycling QAudioOutput objects to eliminate memory and thread leaks on Linux systems.</translation>
+        <translation type="vanished">Zoptymalizowano silnik wyjściowy audio poprzez ponowne użycie (recykling) obiektów QAudioOutput w celu wyeliminowania wycieków pamięci i wątków na systemach Linux.</translation>
     </message>
     <message>
         <source>Dodano poprawne czyszczenie pamięci statycznego detektora plików konfiguracyjnych (QFileSystemWatcher) przy wyjściu z aplikacji.</source>
-        <translation type="vanished">Added proper cleanup of the static configuration file watcher (QFileSystemWatcher) upon application exit.</translation>
+        <translation type="vanished">Dodano poprawne czyszczenie pamięci statycznego detektora plików konfiguracyjnych (QFileSystemWatcher) przy wyjściu z aplikacji.</translation>
     </message>
     <message>
         <source>Wyeliminowano wycieki pamięci (ok. 50MB na przełączenie) podczas zamiennego przełączania układów kamer (np. OGÓLNE i ZEWNĘTRZNY) poprzez bezwarunkowe zwalnianie i niszczenie obiektów wyjściowych audio (QAudioOutput) przy zatrzymaniu odtwarzacza.</source>
-        <translation type="vanished">Resolved memory leaks (approx 50MB per layout switch) when alternately switching camera layouts (e.g., OGÓLNE and ZEWNĘTRZNY) by unconditionally freeing and destroying QAudioOutput audio output objects upon player stop.</translation>
+        <translation type="vanished">Wyeliminowano wycieki pamięci (ok. 50MB na przełączenie) podczas zamiennego przełączania układów kamer (np. OGÓLNE i ZEWNĘTRZNY) poprzez bezwarunkowe zwalnianie i niszczenie obiektów wyjściowych audio (QAudioOutput) przy zatrzymaniu odtwarzacza.</translation>
     </message>
     <message>
         <source>Dodano resetowanie i zerowanie kontekstu skalowania obrazu (SwsContext) w buforach wideo w celu zapobiegania wyciekom pamięci w bibliotece libswscale.</source>
-        <translation type="vanished">Added resetting and nullifying of image scaling context (SwsContext) in video buffers to prevent memory leaks inside the libswscale library.</translation>
+        <translation type="vanished">Dodano resetowanie i zerowanie kontekstu skalowania obrazu (SwsContext) w buforach wideo w celu zapobiegania wyciekom pamięci w bibliotece libswscale.</translation>
     </message>
     <message>
         <source>Dodano globalną opcję w ustawieniach &apos;Wyłącz obsługę audio całkowicie&apos; (Disable audio entirely), która całkowicie ignoruje przetwarzanie dźwięku w odtwarzaczach wideo, eliminując wszelkie potencjalne narzuty wydajnościowe i wycieki pamięci związane z obsługą audio.</source>
-        <translation type="vanished">Added global setting &apos;Disable audio entirely&apos; which completely ignores audio processing in video players, eliminating any potential performance overhead and memory leaks associated with audio handling.</translation>
+        <translation type="vanished">Dodano globalną opcję w ustawieniach &apos;Wyłącz obsługę audio całkowicie&apos; (Disable audio entirely), która całkowicie ignoruje przetwarzanie dźwięku w odtwarzaczach wideo, eliminując wszelkie potencjalne narzuty wydajnościowe i wycieki pamięci związane z obsługą audio.</translation>
     </message>
     <message>
         <source>Disable audio entirely</source>
-        <translation>Disable audio entirely</translation>
+        <translation>Wyłącz obsługę audio całkowicie</translation>
     </message>
     <message>
         <source>Wyeliminowano wyciek pamięci (ok. 50MB na każde przełączenie układu kamer) poprzez poprawne rozłączanie sygnałów błędu (mediaError) za pomocą oryginalnych funkcji gniazd oraz zerowanie dynamicznych powiązań QML zwolnionego odtwarzacza przed ponownym użyciem z puli.</source>
-        <translation type="vanished">Eliminated a memory leak (approx. 50MB per camera layout switch) by correctly disconnecting error signals (mediaError) using stored signal slot functions and explicitly clearing dynamic QML bindings on released players before reuse from the pool.</translation>
-    </message>
-    <message>
-        <source>Zoptymalizowano moduł statystyk systemowych, redukując ciągłe zużycie pamięci (wyciek ok. 100-200 KB/s) poprzez buforowanie identyfikatorów procesów i wyeliminowanie alokacji dynamicznych wyrażeń regularnych.</source>
-        <translation type="vanished">Optimized the system statistics module, reducing continuous memory consumption (leak of approx. 100-200 KB/s) by caching process identifiers and eliminating dynamic regular expression allocations.</translation>
-    </message>
-    <message>
-        <source>Wymuszono agresywne czyszczenie pamięci (Garbage Collection) przy każdej zmianie układu kamer, co ostatecznie eliminuje mniejsze wycieki pamięci interfejsu w silniku QML.</source>
-        <translation type="vanished">Forced aggressive memory cleanup (Garbage Collection) on every camera layout change, ultimately eliminating minor interface memory leaks in the QML engine.</translation>
+        <translation type="vanished">Wyeliminowano wyciek pamięci (ok. 50MB na każde przełączenie układu kamer) poprzez poprawne rozłączanie sygnałów błędu (mediaError) za pomocą oryginalnych funkcji gniazd oraz zerowanie dynamicznych powiązań QML zwolnionego odtwarzacza przed ponownym użyciem z puli.</translation>
     </message>
     <message>
         <source>Wyeliminowano wycieki pamięci RAM przy przełączaniu układów kamer poprzez automatyczne i poprawne zatrzymywanie powierzchni wideo przed zmianą formatu oraz dopasowanie rozmiaru renderera.</source>
-        <translation>Eliminated RAM memory leaks when switching camera layouts by automatically and correctly stopping the video surface before updating formats and matching renderer dimensions.</translation>
+        <translation>Wyeliminowano wycieki pamięci RAM przy przełączaniu układów kamer poprzez automatyczne i poprawne zatrzymywanie powierzchni wideo przed zmianą formatu oraz dopasowanie rozmiaru renderera.</translation>
     </message>
     <message>
         <source>Zaimplementowano bezwarunkowe zwalnianie i niszczenie obiektów wyjściowych audio przy zatrzymaniu odtwarzacza oraz wprowadzono ich automatyczny recykling, usuwając wycieki pamięci i wątków w systemie Linux.</source>
-        <translation>Implemented unconditional releasing and destruction of audio output objects on player stop, and introduced automatic recycling of these objects to eliminate memory and thread leaks on Linux.</translation>
+        <translation>Zaimplementowano bezwarunkowe zwalnianie i niszczenie obiektów wyjściowych audio przy zatrzymaniu odtwarzacza oraz wprowadzono ich automatyczny recykling, usuwając wycieki pamięci i wątków w systemie Linux.</translation>
     </message>
     <message>
         <source>Rozwiązano problem zablokowania wideo (jednokolorowa plansza po powiększeniu viewportu) poprzez wymuszenie prawidłowego wysyłania sygnału dostępności wideo przy prezentacji pierwszej klatki nowego strumienia.</source>
-        <translation>Resolved video freezing issues (solid color screen after viewport zoom) by forcing correct video availability signaling when presenting the first frame of a new stream.</translation>
+        <translation>Rozwiązano problem zablokowania wideo (jednokolorowa plansza po powiększeniu viewportu) poprzez wymuszenie prawidłowego wysyłania sygnału dostępności wideo przy prezentacji pierwszej klatki nowego strumienia.</translation>
     </message>
     <message>
         <source>Dodano globalną opcję w ustawieniach &apos;Wyłącz obsługę audio całkowicie&apos;, pozwalającą całkowicie pominąć przetwarzanie dźwięku w celu eliminacji ewentualnego narzutu i wycieków pamięci.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodano globalną opcję w ustawieniach &apos;Wyłącz obsługę audio całkowicie&apos;, pozwalającą całkowicie pominąć przetwarzanie dźwięku w celu eliminacji ewentualnego narzutu i wycieków pamięci.</translation>
     </message>
     <message>
         <source>Zoptymalizowano moduł statystyk systemowych, wygaszając ciągłe zużycie pamięci poprzez buforowanie identyfikatorów procesów i eliminację alokacji dynamicznych wyrażeń regularnych.</source>
-        <translation>Optimized the system statistics module to eliminate continuous memory usage overhead by caching process IDs and removing dynamic regular expression allocations.</translation>
+        <translation>Zoptymalizowano moduł statystyk systemowych, wygaszając ciągłe zużycie pamięci poprzez buforowanie identyfikatorów procesów i eliminację alokacji dynamicznych wyrażeń regularnych.</translation>
     </message>
     <message>
         <source>Wprowadzono agresywne czyszczenie pamięci (Garbage Collection) przy każdej zmianie układu kamer oraz zerowanie kontekstu skalowania obrazu (SwsContext) w buforach wideo.</source>
-        <translation>Enforced aggressive Garbage Collection (GC) upon camera layout switches and nullified image scaling contexts (SwsContext) in video buffers.</translation>
+        <translation>Wprowadzono agresywne czyszczenie pamięci (Garbage Collection) przy każdej zmianie układu kamer oraz zerowanie kontekstu skalowania obrazu (SwsContext) w buforach wideo.</translation>
     </message>
     <message>
         <source>Zapewniono poprawne czyszczenie pamięci statycznego detektora zmian plików konfiguracyjnych przy wyjściu z aplikacji.</source>
-        <translation>Ensured proper resource cleanup of the static configuration file change detector (QFileSystemWatcher) upon application exit.</translation>
+        <translation>Zapewniono poprawne czyszczenie pamięci statycznego detektora zmian plików konfiguracyjnych przy wyjściu z aplikacji.</translation>
     </message>
     <message>
         <source>Naprawiono błędy synchronizacji i zawieszania się procesu okna pomocniczego na wolniejszych maszynach przy seryjnym usuwaniu kamer oraz łączeniu i przenoszeniu viewportów.</source>
-        <translation>Fixed synchronization and freezing issues of the auxiliary window process on slower machines during sequential camera deletion and viewport merging or moving.</translation>
+        <translation>Naprawiono błędy synchronizacji i zawieszania się procesu okna pomocniczego na wolniejszych maszynach przy seryjnym usuwaniu kamer oraz łączeniu i przenoszeniu viewportów.</translation>
     </message>
     <message>
         <source>Naprawiono agregację statystyk obciążenia GPU, pamięci VRAM oraz pasma sieciowego ze wszystkich procesów aplikacji przy wykorzystaniu pamięci współdzielonej (/dev/shm) w tle.</source>
-        <translation>Fixed aggregation of GPU utilization, VRAM usage, and network bandwidth statistics from all application processes using shared memory (/dev/shm) in the background.</translation>
+        <translation>Naprawiono agregację statystyk obciążenia GPU, pamięci VRAM oraz pasma sieciowego ze wszystkich procesów aplikacji przy wykorzystaniu pamięci współdzielonej (/dev/shm) w tle.</translation>
     </message>
     <message>
         <source>Ogranicz liczbę okien pomocniczych do:</source>
-        <translation>Limit auxiliary windows to:</translation>
+        <translation>Ogranicz liczbę okien pomocniczych do:</translation>
     </message>
     <message>
         <source>Uaktywnij zmiany w tej sekcji</source>
-        <translation>Activate changes in this section</translation>
+        <translation>Uaktywnij zmiany w tej sekcji</translation>
     </message>
     <message>
         <source>otwórz folder obrazów</source>
-        <translation>open image folder</translation>
+        <translation>otwórz folder obrazów</translation>
     </message>
     <message>
         <source>otwórz folder wideo</source>
-        <translation>open video folder</translation>
+        <translation>otwórz folder wideo</translation>
     </message>
     <message>
         <source>Wycofano opcję automatycznego zwijania paska górnego z ustawień – odtąd pasek górny w oknach LIVE (głównym i pomocniczym) zwija się domyślnie przy starcie, a pinezka przypina go lokalnie i tymczasowo (w pamięci) bez zapisywania stanu.</source>
-        <translation>Removed the automatically collapse top bar option from Settings - from now on, the top bar in LIVE windows (main and auxiliary) collapses by default on startup, and the pin button pins it locally and temporarily (in-memory) without saving its state.</translation>
+        <translation>Wycofano opcję automatycznego zwijania paska górnego z ustawień – odtąd pasek górny w oknach LIVE (głównym i pomocniczym) zwija się domyślnie przy starcie, a pinezka przypina go lokalnie i tymczasowo (w pamięci) bez zapisywania stanu.</translation>
     </message>
     <message>
         <source>Wprowadzono limit liczby okien pomocniczych (konfigurowalny w zakresie 0-3) z eleganckim oknem ostrzegawczym o zablokowaniu przy próbie jego przekroczenia.</source>
-        <translation>Introduced a limit on the number of auxiliary windows (configurable from 0 to 3) with an elegant warning window when attempting to exceed it.</translation>
+        <translation>Wprowadzono limit liczby okien pomocniczych (konfigurowalny w zakresie 0-3) z eleganckim oknem ostrzegawczym o zablokowaniu przy próbie jego przekroczenia.</translation>
     </message>
     <message>
         <source>Dodano subtelne, ciemnoszare ramki o szerokości 1px wokół nieużywanych viewportów w siatce podglądu LIVE dla lepszego rozgraniczenia pól.</source>
-        <translation>Added subtle 1px dark-gray borders around unused viewports in the LIVE layout grid for better delineation of fields.</translation>
+        <translation>Dodano subtelne, ciemnoszare ramki o szerokości 1px wokół nieużywanych viewportów w siatce podglądu LIVE dla lepszego rozgraniczenia pól.</translation>
     </message>
     <message>
         <source>Zabezpieczono edycję ścieżek zapisu i konfiguracji multimediów w ustawieniach przejściowym polem wyboru &apos;Uaktywnij zmiany w tej sekcji&apos;, zapobiegając przypadkowym modyfikacjom (stan edycji resetuje się po zamknięciu).</source>
-        <translation>Secured editing of save paths and system media configuration options behind a transient &apos;Activate changes in this section&apos; checkbox, preventing accidental modifications (editing state resets on close).</translation>
+        <translation>Zabezpieczono edycję ścieżek zapisu i konfiguracji multimediów w ustawieniach przejściowym polem wyboru &apos;Uaktywnij zmiany w tej sekcji&apos;, zapobiegając przypadkowym modyfikacjom (stan edycji resetuje się po zamknięciu).</translation>
     </message>
     <message>
         <source>Wprowadzono bezpośrednie skróty &apos;otwórz folder zapisu&apos; (wyróżniony seledynowym kolorem przy ukończonym pobieraniu w oknie Archiwum) oraz zawsze aktywne przyciski szybkiego otwierania folderów zrzutów i wideo w ustawieniach (z automatycznym tworzeniem katalogu na dysku).</source>
-        <translation>Introduced direct shortcuts for &apos;open save folder&apos; (highlighted in celadon upon completed download in the Archive window) and always-active quick-open buttons for snapshot and video folders in Settings (with automatic directory creation on disk if missing).</translation>
+        <translation>Wprowadzono bezpośrednie skróty &apos;otwórz folder zapisu&apos; (wyróżniony seledynowym kolorem przy ukończonym pobieraniu w oknie Archiwum) oraz zawsze aktywne przyciski szybkiego otwierania folderów zrzutów i wideo w ustawieniach (z automatycznym tworzeniem katalogu na dysku).</translation>
     </message>
     <message>
         <source>Wprowadzono interaktywną walidację przy kliknięciu przycisku &apos;Pobierz&apos; w oknie pobierania: automatyczna kontrola formatów pól oraz chronologii dat z dymkiem ostrzegawczym i przekierowaniem fokusu na pierwsze błędne pole.</source>
-        <translation>Introduced interactive validation when clicking the &apos;Pobierz&apos; (Download) button in the download window: automatic format and chronological date checks, displaying a red warning tooltip and focusing the first invalid field.</translation>
+        <translation>Wprowadzono interaktywną walidację przy kliknięciu przycisku &apos;Pobierz&apos; w oknie pobierania: automatyczna kontrola formatów pól oraz chronologii dat z dymkiem ostrzegawczym i przekierowaniem fokusu na pierwsze błędne pole.</translation>
     </message>
     <message>
         <source>Zaimplementowano pełną nawigację klawiaturą (strzałkami góra/dół do zmiany wartości, lewo/prawo do zmiany kolumn) w graficznym selektorze czasu (Clock Picker).</source>
-        <translation>Implemented full keyboard navigation (up/down arrow keys to change values, left/right to switch columns) inside the clock picker popup.</translation>
+        <translation>Zaimplementowano pełną nawigację klawiaturą (strzałkami góra/dół do zmiany wartości, lewo/prawo do zmiany kolumn) w graficznym selektorze czasu (Clock Picker).</translation>
     </message>
     <message>
         <source>Zapewniono całkowicie czysty start okien pomocniczych (bez automatycznego otwierania panelu opcji) oraz wykluczono zapisywanie ustawień geometrii z okien pomocniczych, eliminując zanieczyszczanie konfiguracji.</source>
-        <translation>Ensured a completely clean launch for auxiliary windows (without automatically opening the options sidebar) and excluded geometry settings saving from auxiliary windows, eliminating shared configuration contamination.</translation>
+        <translation>Zapewniono całkowicie czysty start okien pomocniczych (bez automatycznego otwierania panelu opcji) oraz wykluczono zapisywanie ustawień geometrii z okien pomocniczych, eliminując zanieczyszczanie konfiguracji.</translation>
     </message>
     <message>
         <source>Dodano pełne wsparcie dla języka angielskiego dla wszystkich nowych komunikatów o błędach walidacji i formatowania w oknie pobierania.</source>
-        <translation>Added full English language support for all new formatting and chronological validation error messages in the download window.</translation>
+        <translation>Dodano pełne wsparcie dla języka angielskiego dla wszystkich nowych komunikatów o błędach walidacji i formatowania w oknie pobierania.</translation>
+    </message>
+    <message>
+        <source>KVision</source>
+        <translation>KVision</translation>
+    </message>
+    <message>
+        <source>Historia ulepszeń, poprawek błędów i nowych funkcji w programie KVision.</source>
+        <translation>Historia ulepszeń, poprawek błędów i nowych funkcji w programie KVision.</translation>
+    </message>
+    <message>
+        <source>Zmieniono nazwę programu na KVision wraz z automatyczną migracją dotychczasowych ustawień użytkownika, nowymi ikonami o wielu rozmiarach (128px, 256px, 512px) oraz wyświetlaniem pełnej wersji w pasku tytułowym.</source>
+        <translation>Zmieniono nazwę programu na KVision wraz z automatyczną migracją dotychczasowych ustawień użytkownika, nowymi ikonami o wielu rozmiarach (128px, 256px, 512px) oraz wyświetlaniem pełnej wersji w pasku tytułowym.</translation>
     </message>
 </context>
 <context>
     <name>SideBarItem</name>
     <message>
         <source>Error reading configuration!</source>
-        <translation>Error reading configuration!</translation>
+        <translation>Błąd odczytu konfiguracji!</translation>
     </message>
 </context>
 <context>
     <name>SingleInstanceWarning</name>
     <message>
         <source>CCTV Viewer 2</source>
-        <translation>CCTV Viewer 2</translation>
+        <translation type="vanished">CCTV Viewer 2</translation>
     </message>
     <message>
         <source>Program już działa, nie możesz uruchomić drugiego</source>
-        <translation>The program is already running, you cannot start a second one</translation>
+        <translation>Program już działa, nie możesz uruchomić drugiego</translation>
     </message>
     <message>
         <source>ZAMKNIJ</source>
-        <translation>CLOSE</translation>
+        <translation>ZAMKNIJ</translation>
+    </message>
+    <message>
+        <source>KVision</source>
+        <translation>KVision</translation>
     </message>
 </context>
 <context>
     <name>ToolsWindow</name>
     <message>
         <source>Layout &amp; Grid Tools</source>
-        <translation>Layout &amp; Grid Tools</translation>
+        <translation>Narzędzia układu i siatki</translation>
     </message>
     <message>
         <source>Unlock tools pane</source>
-        <translation>Unlock tools pane</translation>
+        <translation>Odblokuj panel narzędzi</translation>
     </message>
     <message>
         <source>Window Division</source>
-        <translation>Window Division</translation>
+        <translation>Podział okna</translation>
     </message>
     <message>
         <source>Error reading configuration!</source>
-        <translation>Error reading configuration!</translation>
+        <translation>Błąd odczytu konfiguracji!</translation>
     </message>
     <message>
         <source>Hold to edit division value</source>
-        <translation>Hold to edit division value</translation>
+        <translation>Przytrzymaj, aby edytować wartość podziału</translation>
     </message>
     <message>
         <source>x</source>
@@ -1894,66 +1932,66 @@
     </message>
     <message>
         <source>Geometry Ratio</source>
-        <translation>Geometry Ratio</translation>
-    </message>
-    <message>
-        <source>16:9 Aspect Ratio</source>
-        <translation>16:9 Aspect Ratio</translation>
-    </message>
-    <message>
-        <source>4:3 Aspect Ratio</source>
-        <translation>4:3 Aspect Ratio</translation>
+        <translation>Proporcje geometrii</translation>
     </message>
     <message>
         <source>Toggle Full Screen</source>
-        <translation>Toggle Full Screen</translation>
+        <translation>Przełącz pełny ekran</translation>
     </message>
     <message>
         <source>Grid Operations</source>
-        <translation>Grid Operations</translation>
+        <translation>Operacje na siatce</translation>
     </message>
     <message>
         <source>Merge Highlighted Cells</source>
-        <translation>Merge Highlighted Cells</translation>
+        <translation>Scal zaznaczone komórki</translation>
+    </message>
+    <message>
+        <source>16:9 Aspect Ratio</source>
+        <translation>Proporcje 16:9</translation>
+    </message>
+    <message>
+        <source>4:3 Aspect Ratio</source>
+        <translation>Proporcje 4:3</translation>
     </message>
 </context>
 <context>
     <name>ViewportSettingsDialog</name>
     <message>
         <source>Viewport Settings</source>
-        <translation>Viewport Settings</translation>
+        <translation>Ustawienia viewportu</translation>
     </message>
     <message>
         <source>Active Stream Connection</source>
-        <translation>Active Stream Connection</translation>
+        <translation>Aktywne połączenie strumienia</translation>
     </message>
     <message>
         <source>Primary Stream URL</source>
-        <translation>Primary Stream URL</translation>
+        <translation>Adres URL głównego strumienia</translation>
     </message>
     <message>
         <source>Secondary Backup URL</source>
-        <translation>Secondary Backup URL</translation>
+        <translation>Adres URL zapasowego strumienia</translation>
     </message>
     <message>
         <source>Global Options</source>
-        <translation>Global Options</translation>
+        <translation>Opcje globalne</translation>
     </message>
     <message>
         <source>Unmute when the viewport is in full screen mode</source>
-        <translation>Unmute when the viewport is in full screen mode</translation>
+        <translation>Włącz dźwięk, gdy viewport jest w trybie pełnoekranowym</translation>
     </message>
     <message>
         <source>Default FFmpeg options</source>
-        <translation>Default FFmpeg options</translation>
+        <translation>Domyślne opcje FFmpeg</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancel</translation>
+        <translation>Anuluj</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Save</translation>
+        <translation>Zapisz</translation>
     </message>
 </context>
 <context>
@@ -1965,19 +2003,27 @@
     </message>
     <message>
         <source>Zamień miejscami</source>
-        <translation>Swap viewports</translation>
-    </message>
-    <message>
-        <source>Wybór streamu</source>
-        <translation>Stream selection</translation>
+        <translation>Zamień miejscami</translation>
     </message>
     <message>
         <source>Usuń kamerę</source>
-        <translation>Remove camera</translation>
+        <translation>Usuń kamerę</translation>
     </message>
     <message>
         <source>Zmień ustawienia</source>
-        <translation>Change settings</translation>
+        <translation>Zmień ustawienia</translation>
+    </message>
+    <message>
+        <source>Confirm Camera Removal</source>
+        <translation>Potwierdź usunięcie kamery</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove the camera from this viewport?</source>
+        <translation>Czy na pewno chcesz usunąć kamerę z tego viewportu?</translation>
+    </message>
+    <message>
+        <source>Wybór streamu</source>
+        <translation>Wybór streamu</translation>
     </message>
     <message>
         <source>Automatycznie</source>
@@ -1990,14 +2036,6 @@
     <message>
         <source>Tylko SUB</source>
         <translation>Tylko SUB</translation>
-    </message>
-    <message>
-        <source>Confirm Camera Removal</source>
-        <translation>Confirm Camera Removal</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to remove the camera from this viewport?</source>
-        <translation>Are you sure you want to remove the camera from this viewport?</translation>
     </message>
 </context>
 </TS>

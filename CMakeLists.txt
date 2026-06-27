@@ -3,16 +3,16 @@ cmake_minimum_required(VERSION 3.14)
 set(VER_MAJ 2)
 set(VER_MIN 2)
 set(VER_PAT 6)
-set(VER_REL 0)
+set(VER_REL 2)
 # set(REL_STATUS "alpha")
 
-set(APP_NAME "CCTV Viewer")
-set(ORG_NAME "CCTV Viewer")
-set(ORG_DOMAIN "cctv-viewer2.org")
+set(APP_NAME "KVision")
+set(ORG_NAME "KVision")
+set(ORG_DOMAIN "kvision.org")
 
 set(VERSION "${VER_MAJ}.${VER_MIN}.${VER_PAT}")
 
-project(cctv-viewer VERSION ${VERSION} HOMEPAGE_URL "https://github.com/arkanista/cctv-viewer2" LANGUAGES C CXX)
+project(kvision VERSION ${VERSION} HOMEPAGE_URL "https://github.com/arkanista/cctv-viewer2" LANGUAGES C CXX)
 
 if(DEFINED VER_REL AND ${VER_REL} GREATER 0)
     set(VERSION "${VERSION}-${VER_REL}")
@@ -152,12 +152,12 @@ endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     if (${QT_VERSION_MAJOR} GREATER 5)
-        qt_add_resources(RESOURCES cctv-viewer.qrc)
+        qt_add_resources(RESOURCES kvision.qrc)
     else()
-        qt5_add_resources(RESOURCES cctv-viewer.qrc)
+        qt5_add_resources(RESOURCES kvision.qrc)
     endif()
 else()
-    qtquick_compiler_add_resources(RESOURCES cctv-viewer.qrc)
+    qtquick_compiler_add_resources(RESOURCES kvision.qrc)
 endif()
 
 set(PROJ_FILES
@@ -187,40 +187,40 @@ set(QML_IMPORT_PATH "${CMAKE_SOURCE_DIR}/src/imports" CACHE STRING "Additional i
 add_subdirectory(src/qmlav)
 
 if (ANDROID)
-    add_library(cctv-viewer SHARED ${PROJ_FILES} ${QMLAV_FILES})
+    add_library(kvision SHARED ${PROJ_FILES} ${QMLAV_FILES})
 
-    target_include_directories(cctv-viewer PRIVATE "${CMAKE_SOURCE_DIR}/src/qmlav/3rd/FFmpeg/ffbuild/${ANDROID_ABI}/include")
-    target_link_directories(cctv-viewer PRIVATE "${CMAKE_SOURCE_DIR}/src/qmlav/3rd/FFmpeg/ffbuild/${ANDROID_ABI}/lib")
+    target_include_directories(kvision PRIVATE "${CMAKE_SOURCE_DIR}/src/qmlav/3rd/FFmpeg/ffbuild/${ANDROID_ABI}/include")
+    target_link_directories(kvision PRIVATE "${CMAKE_SOURCE_DIR}/src/qmlav/3rd/FFmpeg/ffbuild/${ANDROID_ABI}/lib")
 else()
-    add_executable(cctv-viewer ${PROJ_FILES} ${QMLAV_FILES})
+    add_executable(kvision ${PROJ_FILES} ${QMLAV_FILES})
 endif()
 
-target_include_directories(cctv-viewer PRIVATE ${QMLAV_INCLUDE})
+target_include_directories(kvision PRIVATE ${QMLAV_INCLUDE})
 
-target_compile_definitions(cctv-viewer
+target_compile_definitions(kvision
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
 foreach (ITEM ${QT_LINK_DEPENDENCIES})
-    target_link_libraries(cctv-viewer PRIVATE Qt${QT_VERSION_MAJOR}::${ITEM})
+    target_link_libraries(kvision PRIVATE Qt${QT_VERSION_MAJOR}::${ITEM})
 endforeach()
-target_link_libraries(cctv-viewer PRIVATE ${QMLAV_LINK_DEPENDENCIES})
-target_include_directories(cctv-viewer PRIVATE "${CMAKE_SOURCE_DIR}/src/hikvision_sdk/inc")
-target_link_directories(cctv-viewer PRIVATE "${CMAKE_SOURCE_DIR}/src/hikvision_sdk/lib")
-target_link_libraries(cctv-viewer PRIVATE hcnetsdk PlayCtrl)
+target_link_libraries(kvision PRIVATE ${QMLAV_LINK_DEPENDENCIES})
+target_include_directories(kvision PRIVATE "${CMAKE_SOURCE_DIR}/src/hikvision_sdk/inc")
+target_link_directories(kvision PRIVATE "${CMAKE_SOURCE_DIR}/src/hikvision_sdk/lib")
+target_link_libraries(kvision PRIVATE hcnetsdk PlayCtrl)
 # Use RPATH (not RUNPATH) so transitive deps (libAudioRender.so, libSuperRender.so) loaded
 # by libPlayCtrl.so/libhcnetsdk.so can also be found via this path.
-target_link_options(cctv-viewer PRIVATE 
+target_link_options(kvision PRIVATE 
     "LINKER:--disable-new-dtags"
     "LINKER:-rpath-link,${CMAKE_SOURCE_DIR}/src/hikvision_sdk/lib"
 )
-set_target_properties(cctv-viewer PROPERTIES
+set_target_properties(kvision PROPERTIES
     BUILD_RPATH "\$ORIGIN/../src/hikvision_sdk/lib"
-    INSTALL_RPATH "\$ORIGIN/../lib/cctv-viewer2"
+    INSTALL_RPATH "\$ORIGIN/../lib/kvision"
     BUILD_WITH_INSTALL_RPATH FALSE
     INSTALL_RPATH_USE_LINK_PATH FALSE
 )
 if (NOT ANDROID)
-    set_target_properties(cctv-viewer PROPERTIES OUTPUT_NAME "cctv-viewer2")
+    set_target_properties(kvision PROPERTIES OUTPUT_NAME "kvision")
 endif()
 
 set_directory_properties(PROPERTIES CLEAN_NO_CUSTOM true)
@@ -228,8 +228,8 @@ set_directory_properties(PROPERTIES CLEAN_NO_CUSTOM true)
 if (UNIX AND NOT ANDROID)
     include(GNUInstallDirs)
     set(CMAKE_INSTALL_PREFIX "/usr")
-    install(TARGETS cctv-viewer DESTINATION "${CMAKE_INSTALL_BINDIR}")
-    install(FILES "images/cctv-viewer.svg" "images/cctv-viewer2-icon.png" DESTINATION "/usr/share/pixmaps")
-    install(FILES "cctv-viewer.desktop" DESTINATION "/usr/share/applications")
-    install(DIRECTORY "src/hikvision_sdk/lib/" DESTINATION "${CMAKE_INSTALL_LIBDIR}/cctv-viewer2")
+    install(TARGETS kvision DESTINATION "${CMAKE_INSTALL_BINDIR}")
+    install(FILES "images/512.png" DESTINATION "/usr/share/pixmaps" RENAME "kvision.png")
+    install(FILES "kvision.desktop" DESTINATION "/usr/share/applications")
+    install(DIRECTORY "src/hikvision_sdk/lib/" DESTINATION "${CMAKE_INSTALL_LIBDIR}/kvision")
 endif()

@@ -14,7 +14,7 @@ import Qt.labs.platform 1.1 as Platform
 ApplicationWindow {
     id: rootWindow
 
-    title: Context.isAuxiliary ? qsTr("CCTV Viewer - Okno pomocnicze") : qsTr("CCTV Viewer")
+    title: (Context.isAuxiliary ? qsTr("KVision - Okno pomocnicze") : qsTr("KVision")) + " " + Qt.application.version
 
     visible: true
     visibility: Context.config.fullScreen ? Window.FullScreen : Window.Windowed
@@ -1250,7 +1250,7 @@ ApplicationWindow {
     // Separate utility Window for options (SideBar contents)
     Window {
         id: sidebarWindow
-        title: qsTr("CCTV Viewer - Panel")
+        title: qsTr("KVision - Panel")
         width: Math.round(rootWindow.width * 0.85)
         height: Math.round(rootWindow.height * 0.85)
         visible: false

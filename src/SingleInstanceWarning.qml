@@ -13,7 +13,7 @@ Window {
     maximumWidth: 380
     maximumHeight: 150
     color: "#1c242c"
-    title: qsTr("CCTV Viewer 2")
+    title: qsTr("KVision")
 
     flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowCloseButtonHint
 

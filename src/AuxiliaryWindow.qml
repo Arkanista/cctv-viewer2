@@ -11,7 +11,7 @@ import CCTV_Viewer.Themes 1.0
 Window {
     id: auxWindow
 
-    title: qsTr("CCTV Viewer - Okno pomocnicze")
+    title: qsTr("KVision - Okno pomocnicze") + " " + Qt.application.version
     width: 800
     height: 600
     color: "#0f151b"

@@ -10,8 +10,8 @@
         <file>INSTRUCTIONS.md</file>
         <file>INSTRUKCJA.md</file>
         <file>qtquickcontrols2.conf</file>
-        <file>translations/cctv-viewer_pl_PL.qm</file>
-        <file>translations/cctv-viewer_en_US.qm</file>
+        <file>translations/kvision_pl_PL.qm</file>
+        <file>translations/kvision_en_US.qm</file>
         <file>src/RootWindow.qml</file>
         <file>src/AuxiliaryWindow.qml</file>
         <file>src/InstructionsWindow.qml</file>
@@ -23,8 +23,9 @@
         <file>src/SideBarItem.qml</file>
         <file>src/ConfirmDialog.qml</file>
         <file>src/DownloadDialog.qml</file>
-        <file>images/cctv-viewer.svg</file>
-        <file>images/cctv-viewer2-icon.png</file>
+        <file>images/128.png</file>
+        <file>images/256.png</file>
+        <file>images/512.png</file>
         <file>images/icon-trash.svg</file>
         <file>images/icon-warning.svg</file>
         <file>images/cctv-viewer.ico</file>
@@ -56,6 +57,5 @@
         <file>src/CursorShape.qml</file>
         <file>src/CctvButton.qml</file>
         <file>src/SingleInstanceWarning.qml</file>
-        <file>src/AuxiliaryLimitWarning.qml</file>
     </qresource>
 </RCC>

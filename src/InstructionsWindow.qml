@@ -6,7 +6,7 @@ import CCTV_Viewer.Core 1.0
 
 Window {
     id: instructionsWindow
-    title: qsTr("CCTV Viewer 2 - Instrukcja Obsługi / Instructions")
+    title: qsTr("KVision - Instrukcja Obsługi / Instructions")
     width: 750
     height: 800
     minimumWidth: 400

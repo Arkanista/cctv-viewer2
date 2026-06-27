@@ -1,13 +1,13 @@
 [Desktop Entry]
 Type=Application
-Name=CCTV Viewer
+Name=KVision
 GenericName=Video streams viewer
-GenericName[ru]=Просмотрщик видеопотоков
+GenericName[ru]=Просмотрщик video streams
 Comment=Viewer and mounter video streams
 Comment[ru]=Просмотрщик и компоновщик видеопотоков
-Icon=cctv-viewer2-icon
-Exec=cctv-viewer2
+Icon=kvision
+Exec=kvision
 Terminal=false
 Categories=Qt;AudioVideo;Video;Viewer;
-Keywords=cctv;viewer;live streaming;
-StartupWMClass=cctv-viewer2
+Keywords=cctv;viewer;live streaming;kvision;
+StartupWMClass=kvision

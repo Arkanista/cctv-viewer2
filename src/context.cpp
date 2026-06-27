@@ -70,6 +70,34 @@ void Context::init()
     if (m_commandLineParser.isSet(configOption)) {
         m_config = new Config(m_commandLineParser.value(configOption));
     } else {
+        // Auto-migration logic from old "CCTV Viewer" settings to "KVision" settings
+        QString newConfigPath = QSettings().fileName();
+        QSettings oldSettings(QStringLiteral("CCTV Viewer"), QStringLiteral("CCTV Viewer"));
+        QString oldConfigPath = oldSettings.fileName();
+
+        if (!QFile::exists(newConfigPath) && QFile::exists(oldConfigPath)) {
+            QFileInfo newFileInfo(newConfigPath);
+            QDir().mkpath(newFileInfo.absolutePath());
+            if (QFile::copy(oldConfigPath, newConfigPath)) {
+                qInfo() << "Migrated configuration file from" << oldConfigPath << "to" << newConfigPath;
+                // Copy thumbnails subdirectory if it exists
+                QFileInfo oldFileInfo(oldConfigPath);
+                QDir oldDir(oldFileInfo.absolutePath());
+                if (oldDir.exists("thumbnails")) {
+                    QDir oldThumbnailsDir(oldDir.filePath("thumbnails"));
+                    QDir newDir(newFileInfo.absolutePath());
+                    newDir.mkdir("thumbnails");
+                    QDir newThumbnailsDir(newDir.filePath("thumbnails"));
+                    QStringList thumbnails = oldThumbnailsDir.entryList(QDir::Files);
+                    for (const QString &thumb : thumbnails) {
+                        QFile::copy(oldThumbnailsDir.filePath(thumb), newThumbnailsDir.filePath(thumb));
+                    }
+                    qInfo() << "Migrated" << thumbnails.size() << "camera thumbnails to new location.";
+                }
+            } else {
+                qWarning() << "Failed to migrate configuration file from" << oldConfigPath << "to" << newConfigPath;
+            }
+        }
         m_config = new Config();
     }
 
@@ -120,7 +148,7 @@ void Context::init()
 
 void Context::parseCommandLineOptions(const QList<QCommandLineOption> &options)
 {
-    m_commandLineParser.setApplicationDescription(tr("CCTV Viewer - viewer and mounter video streams."));
+    m_commandLineParser.setApplicationDescription(tr("KVision - viewer and mounter video streams."));
     m_commandLineParser.addHelpOption();
     m_commandLineParser.addVersionOption();
 
@@ -196,15 +224,15 @@ void Context::initLanguage()
     
     QString transFile;
     if (lang == "pl") {
-        transFile = "cctv-viewer_pl_PL";
+        transFile = "kvision_pl_PL";
     } else if (lang == "en") {
-        transFile = "cctv-viewer_en_US";
+        transFile = "kvision_en_US";
     } else if (lang == "system") {
         QString locale = QLocale::system().name();
         if (locale.startsWith("pl", Qt::CaseInsensitive)) {
-            transFile = "cctv-viewer_pl_PL";
+            transFile = "kvision_pl_PL";
         } else {
-            transFile = "cctv-viewer_en_US";
+            transFile = "kvision_en_US";
         }
     }
     
@@ -228,15 +256,15 @@ void Context::setLanguage(const QString &lang)
     
     QString transFile;
     if (lang == "pl") {
-        transFile = "cctv-viewer_pl_PL";
+        transFile = "kvision_pl_PL";
     } else if (lang == "en") {
-        transFile = "cctv-viewer_en_US";
+        transFile = "kvision_en_US";
     } else if (lang == "system") {
         QString locale = QLocale::system().name();
         if (locale.startsWith("pl", Qt::CaseInsensitive)) {
-            transFile = "cctv-viewer_pl_PL";
+            transFile = "kvision_pl_PL";
         } else {
-            transFile = "cctv-viewer_en_US";
+            transFile = "kvision_en_US";
         }
     }
     

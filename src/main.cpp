@@ -205,7 +205,7 @@ int main(int argc, char *argv[])
     SingleApplication singleApp;
     if (singleApp.isRunning()) {
         Context::init();
-        qInfo() << "CCTV Viewer version:" << APP_VERSION;
+        qInfo() << "KVision version:" << APP_VERSION;
         Context::initLanguage();
         QQmlApplicationEngine engine;
         Context::setEngine(&engine);
@@ -222,7 +222,7 @@ int main(int argc, char *argv[])
     }
 
     Context::init();
-    qInfo() << "CCTV Viewer version:" << APP_VERSION;
+    qInfo() << "KVision version:" << APP_VERSION;
     Context::initLanguage();
 
     if (Context::isAuxiliary()) {
@@ -258,7 +258,11 @@ int main(int argc, char *argv[])
     auto *thumbnailProvider = new ThumbnailProvider();
     qmlRegisterSingletonInstance("CCTV_Viewer.Utils", 1, 0, "ThumbnailProvider", thumbnailProvider);
     engine.addImageProvider(QStringLiteral("thumbnail"), new ThumbnailImageProvider(thumbnailProvider));
-    app.setWindowIcon(QIcon(QLatin1String(":/images/cctv-viewer2-icon.png")));
+    QIcon appIcon;
+    appIcon.addFile(QStringLiteral(":/images/128.png"), QSize(128, 128));
+    appIcon.addFile(QStringLiteral(":/images/256.png"), QSize(256, 256));
+    appIcon.addFile(QStringLiteral(":/images/512.png"), QSize(512, 512));
+    app.setWindowIcon(appIcon);
 
     engine.addImportPath(":/src/imports");
     const QUrl url(QStringLiteral("qrc:/src/RootWindow.qml"));

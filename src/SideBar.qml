@@ -72,9 +72,10 @@ FocusScope {
 
     property var changelogData: [
         {
-            version: "v2.2.6",
-            date: "26.06.2026",
+            version: "v2.2.6-2",
+            date: "27.06.2026",
             changes: [
+                qsTr("Zmieniono nazwę programu na KVision wraz z automatyczną migracją dotychczasowych ustawień użytkownika, nowymi ikonami o wielu rozmiarach (128px, 256px, 512px) oraz wyświetlaniem pełnej wersji w pasku tytułowym."),
                 qsTr("Wycofano opcję automatycznego zwijania paska górnego z ustawień – odtąd pasek górny w oknach LIVE (głównym i pomocniczym) zwija się domyślnie przy starcie, a pinezka przypina go lokalnie i tymczasowo (w pamięci) bez zapisywania stanu."),
                 qsTr("Wprowadzono limit liczby okien pomocniczych (konfigurowalny w zakresie 0-3) z eleganckim oknem ostrzegawczym o zablokowaniu przy próbie jego przekroczenia."),
                 qsTr("Dodano subtelne, ciemnoszare ramki o szerokości 1px wokół nieużywanych viewportów w siatce podglądu LIVE dla lepszego rozgraniczenia pól."),
@@ -320,7 +321,7 @@ FocusScope {
                     spacing: 5
 
                     Text {
-                        text: qsTr("CCTV Viewer 2")
+                        text: qsTr("KVision")
                         color: "#ffffff"
                         font {
                             pixelSize: 20
@@ -2373,7 +2374,7 @@ FocusScope {
                     }
 
                     Text {
-                        text: qsTr("Historia ulepszeń, poprawek błędów i nowych funkcji w programie CCTV Viewer 2.")
+                        text: qsTr("Historia ulepszeń, poprawek błędów i nowych funkcji w programie KVision.")
                         color: "#8898a6"
                         font.pixelSize: 13
                         wrapMode: Text.WordWrap
