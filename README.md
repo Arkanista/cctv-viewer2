@@ -195,9 +195,53 @@ The easiest and recommended way to build and install the application from source
    makepkg -si
    ```
 
+### Building on Ubuntu / Debian (and other derivatives)
+
+KVision is fully compatible with Ubuntu, Debian, and other derivatives. The build system dynamically configures the shared library search paths (RPATH) based on your system's library directory layout (e.g., `/usr/lib/x86_64-linux-gnu` under Ubuntu's multi-arch layout vs `/usr/lib` on Arch Linux).
+
+> [!NOTE]
+> Starting from version 2.2.7, you **do not** need to manually configure `/etc/ld.so.conf.d/` or run `ldconfig` to fix missing `libhcnetsdk.so` errors. The build system automatically sets the correct RPATH, resolving library paths seamlessly!
+
+Here is the step-by-step installation guide:
+
+1. **Install required dependencies:**
+   ```bash
+   sudo apt update
+   sudo apt install -y cmake build-essential git ffmpeg \
+     qtdeclarative5-dev qtmultimedia5-dev qtquickcontrols2-5-dev \
+     libqt5svg5-dev qttools5-dev libgtest-dev libva-dev \
+     libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavdevice-dev \
+     qml-module-qtgraphicaleffects qml-module-qtquick-controls2 \
+     qml-module-qtquick-layouts qml-module-qtmultimedia \
+     qml-module-qt-labs-platform qml-module-qt-labs-settings \
+     qml-module-qt-labs-folderlistmodel qml-module-qtquick-dialogs
+   ```
+
+2. **Clone the repository with submodules:**
+   ```bash
+   git clone --recurse-submodules https://github.com/Arkanista/KVision.git
+   cd KVision
+   ```
+
+3. **Configure and build the application:**
+   ```bash
+   cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
+   cmake --build build -j$(nproc)
+   ```
+
+4. **Install the application:**
+   ```bash
+   sudo cmake --install build
+   ```
+
+5. **Run KVision:**
+   ```bash
+   kvision
+   ```
+
 ### Manual Build using CMake (Any Linux distribution)
 
-If you are not using Arch Linux, you can build the application manually using CMake.
+If you are not using Arch Linux or Ubuntu, you can build the application manually using CMake.
 
 1. **Install Dependencies:** Ensure you have installed all required runtime and build dependencies listed above using your distribution's package manager.
    For Arch/CachyOS:
