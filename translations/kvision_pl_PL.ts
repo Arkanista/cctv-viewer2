@@ -146,7 +146,7 @@
     </message>
     <message>
         <source>Wymuś zachowanie pierwszego uruchomienia i pokaż instrukcję (Force first run behavior).</source>
-        <translation type="unfinished"></translation>
+        <translation>Wymuś zachowanie pierwszego uruchomienia i pokaż instrukcję (Force first run behavior).</translation>
     </message>
 </context>
 <context>
@@ -863,11 +863,11 @@
     </message>
     <message>
         <source>Wycisz</source>
-        <translation type="unfinished"></translation>
+        <translation>Wycisz</translation>
     </message>
     <message>
         <source>Maksymalna głośność</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksymalna głośność</translation>
     </message>
 </context>
 <context>
@@ -930,11 +930,11 @@
     </message>
     <message>
         <source>Wycisz</source>
-        <translation type="unfinished"></translation>
+        <translation>Wycisz</translation>
     </message>
     <message>
         <source>Maksymalna głośność</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksymalna głośność</translation>
     </message>
     <message>
         <source>Przełączanie strumienia HD...</source>
@@ -1911,15 +1911,15 @@
     </message>
     <message>
         <source>Naprawiono okno ostrzegawcze przekroczenia limitu okien pomocniczych (brakujący zasób QML i odczyt z QSettings).</source>
-        <translation type="unfinished"></translation>
+        <translation>Naprawiono okno ostrzegawcze przekroczenia limitu okien pomocniczych (brakujący zasób QML i odczyt z QSettings).</translation>
     </message>
     <message>
         <source>Naprawiono brakującą ikonę programu pod Waylandem (instalacja w motywie hicolor oraz setDesktopFileName).</source>
-        <translation type="unfinished"></translation>
+        <translation>Naprawiono brakującą ikonę programu pod Waylandem (instalacja w motywie hicolor oraz setDesktopFileName).</translation>
     </message>
     <message>
         <source>Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
 </context>
 <context>

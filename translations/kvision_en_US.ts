@@ -4,10 +4,6 @@
 <context>
     <name>AuxiliaryLimitWarning</name>
     <message>
-        <source>CCTV Viewer 2</source>
-        <translation type="vanished">CCTV Viewer 2</translation>
-    </message>
-    <message>
         <source>Nie możesz włączyć więcej okien pomocniczych</source>
         <translation>You cannot open more auxiliary windows</translation>
     </message>
@@ -22,10 +18,6 @@
 </context>
 <context>
     <name>AuxiliaryWindow</name>
-    <message>
-        <source>CCTV Viewer - Okno pomocnicze</source>
-        <translation type="vanished">CCTV Viewer - Auxiliary Window</translation>
-    </message>
     <message>
         <source>Wybierz widok z menu na górnym pasku, aby rozpocząć wyświetlanie kamer.</source>
         <translation>Select a view from the top menu to start displaying cameras.</translation>
@@ -109,10 +101,6 @@
         <translation>Index of the current preset.</translation>
     </message>
     <message>
-        <source>CCTV Viewer - viewer and mounter video streams.</source>
-        <translation type="vanished">CCTV Viewer - viewer and mounter video streams.</translation>
-    </message>
-    <message>
         <source>Force full-screen mode.</source>
         <translation>Force full-screen mode.</translation>
     </message>
@@ -146,7 +134,7 @@
     </message>
     <message>
         <source>Wymuś zachowanie pierwszego uruchomienia i pokaż instrukcję (Force first run behavior).</source>
-        <translation type="unfinished"></translation>
+        <translation>Force first run behavior and show instructions.</translation>
     </message>
 </context>
 <context>
@@ -372,10 +360,6 @@
 </context>
 <context>
     <name>InstructionsWindow</name>
-    <message>
-        <source>CCTV Viewer 2 - Instrukcja Obsługi / Instructions</source>
-        <translation type="vanished">CCTV Viewer 2 - User Manual / Instructions</translation>
-    </message>
     <message>
         <source>qrc:/INSTRUKCJA.md</source>
         <translation>qrc:/INSTRUCTIONS.md</translation>
@@ -863,11 +847,11 @@
     </message>
     <message>
         <source>Wycisz</source>
-        <translation type="unfinished"></translation>
+        <translation>Mute</translation>
     </message>
     <message>
         <source>Maksymalna głośność</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximum volume</translation>
     </message>
 </context>
 <context>
@@ -930,30 +914,18 @@
     </message>
     <message>
         <source>Wycisz</source>
-        <translation type="unfinished"></translation>
+        <translation>Mute</translation>
     </message>
     <message>
         <source>Maksymalna głośność</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Przełączanie strumienia HD...</source>
-        <translation>Switching HD stream...</translation>
+        <translation>Maximum volume</translation>
     </message>
 </context>
 <context>
     <name>RootWindow</name>
     <message>
-        <source>CCTV Viewer</source>
-        <translation type="vanished">CCTV Viewer</translation>
-    </message>
-    <message>
         <source>Error reading configuration!</source>
         <translation>Error reading configuration!</translation>
-    </message>
-    <message>
-        <source>CCTV Viewer - Okno pomocnicze</source>
-        <translation type="vanished">CCTV Viewer - Auxiliary Window</translation>
     </message>
     <message>
         <source>Toggle Full Screen</source>
@@ -962,10 +934,6 @@
     <message>
         <source>Więcej opcji</source>
         <translation>More options</translation>
-    </message>
-    <message>
-        <source>CCTV Viewer - Panel</source>
-        <translation type="vanished">CCTV Viewer - Panel</translation>
     </message>
     <message>
         <source>Zamknij okno</source>
@@ -1085,101 +1053,6 @@
     </message>
 </context>
 <context>
-    <name>SettingsDialog</name>
-    <message>
-        <source>Settings</source>
-        <translation type="vanished">Settings</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation type="vanished">General</translation>
-    </message>
-    <message>
-        <source>Allow running multiple application instances</source>
-        <translation type="vanished">Allow running multiple application instances</translation>
-    </message>
-    <message>
-        <source>View</source>
-        <translation type="vanished">View</translation>
-    </message>
-    <message>
-        <source>Hide cursor in full screen mode</source>
-        <translation type="vanished">Hide cursor in full screen mode</translation>
-    </message>
-    <message>
-        <source>Allow swapping viewport places</source>
-        <translation type="vanished">Allow swapping viewport places</translation>
-    </message>
-    <message>
-        <source>Allow changing viewport settings</source>
-        <translation type="vanished">Allow changing viewport settings</translation>
-    </message>
-    <message>
-        <source>Enable stream selection</source>
-        <translation type="vanished">Enable stream selection</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation type="vanished">Language:</translation>
-    </message>
-    <message>
-        <source>System default</source>
-        <translation type="vanished">System default</translation>
-    </message>
-    <message>
-        <source>Zapis</source>
-        <translation type="vanished">Saving</translation>
-    </message>
-    <message>
-        <source>Domyślna ścieżka stopklatek:</source>
-        <translation type="vanished">Default snapshot path:</translation>
-    </message>
-    <message>
-        <source>Domyślna ścieżka nagrań:</source>
-        <translation type="vanished">Default recordings path:</translation>
-    </message>
-    <message>
-        <source>Wybierz folder dla stopklatek</source>
-        <translation type="vanished">Choose folder for snapshots</translation>
-    </message>
-    <message>
-        <source>Wybierz folder dla nagrań</source>
-        <translation type="vanished">Choose folder for recordings</translation>
-    </message>
-    <message>
-        <source>User Interface Settings</source>
-        <translation type="vanished">User Interface Settings</translation>
-    </message>
-    <message>
-        <source>Show channel status in the top left corner of the viewport</source>
-        <translation type="vanished">Show channel status in the top left corner of the viewport</translation>
-    </message>
-    <message>
-        <source>Show camera info in the bottom left corner of the viewport</source>
-        <translation type="vanished">Show camera info in the bottom left corner of the viewport</translation>
-    </message>
-    <message>
-        <source>Show control icons in the bottom right corner of the viewport only when hovering</source>
-        <translation type="vanished">Show control icons in the bottom right corner of the viewport only when hovering</translation>
-    </message>
-    <message>
-        <source>Show info fields only when hovering</source>
-        <translation type="vanished">Show info fields only when hovering</translation>
-    </message>
-    <message>
-        <source>Show top bar by default when opening window</source>
-        <translation type="vanished">Show top bar by default when opening window</translation>
-    </message>
-    <message>
-        <source>Automatically collapse top bar</source>
-        <translation type="vanished">Automatically collapse top bar</translation>
-    </message>
-    <message>
-        <source>Disable audio entirely</source>
-        <translation type="vanished">Disable audio entirely</translation>
-    </message>
-</context>
-<context>
     <name>SideBar</name>
     <message>
         <source>Tools</source>
@@ -1208,10 +1081,6 @@
     <message>
         <source>Settings</source>
         <translation>Settings</translation>
-    </message>
-    <message>
-        <source>CCTV Viewer 2</source>
-        <translation type="vanished">CCTV Viewer 2</translation>
     </message>
     <message>
         <source>Wersja %1</source>
@@ -1478,10 +1347,6 @@
         <translation>Show top bar by default when opening window</translation>
     </message>
     <message>
-        <source>Automatically collapse top bar</source>
-        <translation type="vanished">Automatically collapse top bar</translation>
-    </message>
-    <message>
         <source>Poprawka logowania i działania archiwum w oknach pomocniczych.</source>
         <translation>Fixed login and playback issues in auxiliary windows.</translation>
     </message>
@@ -1580,10 +1445,6 @@
     <message>
         <source>Dziennik zmian (Changelog)</source>
         <translation>Changelog</translation>
-    </message>
-    <message>
-        <source>Historia ulepszeń, poprawek błędów i nowych funkcji w programie CCTV Viewer 2.</source>
-        <translation type="vanished">History of improvements, bug fixes, and new features in CCTV Viewer 2.</translation>
     </message>
     <message>
         <source>Aktywuj ten układ podglądu</source>
@@ -1782,40 +1643,8 @@
         <translation>Allowed resizing the system stats panel by dragging its edges and corners with auto-scaling graphs.</translation>
     </message>
     <message>
-        <source>Zoptymalizowano silnik wyjściowy audio poprzez ponowne użycie (recykling) obiektów QAudioOutput w celu wyeliminowania wycieków pamięci i wątków na systemach Linux.</source>
-        <translation type="vanished">Optimized the audio output engine by recycling QAudioOutput objects to eliminate memory and thread leaks on Linux systems.</translation>
-    </message>
-    <message>
-        <source>Dodano poprawne czyszczenie pamięci statycznego detektora plików konfiguracyjnych (QFileSystemWatcher) przy wyjściu z aplikacji.</source>
-        <translation type="vanished">Added proper cleanup of the static configuration file watcher (QFileSystemWatcher) upon application exit.</translation>
-    </message>
-    <message>
-        <source>Wyeliminowano wycieki pamięci (ok. 50MB na przełączenie) podczas zamiennego przełączania układów kamer (np. OGÓLNE i ZEWNĘTRZNY) poprzez bezwarunkowe zwalnianie i niszczenie obiektów wyjściowych audio (QAudioOutput) przy zatrzymaniu odtwarzacza.</source>
-        <translation type="vanished">Resolved memory leaks (approx 50MB per layout switch) when alternately switching camera layouts (e.g., OGÓLNE and ZEWNĘTRZNY) by unconditionally freeing and destroying QAudioOutput audio output objects upon player stop.</translation>
-    </message>
-    <message>
-        <source>Dodano resetowanie i zerowanie kontekstu skalowania obrazu (SwsContext) w buforach wideo w celu zapobiegania wyciekom pamięci w bibliotece libswscale.</source>
-        <translation type="vanished">Added resetting and nullifying of image scaling context (SwsContext) in video buffers to prevent memory leaks inside the libswscale library.</translation>
-    </message>
-    <message>
-        <source>Dodano globalną opcję w ustawieniach &apos;Wyłącz obsługę audio całkowicie&apos; (Disable audio entirely), która całkowicie ignoruje przetwarzanie dźwięku w odtwarzaczach wideo, eliminując wszelkie potencjalne narzuty wydajnościowe i wycieki pamięci związane z obsługą audio.</source>
-        <translation type="vanished">Added global setting &apos;Disable audio entirely&apos; which completely ignores audio processing in video players, eliminating any potential performance overhead and memory leaks associated with audio handling.</translation>
-    </message>
-    <message>
         <source>Disable audio entirely</source>
         <translation>Disable audio entirely</translation>
-    </message>
-    <message>
-        <source>Wyeliminowano wyciek pamięci (ok. 50MB na każde przełączenie układu kamer) poprzez poprawne rozłączanie sygnałów błędu (mediaError) za pomocą oryginalnych funkcji gniazd oraz zerowanie dynamicznych powiązań QML zwolnionego odtwarzacza przed ponownym użyciem z puli.</source>
-        <translation type="vanished">Eliminated a memory leak (approx. 50MB per camera layout switch) by correctly disconnecting error signals (mediaError) using stored signal slot functions and explicitly clearing dynamic QML bindings on released players before reuse from the pool.</translation>
-    </message>
-    <message>
-        <source>Zoptymalizowano moduł statystyk systemowych, redukując ciągłe zużycie pamięci (wyciek ok. 100-200 KB/s) poprzez buforowanie identyfikatorów procesów i wyeliminowanie alokacji dynamicznych wyrażeń regularnych.</source>
-        <translation type="vanished">Optimized the system statistics module, reducing continuous memory consumption (leak of approx. 100-200 KB/s) by caching process identifiers and eliminating dynamic regular expression allocations.</translation>
-    </message>
-    <message>
-        <source>Wymuszono agresywne czyszczenie pamięci (Garbage Collection) przy każdej zmianie układu kamer, co ostatecznie eliminuje mniejsze wycieki pamięci interfejsu w silniku QML.</source>
-        <translation type="vanished">Forced aggressive memory cleanup (Garbage Collection) on every camera layout change, ultimately eliminating minor interface memory leaks in the QML engine.</translation>
     </message>
     <message>
         <source>Wyeliminowano wycieki pamięci RAM przy przełączaniu układów kamer poprzez automatyczne i poprawne zatrzymywanie powierzchni wideo przed zmianą formatu oraz dopasowanie rozmiaru renderera.</source>
@@ -1919,15 +1748,51 @@
     </message>
     <message>
         <source>Naprawiono okno ostrzegawcze przekroczenia limitu okien pomocniczych (brakujący zasób QML i odczyt z QSettings).</source>
-        <translation type="unfinished"></translation>
+        <translation>Fixed the warning window for exceeding the auxiliary windows limit (missing QML resource and QSettings read).</translation>
     </message>
     <message>
         <source>Naprawiono brakującą ikonę programu pod Waylandem (instalacja w motywie hicolor oraz setDesktopFileName).</source>
-        <translation type="unfinished"></translation>
+        <translation>Fixed the missing program icon under Wayland (hicolor theme installation and setDesktopFileName).</translation>
     </message>
     <message>
         <source>Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
+    </message>
+    <message>
+        <source>Dodano nowe, intuicyjne opcje do menu podręcznego viewportów (pod prawym przyciskiem myszy): &apos;Stopklatka&apos; (zapis bieżącej klatki) oraz &apos;Odtwarzaj&apos; (natychmiastowe przejście do archiwalnego odtwarzania danej kamery).</source>
+        <translation>Added new intuitive options to the viewports context menu: &apos;Snapshot&apos; (saving the current frame) and &apos;Playback&apos; (immediate transition to the archive playback of the given camera).</translation>
+    </message>
+    <message>
+        <source>Zrewolucjonizowano i naprawiono obsługę dźwięku PCM: bezpośrednie przekazywanie potoku do QAudioOutput, eliminacja zawieszeń interfejsu (ALSA/PulseAudio/Pipewire) przez stabilizację sample rate (debounce po 5 stabilnych ramkach), cooldown 2s na rekreację wyjścia, filtrowanie uszkodzonych parametrów i bufor 64KB redukujący jitter sieciowy.</source>
+        <translation>Revolutionized and fixed PCM audio handling: direct pipeline forwarding to QAudioOutput, elimination of interface freezes (ALSA/PulseAudio/Pipewire) by stabilizing sample rate (debounce after 5 stable frames), 2s cooldown on output recreation, filtering damaged parameters and a 64KB buffer reducing network jitter.</translation>
+    </message>
+    <message>
+        <source>Zaimplementowano interaktywny suwak regulacji głośności HUD bezpośrednio na kafelkach viewportów wraz z opcją szybkiego wyciszenia oraz maksymalizacji głośności jednym kliknięciem.</source>
+        <translation>Implemented an interactive HUD volume slider directly on the viewport tiles, along with a quick mute option and one-click volume maximization.</translation>
+    </message>
+    <message>
+        <source>Zaimplementowano automatyczne i natychmiastowe wyciszanie strumieni LIVE w siatce głównej przy otwarciu okna odtwarzania Archiwum, co zapobiega nakładaniu się dźwięków (kakofonii).</source>
+        <translation>Implemented automatic and immediate muting of LIVE streams in the main grid upon opening the Archive playback window, preventing overlapping sounds (cacophony).</translation>
+    </message>
+    <message>
+        <source>Wprowadzono centralny system powiadomień SnapshotSavedDialog o zapisaniu stopklatki (ciemnoszara obudowa, seledynowe krawędzie, auto-zamknięcie po 10 sekundach) z szybkim łączem &apos;Przeglądaj&apos; do bezpośredniego otwierania folderu w systemowym menedżerze plików.</source>
+        <translation>Introduced a central SnapshotSavedDialog notification system for saved snapshots (dark gray enclosure, teal borders, auto-close after 10 seconds) with a quick &apos;Browse&apos; link to open the folder directly in the system file manager.</translation>
+    </message>
+    <message>
+        <source>Wzbogacono wbudowane okno pomocy o szczegółowy rozdział &apos;Opis działania przycisków&apos; z natywnymi, ostrymi ikonami wektorowymi SVG. Okno pomocy otwiera się teraz w pełni automatycznie i wyśrodkowane nad oknem głównym przy pierwszym uruchomieniu programu.</source>
+        <translation>Enriched the built-in help window with a detailed &apos;Button functions description&apos; chapter using native, crisp SVG vector icons. The help window now opens fully automatically and centered over the main window upon the program&apos;s first launch.</translation>
+    </message>
+    <message>
+        <source>Wprowadzono domyślne wyświetlanie paska górnego przy uruchomieniu programu/okna oraz dodano w ustawieniach opcję &apos;Domyślnie pokazuj pasek górny po otwarciu okna&apos;, umożliwiającą dostosowanie tego zachowania do własnych preferencji.</source>
+        <translation>Introduced default display of the top bar upon program/window startup and added a &apos;Show top bar by default after opening a window&apos; option in the settings, allowing customization of this behavior to personal preferences.</translation>
+    </message>
+    <message>
+        <source>Zaimplementowano dynamiczną ścieżkę bibliotek RPATH w CMakeLists.txt z użyciem GNUInstallDirs, co umożliwia natychmiastowe uruchomienie skompilowanej aplikacji na Ubuntu i Debianie bez konieczności ręcznej konfiguracji /etc/ld.so.conf.d/ i ldconfig.</source>
+        <translation>Implemented dynamic RPATH library paths in CMakeLists.txt using GNUInstallDirs, enabling immediate execution of the compiled application on Ubuntu and Debian without the need for manual configuration of /etc/ld.so.conf.d/ and ldconfig.</translation>
+    </message>
+    <message>
+        <source>Zaimplementowano architekturę pobierania sygnałów detekcji ruchu z rejestratorów Hikvision w czasie rzeczywistym poprzez SetupAlarmChan i rejestrację callbacków alarmowych w SDK.</source>
+        <translation>Implemented an architecture for real-time motion detection signal retrieval from Hikvision recorders via SetupAlarmChan and alarm callback registration in the SDK.</translation>
     </message>
 </context>
 <context>
@@ -1939,10 +1804,6 @@
 </context>
 <context>
     <name>SingleInstanceWarning</name>
-    <message>
-        <source>CCTV Viewer 2</source>
-        <translation type="vanished">CCTV Viewer 2</translation>
-    </message>
     <message>
         <source>Program już działa, nie możesz uruchomić drugiego</source>
         <translation>The program is already running, you cannot start a second one</translation>
@@ -2045,28 +1906,12 @@
         <translation>Secondary Backup URL</translation>
     </message>
     <message>
-        <source>Global Options</source>
-        <translation type="vanished">Global Options</translation>
-    </message>
-    <message>
-        <source>Unmute when the viewport is in full screen mode</source>
-        <translation type="vanished">Unmute when the viewport is in full screen mode</translation>
-    </message>
-    <message>
-        <source>Default FFmpeg options</source>
-        <translation type="vanished">Default FFmpeg options</translation>
-    </message>
-    <message>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
         <source>Save</source>
         <translation>Save</translation>
-    </message>
-    <message>
-        <source>Maximizing camera to full screen does not unmute</source>
-        <translation type="vanished">Maximizing camera to full screen does not unmute</translation>
     </message>
     <message>
         <source>Channel Options</source>
@@ -2123,10 +1968,6 @@
     <message>
         <source>Stopklatka</source>
         <translation>Snapshot</translation>
-    </message>
-    <message>
-        <source>Stopklatka HD</source>
-        <translation>Snapshot HD</translation>
     </message>
     <message>
         <source>Odtwarzaj</source>
