@@ -534,5 +534,29 @@ Ponieważ SDK wysyła zdarzenie detekcji w momencie rozpoczęcia ruchu lub cykli
 * Każde kolejne nadejście sygnału detekcji dla tego samego kanału **resetuje i uruchamia ponownie** ten timer.
 * Jeśli timer wygaśnie bez odebrania nowych alarmów w tym oknie czasowym, emitujemy sygnał zakończenia ruchu: `motionDetected(..., false)`. Zapobiega to gwałtownemu miganiu ikonek na podglądzie w przypadku chwilowych spadków intensywności ruchu.
 
+---
+
+## 26. Aktualizacja Changelogów i Synchronizacja Wydania na GitHubie (Wersja v2.2.7)
+
+Zgodnie z wymaganiami użytkownika, uzupełniono changelogi w kodzie źródłowym, paczce Debiana oraz na platformie GitHub o najbardziej istotne i krytyczne zmiany techniczne wprowadzone w wersji **v2.2.7**:
+
+### 1. In-App Changelog (język polski, `SideBar.qml`)
+Rozbudowano listę zmian w panelu bocznym aplikacji o szczegółowe opisy:
+* **Rewolucja w obsłudze dźwięku PCM**: Bezpośrednie przekazywanie potoku audio do `QAudioOutput`, stabilizacja sample rate za pomocą debounce (wymóg 5 stabilnych ramek), cooldown 2s na rekreację wyjścia, filtracja uszkodzonych parametrów i bufor 64KB redukujący jitter sieciowy.
+* **Automatyczne wyciszanie Live View**: Automatyczne wyciszanie strumieni LIVE przy otwarciu okna odtwarzania Archiwum w celu uniknięcia nakładania się dźwięków (kakofonii).
+* **Nowy system powiadomień**: Centralny dialog `SnapshotSavedDialog` informujący o zapisaniu stopklatki (ciemnoszare tło `#1c242c`, seledynowe krawędzie `#00f5d4`, auto-zamknięcie po 10 sekundach) wraz z bezpośrednim przyciskiem "Przeglądaj" do natychmiastowego otwarcia katalogu w systemowym menedżerze plików.
+* **Dynamiczny RPATH (Ubuntu/Debian)**: Zastosowanie `GNUInstallDirs` i dynamicznego `INSTALL_RPATH` w `CMakeLists.txt`, co całkowicie eliminuje crashe przy uruchamianiu aplikacji z paczki na systemach Ubuntu/Debian i usuwa potrzebę ręcznej konfiguracji `ldconfig`.
+
+### 2. Debian Changelog (`debian/changelog`)
+Wpisy dla wersji `2.2.7-1` zostały w pełni zaktualizowane i wzbogacone o profesjonalne, szczegółowe opisy techniczne w języku angielskim:
+* Pełne wyjaśnienie zmian w potoku PCM audio, w tym filtr sample rate debounce, 2-sekundowy cooldown i 64KB buffer.
+* Opis automatycznego wyciszania siatki podglądu na żywo podczas sesji odtwarzania.
+* Opis nowego interfejsu powiadomień `SnapshotSavedDialog` z automatycznym zamknięciem i przyciskiem przeglądania.
+* Opis dynamicznego dynamic-linking RPATH na Ubuntu/Debian za pomocą `${CMAKE_INSTALL_LIBDIR}`.
+
+### 3. GitHub Release Notes (`create_release_2_2_7.py`)
+Zaktualizowano szablon opisu wydania na GitHubie w skrypcie synchronizacyjnym. Skrypt został uruchomiony i pomyślnie zaktualizował opis release **v2.2.7** na platformie GitHub, a także podmienił plik binarny paczki Arch Linux (`kvision-2.2.7-1-x86_64.pkg.tar.zst`).
+
+
 
 
