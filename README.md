@@ -209,7 +209,7 @@ Here is the step-by-step installation guide:
    sudo apt update
    sudo apt install -y cmake build-essential git ffmpeg \
      qtdeclarative5-dev qtmultimedia5-dev qtquickcontrols2-5-dev \
-     libqt5svg5-dev qttools5-dev libgtest-dev libva-dev \
+     libqt5svg5-dev libqt5multimedia5-plugins qttools5-dev libgtest-dev libva-dev \
      libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavdevice-dev \
      qml-module-qtgraphicaleffects qml-module-qtquick-controls2 \
      qml-module-qtquick-layouts qml-module-qtmultimedia \
