@@ -115,24 +115,37 @@ kvision
 ```
 
 ### Rozwiązywanie problemów ze skalowaniem (KDE Plasma)
-Jeśli program nie dostosowuje się automatycznie do systemowych ustawień skalowania ekranu w środowisku KDE Plasma (jest zbyt mały lub zbyt duży), można to naprawić, ręcznie definiując zmienne środowiskowe Qt w pliku aktywacyjnym `.desktop`.
+Jeśli program nie dostosowuje się automatycznie do systemowych ustawień skalowania ekranu w środowisku KDE Plasma (interfejs jest zbyt mały lub zbyt duży), możesz to łatwo naprawić na dwa sposoby: poprzez interfejs graficzny (GUI) lub edycję pliku konfiguracyjnego.
 
-Oto instrukcja krok po kroku, jak dostosować skalowanie programu:
-1. Skopiuj systemowy plik `.desktop` do swojego katalogu domowego (aby przyszłe aktualizacje pakietu go nie nadpisały):
+#### Metoda 1: Przez interfejs graficzny KDE Plasma (Edytuj programy)
+Jest to najprostsza metoda niewymagająca korzystania z terminala:
+1. Kliknij prawym przyciskiem myszy na przycisk menu start (aktywator programów) i wybierz **„Edytuj programy...”** (lub uruchom program `kmenuedit` z terminala).
+2. W oknie edytora menu odszukaj program **KVision** (zazwyczaj w sekcji *Narzędzia* / *System* lub wpisując jego nazwę w wyszukiwarkę).
+3. Kliknij na ikonę **KVision**, aby otworzyć właściwości programu.
+4. Przejdź do zakładki **„Program”** (lub *Aplikacja*).
+5. Znajdź pole **„Polecenie”** (które domyślnie zawiera `kvision`) i zmodyfikuj jego zawartość, dodając zmienne środowiskowe na początku. Na przykład dla skalowania **150%** zmień na:
+   ```ini
+   env QT_FONT_DPI=96 QT_SCALE_FACTOR=1.5 kvision
+   ```
+   *(Uwaga: Zmień `QT_SCALE_FACTOR` na odpowiedni dla Twojego monitora, np. `1.25` dla 125%, `2.0` dla 200% itp.)*
+6. Kliknij **„Zapisz”** na pasku narzędzi edytora menu. Zmiany zostaną automatycznie zapisane w Twoim profilu użytkownika (tworząc lokalną kopię pliku `.desktop` w `~/.local/share/applications/kvision.desktop`).
+
+#### Metoda 2: Ręczna edycja pliku `.desktop` (Terminal)
+Jeśli wolisz edycję tekstową lub nie używasz domyślnego edytora menu:
+1. Skopiuj systemowy plik aktywacyjny `.desktop` do swojego katalogu domowego (aby przyszłe aktualizacje pakietu go nie nadpisały):
    ```bash
    cp /usr/share/applications/kvision.desktop ~/.local/share/applications/
    ```
-2. Otwórz skopiowany plik w edytorze tekstu (np. Kate lub KWrite):
+2. Otwórz skopiowany plik w dowolnym edytorze tekstu (np. Kate lub KWrite):
    ```bash
    kate ~/.local/share/applications/kvision.desktop
    ```
-3. Znajdź linię rozpoczynającą się od `Exec=` (domyślnie jest to `Exec=kvision`).
-4. Zmodyfikuj tę linię, wstawiając przed nazwą programu zmienne środowiskowe `QT_FONT_DPI` oraz `QT_SCALE_FACTOR`. Na przykład, dla skalowania **150%** ustaw:
+3. Znajdź linię rozpoczynającą się od `Exec=` (domyślnie `Exec=kvision`).
+4. Zmodyfikuj tę linię, wstawiając zmienne środowiskowe przed nazwą programu. Na przykład dla skalowania **150%** ustaw:
    ```ini
    Exec=env QT_FONT_DPI=96 QT_SCALE_FACTOR=1.5 kvision
    ```
-   *Uwaga:* Zmień wartość `QT_SCALE_FACTOR` na odpowiednią dla Twojego monitora (np. `1.25` dla 125%, `2.0` dla 200%).
-5. Zapisz plik. Od tego momentu program uruchamiany z menu systemowego będzie stosował wymuszone skalowanie.
+5. Zapisz plik. Program uruchamiany z menu systemowego będzie od teraz poprawnie skalowany.
 
 ---
 

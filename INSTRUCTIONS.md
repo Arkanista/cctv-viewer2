@@ -119,9 +119,23 @@ kvision
 ```
 
 ### Troubleshooting System Scaling (KDE Plasma)
-If the program does not automatically adjust to your system's desktop scaling settings in the KDE Plasma environment (appearing too small or too large), you can fix this by manually defining the Qt environment variables inside the `.desktop` launcher file.
+If the program does not automatically adjust to your system's desktop scaling settings in the KDE Plasma environment (appearing too small or too large), you can easily fix this using one of two methods: via the graphical interface (GUI) or by manually editing the launcher file.
 
-Here is a step-by-step guide to configure scaling for the program:
+#### Method 1: Via KDE Plasma GUI (Edit Applications)
+This is the easiest method and does not require using the terminal:
+1. Right-click on your system's application launcher (Start Menu) icon and select **"Edit Applications..."** (or run `kmenuedit` from the terminal).
+2. In the menu editor window, locate **KVision** (usually found under *System* or *Utilities*, or by searching for it).
+3. Click on **KVision** to open its properties.
+4. Go to the **"Application"** tab.
+5. Locate the **"Command"** field (which defaults to `kvision`) and modify it by prepending the required environment variables. For example, for **150%** scaling, change it to:
+   ```ini
+   env QT_FONT_DPI=96 QT_SCALE_FACTOR=1.5 kvision
+   ```
+   *(Note: Adjust the `QT_SCALE_FACTOR` value to match your monitor scaling, e.g., `1.25` for 125%, `2.0` for 200%, etc.)*
+6. Click **"Save"** in the toolbar. The changes will be automatically saved to your user profile (creating a local copy of the launcher at `~/.local/share/applications/kvision.desktop`).
+
+#### Method 2: Manually Editing the `.desktop` File (Terminal)
+If you prefer text-based configuration or are not using the default menu editor:
 1. Copy the system `.desktop` file to your home directory (so future package updates don't overwrite your changes):
    ```bash
    cp /usr/share/applications/kvision.desktop ~/.local/share/applications/
@@ -135,7 +149,6 @@ Here is a step-by-step guide to configure scaling for the program:
    ```ini
    Exec=env QT_FONT_DPI=96 QT_SCALE_FACTOR=1.5 kvision
    ```
-   *Note:* Adjust the `QT_SCALE_FACTOR` value to match your monitor scaling (e.g., `1.25` for 125%, `2.0` for 200%).
 5. Save the file. From now on, launching the program from your system launcher will apply the forced scaling factor correctly.
 
 ---
