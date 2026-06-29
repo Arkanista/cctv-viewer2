@@ -136,6 +136,10 @@
         <source>Wymuś zachowanie pierwszego uruchomienia i pokaż instrukcję (Force first run behavior).</source>
         <translation>Force first run behavior and show instructions.</translation>
     </message>
+    <message>
+        <source>Zasymuluj błędy na każdym rejestratorze (Simulate NVR errors).</source>
+        <translation>Simulate NVR errors on all recorders.</translation>
+    </message>
 </context>
 <context>
     <name>DownloadDialog</name>
@@ -545,6 +549,100 @@
     <message>
         <source>Discovering...</source>
         <translation>Discovering...</translation>
+    </message>
+</context>
+<context>
+    <name>NvrStatusDialog</name>
+    <message>
+        <source>Status rejestratorów</source>
+        <translation>NVR Status</translation>
+    </message>
+    <message>
+        <source>Trwa sprawdzanie stanu rejestratorów...</source>
+        <translation>Checking NVR status...</translation>
+    </message>
+    <message>
+        <source>Ostatnie sprawdzenie: </source>
+        <translation>Last check: </translation>
+    </message>
+    <message>
+        <source>brak</source>
+        <translation>never</translation>
+    </message>
+    <message>
+        <source>BŁĄD</source>
+        <translation>ERROR</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Brak danych o statusie</source>
+        <translation>No status data</translation>
+    </message>
+    <message>
+        <source>Naciśnij przycisk poniżej, aby sprawdzić status rejestratorów.</source>
+        <translation>Press the button below to check NVR status.</translation>
+    </message>
+    <message>
+        <source>Sprawdź teraz</source>
+        <translation>Check now</translation>
+    </message>
+    <message>
+        <source>Zamknij</source>
+        <translation>Close</translation>
+    </message>
+</context>
+<context>
+    <name>NvrStatusWorker</name>
+    <message>
+        <source>Brak połączenia lub błąd logowania</source>
+        <translation>No connection or login error</translation>
+    </message>
+    <message>
+        <source>Błąd odczytu stanu rejestratora (SDK)</source>
+        <translation>Error reading NVR status (SDK)</translation>
+    </message>
+    <message>
+        <source>Wysokie obciążenie procesora (&gt;85%)</source>
+        <translation>High CPU load (&gt;85%)</translation>
+    </message>
+    <message>
+        <source>Błąd sprzętowy urządzenia</source>
+        <translation>Device hardware error</translation>
+    </message>
+    <message>
+        <source>Dysk %1</source>
+        <translation>Disk %1</translation>
+    </message>
+    <message>
+        <source>Krytyczny błąd/uszkodzenie dysku</source>
+        <translation>Critical disk error/failure</translation>
+    </message>
+    <message>
+        <source>Dysk niesformatowany</source>
+        <translation>Disk unformatted</translation>
+    </message>
+    <message>
+        <source>Dysk pełny (nadpisywanie wyłączone)</source>
+        <translation>Disk full (overwrite disabled)</translation>
+    </message>
+    <message>
+        <source>Symulowany Rejestrator</source>
+        <translation>Simulated NVR</translation>
+    </message>
+    <message>
+        <source>Dysk 1</source>
+        <translation>Disk 1</translation>
+    </message>
+    <message>
+        <source>Krytyczny błąd/uszkodzenie dysku (Symulacja)</source>
+        <translation>Critical disk error/failure (Simulation)</translation>
+    </message>
+    <message>
+        <source>Brak połączenia lub błąd logowania (Symulacja)</source>
+        <translation>No connection or login error (Simulation)</translation>
     </message>
 </context>
 <context>
@@ -1051,6 +1149,18 @@
         <source>KVision - Panel</source>
         <translation>KVision - Panel</translation>
     </message>
+    <message>
+        <source>Wykryto błędy rejestratorów!</source>
+        <translation>NVR errors detected!</translation>
+    </message>
+    <message>
+        <source>Status rejestratorów: OK</source>
+        <translation>NVR status: OK</translation>
+    </message>
+    <message>
+        <source>Wykryto błędy rejestratorów! Kliknij, aby zobaczyć szczegóły.</source>
+        <translation>NVR errors detected! Click to view details.</translation>
+    </message>
 </context>
 <context>
     <name>SideBar</name>
@@ -1223,6 +1333,10 @@
         <translation>Allow running multiple application instances</translation>
     </message>
     <message>
+        <source>This option is disabled to prevent settings file write conflicts. To enable it (dangerous and not recommended!), set &apos;singleApplication=false&apos; in the kvision.conf configuration file.</source>
+        <translation>This option is disabled to prevent settings file write conflicts. To enable it (dangerous and not recommended!), set &apos;singleApplication=false&apos; in the kvision.conf configuration file.</translation>
+    </message>
+    <message>
         <source>Context Menu Settings</source>
         <translation>Context Menu Settings</translation>
     </message>
@@ -1248,7 +1362,7 @@
     </message>
     <message>
         <source>Interface &amp; View Settings</source>
-        <translation>Interface &amp; View Settings</translation>
+        <translation type="vanished">Interface &amp; View Settings</translation>
     </message>
     <message>
         <source>Hide mouse cursor in Full Screen mode</source>
@@ -1809,6 +1923,38 @@
     <message>
         <source>Dodano możliwość ponownego przeładowania aktywnego układu poprzez kliknięcie jego przycisku na górnym pasku.</source>
         <translation>Added the ability to reload the active layout by clicking its button on the top toolbar.</translation>
+    </message>
+    <message>
+        <source>NVR Status Monitoring</source>
+        <translation>NVR Status Monitoring</translation>
+    </message>
+    <message>
+        <source>Monitor offline status and login errors</source>
+        <translation>Monitor offline status and login errors</translation>
+    </message>
+    <message>
+        <source>Monitor CPU overload (&gt;85%)</source>
+        <translation>Monitor CPU overload (&gt;85%)</translation>
+    </message>
+    <message>
+        <source>Monitor recorder hardware errors</source>
+        <translation>Monitor recorder hardware errors</translation>
+    </message>
+    <message>
+        <source>Monitor hard disk faults/abnormalities</source>
+        <translation>Monitor hard disk faults/abnormalities</translation>
+    </message>
+    <message>
+        <source>Monitor unformatted hard disks</source>
+        <translation>Monitor unformatted hard disks</translation>
+    </message>
+    <message>
+        <source>Monitor full hard disks (loop coverage disabled)</source>
+        <translation>Monitor full hard disks (loop coverage disabled)</translation>
+    </message>
+    <message>
+        <source>Check Hikvision NVR error status</source>
+        <translation>Check Hikvision NVR error status</translation>
     </message>
 </context>
 <context>

@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.14)
 
 set(VER_MAJ 2)
 set(VER_MIN 2)
-set(VER_PAT 7)
-set(VER_REL 5)
+set(VER_PAT 8)
+set(VER_REL 1)
 # set(REL_STATUS "alpha")
 
 set(APP_NAME "KVision")
@@ -178,7 +178,9 @@ set(PROJ_FILES
     src/hikvisionarchiveplayer.cpp src/hikvisionarchiveplayer.h
     src/hikvisiondownloader.cpp src/hikvisiondownloader.h
     src/systemstats.cpp src/systemstats.h
+    src/nvrstatusmanager.cpp src/nvrstatusmanager.h
     src/DownloadDialog.qml
+    src/NvrStatusDialog.qml
     ${RESOURCES}
     ${TS_FILES}
     ${QM_FILES}

@@ -498,6 +498,61 @@ Wpisy dla wersji `2.2.7-1` zostały w pełni zaktualizowane i wzbogacone o profe
 ### 3. GitHub Release Notes (`create_release_2_2_7.py`)
 Zaktualizowano szablon opisu wydania na GitHubie w skrypcie synchronizacyjnym. Skrypt został uruchomiony i pomyślnie zaktualizował opis release **v2.2.7** na platformie GitHub, a także podmienił plik binarny paczki Arch Linux (`kvision-2.2.7-1-x86_64.pkg.tar.zst`).
 
+---
 
+## 27. Rozwiązanie błędu uruchamiania QML (Cannot assign to non-existent property "footer")
 
+### Wykryty błąd
+Po skompilowaniu kodu monitorowania stanu rejestratorów Hikvision aplikacja zgłaszała błąd przy uruchamianiu:
+```
+Warning: QQmlApplicationEngine failed to load component
+Warning: qrc:/src/RootWindow.qml:1689:9: Cannot assign to non-existent property "footer"
+```
 
+### Przyczyna
+W pliku [RootWindow.qml](file:///home/robert/cctv/kvision/src/RootWindow.qml) zaimportowane były jednocześnie dwie biblioteki definiujące typ `Dialog`:
+* `import QtQuick.Controls 2.12`
+* `import QtQuick.Dialogs 1.3` (stare okna dialogowe oparte na QtQuick Controls 1)
+
+Import `QtQuick.Dialogs 1.3` powodował, że typ `Dialog` dla okna szczegółów statusu rejestratorów (`nvrStatusDialog`) był rozpoznawany jako legacy dialog, który nie wspiera nowoczesnych właściwości QtQuick.Controls 2 takich jak `footer`, `header` oraz `background`, powodując uniemożliwienie włączenia się programu.
+
+### Wdrożone rozwiązanie
+1. **Wydzielenie do osobnego komponentu**: Wyodrębniono cały kod dialogu szczegółów do nowego pliku [NvrStatusDialog.qml](file:///home/robert/cctv/kvision/src/NvrStatusDialog.qml).
+2. **Eliminacja przestarzałych importów**: Nowy komponent importuje wyłącznie nowoczesną bibliotekę `QtQuick.Controls 2.12`, eliminując namespace clash.
+3. **Konfiguracja budowania**:
+   - Zarejestrowano plik [NvrStatusDialog.qml](file:///home/robert/cctv/kvision/src/NvrStatusDialog.qml) w pliku zasobów [kvision.qrc](file:///home/robert/cctv/kvision/kvision.qrc).
+   - Dodano plik do listy kompilacji `PROJ_FILES` w [CMakeLists.txt](file:///home/robert/cctv/kvision/CMakeLists.txt).
+4. **Referencja**: Zastąpiono ponad 250 linii starego inline-kodu w [RootWindow.qml](file:///home/robert/cctv/kvision/src/RootWindow.qml) wywołaniem czystego, wyseparowanego komponentu:
+    ```qml
+    NvrStatusDialog {
+        id: nvrStatusDialog
+    }
+    ```
+
+Aplikacja buduje się i uruchamia całkowicie bezbłędnie.
+
+---
+
+## 28. Status rejestratorów: Data i czas ostatniego sprawdzenia oraz poprawki interfejsu (Popup UI & Settings Checkbox)
+
+Wdrożono następujące usprawnienia i nowe funkcje:
+
+### 1. Data i czas ostatniego sprawdzenia dla każdego rejestratora osobno
+* **Model danych**: Rozszerzono strukturę modelu `NvrStatusManager::checkedRecorders` w C++ o przechowywanie precyzyjnego znacznika czasu (`lastCheck`) jako sformatowanego łańcucha znaków (np. `29.06.2026 15:40:01`) zapisanego w momencie zakończenia sprawdzania dla każdego urządzenia z osobna.
+* **Nowy interfejs listy**: W pliku [NvrStatusDialog.qml](file:///home/robert/cctv/kvision/src/NvrStatusDialog.qml) przeprowadzono pełną przebudowę layoutu popupu:
+  - Usunięto błąd nakładania się kontrolek (`anchors.fill: parent` na `contentItem` kolidowało z wewnętrznym układem dialogu), dodając poprawnie paddingi (16px) bezpośrednio na dialogu.
+  - Zaimplementowano jednolitą, scrollowaną listę wszystkich monitorowanych rejestratorów. Każdy wiersz reprezentuje osobne urządzenie, zawierając jego nazwę, adres IP, badge stanu (`OK` w kolorze zielonym lub `BŁĄD` w kolorze czerwonym) oraz **datę i czas ostatniego sprawdzenia**.
+  - Jeżeli dany rejestrator zgłosi błędy (np. błąd HDD, brak połączenia), są one teraz estetycznie prezentowane w formie listy punktowej bezpośrednio pod wierszem tego rejestratora.
+* **Dynamiczne dopasowanie wysokości popupu**: Usunąłem stałą wysokość popupu (`380`), dynamicznie dopasowując ją do zawartości (`implicitHeight`) tak, aby mieściła wszystkie rejestratory w pionie bez zbędnego przewijania, jednocześnie ograniczając maksymalną wysokość do **85% wysokości ekranu** (`Screen.height * 0.85`), na którym wyświetlane jest okno aplikacji.
+
+### 2. Opcja wyłączenia monitorowania (Ustawienia ogólne)
+* **Checkbox w Ustawieniach**: W pliku [SideBar.qml](file:///home/robert/cctv/kvision/src/SideBar.qml) w sekcji *Ustawienia ogólne* dodano nowy checkbox **"Sprawdzaj status błędów Hikvision NVR"** powiązany z właściwością `NvrStatusManager.monitoringEnabled`.
+* **Dynamiczna widoczność przycisku**: Przycisk statusu `nvrStatusButton` na pasku górnym w pliku [RootWindow.qml](file:///home/robert/cctv/kvision/src/RootWindow.qml) (oraz sąsiadujący z nim separator) wyświetla się **tylko wtedy**, gdy sprawdzanie jest włączone w ustawieniach ORAZ skonfigurowany jest przynajmniej jeden rejestrator Hikvision.
+* **Lokalizacja (Tłumaczenie PL)**: Dodano odpowiednie wpisy tłumaczeń do pliku `translations/kvision_pl_PL.ts`, aby checkbox wyświetlał się poprawnie w języku polskim.
+
+### 3. Zapobieganie ucinaniu tekstów
+* Przycisk **"Sprawdź teraz"** w dolnej części popupu statusu zyskał zwiększoną szerokość preferowaną z `110` do `140`, eliminując problem wychodzenia polskiego napisu poza obramowanie przycisku.
+
+### 4. Rejestracja flagi uruchomieniowej `--simulate-error`
+* **Diagnoza**: `QCommandLineParser` w klasie `Context` z powodu restrykcyjnego trybu walidacji opcji odrzucał uruchomienie programu z flagą `--simulate-error`, zwracając błąd `Unknown option 'simulate-error'`.
+* **Rozwiązanie**: Zarejestrowałem opcję `simulate-error` w pliku [context.cpp](file:///home/robert/cctv/kvision/src/context.cpp) jako pełnoprawną flagę linii komend. Teraz aplikacja z powodzeniem pozwala się uruchomić z opcją `./kvision --simulate-error` i generuje zasymulowane błędy w celu przetestowania wizualnego czerwonej poświaty i listy błędów w popupie.

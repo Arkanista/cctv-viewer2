@@ -48,6 +48,9 @@ public:
     void logoutShared(const QString &ip);
     void forceLogoutShared(const QString &ip);
 
+    LONG getSession(const QString &ip, int port, const QString &username, const QString &password);
+    bool getDeviceInfo(const QString &ip, NET_DVR_DEVICEINFO_V40 &deviceInfo);
+
 signals:
     void sessionStatusChanged(const QString &ip, bool loggedIn);
     void discoveryFinished(const QString &ip, const QVariantList &cameras, bool success, const QString &errorMsg);
@@ -58,9 +61,7 @@ private:
         NET_DVR_DEVICEINFO_V40 deviceInfo;
     };
 
-    LONG getSession(const QString &ip, int port, const QString &username, const QString &password);
     bool isLoggedInternal(const QString &ip) const;
-    bool getDeviceInfo(const QString &ip, NET_DVR_DEVICEINFO_V40 &deviceInfo);
 
     static HikvisionManager* m_instance;
     QHash<QString, SessionInfo> m_sessions; // Maps IP to SessionInfo

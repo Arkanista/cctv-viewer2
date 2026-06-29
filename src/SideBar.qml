@@ -7,6 +7,7 @@ import QtGraphicalEffects 1.12
 import CCTV_Viewer.Core 1.0
 import CCTV_Viewer.Themes 1.0
 import CCTV_Viewer.Utils 1.0
+import CCTV_Viewer.Hikvision 1.0
 import Qt.labs.platform 1.1 as Platform
 import QtQuick.Dialogs 1.3 as QuickDialogs
 
@@ -350,7 +351,15 @@ FocusScope {
                 // Logo/Header area
                 ColumnLayout {
                     Layout.fillWidth: true
-                    spacing: 5
+                    spacing: 12
+
+                    Image {
+                        source: "qrc:/images/256.png"
+                        Layout.preferredWidth: leftSidebar.width * 2 / 3
+                        Layout.preferredHeight: leftSidebar.width * 2 / 3
+                        Layout.alignment: Qt.AlignHCenter
+                        fillMode: Image.PreserveAspectFit
+                    }
 
                     Text {
                         text: qsTr("KVision")
@@ -1802,6 +1811,27 @@ FocusScope {
                                 onCheckedChanged: generalSettings.singleApplication = !checked
                                 Layout.fillWidth: true
                             }
+
+                            Text {
+                                text: qsTr("This option is disabled to prevent settings file write conflicts. To enable it (dangerous and not recommended!), set 'singleApplication=false' in the kvision.conf configuration file.")
+                                color: "#8898a6"
+                                font.pixelSize: 10
+                                wrapMode: Text.WordWrap
+                                Layout.fillWidth: true
+                            }
+
+                            Rectangle {
+                                Layout.fillWidth: true
+                                height: 1
+                                color: "#2a3540"
+                            }
+
+                            CheckBox {
+                                text: qsTr("Check Hikvision NVR error status")
+                                checked: NvrStatusManager.monitoringEnabled
+                                onCheckedChanged: NvrStatusManager.monitoringEnabled = checked
+                                Layout.fillWidth: true
+                            }
                         }
                     }
 
@@ -1905,7 +1935,7 @@ FocusScope {
                     }
 
                     GroupBox {
-                        title: qsTr("Interface & View Settings")
+                        title: qsTr("User Interface Settings")
                         Layout.fillWidth: true
 
                         background: Rectangle {
@@ -1926,17 +1956,50 @@ FocusScope {
                             spacing: 8
 
                             CheckBox {
+                                text: qsTr("Show channel status in the top left corner of the viewport")
+                                checked: viewSettings.showChannelStatus
+                                onCheckedChanged: viewSettings.showChannelStatus = checked
+                                Layout.fillWidth: true
+                            }
+
+                            CheckBox {
+                                text: qsTr("Show camera info in the bottom left corner of the viewport")
+                                checked: viewSettings.showCameraInfo
+                                onCheckedChanged: viewSettings.showCameraInfo = checked
+                                Layout.fillWidth: true
+                            }
+
+                            CheckBox {
+                                text: qsTr("Show control icons in the bottom right corner of the viewport only when hovering")
+                                checked: viewSettings.hoverControlIcons
+                                onCheckedChanged: viewSettings.hoverControlIcons = checked
+                                Layout.fillWidth: true
+                            }
+
+                            CheckBox {
+                                text: qsTr("Show info fields only when hovering")
+                                checked: viewSettings.showInfoOnHoverOnly
+                                onCheckedChanged: viewSettings.showInfoOnHoverOnly = checked
+                                Layout.fillWidth: true
+                            }
+
+                            CheckBox {
+                                text: qsTr("Show top bar by default when opening window")
+                                checked: viewSettings.showTopBarByDefault
+                                onCheckedChanged: viewSettings.showTopBarByDefault = checked
+                                Layout.fillWidth: true
+                            }
+
+                            CheckBox {
                                 text: qsTr("Hide mouse cursor in Full Screen mode")
                                 checked: viewSettings.hideCursorWhenFullScreen
                                 onCheckedChanged: viewSettings.hideCursorWhenFullScreen = checked
                                 Layout.fillWidth: true
                             }
 
-
-
-                            RowLayout {
+                            ColumnLayout {
                                 Layout.fillWidth: true
-                                spacing: 12
+                                spacing: 4
 
                                 Text {
                                     text: qsTr("Language:")
@@ -2046,64 +2109,6 @@ FocusScope {
                                     }
                                 }
                             }
-                        }
-                    }
-
-                    GroupBox {
-                        title: qsTr("User Interface Settings")
-                        Layout.fillWidth: true
-
-                        background: Rectangle {
-                            color: "#141a21"
-                            border.color: "#2a3540"
-                            border.width: 1
-                            radius: 8
-                        }
-                        label: Text {
-                            text: parent.title
-                            color: "#00f5d4"
-                            font.bold: true
-                            font.pixelSize: 12
-                        }
-
-                        ColumnLayout {
-                            anchors.fill: parent
-                            spacing: 8
-
-                            CheckBox {
-                                text: qsTr("Show channel status in the top left corner of the viewport")
-                                checked: viewSettings.showChannelStatus
-                                onCheckedChanged: viewSettings.showChannelStatus = checked
-                                Layout.fillWidth: true
-                            }
-
-                            CheckBox {
-                                text: qsTr("Show camera info in the bottom left corner of the viewport")
-                                checked: viewSettings.showCameraInfo
-                                onCheckedChanged: viewSettings.showCameraInfo = checked
-                                Layout.fillWidth: true
-                            }
-
-                            CheckBox {
-                                text: qsTr("Show control icons in the bottom right corner of the viewport only when hovering")
-                                checked: viewSettings.hoverControlIcons
-                                onCheckedChanged: viewSettings.hoverControlIcons = checked
-                                Layout.fillWidth: true
-                            }
-
-                            CheckBox {
-                                text: qsTr("Show info fields only when hovering")
-                                checked: viewSettings.showInfoOnHoverOnly
-                                onCheckedChanged: viewSettings.showInfoOnHoverOnly = checked
-                                Layout.fillWidth: true
-                            }
-
-                            CheckBox {
-                                text: qsTr("Show top bar by default when opening window")
-                                checked: viewSettings.showTopBarByDefault
-                                onCheckedChanged: viewSettings.showTopBarByDefault = checked
-                                Layout.fillWidth: true
-                            }
 
                             RowLayout {
                                 Layout.fillWidth: true
@@ -2150,6 +2155,71 @@ FocusScope {
                                 Item {
                                     Layout.fillWidth: true
                                 }
+                            }
+                        }
+                    }
+
+                    GroupBox {
+                        title: qsTr("NVR Status Monitoring")
+                        Layout.fillWidth: true
+
+                        background: Rectangle {
+                            color: "#141a21"
+                            border.color: "#2a3540"
+                            border.width: 1
+                            radius: 8
+                        }
+                        label: Text {
+                            text: parent.title
+                            color: "#00f5d4"
+                            font.bold: true
+                            font.pixelSize: 12
+                        }
+
+                        ColumnLayout {
+                            anchors.fill: parent
+                            spacing: 8
+
+                            CheckBox {
+                                text: qsTr("Monitor offline status and login errors")
+                                checked: NvrStatusManager.checkOffline
+                                onCheckedChanged: NvrStatusManager.checkOffline = checked
+                                Layout.fillWidth: true
+                            }
+
+                            CheckBox {
+                                text: qsTr("Monitor CPU overload (>85%)")
+                                checked: NvrStatusManager.checkCpu
+                                onCheckedChanged: NvrStatusManager.checkCpu = checked
+                                Layout.fillWidth: true
+                            }
+
+                            CheckBox {
+                                text: qsTr("Monitor recorder hardware errors")
+                                checked: NvrStatusManager.checkHw
+                                onCheckedChanged: NvrStatusManager.checkHw = checked
+                                Layout.fillWidth: true
+                            }
+
+                            CheckBox {
+                                text: qsTr("Monitor hard disk faults/abnormalities")
+                                checked: NvrStatusManager.checkHdd
+                                onCheckedChanged: NvrStatusManager.checkHdd = checked
+                                Layout.fillWidth: true
+                            }
+
+                            CheckBox {
+                                text: qsTr("Monitor unformatted hard disks")
+                                checked: NvrStatusManager.checkUnformatted
+                                onCheckedChanged: NvrStatusManager.checkUnformatted = checked
+                                Layout.fillWidth: true
+                            }
+
+                            CheckBox {
+                                text: qsTr("Monitor full hard disks (loop coverage disabled)")
+                                checked: NvrStatusManager.checkFull
+                                onCheckedChanged: NvrStatusManager.checkFull = checked
+                                Layout.fillWidth: true
                             }
                         }
                     }
@@ -2391,8 +2461,16 @@ FocusScope {
                                     }
 
                                     TextField {
+                                        id: defaultAVFormatOptionsField
                                         selectByMouse: true
                                         Layout.fillWidth: true
+                                        color: "white"
+                                        font.pixelSize: 12
+                                        background: Rectangle {
+                                            color: "#0f151b"
+                                            radius: 4
+                                            border.color: defaultAVFormatOptionsField.activeFocus ? "#ff7a00" : "#2a3540"
+                                        }
                                         text: {
                                             var opts = "";
                                             var options = layoutsCollectionSettings.toJSValue("defaultAVFormatOptions");

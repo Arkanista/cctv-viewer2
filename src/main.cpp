@@ -23,6 +23,7 @@ extern "C" {
 #include "singleapplication.h"
 #include "viewportslayoutscollectionmodel.h"
 #include "hikvisionmanager.h"
+#include "nvrstatusmanager.h"
 #include "hikvisionplayer.h"
 #include "hikvisionarchiveplayer.h"
 #include "hikvisionisapi.h"
@@ -264,6 +265,9 @@ int main(int argc, char *argv[])
 
     auto *hikvisionManager = new HikvisionManager();
     qmlRegisterSingletonInstance("CCTV_Viewer.Hikvision", 1, 0, "HikvisionManager", hikvisionManager);
+
+    auto *nvrStatusManager = new NvrStatusManager();
+    qmlRegisterSingletonInstance("CCTV_Viewer.Hikvision", 1, 0, "NvrStatusManager", nvrStatusManager);
 
     // Thumbnail provider for camera previews
     auto *thumbnailProvider = new ThumbnailProvider();

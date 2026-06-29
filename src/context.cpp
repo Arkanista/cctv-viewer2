@@ -48,6 +48,7 @@ void Context::init()
     QCommandLineOption verboseOption("verbose", tr("Pokaż szczegółowe logi w konsoli (verbose logging)."));
     QCommandLineOption debugMemoryOption("debug-memory", tr("Włącz śledzenie obiektów w logach dla debugowania wycieków pamięci."));
     QCommandLineOption firstRunOption("first-run", tr("Wymuś zachowanie pierwszego uruchomienia i pokaż instrukcję (Force first run behavior)."));
+    QCommandLineOption simulateErrorOption("simulate-error", tr("Zasymuluj błędy na każdym rejestratorze (Simulate NVR errors)."));
 
     parseCommandLineOptions({configOption,
                              presetOption,
@@ -58,7 +59,8 @@ void Context::init()
                              auxiliaryIdOption,
                              verboseOption,
                              debugMemoryOption,
-                             firstRunOption});
+                             firstRunOption,
+                             simulateErrorOption});
 
     m_isAuxiliary = m_commandLineParser.isSet(auxiliaryOption);
     m_enableLogs = m_commandLineParser.isSet(verboseOption);

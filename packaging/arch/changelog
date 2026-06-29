@@ -1,3 +1,21 @@
+2.2.8-1
+  * PL: Zaimplementowano okresowe (co 5 minut) oraz ręczne sprawdzanie stanu błędów rejestratorów Hikvision (SDK / ISAPI).
+    EN: Implemented periodic (every 5 minutes) and manual Hikvision NVR/DVR error status monitoring using SDK/ISAPI diagnostics.
+  * PL: Dodano dedykowaną sekcję w ustawieniach ogólnych do włączania monitorowania oraz wyboru monitorowanych błędów (błędy logowania, przeciążenie CPU >85%, błędy sprzętowe, uszkodzenia dysków, brak formatu, brak nadpisywania).
+    EN: Added configuration options in General Settings to enable/disable Hikvision NVR status checking and customize monitored critical error types.
+  * PL: Zaprojektowano animowaną ikonę ostrzegawczą na górnym pasku w kolorze ciepłym-zielonym (status OK) lub pulsującym czerwonym z podwójną poświatą (wykryto krytyczne błędy).
+    EN: Designed a high-fidelity warm-green/red top-bar status icon with deep pulsing outer waves and inner heartbeat ripple animations to signal active critical errors.
+  * PL: Wprowadzono wystające czerwone kółko ostrzegawcze przy górnej krawędzi ekranu, widoczne i pulsujące nawet wtedy, gdy pasek narzędziowy jest ukryty.
+    EN: Introduced a top-edge protruding red indicator circle that pulses at the top of the screen when the main toolbar is collapsed, ensuring critical warnings are never missed.
+  * PL: Stworzono eleganckie, przewijane, ograniczone do 85% wysokości ekranu okno popup "Status rejestratorów" ze szczegółowym podglądem błędów urządzeń, błędów dysków oraz dokładnym czasem ostatniego sprawdzenia.
+    EN: Created a premium, scrollable, screen-height-bounded (max 85% of screen resolution) "NVR Status" popup dialog listing each recorder, its specific errors, disk-level faults, and precise last check timestamps, equipped with a manual "Check now" button.
+  * PL: Dodano flagę uruchomieniową "--simulate-error" do natychmiastowej symulacji uszkodzeń dysków oraz błędów połączenia we wszystkich rejestratorach w celach demonstracyjnych.
+    EN: Integrated a command-line flag "--simulate-error" to instantly simulate NVR faults on all configured recorders for design demonstration and layout testing.
+  * PL: Wdrożono plakietki ostrzegawcze i wyrównanie wskaźników stanu w listach skonfigurowanych rejestratorów.
+    EN: Implemented list frame badges and status indicator alignments across configured recorder views.
+  * PL: Zapewniono pełne dwujęzyczne (polski/angielski) tłumaczenie wszystkich nowych komunikatów diagnostycznych, ustawień i opcji programu.
+    EN: Achieved complete bilingual translation coverage (Polish/English) for all NVR diagnostics, setting check-boxes, tooltips, warnings, and command-line parser options.
+
 2.2.7-5
   * PL: Dodano możliwość ponownego przeładowania aktywnego układu poprzez kliknięcie jego przycisku na górnym pasku.
     EN: Added the ability to reload the active layout by clicking its button on the top toolbar.

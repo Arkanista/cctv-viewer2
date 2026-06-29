@@ -1,3 +1,16 @@
+cctv-viewer (2.2.8-1) jammy; urgency=medium
+
+  * Implemented real-time and periodic (every 5 minutes) Hikvision NVR/DVR error status monitoring using SDK/ISAPI diagnostics.
+  * Added configuration options in General Settings to enable/disable Hikvision NVR status checking and customize monitored critical error types (offline/login, CPU overload >85%, hardware faults, HDD abnormalities, unformatted disks, or full disks with loop coverage disabled).
+  * Designed a high-fidelity warm-green/red top-bar status icon with deep pulsing outer waves and inner heartbeat ripple animations to signal active critical errors.
+  * Introduced a top-edge protruding red indicator circle that pulses at the top of the screen when the main toolbar is collapsed, ensuring critical warnings are never missed.
+  * Created a premium, scrollable, screen-height-bounded (max 85% of screen resolution) "NVR Status" popup dialog listing each recorder, its specific errors, disk-level faults, and precise last check timestamps, equipped with a manual "Check now" button.
+  * Integrated a command-line flag "--simulate-error" to instantly simulate NVR faults on all configured recorders for design demonstration and layout testing.
+  * Implemented list frame badges and status indicator alignments across configured recorder views.
+  * Achieved complete bilingual translation coverage (Polish/English) for all NVR diagnostics, setting check-boxes, tooltips, warnings, and command-line parser options.
+
+ -- arkanis <arkanis@cctv-viewer2.org>  Mon, 29 Jun 2026 16:15:00 +0200
+
 cctv-viewer (2.2.7-1) jammy; urgency=medium
 
   * Added intuitive viewport right-click menu options ("Stopklatka" and "Odtwarzaj") for rapid viewport snapshot and archive playback operations.

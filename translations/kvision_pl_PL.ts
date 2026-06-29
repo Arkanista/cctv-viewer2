@@ -148,6 +148,10 @@
         <source>Wymuś zachowanie pierwszego uruchomienia i pokaż instrukcję (Force first run behavior).</source>
         <translation>Wymuś zachowanie pierwszego uruchomienia i pokaż instrukcję (Force first run behavior).</translation>
     </message>
+    <message>
+        <source>Zasymuluj błędy na każdym rejestratorze (Simulate NVR errors).</source>
+        <translation>Zasymuluj błędy na każdym rejestratorze (Simulate NVR errors).</translation>
+    </message>
 </context>
 <context>
     <name>DownloadDialog</name>
@@ -561,6 +565,100 @@
     <message>
         <source>Discovering...</source>
         <translation>Wyszukiwanie...</translation>
+    </message>
+</context>
+<context>
+    <name>NvrStatusDialog</name>
+    <message>
+        <source>Status rejestratorów</source>
+        <translation>Status rejestratorów</translation>
+    </message>
+    <message>
+        <source>Trwa sprawdzanie stanu rejestratorów...</source>
+        <translation>Trwa sprawdzanie stanu rejestratorów...</translation>
+    </message>
+    <message>
+        <source>Ostatnie sprawdzenie: </source>
+        <translation>Ostatnie sprawdzenie: </translation>
+    </message>
+    <message>
+        <source>brak</source>
+        <translation>brak</translation>
+    </message>
+    <message>
+        <source>BŁĄD</source>
+        <translation>BŁĄD</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Brak danych o statusie</source>
+        <translation>Brak danych o statusie</translation>
+    </message>
+    <message>
+        <source>Naciśnij przycisk poniżej, aby sprawdzić status rejestratorów.</source>
+        <translation>Naciśnij przycisk poniżej, aby sprawdzić status rejestratorów.</translation>
+    </message>
+    <message>
+        <source>Sprawdź teraz</source>
+        <translation>Sprawdź teraz</translation>
+    </message>
+    <message>
+        <source>Zamknij</source>
+        <translation>Zamknij</translation>
+    </message>
+</context>
+<context>
+    <name>NvrStatusWorker</name>
+    <message>
+        <source>Brak połączenia lub błąd logowania</source>
+        <translation>Brak połączenia lub błąd logowania</translation>
+    </message>
+    <message>
+        <source>Błąd odczytu stanu rejestratora (SDK)</source>
+        <translation>Błąd odczytu stanu rejestratora (SDK)</translation>
+    </message>
+    <message>
+        <source>Wysokie obciążenie procesora (&gt;85%)</source>
+        <translation>Wysokie obciążenie procesora (&gt;85%)</translation>
+    </message>
+    <message>
+        <source>Błąd sprzętowy urządzenia</source>
+        <translation>Błąd sprzętowy urządzenia</translation>
+    </message>
+    <message>
+        <source>Dysk %1</source>
+        <translation>Dysk %1</translation>
+    </message>
+    <message>
+        <source>Krytyczny błąd/uszkodzenie dysku</source>
+        <translation>Krytyczny błąd/uszkodzenie dysku</translation>
+    </message>
+    <message>
+        <source>Dysk niesformatowany</source>
+        <translation>Dysk niesformatowany</translation>
+    </message>
+    <message>
+        <source>Dysk pełny (nadpisywanie wyłączone)</source>
+        <translation>Dysk pełny (nadpisywanie wyłączone)</translation>
+    </message>
+    <message>
+        <source>Symulowany Rejestrator</source>
+        <translation>Symulowany Rejestrator</translation>
+    </message>
+    <message>
+        <source>Dysk 1</source>
+        <translation>Dysk 1</translation>
+    </message>
+    <message>
+        <source>Krytyczny błąd/uszkodzenie dysku (Symulacja)</source>
+        <translation>Krytyczny błąd/uszkodzenie dysku (Symulacja)</translation>
+    </message>
+    <message>
+        <source>Brak połączenia lub błąd logowania (Symulacja)</source>
+        <translation>Brak połączenia lub błąd logowania (Symulacja)</translation>
     </message>
 </context>
 <context>
@@ -1083,6 +1181,46 @@
         <source>KVision - Panel</source>
         <translation>KVision - Panel</translation>
     </message>
+    <message>
+        <source>Wykryto błędy rejestratorów!</source>
+        <translation>Wykryto błędy rejestratorów!</translation>
+    </message>
+    <message>
+        <source>Status rejestratorów: OK</source>
+        <translation>Status rejestratorów: OK</translation>
+    </message>
+    <message>
+        <source>Status rejestratorów</source>
+        <translation type="vanished">Status rejestratorów</translation>
+    </message>
+    <message>
+        <source>Trwa sprawdzanie stanu rejestratorów...</source>
+        <translation type="vanished">Trwa sprawdzanie stanu rejestratorów...</translation>
+    </message>
+    <message>
+        <source>Wszystkie rejestratory działają prawidłowo</source>
+        <translation type="vanished">Wszystkie rejestratory działają prawidłowo</translation>
+    </message>
+    <message>
+        <source>Brak wykrytych błędów lub problemów z dyskami.</source>
+        <translation type="vanished">Brak wykrytych błędów lub problemów z dyskami.</translation>
+    </message>
+    <message>
+        <source>Wykryte błędy i ostrzeżenia:</source>
+        <translation type="vanished">Wykryte błędy i ostrzeżenia:</translation>
+    </message>
+    <message>
+        <source>Sprawdź teraz</source>
+        <translation type="vanished">Sprawdź teraz</translation>
+    </message>
+    <message>
+        <source>Zamknij</source>
+        <translation type="vanished">Zamknij</translation>
+    </message>
+    <message>
+        <source>Wykryto błędy rejestratorów! Kliknij, aby zobaczyć szczegóły.</source>
+        <translation>Wykryto błędy rejestratorów! Kliknij, aby zobaczyć szczegóły.</translation>
+    </message>
 </context>
 <context>
     <name>SettingsDialog</name>
@@ -1330,6 +1468,14 @@
         <translation>Zezwalaj na uruchamianie wielu instancji aplikacji</translation>
     </message>
     <message>
+        <source>This option is disabled to prevent settings file write conflicts. To enable it (dangerous and not recommended!), set &apos;singleApplication=false&apos; in the kvision.conf configuration file.</source>
+        <translation>Ta opcja jest wyłączona, aby zapobiec konfliktom zapisu pliku ustawień. Aby ją włączyć (niebezpieczne i niezalecane!), ustaw &apos;singleApplication=false&apos; w pliku konfiguracyjnym kvision.conf.</translation>
+    </message>
+    <message>
+        <source>Check Hikvision NVR error status</source>
+        <translation>Sprawdzaj status błędów Hikvision NVR</translation>
+    </message>
+    <message>
         <source>Context Menu Settings</source>
         <translation>Ustawienia menu podręcznego</translation>
     </message>
@@ -1351,7 +1497,7 @@
     </message>
     <message>
         <source>Interface &amp; View Settings</source>
-        <translation>Ustawienia interfejsu i widoku</translation>
+        <translation type="vanished">Ustawienia interfejsu i widoku</translation>
     </message>
     <message>
         <source>Hide mouse cursor in Full Screen mode</source>
@@ -1923,43 +2069,43 @@
     </message>
     <message>
         <source>Dodano nowe, intuicyjne opcje do menu podręcznego viewportów (pod prawym przyciskiem myszy): &apos;Stopklatka&apos; (zapis bieżącej klatki) oraz &apos;Odtwarzaj&apos; (natychmiastowe przejście do archiwalnego odtwarzania danej kamery).</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodano nowe, intuicyjne opcje do menu podręcznego viewportów (pod prawym przyciskiem myszy): &apos;Stopklatka&apos; (zapis bieżącej klatki) oraz &apos;Odtwarzaj&apos; (natychmiastowe przejście do archiwalnego odtwarzania danej kamery).</translation>
     </message>
     <message>
         <source>Zrewolucjonizowano i naprawiono obsługę dźwięku PCM: bezpośrednie przekazywanie potoku do QAudioOutput, eliminacja zawieszeń interfejsu (ALSA/PulseAudio/Pipewire) przez stabilizację sample rate (debounce po 5 stabilnych ramkach), cooldown 2s na rekreację wyjścia, filtrowanie uszkodzonych parametrów i bufor 64KB redukujący jitter sieciowy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrewolucjonizowano i naprawiono obsługę dźwięku PCM: bezpośrednie przekazywanie potoku do QAudioOutput, eliminacja zawieszeń interfejsu (ALSA/PulseAudio/Pipewire) przez stabilizację sample rate (debounce po 5 stabilnych ramkach), cooldown 2s na rekreację wyjścia, filtrowanie uszkodzonych parametrów i bufor 64KB redukujący jitter sieciowy.</translation>
     </message>
     <message>
         <source>Zaimplementowano interaktywny suwak regulacji głośności HUD bezpośrednio na kafelkach viewportów wraz z opcją szybkiego wyciszenia oraz maksymalizacji głośności jednym kliknięciem.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaimplementowano interaktywny suwak regulacji głośności HUD bezpośrednio na kafelkach viewportów wraz z opcją szybkiego wyciszenia oraz maksymalizacji głośności jednym kliknięciem.</translation>
     </message>
     <message>
         <source>Zaimplementowano automatyczne i natychmiastowe wyciszanie strumieni LIVE w siatce głównej przy otwarciu okna odtwarzania Archiwum, co zapobiega nakładaniu się dźwięków (kakofonii).</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaimplementowano automatyczne i natychmiastowe wyciszanie strumieni LIVE w siatce głównej przy otwarciu okna odtwarzania Archiwum, co zapobiega nakładaniu się dźwięków (kakofonii).</translation>
     </message>
     <message>
         <source>Wprowadzono centralny system powiadomień SnapshotSavedDialog o zapisaniu stopklatki (ciemnoszara obudowa, seledynowe krawędzie, auto-zamknięcie po 10 sekundach) z szybkim łączem &apos;Przeglądaj&apos; do bezpośredniego otwierania folderu w systemowym menedżerze plików.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wprowadzono centralny system powiadomień SnapshotSavedDialog o zapisaniu stopklatki (ciemnoszara obudowa, seledynowe krawędzie, auto-zamknięcie po 10 sekundach) z szybkim łączem &apos;Przeglądaj&apos; do bezpośredniego otwierania folderu w systemowym menedżerze plików.</translation>
     </message>
     <message>
         <source>Wzbogacono wbudowane okno pomocy o szczegółowy rozdział &apos;Opis działania przycisków&apos; z natywnymi, ostrymi ikonami wektorowymi SVG. Okno pomocy otwiera się teraz w pełni automatycznie i wyśrodkowane nad oknem głównym przy pierwszym uruchomieniu programu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wzbogacono wbudowane okno pomocy o szczegółowy rozdział &apos;Opis działania przycisków&apos; z natywnymi, ostrymi ikonami wektorowymi SVG. Okno pomocy otwiera się teraz w pełni automatycznie i wyśrodkowane nad oknem głównym przy pierwszym uruchomieniu programu.</translation>
     </message>
     <message>
         <source>Wprowadzono domyślne wyświetlanie paska górnego przy uruchomieniu programu/okna oraz dodano w ustawieniach opcję &apos;Domyślnie pokazuj pasek górny po otwarciu okna&apos;, umożliwiającą dostosowanie tego zachowania do własnych preferencji.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wprowadzono domyślne wyświetlanie paska górnego przy uruchomieniu programu/okna oraz dodano w ustawieniach opcję &apos;Domyślnie pokazuj pasek górny po otwarciu okna&apos;, umożliwiającą dostosowanie tego zachowania do własnych preferencji.</translation>
     </message>
     <message>
         <source>Zaimplementowano dynamiczną ścieżkę bibliotek RPATH w CMakeLists.txt z użyciem GNUInstallDirs, co umożliwia natychmiastowe uruchomienie skompilowanej aplikacji na Ubuntu i Debianie bez konieczności ręcznej konfiguracji /etc/ld.so.conf.d/ i ldconfig.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaimplementowano dynamiczną ścieżkę bibliotek RPATH w CMakeLists.txt z użyciem GNUInstallDirs, co umożliwia natychmiastowe uruchomienie skompilowanej aplikacji na Ubuntu i Debianie bez konieczności ręcznej konfiguracji /etc/ld.so.conf.d/ i ldconfig.</translation>
     </message>
     <message>
         <source>Wyeliminowano chwilowe mrugnięcia (czarne klatki) oraz opóźnienia obrazu i dźwięku podczas przełączania jakości wideo ze strumienia pomocniczego (SUB) na główny (MAIN) przy powiększaniu viewportu, synchronizując moment przełączenia z fizycznym wyrenderowaniem pierwszej klatki nowego strumienia.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyeliminowano chwilowe mrugnięcia (czarne klatki) oraz opóźnienia obrazu i dźwięku podczas przełączania jakości wideo ze strumienia pomocniczego (SUB) na główny (MAIN) przy powiększaniu viewportu, synchronizując moment przełączenia z fizycznym wyrenderowaniem pierwszej klatki nowego strumienia.</translation>
     </message>
     <message>
         <source>Dodano interaktywne, wyraźne i 2x szersze suwaki (paski przewijania) do kolumn wyboru godzin, minut i sekund w oknie wyboru czasu pobierania z archiwum.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodano interaktywne, wyraźne i 2x szersze suwaki (paski przewijania) do kolumn wyboru godzin, minut i sekund w oknie wyboru czasu pobierania z archiwum.</translation>
     </message>
     <message>
         <source>Uśredniono próbki pobierane z biblioteki NVML w celu wygładzenia wykresu zużycia GPU i wyeliminowania skokowych wahań odczytu.</source>
@@ -1968,6 +2114,34 @@
     <message>
         <source>Dodano możliwość ponownego przeładowania aktywnego układu poprzez kliknięcie jego przycisku na górnym pasku.</source>
         <translation>Dodano możliwość ponownego przeładowania aktywnego układu poprzez kliknięcie jego przycisku na górnym pasku.</translation>
+    </message>
+    <message>
+        <source>NVR Status Monitoring</source>
+        <translation>Monitorowanie statusu rejestratorów</translation>
+    </message>
+    <message>
+        <source>Monitor offline status and login errors</source>
+        <translation>Monitorowanie stanu offline i błędów logowania</translation>
+    </message>
+    <message>
+        <source>Monitor CPU overload (&gt;85%)</source>
+        <translation>Monitorowanie przeciążenia procesora (&gt;85%)</translation>
+    </message>
+    <message>
+        <source>Monitor recorder hardware errors</source>
+        <translation>Monitorowanie błędów sprzętowych rejestratora</translation>
+    </message>
+    <message>
+        <source>Monitor hard disk faults/abnormalities</source>
+        <translation>Monitorowanie uszkodzeń i błędów dysków HDD</translation>
+    </message>
+    <message>
+        <source>Monitor unformatted hard disks</source>
+        <translation>Monitorowanie niesformatowanych dysków HDD</translation>
+    </message>
+    <message>
+        <source>Monitor full hard disks (loop coverage disabled)</source>
+        <translation>Monitorowanie przepełnienia dysków HDD (brak nadpisywania)</translation>
     </message>
 </context>
 <context>

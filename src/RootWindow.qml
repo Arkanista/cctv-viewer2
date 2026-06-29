@@ -9,6 +9,7 @@ import CCTV_Viewer.Core 1.0
 import CCTV_Viewer.Models 1.0
 import CCTV_Viewer.Utils 1.0
 import CCTV_Viewer.Themes 1.0
+import CCTV_Viewer.Hikvision 1.0
 import Qt.labs.platform 1.1 as Platform
 
 ApplicationWindow {
@@ -198,6 +199,7 @@ ApplicationWindow {
         fileName: Context.config.fileName
         category: "Hikvision"
         property string recordersJson: "[]"
+        onRecordersJsonChanged: NvrStatusManager.onRecordersChanged()
     }
 
 
@@ -949,11 +951,111 @@ ApplicationWindow {
                 ToolTip.text: systemStatsSwitch.checked ? qsTr("Wyłącz statystyki zużycia zasobów") : qsTr("Włącz statystyki zużycia zasobów")
             }
 
+            Button {
+                id: nvrStatusButton
+                visible: NvrStatusManager.monitoringEnabled && NvrStatusManager.hasConfiguredRecorders
+                Layout.preferredWidth: 30
+                Layout.preferredHeight: 30
+                Layout.alignment: Qt.AlignVCenter
+
+                contentItem: Item {
+                    anchors.fill: parent
+
+                    // Pulsing glow background when there are errors (Outer large wave)
+                    Rectangle {
+                        id: pulseGlow
+                        anchors.centerIn: parent
+                        width: 30
+                        height: 30
+                        radius: 15
+                        color: "#ef4444"
+                        opacity: 0.0
+                        visible: NvrStatusManager.hasErrors
+
+                        SequentialAnimation on scale {
+                            running: NvrStatusManager.hasErrors
+                            loops: Animation.Infinite
+                            PropertyAnimation { from: 1.0; to: 2.3; duration: 800; easing.type: Easing.OutQuad }
+                            PropertyAnimation { from: 2.3; to: 1.0; duration: 800; easing.type: Easing.InQuad }
+                        }
+
+                        SequentialAnimation on opacity {
+                            running: NvrStatusManager.hasErrors
+                            loops: Animation.Infinite
+                            PropertyAnimation { from: 0.85; to: 0.0; duration: 800; easing.type: Easing.OutQuad }
+                            PropertyAnimation { from: 0.0; to: 0.85; duration: 800; easing.type: Easing.InQuad }
+                        }
+                    }
+
+                    // Secondary pulsing glow (Inner fast ripple)
+                    Rectangle {
+                        id: pulseGlowInner
+                        anchors.centerIn: parent
+                        width: 30
+                        height: 30
+                        radius: 15
+                        color: "#ef4444"
+                        opacity: 0.0
+                        visible: NvrStatusManager.hasErrors
+
+                        SequentialAnimation on scale {
+                            running: NvrStatusManager.hasErrors
+                            loops: Animation.Infinite
+                            PropertyAnimation { from: 1.0; to: 1.6; duration: 600; easing.type: Easing.OutQuad }
+                            PropertyAnimation { from: 1.6; to: 1.0; duration: 600; easing.type: Easing.InQuad }
+                        }
+
+                        SequentialAnimation on opacity {
+                            running: NvrStatusManager.hasErrors
+                            loops: Animation.Infinite
+                            PropertyAnimation { from: 0.6; to: 0.1; duration: 600; easing.type: Easing.OutQuad }
+                            PropertyAnimation { from: 0.1; to: 0.6; duration: 600; easing.type: Easing.InQuad }
+                        }
+                    }
+
+                    Image {
+                        anchors.centerIn: parent
+                        width: 16
+                        height: 16
+                        sourceSize.width: 16
+                        sourceSize.height: 16
+                        fillMode: Image.PreserveAspectFit
+                        source: {
+                            var colorStr = "%23121214";
+                            return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='" + colorStr + "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='2' width='20' height='8' rx='2' ry='2'></rect><rect x='2' y='14' width='20' height='8' rx='2' ry='2'></rect><line x1='6' y1='6' x2='6.01' y2='6'></line><line x1='6' y1='18' x2='6.01' y2='18'></line></svg>";
+                        }
+                    }
+                }
+
+                background: Rectangle {
+                    color: {
+                        if (NvrStatusManager.hasErrors) {
+                            return nvrStatusButton.pressed ? "#b91c1c" : (nvrStatusButton.hovered ? "#ef4444" : "#dc2626");
+                        } else {
+                            return nvrStatusButton.pressed ? "#15803d" : (nvrStatusButton.hovered ? "#22c55e" : "#16a34a");
+                        }
+                    }
+                    radius: 15
+                    border.color: NvrStatusManager.hasErrors ? "#ef4444" : "#22c55e"
+                    border.width: 1
+                }
+
+                onClicked: {
+                    nvrStatusDialog.open();
+                }
+
+                ToolTip.delay: Compact.toolTipDelay
+                ToolTip.timeout: Compact.toolTipTimeout
+                ToolTip.visible: nvrStatusButton.hovered
+                ToolTip.text: NvrStatusManager.hasErrors ? qsTr("Wykryto błędy rejestratorów!") : qsTr("Status rejestratorów: OK")
+            }
+
             Rectangle {
                 width: 1
                 height: 20
                 color: "#2a3540"
                 Layout.alignment: Qt.AlignVCenter
+                visible: nvrStatusButton.visible
             }
 
             RowLayout {
@@ -1185,6 +1287,108 @@ ApplicationWindow {
     }
     }
 
+    // Protruding error indicator at the top edge of the window when top bar is hidden
+    Rectangle {
+        id: topEdgeErrorIndicator
+        width: 48
+        height: 24
+        x: topToolBar.x + 12 + nvrStatusButton.x + nvrStatusButton.width / 2 - width / 2
+        anchors.top: parent.top
+        color: "transparent"
+        z: 100000 // On top of everything
+
+        visible: NvrStatusManager.monitoringEnabled && NvrStatusManager.hasConfiguredRecorders && NvrStatusManager.hasErrors
+        opacity: (topToolBar.y < -12) ? 1.0 : 0.0
+        Behavior on opacity {
+            NumberAnimation { duration: 200 }
+        }
+
+        Rectangle {
+            id: indicatorCircle
+            width: 48
+            height: 48
+            radius: 24
+            color: "#dc2626"
+            border.color: "#ef4444"
+            border.width: 1.5
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: -28 // Leaves exactly 20px visible inside the screen
+
+            // Dual pulsing glows
+            Rectangle {
+                id: indicatorGlow1
+                width: 48
+                height: 48
+                radius: 24
+                color: "#ef4444"
+                anchors.centerIn: parent
+                z: -1
+
+                SequentialAnimation on scale {
+                    running: topEdgeErrorIndicator.visible && (topToolBar.y < -12)
+                    loops: Animation.Infinite
+                    PropertyAnimation { from: 1.0; to: 2.3; duration: 800; easing.type: Easing.OutQuad }
+                    PropertyAnimation { from: 2.3; to: 1.0; duration: 800; easing.type: Easing.InQuad }
+                }
+
+                SequentialAnimation on opacity {
+                    running: topEdgeErrorIndicator.visible && (topToolBar.y < -12)
+                    loops: Animation.Infinite
+                    PropertyAnimation { from: 0.85; to: 0.0; duration: 800; easing.type: Easing.OutQuad }
+                    PropertyAnimation { from: 0.0; to: 0.85; duration: 800; easing.type: Easing.InQuad }
+                }
+            }
+
+            Rectangle {
+                id: indicatorGlow2
+                width: 48
+                height: 48
+                radius: 24
+                color: "#ef4444"
+                anchors.centerIn: parent
+                z: -2
+
+                SequentialAnimation on scale {
+                    running: topEdgeErrorIndicator.visible && (topToolBar.y < -12)
+                    loops: Animation.Infinite
+                    PropertyAnimation { from: 1.0; to: 1.6; duration: 600; easing.type: Easing.OutQuad }
+                    PropertyAnimation { from: 1.6; to: 1.0; duration: 600; easing.type: Easing.InQuad }
+                }
+
+                SequentialAnimation on opacity {
+                    running: topEdgeErrorIndicator.visible && (topToolBar.y < -12)
+                    loops: Animation.Infinite
+                    PropertyAnimation { from: 0.6; to: 0.1; duration: 600; easing.type: Easing.OutQuad }
+                    PropertyAnimation { from: 0.1; to: 0.6; duration: 600; easing.type: Easing.InQuad }
+                }
+            }
+
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 2
+                text: "!"
+                color: "white"
+                font.bold: true
+                font.pixelSize: 13
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    nvrStatusDialog.open();
+                }
+
+                ToolTip.delay: Compact.toolTipDelay
+                ToolTip.timeout: Compact.toolTipTimeout
+                ToolTip.visible: containsMouse
+                ToolTip.text: qsTr("Wykryto błędy rejestratorów! Kliknij, aby zobaczyć szczegóły.")
+            }
+        }
+    }
+
     Item {
         anchors.fill: parent
 
@@ -1414,6 +1618,10 @@ ApplicationWindow {
             rootWindow.hide();
             Qt.quit();
         }
+    }
+
+    NvrStatusDialog {
+        id: nvrStatusDialog
     }
 
     ToolsWindow {
