@@ -490,7 +490,7 @@ void StatsWorker::calculateGpuAndVram(const QVector<qint64> &pids, double &gpu, 
                         double devGpuSum = 0.0;
                         for (unsigned int s = 0; s < sampleCount; ++s) {
                             if (samples[s].pid == selfPid) {
-                                devGpuSum += samples[s].smUtil; // GPU %
+                                devGpuSum += samples[s].smUtil + samples[s].decUtil + samples[s].encUtil; // Combined GPU % (SM + Decoder + Encoder)
                                 processGpuSuccess = true;
                             }
                         }
