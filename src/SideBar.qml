@@ -76,8 +76,13 @@ FocusScope {
             version: "v2.3.0",
             date: "30.06.2026",
             changes: [
-                qsTr("Włączono synchronizację w czasie rzeczywistym między wszystkimi oknami i procesami dla opcji: wyciszenia audio całkowicie, wyłączenia animacji zoomu oraz wszystkich szczegółowych parametrów monitorowania statusu rejestratorów NVR."),
-                qsTr("Dodano wyświetlanie opisów minut (np. :15, :30, :45) przy kreskach minutowych na osi czasu odtwarzacza archiwalnego z automatycznym dostosowaniem gęstości w zależności od stopnia przybliżenia (zoomHours).")
+                qsTr("Zaimplementowano pełną, dwukierunkową synchronizację w czasie rzeczywistym między wszystkimi oknami i pomocniczymi procesami programu dla ustawień: wyciszenia dźwięku, wyłączenia animacji zoomu oraz wszystkich parametrów monitorowania statusu rejestratorów Hikvision NVR."),
+                qsTr("Dodano dynamiczne wyświetlanie opisów minut (np. :15, :30, :45) przy podziałkach minutowych na osi czasu odtwarzacza archiwalnego z inteligentnym dostosowywaniem gęstości napisów (zoomHours)."),
+                qsTr("Dodano nową opcję w ustawieniach interfejsu użytkownika: \"Wyłącz animację powiększania viewportu\" z natychmiastowym zastosowaniem w widoku siatki kamer."),
+                qsTr("Przebudowano proces inicjalizacji odtwarzacza archiwalnego: wstrzymano logowanie i ładowanie wideo do czasu precyzyjnego ustalenia krańców nagrania (asynchroniczne, ultra-szybkie przeszukiwanie zakresu 24h), eliminując przedwczesne odtwarzanie i skakanie obrazu."),
+                qsTr("Usprawniono komunikaty ładowania archiwum Hikvision – informacja o ładowaniu jest widoczna tylko podczas aktywnego pobierania strumienia, a w przypadku ustawienia suwaka poza zakresem nagrania wyświetlany jest dedykowany komunikat ostrzegawczy."),
+                qsTr("Wprowadzono nowe pola konfiguracji w panelu ustawień: domyślne przesunięcie startu odtwarzania archiwalnego (start offset w sekundach, domyślnie 60s) oraz domyślne przybliżenie osi czasu (zoom hours, domyślnie 2h)."),
+                qsTr("Dodano ikonę bezpośredniego logowania do panelu web rejestratora w oknie statusu NVR.")
             ]
         },
         {

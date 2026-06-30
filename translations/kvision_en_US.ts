@@ -2038,11 +2038,39 @@
     </message>
     <message>
         <source>Włączono synchronizację w czasie rzeczywistym między wszystkimi oknami i procesami dla opcji: wyciszenia audio całkowicie, wyłączenia animacji zoomu oraz wszystkich szczegółowych parametrów monitorowania statusu rejestratorów NVR.</source>
-        <translation>Enabled real-time settings synchronization between all application windows and auxiliary processes for total audio muting, viewport zoom animation disable, and all granular NVR status monitoring check options.</translation>
+        <translation type="vanished">Enabled real-time settings synchronization between all application windows and auxiliary processes for total audio muting, viewport zoom animation disable, and all granular NVR status monitoring check options.</translation>
     </message>
     <message>
         <source>Dodano wyświetlanie opisów minut (np. :15, :30, :45) przy kreskach minutowych na osi czasu odtwarzacza archiwalnego z automatycznym dostosowaniem gęstości w zależności od stopnia przybliżenia (zoomHours).</source>
-        <translation>Integrated minute tick descriptions (e.g., :15, :30, :45) on the archive playback timeline with dynamic display density based on the zoom level (zoomHours).</translation>
+        <translation type="vanished">Integrated minute tick descriptions (e.g., :15, :30, :45) on the archive playback timeline with dynamic display density based on the zoom level (zoomHours).</translation>
+    </message>
+    <message>
+        <source>Zaimplementowano pełną, dwukierunkową synchronizację w czasie rzeczywistym między wszystkimi oknami i pomocniczymi procesami programu dla ustawień: wyciszenia dźwięku, wyłączenia animacji zoomu oraz wszystkich parametrów monitorowania statusu rejestratorów Hikvision NVR.</source>
+        <translation>Implemented full, bidirectional real-time synchronization between all windows and auxiliary program processes for settings: audio muting, disabling zoom animation, and all Hikvision NVR status monitoring options.</translation>
+    </message>
+    <message>
+        <source>Dodano dynamiczne wyświetlanie opisów minut (np. :15, :30, :45) przy podziałkach minutowych na osi czasu odtwarzacza archiwalnego z inteligentnym dostosowywaniem gęstości napisów (zoomHours).</source>
+        <translation>Added dynamic display of minute labels (e.g., :15, :30, :45) at minute ticks on the archive player timeline with intelligent label density adjustment (zoomHours).</translation>
+    </message>
+    <message>
+        <source>Dodano nową opcję w ustawieniach interfejsu użytkownika: "Wyłącz animację powiększania viewportu" z natychmiastowym zastosowaniem w widoku siatki kamer.</source>
+        <translation>Added a new option in the user interface settings: "Disable viewport zoom animation" with immediate application in the camera grid view.</translation>
+    </message>
+    <message>
+        <source>Przebudowano proces inicjalizacji odtwarzacza archiwalnego: wstrzymano logowanie i ładowanie wideo do czasu precyzyjnego ustalenia krańców nagrania (asynchroniczne, ultra-szybkie przeszukiwanie zakresu 24h), eliminując przedwczesne odtwarzanie i skakanie obrazu.</source>
+        <translation>Rebuilt the archive player initialization process: suspended connection and video loading until the exact recording limits are determined (via an ultra-fast 24h asynchronous search), eliminating premature playback and image jumping.</translation>
+    </message>
+    <message>
+        <source>Usprawniono komunikaty ładowania archiwum Hikvision – informacja o ładowaniu jest widoczna tylko podczas aktywnego pobierania strumienia, a w przypadku ustawienia suwaka poza zakresem nagrania wyświetlany jest dedykowany komunikat ostrzegawczy.</source>
+        <translation>Refined Hikvision archive loading messages – loading status is shown only during active stream buffering, and a dedicated warning is displayed if the playhead is moved beyond available recording boundaries.</translation>
+    </message>
+    <message>
+        <source>Wprowadzono nowe pola konfiguracji w panelu ustawień: domyślne przesunięcie startu odtwarzania archiwalnego (start offset w sekundach, domyślnie 60s) oraz domyślne przybliżenie osi czasu (zoom hours, domyślnie 2h).</source>
+        <translation>Introduced new configuration fields in the settings panel: default archive playback start offset (in seconds, default 60s) and default timeline zoom span (zoom hours, default 2h).</translation>
+    </message>
+    <message>
+        <source>Dodano ikonę bezpośredniego logowania do panelu web rejestratora w oknie statusu NVR.</source>
+        <translation>Added a direct web login icon to the recorder's web panel inside the NVR status popup.</translation>
     </message>
 </context>
 <context>
