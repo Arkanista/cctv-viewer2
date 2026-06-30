@@ -507,9 +507,9 @@ Window {
     }
 
     Component.onCompleted: {
-        // Set default playback start time to 15 minutes before now
+        // Set default playback start time to 1 minute before now
         var now = new Date()
-        var targetTime = new Date(now.getTime() - 15 * 60 * 1000)
+        var targetTime = new Date(now.getTime() - 1 * 60 * 1000)
         var dStart = new Date(targetTime)
         dStart.setHours(0, 0, 0, 0)
         currentDate = dStart
