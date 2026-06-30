@@ -543,6 +543,9 @@ Window {
             }
 
             playbackWindow.isSearchingRecordings = isAnyCameraSearching();
+
+            // Clear pendingInitialSeek and trigger fallback playback if it was still pending
+            checkInitialSeek(recorderIp, channelId, []);
         }
         function onMonthAvailabilityFinished(recorderIp, channelId, year, month, daysWithRecords, success) {
             var key = recorderIp + "_" + channelId + "_" + year + "-" + (month - 1);
@@ -851,8 +854,15 @@ Window {
                     }
                     
                     playAtTime(currentDate, playheadTimeMs - currentDate.getTime());
+                    return;
                 }
             }
+
+            // Fallback: if no segments or maxEndTime is 0, play at the current playhead time
+            var fallbackDate = new Date(playheadTimeMs);
+            var fStart = new Date(fallbackDate);
+            fStart.setHours(0, 0, 0, 0);
+            playAtTime(fStart, playheadTimeMs - fStart.getTime());
         }
     }
 
@@ -1018,7 +1028,11 @@ Window {
         var targetTime = new Date(d.getTime() + msSinceMidnight)
         
         forEachPlayer(function(p) {
-            p.playAtTime(targetTime)
+            if (p.forcePlayAtTime) {
+                p.forcePlayAtTime(targetTime);
+            } else {
+                p.playAtTime(targetTime);
+            }
         });
         isPlaying = true
         playheadTimeMs = targetTime.getTime()
@@ -1855,21 +1869,36 @@ Window {
                                         muted: !tileContainer.isAudible || tileContainer.userMuted
                                         
                                         property string lastPlayedKey: ""
-                                        
-                                        function checkAndPlay() {
-                                            if (!modelData || recorderIp === "" || username === "" || password === "") {
-                                                return;
-                                            }
-                                            var currentKey = recorderIp + ":" + port + ":" + channelId;
-                                            if (lastPlayedKey === currentKey) {
-                                                return;
-                                            }
-                                            lastPlayedKey = currentKey;
-                                            
-                                            var targetTime = new Date(playheadTimeMs)
-                                            playerItem.playAtTime(targetTime)
-                                            playerItem.setPlaybackSpeed(playbackSpeed)
-                                        }
+                                         
+                                         function forcePlayAtTime(targetTime) {
+                                             if (!modelData || recorderIp === "" || username === "" || password === "") {
+                                                 return;
+                                             }
+                                             var currentKey = recorderIp + ":" + port + ":" + channelId;
+                                             lastPlayedKey = currentKey;
+                                             playerItem.playAtTime(targetTime);
+                                             playerItem.setPlaybackSpeed(playbackSpeed);
+                                         }
+                                         
+                                         function checkAndPlay() {
+                                             if (!modelData || recorderIp === "" || username === "" || password === "") {
+                                                 return;
+                                             }
+                                             var seekKey = recorderIp + "_" + channelId;
+                                             if (pendingInitialSeek[seekKey] === true) {
+                                                 // Don't play yet, wait until initial seek is resolved!
+                                                 return;
+                                             }
+                                             var currentKey = recorderIp + ":" + port + ":" + channelId;
+                                             if (lastPlayedKey === currentKey) {
+                                                 return;
+                                             }
+                                             lastPlayedKey = currentKey;
+                                             
+                                             var targetTime = new Date(playheadTimeMs)
+                                             playerItem.playAtTime(targetTime)
+                                             playerItem.setPlaybackSpeed(playbackSpeed)
+                                         }
                                         
                                         onRecorderIpChanged: Qt.callLater(checkAndPlay)
                                         onUsernameChanged: Qt.callLater(checkAndPlay)
