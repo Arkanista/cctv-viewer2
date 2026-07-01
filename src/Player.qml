@@ -94,6 +94,14 @@ FocusScope {
     property bool isQuickPlaybackPaused: false
     property var quickPlaybackSegments: []
     property bool pendingQuickPlaybackSeek: false
+    property bool isRestoringLiveView: false
+
+    Timer {
+        id: restoringLiveViewTimer
+        interval: 3000
+        repeat: false
+        onTriggered: root.isRestoringLiveView = false
+    }
 
     function getDateKey(d) {
         if (!d) return "";
@@ -154,6 +162,8 @@ FocusScope {
         } else {
             pendingQuickPlaybackSeek = false;
             quickPlaybackTimer.stop();
+            isRestoringLiveView = true;
+            restoringLiveViewTimer.restart();
         }
         updateSource();
     }
@@ -294,7 +304,7 @@ FocusScope {
             newCameraId = "";
         } else if (!isHikvision) {
             newUrl = source;
-            newCameraId = source;
+            newCameraId = "viewport_" + root.index;
         } else {
             if (hikPlayerSettings.useRealStreams) {
                 var streamSuffix = isSubStream ? "02" : "01";
@@ -420,6 +430,7 @@ FocusScope {
             break;
         case MediaPlayer.Buffered:
             message.text = "";
+            root.isRestoringLiveView = false;
             break;
         case MediaPlayer.EndOfMedia:
             message.text = qsTr("End of media");
@@ -714,6 +725,20 @@ FocusScope {
             color: "white"
             visible: !root.isHikvision && (activePlayerIndex === 1 ? qmlAvPlayer1.status : qmlAvPlayer2.status) !== MediaPlayer.Buffered
             anchors.centerIn: parent
+        }
+
+        Rectangle {
+            id: restoringLiveOverlay
+            anchors.fill: parent
+            z: 10
+            color: "black"
+            visible: root.isRestoringLiveView && !root.isQuickPlayback
+
+            Text {
+                anchors.centerIn: parent
+                text: qsTr("Przywracam widok live...")
+                color: "white"
+            }
         }
 
         QmlAVPlayer {

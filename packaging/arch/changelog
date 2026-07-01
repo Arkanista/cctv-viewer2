@@ -1,6 +1,9 @@
+2.4.1-3
+  * PL: Dodano komunikat "Przywracam widok live..." przy zamykaniu szybkiego odtwarzania dla kamer Hikvision SDK oraz zaimplementowano płynne przełączanie jakości strumienia sub/main (seamless transition) dla połączeń RTSP/ONVIF.
+    EN: Added "Przywracam widok live..." status overlay when exiting quick playback for Hikvision SDK streams, and enabled seamless quality transition (sub/main stream swap) for RTSP/ONVIF connections.
+
 2.4.1-2
   * PL: Naprawiono wyciek pamięci w mini-odtwarzaczu (podgląd wstecz w kafelku kamery) poprzez dynamiczne ładowanie za pomocą Loader-a. Oczyszczono plik README z polskich wtrąceń i poprawiono parser wersji Regex.
-    EN: Fixed memory leak in quick playback (mini viewport player) by wrapping it in a dynamic QML Loader. Cleaned README of Polish translations and fixed SemVer parser regex.
 
 2.4.1-1
   * PL: Dodano niskopoziomowe opcje FFmpeg (nobuffer, low_delay) zapobiegające opóźnieniom strumieni oraz masowe aktualizacje i wykluczanie kamer (checkbox).
