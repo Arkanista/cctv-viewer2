@@ -5,6 +5,7 @@
 #include <QImage>
 #include <QDateTime>
 #include <QPointer>
+#include <QThread>
 #include <mutex>
 #include <atomic>
 #include <memory>
@@ -105,7 +106,7 @@ private:
     static void DecCallBack(long nPort, char *pBuf, long nSize, FRAME_INFO *pFrameInfo, long nReserved1, long nReserved2);
 
     void cleanupPlayback();
-    bool ensureLogin();
+    bool ensureLogin(const QString &ip, int port, const QString &user, const QString &pass);
 
     QString m_recorderIp;
     int m_channelId = 1;
@@ -113,7 +114,7 @@ private:
     QString m_username;
     QString m_password;
 
-    LONG m_lUserID = -1;
+    std::atomic<LONG> m_lUserID{-1};
     std::atomic<LONG> m_lPlayHandle{-1};
     std::atomic<LONG> m_nPort{-1};
     DWORD m_realSdkChannel = 1;
@@ -164,6 +165,9 @@ private:
     std::atomic<long> m_lastAudioStamp{0};
     std::atomic<uint64_t> m_playbackSessionId{0};
     qint64 m_lastAudioInitTime = 0;
+
+    QThread* m_workerThread = nullptr;
+    QObject* m_worker = nullptr;
 
     Q_INVOKABLE void initAudioOutput(int sampleRate, int channels, uint64_t sessionId);
     static void AudioCallBack(long nPort, char * pAudioBuf, long nSize, long nStamp, long nType, long nUser);
