@@ -37,9 +37,9 @@ FocusScope {
         if (isOneToOne) {
             var videoW = 1280;
             var videoH = 720;
-            if (isQuickPlayback) {
-                videoW = quickPlaybackPlayer.videoWidth > 0 ? quickPlaybackPlayer.videoWidth : 1280;
-                videoH = quickPlaybackPlayer.videoHeight > 0 ? quickPlaybackPlayer.videoHeight : 720;
+            if (isQuickPlayback && quickPlaybackPlayerLoader.item) {
+                videoW = quickPlaybackPlayerLoader.item.videoWidth > 0 ? quickPlaybackPlayerLoader.item.videoWidth : 1280;
+                videoH = quickPlaybackPlayerLoader.item.videoHeight > 0 ? quickPlaybackPlayerLoader.item.videoHeight : 720;
             } else {
                 var activeOutput = activePlayerIndex === 1 ? videoOutput1 : videoOutput2;
                 videoW = activeOutput.sourceRect.width > 0 ? activeOutput.sourceRect.width : 1280;
@@ -149,13 +149,11 @@ FocusScope {
             updateQuickPlaybackSegments();
             HikvisionISAPI.searchRecordings(recorderInfoForCam, channelId, start, end);
             
-            var playStart = new Date(quickPlaybackActivationTime.getTime() - (1800 - quickPlaybackOffset) * 1000);
-            quickPlaybackPlayer.playAtTime(playStart);
+            // Playback will start in quickPlaybackPlayerLoader.onLoaded
             quickPlaybackTimer.start();
         } else {
             pendingQuickPlaybackSeek = false;
             quickPlaybackTimer.stop();
-            quickPlaybackPlayer.stop();
         }
         updateSource();
     }
@@ -211,7 +209,9 @@ FocusScope {
                             var newOffset = Math.floor((targetPlayTime - windowStart) / 1000);
                             root.quickPlaybackOffset = newOffset;
                             console.log("[Player QML] Aligning quick playback start time to:", new Date(targetPlayTime), "with offset:", newOffset);
-                            quickPlaybackPlayer.playAtTime(new Date(targetPlayTime));
+                            if (quickPlaybackPlayerLoader.item) {
+                                quickPlaybackPlayerLoader.item.playAtTime(new Date(targetPlayTime));
+                            }
                         } else {
                             console.log("[Player QML] No overlapping segments found in the 30-minute window.");
                         }
@@ -524,8 +524,8 @@ FocusScope {
         snapshotBadge.isSavingSnapshot = true;
         snapshotBadgeTimer.restart();
 
-        if (root.isQuickPlayback) {
-            var saved = quickPlaybackPlayer.saveCurrentFrame(path);
+        if (root.isQuickPlayback && quickPlaybackPlayerLoader.item) {
+            var saved = quickPlaybackPlayerLoader.item.saveCurrentFrame(path);
             if (saved) {
                 console.log("Saved snapshot (" + typeStr + ") to", path);
                 showSnapshotDialog(path);
@@ -670,27 +670,40 @@ FocusScope {
                 streamType: root.isSubStream ? 1 : 0
             }
 
-            HikvisionArchivePlayer {
-                id: quickPlaybackPlayer
+            Component {
+                id: quickPlaybackPlayerComponent
+                HikvisionArchivePlayer {
+                    recorderIp: root.recorderIp
+                    username: root.username
+                    password: root.password
+                    channelId: root.channelId
+                    port: root.recorderPort
+                    muted: root.muted
+                    volume: root.volume
+
+                    onVideoSizeChanged: {
+                        if (root.isOneToOne && root.isQuickPlayback) {
+                            root.oneToOneX = Math.min(0, (videoContainer.width - videoWidth) / 2);
+                            root.oneToOneY = Math.min(0, (videoContainer.height - videoHeight) / 2);
+                        }
+                    }
+                }
+            }
+
+            Loader {
+                id: quickPlaybackPlayerLoader
                 z: 3
+                active: root.isQuickPlayback
                 visible: root.isQuickPlayback
                 x: root.isOneToOne ? root.oneToOneX : -root.zoomX * width
                 y: root.isOneToOne ? root.oneToOneY : -root.zoomY * height
-                width: root.isOneToOne ? ((quickPlaybackPlayer.videoWidth > 0) ? quickPlaybackPlayer.videoWidth : videoContainer.width) : (videoContainer.width / Math.max(0.001, root.zoomWidth))
-                height: root.isOneToOne ? ((quickPlaybackPlayer.videoHeight > 0) ? quickPlaybackPlayer.videoHeight : videoContainer.height) : (videoContainer.height / Math.max(0.001, root.zoomHeight))
-                recorderIp: root.recorderIp
-                username: root.username
-                password: root.password
-                channelId: root.channelId
-                port: root.recorderPort
-                muted: root.muted
-                volume: root.volume
+                width: root.isOneToOne ? ((item && item.videoWidth > 0) ? item.videoWidth : videoContainer.width) : (videoContainer.width / Math.max(0.001, root.zoomWidth))
+                height: root.isOneToOne ? ((item && item.videoHeight > 0) ? item.videoHeight : videoContainer.height) : (videoContainer.height / Math.max(0.001, root.zoomHeight))
+                sourceComponent: quickPlaybackPlayerComponent
 
-                onVideoSizeChanged: {
-                    if (root.isOneToOne && root.isQuickPlayback) {
-                        root.oneToOneX = Math.min(0, (videoContainer.width - videoWidth) / 2);
-                        root.oneToOneY = Math.min(0, (videoContainer.height - videoHeight) / 2);
-                    }
+                onLoaded: {
+                    var playStart = new Date(root.quickPlaybackActivationTime.getTime() - (1800 - root.quickPlaybackOffset) * 1000);
+                    item.playAtTime(playStart);
                 }
             }
         }
@@ -870,8 +883,8 @@ FocusScope {
                 Text {
                     text: {
                         var fpsVal = 0;
-                        if (root.isQuickPlayback) {
-                            fpsVal = quickPlaybackPlayer.fps;
+                        if (root.isQuickPlayback && quickPlaybackPlayerLoader.item) {
+                            fpsVal = quickPlaybackPlayerLoader.item.fps;
                         } else if (root.isHikvision) {
                             if (hikPlayerSettings.useRealStreams) {
                                 fpsVal = (root.activePlayerIndex === 1 ? qmlAvPlayer1.fps : qmlAvPlayer2.fps);
@@ -1019,8 +1032,8 @@ FocusScope {
                     var videoW;
                     var videoH;
                     if (root.isQuickPlayback) {
-                        videoW = quickPlaybackPlayer.width;
-                        videoH = quickPlaybackPlayer.height;
+                        videoW = quickPlaybackPlayerLoader.width;
+                        videoH = quickPlaybackPlayerLoader.height;
                     } else {
                         var activeOutput = root.activePlayerIndex === 1 ? videoOutput1 : videoOutput2;
                         videoW = activeOutput.width;
@@ -1540,16 +1553,20 @@ FocusScope {
                 
                 onPressedChanged: {
                     if (pressed) {
-                        quickPlaybackPlayer.pause();
+                        if (quickPlaybackPlayerLoader.item) {
+                            quickPlaybackPlayerLoader.item.pause();
+                        }
                     } else {
                         root.quickPlaybackOffset = value;
                         var seekTime = new Date(root.quickPlaybackActivationTime.getTime() - (1800 - root.quickPlaybackOffset) * 1000);
-                        quickPlaybackPlayer.playAtTime(seekTime);
-                        if (root.quickPlaybackSpeed !== 1) {
-                            quickPlaybackPlayer.setPlaybackSpeed(root.quickPlaybackSpeed);
-                        }
-                        if (!root.isQuickPlaybackPaused) {
-                            quickPlaybackPlayer.resume();
+                        if (quickPlaybackPlayerLoader.item) {
+                            quickPlaybackPlayerLoader.item.playAtTime(seekTime);
+                            if (root.quickPlaybackSpeed !== 1) {
+                                quickPlaybackPlayerLoader.item.setPlaybackSpeed(root.quickPlaybackSpeed);
+                            }
+                            if (!root.isQuickPlaybackPaused) {
+                                quickPlaybackPlayerLoader.item.resume();
+                            }
                         }
                     }
                 }
@@ -1672,9 +1689,13 @@ FocusScope {
                     onClicked: {
                         root.isQuickPlaybackPaused = !root.isQuickPlaybackPaused;
                         if (root.isQuickPlaybackPaused) {
-                            quickPlaybackPlayer.pause();
+                            if (quickPlaybackPlayerLoader.item) {
+                                quickPlaybackPlayerLoader.item.pause();
+                            }
                         } else {
-                            quickPlaybackPlayer.resume();
+                            if (quickPlaybackPlayerLoader.item) {
+                                quickPlaybackPlayerLoader.item.resume();
+                            }
                         }
                     }
                     ToolTip.delay: Compact.toolTipDelay
@@ -1709,7 +1730,9 @@ FocusScope {
                         if (root.quickPlaybackSpeed === 1) root.quickPlaybackSpeed = 2;
                         else if (root.quickPlaybackSpeed === 2) root.quickPlaybackSpeed = 4;
                         else root.quickPlaybackSpeed = 1;
-                        quickPlaybackPlayer.setPlaybackSpeed(root.quickPlaybackSpeed);
+                        if (quickPlaybackPlayerLoader.item) {
+                            quickPlaybackPlayerLoader.item.setPlaybackSpeed(root.quickPlaybackSpeed);
+                        }
                     }
                     ToolTip.delay: Compact.toolTipDelay
                     ToolTip.timeout: Compact.toolTipTimeout
@@ -1747,7 +1770,9 @@ FocusScope {
                     if (nextOffset > 1800) {
                         nextOffset = 1800;
                         root.isQuickPlaybackPaused = true;
-                        quickPlaybackPlayer.pause();
+                        if (quickPlaybackPlayerLoader.item) {
+                            quickPlaybackPlayerLoader.item.pause();
+                        }
                     }
                     root.quickPlaybackOffset = nextOffset;
                 }
