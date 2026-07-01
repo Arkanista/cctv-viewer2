@@ -15,7 +15,7 @@ The program has been optimized for stability, smooth operation (60 FPS), and min
 6. [System Statistics Panel (System Stats)](#6-system-statistics-panel-system-stats)
 7. [Playback Archive Player](#7-playback-archive-player)
 8. [Downloading Recordings (Downloader)](#8-downloading-recordings-downloader)
-9. [Advanced Settings and Customization in Options Sidebar](#9-advanced-settings-and-customization-in-options-sidebar)
+9. [Advanced Settings and Customization in Options Window](#9-advanced-settings-and-customization-in-options-window)
 10. [Keyboard Shortcuts and Mouse Controls](#10-keyboard-shortcuts-and-mouse-controls)
 11. [Taking Snapshots and Path Configuration](#11-taking-snapshots-and-path-configuration)
 
@@ -30,7 +30,7 @@ This section describes the meaning of all graphical icons and buttons used in th
 * {ICON:pin} **Pin Bar**: Locks the top bar in an expanded state or enables auto-collapsing.
 * {ICON:fullscreen} **Full Screen**: Toggles the active window into fullscreen mode.
 * {ICON:minimize} **Minimize**: Minimizes the application window to the system taskbar.
-* {ICON:options} **Options**: Opens or closes the sliding configuration sidebar (settings and recorders).
+* {ICON:options} **Options**: Opens or closes the configuration options window (settings and recorders).
 * {ICON:new_window} **New Window**: Opens a new, independent auxiliary window for camera streams.
 * {ICON:archive} **Archive**: Opens the playback recordings archive window (timeline and calendar).
 * {ICON:instructions} **Instructions**: Opens this user manual and technical assistance window.
@@ -158,7 +158,7 @@ If you prefer text-based configuration or are not using the default menu editor:
 ## 3. Managing NVR/DVR Recorders
 
 To configure the connection to a Hikvision recorder:
-1. Open the sidebar options panel and go to the **Recorders** tab (server icon).
+1. Open the options window and go to the **Recorders** tab (server icon).
 2. Enter the device access details:
    * **IP Address**: The network address of the recorder.
    * **Port**: The SDK network port (default is `8000`).
@@ -214,7 +214,7 @@ The top sliding toolbar provides a comprehensive set of navigation and applicati
 2. **Pin Button**: Controls the auto-hiding behavior of the top toolbar. When the pin is pointing vertically (pinned state), the bar is locked in place and remains permanently visible. When the pin is rotated by -45 degrees (unpinned state), the bar automatically slides upward out of view when the mouse leaves its area.
 3. **Full Screen (Green Arrows Icon)**: Instantly switches the active window into fullscreen mode and back. In fullscreen mode, the arrows point inward (collapse), and in windowed mode, they point outward (expand).
 4. **Minimize (Cyan Minimization Icon)**: Minimizes the application window to the taskbar. Restoring it returns the window to its exact previous state (e.g. maximized or fullscreen).
-5. **⚙️ OPTIONS (OPCJE)**: Toggles the sliding sidebar config window. If the panel is already open, clicking this button closes it.
+5. **⚙️ OPTIONS (OPCJE)**: Toggles the configuration options window. If the window is already open, clicking this button closes it.
 6. **📺 NEW WINDOW (NOWE OKNO)**: Opens a new, independent, and fully configurable `Auxiliary Window`, perfect for expanding your camera layouts across multiple monitor setups.
 7. **ARCHIVE**: Opens an empty `PlaybackWindow` (recordings player) with active timeline and calendar, allowing manual stream and camera channel selections from any configured NVR via the sidebar list.
 8. **INSTRUCTIONS (INSTRUKCJA)**: Opens this manual window, loading the complete user documentation in English or Polish depending on your active locale.
@@ -297,9 +297,9 @@ From the Playback Archive window, you can download selected segments of recordin
 
 ---
 
-## 9. Advanced Settings and Customization in Options Sidebar
+## 9. Advanced Settings and Customization in Options Window
 
-The sliding options panel (`SideBar`) consists of six dedicated configuration tabs:
+The options and configuration window (`SideBar`) consists of six dedicated tabs:
 
 ### 1. Viewport Details (Monitor Icon)
 Displays advanced parameters of the currently selected grid tile. Allows you to:
@@ -385,7 +385,7 @@ The application allows you to quickly capture high-quality snapshots from any ca
 4. **Full Resolution**: In Playback Archive mode, snapshots are saved at the stream's full native source resolution directly from the decoder's frame buffer, regardless of the active viewport size on screen or display scaling.
 
 ### Saving Path Configurations:
-1. Go to the **Settings** tab (gear icon in the sidebar).
+1. Go to the **Settings** tab (gear icon in the options window).
 2. Under the **Saving** ("Zapis") section, you can configure the default paths:
    * **Default snapshots path**: Folder where snapshots will be saved (defaults to `~/Obrazy/CCTV`).
    * **Default recordings path**: Folder where downloaded MP4 videos will be saved (defaults to `~/Wideo/CCTV`).
@@ -393,7 +393,7 @@ The application allows you to quickly capture high-quality snapshots from any ca
 4. **Browser Button Behavior**: The directory picker opens precisely at the path typed in the text field (if it exists). If the field is empty, invalid, or pointing to a folder you don't have access to, the dialog falls back and opens at your home directory (`~/`).
 
 ### User Interface Settings (UI):
-1. Go to the **Settings** tab (gear icon in the sidebar) or open the **Options** ("Opcje") sidebar.
+1. Go to the **Settings** tab (gear icon in the options window) or open the **Options** ("Opcje") window.
 2. In the **User Interface Settings** section, you can customize the visibility of elements overlaid on the camera kafelki/viewports:
    * **Show channel status in the top left corner of the viewport** (default enabled) — Displays stream loading, playing, and connection status information.
    * **Show camera info in the bottom left corner of the viewport** (default enabled) — Displays the camera name retrieved from the Hikvision recorder.

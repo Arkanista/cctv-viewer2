@@ -324,7 +324,7 @@ These parameters provide the lowest latency, fastest stream connection, and maxi
 
 ### How to manage or disable these options:
 - **Global configuration**: You can edit the global default FFmpeg command-line options in the **Settings** tab (Gear icon).
-- **Bulk Update**: You can apply your modified global settings to all active viewports by clicking the **"Zaktualizuj wszystkie kamery"** (Update all cameras) button in the sidebar.
+- **Bulk Update**: You can apply your modified global settings to all active viewports by clicking the **"Zaktualizuj wszystkie kamery"** (Update all cameras) button in the settings window.
 - **Viewport override**: If you have a specific camera on a bad network connection that suffers from stuttering, you can exclude it from global settings. Open the individual **Viewport Settings** dialog, check the **"Nie uwzględniaj zmian w globalnych ustawieniach FFMpeg"** checkbox, and edit its options independently (e.g. remove `-fflags nobuffer`).
 
 ---

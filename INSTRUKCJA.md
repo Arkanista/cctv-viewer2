@@ -293,9 +293,9 @@ Z poziomu okna Playback Archive możesz pobierać wybrane fragmenty nagrań bezp
 
 ---
 
-## 9. Zaawansowane Ustawienia i Personalizacja w Panelu Opcji
+## 9. Zaawansowane Ustawienia i Personalizacja w Oknie Opcji
 
-Wysuwany z lewej krawędzi panel opcji (`SideBar`) dzieli się na sześć dedykowanych sekcji konfiguracji:
+Dedykowane okno opcji i ustawień (`SideBar`) dzieli się na sześć sekcji konfiguracji:
 
 ### 1. Szczegóły Viewportu (Viewport Details - ikona monitora)
 Wyświetla zaawansowane parametry wybranego kafelka siatki. Umożliwia:
