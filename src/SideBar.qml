@@ -888,25 +888,59 @@ FocusScope {
                     Layout.fillHeight: true
                 }
 
-                RowLayout {
+                ColumnLayout {
                     Layout.fillWidth: true
                     visible: rootSideBar.hasNewVersion
-                    spacing: 8
+                    spacing: 6
                     Layout.alignment: Qt.AlignHCenter
                     Layout.bottomMargin: 4
 
-                    Rectangle {
-                        id: pulsingDot
-                        width: 8
-                        height: 8
-                        radius: 4
-                        color: "#2ecc71" // Green
-                        Layout.alignment: Qt.AlignVCenter
+                    Item {
+                        implicitWidth: 32
+                        implicitHeight: 32
+                        Layout.alignment: Qt.AlignHCenter
 
-                        SequentialAnimation on opacity {
-                            loops: Animation.Infinite
-                            PropertyAnimation { to: 0.2; duration: 800; easing.type: Easing.InOutQuad }
-                            PropertyAnimation { to: 1.0; duration: 800; easing.type: Easing.InOutQuad }
+                        // Glow Ring
+                        Rectangle {
+                            id: glowRing
+                            anchors.centerIn: parent
+                            width: 14
+                            height: 14
+                            radius: 7
+                            color: "transparent"
+                            border.color: "#2ecc71"
+                            border.width: 1.5
+
+                            NumberAnimation on scale {
+                                from: 1.0
+                                to: 2.2
+                                duration: 1600
+                                loops: Animation.Infinite
+                                easing.type: Easing.OutQuad
+                            }
+                            OpacityAnimator on opacity {
+                                from: 0.8
+                                to: 0.0
+                                duration: 1600
+                                loops: Animation.Infinite
+                                easing.type: Easing.OutQuad
+                            }
+                        }
+
+                        // Core
+                        Rectangle {
+                            id: pulsingDot
+                            anchors.centerIn: parent
+                            width: 14
+                            height: 14
+                            radius: 7
+                            color: "#2ecc71" // Green
+
+                            SequentialAnimation on opacity {
+                                loops: Animation.Infinite
+                                PropertyAnimation { to: 0.4; duration: 800; easing.type: Easing.InOutQuad }
+                                PropertyAnimation { to: 1.0; duration: 800; easing.type: Easing.InOutQuad }
+                            }
                         }
                     }
 
@@ -915,7 +949,8 @@ FocusScope {
                         color: "#2ecc71"
                         font.pixelSize: 11
                         font.bold: true
-                        Layout.alignment: Qt.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        Layout.fillWidth: true
                     }
                 }
 
