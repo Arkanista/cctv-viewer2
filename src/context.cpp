@@ -49,6 +49,7 @@ void Context::init()
     QCommandLineOption debugMemoryOption("debug-memory", tr("Włącz śledzenie obiektów w logach dla debugowania wycieków pamięci."));
     QCommandLineOption firstRunOption("first-run", tr("Wymuś zachowanie pierwszego uruchomienia i pokaż instrukcję (Force first run behavior)."));
     QCommandLineOption simulateErrorOption("simulate-error", tr("Zasymuluj błędy na każdym rejestratorze (Simulate NVR errors)."));
+    QCommandLineOption mockNewVersionOption("mock-new-version", tr("Zasymuluj dostępność nowej wersji na GitHubie w celach testowych (Mock new version availability on GitHub)."));
 
     parseCommandLineOptions({configOption,
                              presetOption,
@@ -60,10 +61,12 @@ void Context::init()
                              verboseOption,
                              debugMemoryOption,
                              firstRunOption,
-                             simulateErrorOption});
+                             simulateErrorOption,
+                             mockNewVersionOption});
 
     m_isAuxiliary = m_commandLineParser.isSet(auxiliaryOption);
     m_enableLogs = m_commandLineParser.isSet(verboseOption);
+    m_mockNewVersion = m_commandLineParser.isSet(mockNewVersionOption);
 
     if (m_isAuxiliary && m_commandLineParser.isSet(auxiliaryIdOption)) {
         m_auxiliaryId = m_commandLineParser.value(auxiliaryIdOption).toInt();

@@ -61,6 +61,11 @@ FocusScope {
     }
 
     function checkForUpdates() {
+        if (Context.mockNewVersion) {
+            hasNewVersion = true;
+            newVersionString = "v9.9.9 (MOCK)";
+            return;
+        }
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "https://api.github.com/repos/Arkanista/KVision/releases/latest", true);
         xhr.onreadystatechange = function() {
