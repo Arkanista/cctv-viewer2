@@ -310,13 +310,9 @@ If you prefer text-based configuration or are not using the default menu editor:
 
 By default, starting from version 2.4.1, KVision automatically configures the following options for all viewports:
 ```ini
--analyzeduration 0 -probesize 500000 -fflags nobuffer -flags low_delay
+-analyzeduration 0 -probesize 500000 -fflags nobuffer -flags low_delay -rtsp_transport tcp
 ```
-These parameters provide the lowest latency, fastest stream connection, and maximum stability over RTSP, preventing the camera streams from falling behind (drift) over long operational periods. It is still highly recommended to combine them with:
-```ini
--rtsp_transport tcp
-```
-to force TCP transport instead of UDP for maximum stream stability on standard networks.
+These parameters provide the lowest latency, fastest stream connection, and maximum stability over RTSP, preventing the camera streams from falling behind (drift) over long operational periods. The `-rtsp_transport tcp` option forces TCP transport instead of UDP for maximum stream stability on standard networks.
 
 ### What are the effects of these low-latency flags?
 1. **`-fflags nobuffer`**: Instructs FFmpeg to process and output packets immediately without waiting to analyze and buffer the stream.
