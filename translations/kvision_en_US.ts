@@ -2119,6 +2119,10 @@
         <source>Zabezpieczono proces migracji ustawień domyślnych, umożliwiając użytkownikowi trwałe usunięcie lub zmodyfikowanie nowych flag bez ich ponownego wymuszania przy każdym starcie.</source>
         <translation>Secured the default settings migration process, allowing the user to permanently remove or modify new flags without them being forced on every startup.</translation>
     </message>
+    <message>
+        <source>Dostępna jest nowa wersja: %1</source>
+        <translation>A new version is available: %1</translation>
+    </message>
 </context>
 <context>
     <name>SideBarItem</name>

@@ -44,6 +44,51 @@ FocusScope {
     property var nvrIndices: []
     property var nvrPresetIndices: []
 
+    property bool hasNewVersion: false
+    property string newVersionString: ""
+
+    function compareVersions(v1, v2) {
+        var parts1 = v1.split(".").map(Number);
+        var parts2 = v2.split(".").map(Number);
+        for (var i = 0; i < Math.max(parts1.length, parts2.length); ++i) {
+            var p1 = parts1[i] || 0;
+            var p2 = parts2[i] || 0;
+            if (p1 !== p2) {
+                return p1 - p2;
+            }
+        }
+        return 0;
+    }
+
+    function checkForUpdates() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://api.github.com/repos/Arkanista/KVision/releases/latest", true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    try {
+                        var response = JSON.parse(xhr.responseText);
+                        var latestVersion = response.tag_name;
+                        var currentVersion = Qt.application.version;
+                        
+                        var latestClean = latestVersion.replace(/^v/, "");
+                        var currentClean = currentVersion.replace(/^v/, "");
+                        
+                        if (compareVersions(latestClean, currentClean) > 0) {
+                            hasNewVersion = true;
+                            newVersionString = latestVersion;
+                        } else {
+                            hasNewVersion = false;
+                        }
+                    } catch (e) {
+                        console.error("Failed to parse update check response:", e);
+                    }
+                }
+            }
+        }
+        xhr.send();
+    }
+
     function updateIndices() {
         var regs = [];
         var nvrs = [];
@@ -69,6 +114,7 @@ FocusScope {
         layoutsCollectionModel.changed.connect(updateIndices);
         updateIndices();
         resetPathChangesCheckbox();
+        checkForUpdates();
     }
 
     property var changelogData: [
@@ -2680,6 +2726,35 @@ FocusScope {
                                         }
                                     }
                                 }
+                            }
+                        }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+                            Layout.margins: 10
+                            visible: rootSideBar.hasNewVersion
+                            spacing: 8
+
+                            Rectangle {
+                                id: pulsingDot
+                                width: 10
+                                height: 10
+                                radius: 5
+                                color: "#2ecc71" // Green
+
+                                SequentialAnimation on opacity {
+                                    loops: Animation.Infinite
+                                    PropertyAnimation { to: 0.2; duration: 800; easing.type: Easing.InOutQuad }
+                                    PropertyAnimation { to: 1.0; duration: 800; easing.type: Easing.InOutQuad }
+                                }
+                            }
+
+                            Text {
+                                text: qsTr("Dostępna jest nowa wersja: %1").arg(rootSideBar.newVersionString)
+                                color: "#2ecc71"
+                                font.pixelSize: 12
+                                font.bold: true
+                                Layout.fillWidth: true
                             }
                         }
                     }
