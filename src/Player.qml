@@ -71,6 +71,7 @@ FocusScope {
     
     readonly property var playbackState: activePlayerIndex === 1 ? qmlAvPlayer1.playbackState : qmlAvPlayer2.playbackState
     readonly property var status: activePlayerIndex === 1 ? qmlAvPlayer1.status : qmlAvPlayer2.status
+    readonly property bool activeIsSubStream: activePlayerIndex === 1 ? qmlAvPlayer1.isSubStreamOfPlayer : qmlAvPlayer2.isSubStreamOfPlayer
     property string source: ""
     
     readonly property bool isHikvision: String(source).indexOf("hikvision://") !== -1
@@ -130,6 +131,7 @@ FocusScope {
                 if (activePlayerIndex === targetIndex) {
                     console.log("[Player] Post-switch (timer): stopping and clearing old player source");
                     oldPlayer.source = "";
+                    oldPlayer.isSubStreamOfPlayer = false;
                 }
             });
         }
@@ -320,7 +322,9 @@ FocusScope {
     function updateSource() {
         if (!root.visible || root.isQuickPlayback) {
             qmlAvPlayer1.source = "";
+            qmlAvPlayer1.isSubStreamOfPlayer = false;
             qmlAvPlayer2.source = "";
+            qmlAvPlayer2.isSubStreamOfPlayer = false;
             activeStreamUrl = "";
             activeCameraId = "";
             return;
@@ -347,7 +351,9 @@ FocusScope {
 
         if (newUrl === "") {
             qmlAvPlayer1.source = "";
+            qmlAvPlayer1.isSubStreamOfPlayer = false;
             qmlAvPlayer2.source = "";
+            qmlAvPlayer2.isSubStreamOfPlayer = false;
             activeStreamUrl = "";
             activeCameraId = "";
             seamlessSwitchTimer.stop();
@@ -369,6 +375,7 @@ FocusScope {
         if (isSameCamera) {
             console.log("[Player] Seamless switch quality of camera " + newCameraId + " to URL: " + newUrl);
             inactivePlayer.muted = true; // Keep inactive player muted during loading
+            inactivePlayer.isSubStreamOfPlayer = root.isSubStream;
             inactivePlayer.source = newUrl;
             inactivePlayer.play();
             activeStreamUrl = newUrl;
@@ -377,6 +384,8 @@ FocusScope {
             seamlessSwitchTimer.stop();
             activePlayerIndex = 1;
             qmlAvPlayer2.source = "";
+            qmlAvPlayer2.isSubStreamOfPlayer = false;
+            qmlAvPlayer1.isSubStreamOfPlayer = root.isSubStream;
             qmlAvPlayer1.source = newUrl;
             qmlAvPlayer1.play();
             activeStreamUrl = newUrl;
@@ -427,6 +436,7 @@ FocusScope {
                 if (activePlayerIndex === targetIndex) {
                     var oldPlayer = targetIndex === 1 ? qmlAvPlayer2 : qmlAvPlayer1;
                     oldPlayer.source = "";
+                    oldPlayer.isSubStreamOfPlayer = false;
                 }
             });
         }
@@ -506,7 +516,9 @@ FocusScope {
             qmlAvPlayer1.autoPlay = false;
             qmlAvPlayer2.autoPlay = false;
             qmlAvPlayer1.source = "";
+            qmlAvPlayer1.isSubStreamOfPlayer = false;
             qmlAvPlayer2.source = "";
+            qmlAvPlayer2.isSubStreamOfPlayer = false;
             activeStreamUrl = "";
             activeCameraId = "";
         }
@@ -609,7 +621,9 @@ FocusScope {
         qmlAvPlayer1.autoPlay = false;
         qmlAvPlayer2.autoPlay = false;
         qmlAvPlayer1.source = "";
+        qmlAvPlayer1.isSubStreamOfPlayer = false;
         qmlAvPlayer2.source = "";
+        qmlAvPlayer2.isSubStreamOfPlayer = false;
         activeStreamUrl = "";
         activeCameraId = "";
     }
@@ -767,6 +781,7 @@ FocusScope {
             id: qmlAvPlayer1
 
             autoLoad: false
+            property bool isSubStreamOfPlayer: false
 
             avOptions: {
                 var avOptions = root.avOptions;
@@ -807,6 +822,7 @@ FocusScope {
             id: qmlAvPlayer2
 
             autoLoad: false
+            property bool isSubStreamOfPlayer: false
 
             avOptions: {
                 var avOptions = root.avOptions;
@@ -892,7 +908,7 @@ FocusScope {
             
             color: "#66121214"
             border {
-                color: root.isQuickPlayback ? "#00f5d4" : (root.isSubStream ? "#ff7a00" : "#00f5d4")
+                color: root.isQuickPlayback ? "#00f5d4" : (root.activeIsSubStream ? "#ff7a00" : "#00f5d4")
                 width: 1
             }
             radius: 4
@@ -906,8 +922,8 @@ FocusScope {
                 spacing: 4
                 
                 Text {
-                    text: root.isQuickPlayback ? "MAIN" : (root.isSubStream ? "SUB" : "MAIN")
-                    color: root.isSubStream && !root.isQuickPlayback ? "#ff7a00" : "#00f5d4"
+                    text: root.isQuickPlayback ? "MAIN" : (root.activeIsSubStream ? "SUB" : "MAIN")
+                    color: root.activeIsSubStream && !root.isQuickPlayback ? "#ff7a00" : "#00f5d4"
                     font {
                         pixelSize: 8
                         bold: true
@@ -917,7 +933,7 @@ FocusScope {
                 Rectangle {
                     width: 1
                     height: 7
-                    color: root.isSubStream && !root.isQuickPlayback ? "#44ff7a00" : "#4400f5d4"
+                    color: root.activeIsSubStream && !root.isQuickPlayback ? "#44ff7a00" : "#4400f5d4"
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 
@@ -965,7 +981,7 @@ FocusScope {
                 Rectangle {
                     width: 1
                     height: 7
-                    color: root.isSubStream && !root.isQuickPlayback ? "#44ff7a00" : "#4400f5d4"
+                    color: root.activeIsSubStream && !root.isQuickPlayback ? "#44ff7a00" : "#4400f5d4"
                     anchors.verticalCenter: parent.verticalCenter
                     visible: root.isQuickPlayback ? false : (!root.isHikvision || hikPlayerSettings.useRealStreams)
                 }
@@ -1847,7 +1863,9 @@ FocusScope {
 //    function seek(position) { mediaPlayer.seek(position); }
     function stop() {
         qmlAvPlayer1.source = "";
+        qmlAvPlayer1.isSubStreamOfPlayer = false;
         qmlAvPlayer2.source = "";
+        qmlAvPlayer2.isSubStreamOfPlayer = false;
         activeStreamUrl = "";
         activeCameraId = "";
         seamlessSwitchTimer.stop();
