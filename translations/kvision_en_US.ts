@@ -1,4 +1,5 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
     <name>AuxiliaryLimitWarning</name>
@@ -141,7 +142,7 @@
     </message>
     <message>
         <source>Zasymuluj dostępność nowej wersji na GitHubie w celach testowych (Mock new version availability on GitHub).</source>
-        <translation type="unfinished" />
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1069,6 +1070,10 @@
         <source>Zamknij podgląd wstecz</source>
         <translation>Close rewind view</translation>
     </message>
+    <message>
+        <source>Przywracam widok live...</source>
+        <translation>Restoring live view...</translation>
+    </message>
 </context>
 <context>
     <name>RootWindow</name>
@@ -1384,8 +1389,8 @@
         <translation>Allow running multiple application instances</translation>
     </message>
     <message>
-        <source>This option is disabled to prevent settings file write conflicts. To enable it (dangerous and not recommended!), set 'singleApplication=false' in the kvision.conf configuration file.</source>
-        <translation>This option is disabled to prevent settings file write conflicts. To enable it (dangerous and not recommended!), set 'singleApplication=false' in the kvision.conf configuration file.</translation>
+        <source>This option is disabled to prevent settings file write conflicts. To enable it (dangerous and not recommended!), set &apos;singleApplication=false&apos; in the kvision.conf configuration file.</source>
+        <translation>This option is disabled to prevent settings file write conflicts. To enable it (dangerous and not recommended!), set &apos;singleApplication=false&apos; in the kvision.conf configuration file.</translation>
     </message>
     <message>
         <source>Context Menu Settings</source>
@@ -1400,16 +1405,16 @@
         <translation>Allow swapping viewport places</translation>
     </message>
     <message>
-        <source>Enable 'Remove camera' option</source>
-        <translation>Enable 'Remove camera' option</translation>
+        <source>Enable &apos;Remove camera&apos; option</source>
+        <translation>Enable &apos;Remove camera&apos; option</translation>
     </message>
     <message>
         <source>Allow changing viewport settings</source>
         <translation>Allow changing viewport settings</translation>
     </message>
     <message>
-        <source>Enable 'Stream selection' option</source>
-        <translation>Enable 'Stream selection' option</translation>
+        <source>Enable &apos;Stream selection&apos; option</source>
+        <translation>Enable &apos;Stream selection&apos; option</translation>
     </message>
     <message>
         <source>Interface &amp; View Settings</source>
@@ -1444,24 +1449,24 @@
         <translation>Confirm Deletion</translation>
     </message>
     <message>
-        <source>Are you sure you want to delete preset "%1"? This action is completely irreversible.</source>
-        <translation>Are you sure you want to delete preset "%1"? This action is completely irreversible.</translation>
+        <source>Are you sure you want to delete preset &quot;%1&quot;? This action is completely irreversible.</source>
+        <translation>Are you sure you want to delete preset &quot;%1&quot;? This action is completely irreversible.</translation>
     </message>
     <message>
         <source>Are you sure you want to delete preset #%1? This action is completely irreversible.</source>
         <translation>Are you sure you want to delete preset #%1? This action is completely irreversible.</translation>
     </message>
     <message>
-        <source>Are you sure you want to delete NVR view "%1"? This action is completely irreversible.</source>
-        <translation>Are you sure you want to delete NVR view "%1"? This action is completely irreversible.</translation>
+        <source>Are you sure you want to delete NVR view &quot;%1&quot;? This action is completely irreversible.</source>
+        <translation>Are you sure you want to delete NVR view &quot;%1&quot;? This action is completely irreversible.</translation>
     </message>
     <message>
         <source>Are you sure you want to delete this NVR view layout? This action is completely irreversible.</source>
         <translation>Are you sure you want to delete this NVR view layout? This action is completely irreversible.</translation>
     </message>
     <message>
-        <source>Are you sure you want to delete NVR Preset "%1"? This action is completely irreversible.</source>
-        <translation>Are you sure you want to delete NVR Preset "%1"? This action is completely irreversible.</translation>
+        <source>Are you sure you want to delete NVR Preset &quot;%1&quot;? This action is completely irreversible.</source>
+        <translation>Are you sure you want to delete NVR Preset &quot;%1&quot;? This action is completely irreversible.</translation>
     </message>
     <message>
         <source>Are you sure you want to delete this NVR Preset? This action is completely irreversible.</source>
@@ -1520,16 +1525,16 @@
         <translation>Fixed layout button states (1x1 vs 2x2) when opening playback directly from camera.</translation>
     </message>
     <message>
-        <source>Dodano poprawną przestrzeń nazw XML w zapytaniach Hikvision ISAPI (eliminacja błędu 'Invalid XML Content' na nowszym oprogramowaniu układowym rejestratorów).</source>
-        <translation>Added proper XML namespace in Hikvision ISAPI queries (fixes 'Invalid XML Content' error on newer recorder firmware).</translation>
+        <source>Dodano poprawną przestrzeń nazw XML w zapytaniach Hikvision ISAPI (eliminacja błędu &apos;Invalid XML Content&apos; na nowszym oprogramowaniu układowym rejestratorów).</source>
+        <translation>Added proper XML namespace in Hikvision ISAPI queries (fixes &apos;Invalid XML Content&apos; error on newer recorder firmware).</translation>
     </message>
     <message>
         <source>Naprawa obsługi paginacji wyników wyszukiwania (obsługa tagu searchResultPostion).</source>
         <translation>Fixed search results pagination handling (searchResultPostion tag).</translation>
     </message>
     <message>
-        <source>Przycisk 'Odśwież' w oknie archiwum pozwalający na ręczne wyczyszczenie pamięci podręcznej i ponowne pobranie danych o dostępności nagrań.</source>
-        <translation>'Refresh' button in the playback window to manually clear cache and re-fetch recording availability data.</translation>
+        <source>Przycisk &apos;Odśwież&apos; w oknie archiwum pozwalający na ręczne wyczyszczenie pamięci podręcznej i ponowne pobranie danych o dostępności nagrań.</source>
+        <translation>&apos;Refresh&apos; button in the playback window to manually clear cache and re-fetch recording availability data.</translation>
     </message>
     <message>
         <source>Optymalizacja kolejki sieciowej (Prefetch) – ograniczenie pobierania wstecznego do 12 miesięcy, co eliminuje setki zbędnych zapytań o przedawnione nagrania i znacznie przyspiesza start odtwarzania.</source>
@@ -1556,16 +1561,16 @@
         <translation>Calculation of global download progress (overallProgress) for multi-part recordings.</translation>
     </message>
     <message>
-        <source>Zmiana rozszerzenia plików tymczasowych pobierania z '.ps' na '.pspart'.</source>
-        <translation>Changed temporary download file extension from '.ps' to '.pspart'.</translation>
+        <source>Zmiana rozszerzenia plików tymczasowych pobierania z &apos;.ps&apos; na &apos;.pspart&apos;.</source>
+        <translation>Changed temporary download file extension from &apos;.ps&apos; to &apos;.pspart&apos;.</translation>
     </message>
     <message>
-        <source>Opcja i przycisk 'Pokazuj pola informacyjne tylko po najechaniu kursorem' w ustawieniach interfejsu użytkownika.</source>
-        <translation>'Show info fields only when hovering' option and button in user interface settings.</translation>
+        <source>Opcja i przycisk &apos;Pokazuj pola informacyjne tylko po najechaniu kursorem&apos; w ustawieniach interfejsu użytkownika.</source>
+        <translation>&apos;Show info fields only when hovering&apos; option and button in user interface settings.</translation>
     </message>
     <message>
-        <source>Wizualna informacja o procesie wyszukiwania kamer w panelu konfiguracji (obracająca się ikona, blokowanie formularza, tekst 'Wyszukiwanie...').</source>
-        <translation>Visual indicator for camera discovery in the configuration panel (rotating icon, form blocking, and 'Discovering...' text).</translation>
+        <source>Wizualna informacja o procesie wyszukiwania kamer w panelu konfiguracji (obracająca się ikona, blokowanie formularza, tekst &apos;Wyszukiwanie...&apos;).</source>
+        <translation>Visual indicator for camera discovery in the configuration panel (rotating icon, form blocking, and &apos;Discovering...&apos; text).</translation>
     </message>
     <message>
         <source>Pełna wielojęzyczność (dodanie oficjalnego wsparcia dla języków polskiego i angielskiego).</source>
@@ -1576,8 +1581,8 @@
         <translation>Auxiliary window startup optimization – reduced load time from 3 seconds to under 300 ms.</translation>
     </message>
     <message>
-        <source>Estetyczna stylizacja pustego pola w oknie pomocniczym ('Nie wybrano widoku') z seledynową ramką.</source>
-        <translation>Aesthetic placeholder in the auxiliary window ('No view selected') with a turquoise border.</translation>
+        <source>Estetyczna stylizacja pustego pola w oknie pomocniczym (&apos;Nie wybrano widoku&apos;) z seledynową ramką.</source>
+        <translation>Aesthetic placeholder in the auxiliary window (&apos;No view selected&apos;) with a turquoise border.</translation>
     </message>
     <message>
         <source>Integracja z SDK Hikvision w trybie Live oraz odtwarzania archiwum.</source>
@@ -1689,7 +1694,7 @@
     </message>
     <message>
         <source>Poprawiono przesunięcie paska dostępności nagrań o 2-3 godziny w oknie odtwarzacza archiwum, synchronizując oś czasu ze strefą czasową klienta (z poprawną obsługą czasu letniego/zimowego DST).</source>
-        <translation>Fixed the 2-3 hour shift of the recording availability timeline bar in the archive player window, synchronizing the timeline with the client's local timezone (with correct daylight saving time DST support).</translation>
+        <translation>Fixed the 2-3 hour shift of the recording availability timeline bar in the archive player window, synchronizing the timeline with the client&apos;s local timezone (with correct daylight saving time DST support).</translation>
     </message>
     <message>
         <source>Dodano dynamiczną wyszukiwarkę kamer w oknie archiwum z przyciskiem resetowania i automatycznym rozwijaniem pasujących rejestratorów.</source>
@@ -1824,8 +1829,8 @@
         <translation>Resolved video freezing issues (solid color screen after viewport zoom) by forcing correct video availability signaling when presenting the first frame of a new stream.</translation>
     </message>
     <message>
-        <source>Dodano globalną opcję w ustawieniach 'Wyłącz obsługę audio całkowicie', pozwalającą całkowicie pominąć przetwarzanie dźwięku w celu eliminacji ewentualnego narzutu i wycieków pamięci.</source>
-        <translation>Added a global setting 'Disable audio support completely', allowing total bypass of audio processing to eliminate potential overhead and memory leaks.</translation>
+        <source>Dodano globalną opcję w ustawieniach &apos;Wyłącz obsługę audio całkowicie&apos;, pozwalającą całkowicie pominąć przetwarzanie dźwięku w celu eliminacji ewentualnego narzutu i wycieków pamięci.</source>
+        <translation>Added a global setting &apos;Disable audio support completely&apos;, allowing total bypass of audio processing to eliminate potential overhead and memory leaks.</translation>
     </message>
     <message>
         <source>Zoptymalizowano moduł statystyk systemowych, wygaszając ciągłe zużycie pamięci poprzez buforowanie identyfikatorów procesów i eliminację alokacji dynamicznych wyrażeń regularnych.</source>
@@ -1876,16 +1881,16 @@
         <translation>Added subtle 1px dark-gray borders around unused viewports in the LIVE layout grid for better delineation of fields.</translation>
     </message>
     <message>
-        <source>Zabezpieczono edycję ścieżek zapisu i konfiguracji multimediów w ustawieniach przejściowym polem wyboru 'Uaktywnij zmiany w tej sekcji', zapobiegając przypadkowym modyfikacjom (stan edycji resetuje się po zamknięciu).</source>
-        <translation>Secured editing of save paths and system media configuration options behind a transient 'Activate changes in this section' checkbox, preventing accidental modifications (editing state resets on close).</translation>
+        <source>Zabezpieczono edycję ścieżek zapisu i konfiguracji multimediów w ustawieniach przejściowym polem wyboru &apos;Uaktywnij zmiany w tej sekcji&apos;, zapobiegając przypadkowym modyfikacjom (stan edycji resetuje się po zamknięciu).</source>
+        <translation>Secured editing of save paths and system media configuration options behind a transient &apos;Activate changes in this section&apos; checkbox, preventing accidental modifications (editing state resets on close).</translation>
     </message>
     <message>
-        <source>Wprowadzono bezpośrednie skróty 'otwórz folder zapisu' (wyróżniony seledynowym kolorem przy ukończonym pobieraniu w oknie Archiwum) oraz zawsze aktywne przyciski szybkiego otwierania folderów zrzutów i wideo w ustawieniach (z automatycznym tworzeniem katalogu na dysku).</source>
-        <translation>Introduced direct shortcuts for 'open save folder' (highlighted in celadon upon completed download in the Archive window) and always-active quick-open buttons for snapshot and video folders in Settings (with automatic directory creation on disk if missing).</translation>
+        <source>Wprowadzono bezpośrednie skróty &apos;otwórz folder zapisu&apos; (wyróżniony seledynowym kolorem przy ukończonym pobieraniu w oknie Archiwum) oraz zawsze aktywne przyciski szybkiego otwierania folderów zrzutów i wideo w ustawieniach (z automatycznym tworzeniem katalogu na dysku).</source>
+        <translation>Introduced direct shortcuts for &apos;open save folder&apos; (highlighted in celadon upon completed download in the Archive window) and always-active quick-open buttons for snapshot and video folders in Settings (with automatic directory creation on disk if missing).</translation>
     </message>
     <message>
-        <source>Wprowadzono interaktywną walidację przy kliknięciu przycisku 'Pobierz' w oknie pobierania: automatyczna kontrola formatów pól oraz chronologii dat z dymkiem ostrzegawczym i przekierowaniem fokusu na pierwsze błędne pole.</source>
-        <translation>Introduced interactive validation when clicking the 'Pobierz' (Download) button in the download window: automatic format and chronological date checks, displaying a red warning tooltip and focusing the first invalid field.</translation>
+        <source>Wprowadzono interaktywną walidację przy kliknięciu przycisku &apos;Pobierz&apos; w oknie pobierania: automatyczna kontrola formatów pól oraz chronologii dat z dymkiem ostrzegawczym i przekierowaniem fokusu na pierwsze błędne pole.</source>
+        <translation>Introduced interactive validation when clicking the &apos;Pobierz&apos; (Download) button in the download window: automatic format and chronological date checks, displaying a red warning tooltip and focusing the first invalid field.</translation>
     </message>
     <message>
         <source>Zaimplementowano pełną nawigację klawiaturą (strzałkami góra/dół do zmiany wartości, lewo/prawo do zmiany kolumn) w graficznym selektorze czasu (Clock Picker).</source>
@@ -1924,8 +1929,8 @@
         <translation>Audio</translation>
     </message>
     <message>
-        <source>Dodano nowe, intuicyjne opcje do menu podręcznego viewportów (pod prawym przyciskiem myszy): 'Stopklatka' (zapis bieżącej klatki) oraz 'Odtwarzaj' (natychmiastowe przejście do archiwalnego odtwarzania danej kamery).</source>
-        <translation>Added new intuitive options to the viewports context menu: 'Snapshot' (saving the current frame) and 'Playback' (immediate transition to the archive playback of the given camera).</translation>
+        <source>Dodano nowe, intuicyjne opcje do menu podręcznego viewportów (pod prawym przyciskiem myszy): &apos;Stopklatka&apos; (zapis bieżącej klatki) oraz &apos;Odtwarzaj&apos; (natychmiastowe przejście do archiwalnego odtwarzania danej kamery).</source>
+        <translation>Added new intuitive options to the viewports context menu: &apos;Snapshot&apos; (saving the current frame) and &apos;Playback&apos; (immediate transition to the archive playback of the given camera).</translation>
     </message>
     <message>
         <source>Zrewolucjonizowano i naprawiono obsługę dźwięku PCM: bezpośrednie przekazywanie potoku do QAudioOutput, eliminacja zawieszeń interfejsu (ALSA/PulseAudio/Pipewire) przez stabilizację sample rate (debounce po 5 stabilnych ramkach), cooldown 2s na rekreację wyjścia, filtrowanie uszkodzonych parametrów i bufor 64KB redukujący jitter sieciowy.</source>
@@ -1940,16 +1945,16 @@
         <translation>Implemented automatic and immediate muting of LIVE streams in the main grid upon opening the Archive playback window, preventing overlapping sounds (cacophony).</translation>
     </message>
     <message>
-        <source>Wprowadzono centralny system powiadomień SnapshotSavedDialog o zapisaniu stopklatki (ciemnoszara obudowa, seledynowe krawędzie, auto-zamknięcie po 10 sekundach) z szybkim łączem 'Przeglądaj' do bezpośredniego otwierania folderu w systemowym menedżerze plików.</source>
-        <translation>Introduced a central SnapshotSavedDialog notification system for saved snapshots (dark gray enclosure, teal borders, auto-close after 10 seconds) with a quick 'Browse' link to open the folder directly in the system file manager.</translation>
+        <source>Wprowadzono centralny system powiadomień SnapshotSavedDialog o zapisaniu stopklatki (ciemnoszara obudowa, seledynowe krawędzie, auto-zamknięcie po 10 sekundach) z szybkim łączem &apos;Przeglądaj&apos; do bezpośredniego otwierania folderu w systemowym menedżerze plików.</source>
+        <translation>Introduced a central SnapshotSavedDialog notification system for saved snapshots (dark gray enclosure, teal borders, auto-close after 10 seconds) with a quick &apos;Browse&apos; link to open the folder directly in the system file manager.</translation>
     </message>
     <message>
-        <source>Wzbogacono wbudowane okno pomocy o szczegółowy rozdział 'Opis działania przycisków' z natywnymi, ostrymi ikonami wektorowymi SVG. Okno pomocy otwiera się teraz w pełni automatycznie i wyśrodkowane nad oknem głównym przy pierwszym uruchomieniu programu.</source>
-        <translation>Enriched the built-in help window with a detailed 'Button functions description' chapter using native, crisp SVG vector icons. The help window now opens fully automatically and centered over the main window upon the program's first launch.</translation>
+        <source>Wzbogacono wbudowane okno pomocy o szczegółowy rozdział &apos;Opis działania przycisków&apos; z natywnymi, ostrymi ikonami wektorowymi SVG. Okno pomocy otwiera się teraz w pełni automatycznie i wyśrodkowane nad oknem głównym przy pierwszym uruchomieniu programu.</source>
+        <translation>Enriched the built-in help window with a detailed &apos;Button functions description&apos; chapter using native, crisp SVG vector icons. The help window now opens fully automatically and centered over the main window upon the program&apos;s first launch.</translation>
     </message>
     <message>
-        <source>Wprowadzono domyślne wyświetlanie paska górnego przy uruchomieniu programu/okna oraz dodano w ustawieniach opcję 'Domyślnie pokazuj pasek górny po otwarciu okna', umożliwiającą dostosowanie tego zachowania do własnych preferencji.</source>
-        <translation>Introduced default display of the top bar upon program/window startup and added a 'Show top bar by default after opening a window' option in the settings, allowing customization of this behavior to personal preferences.</translation>
+        <source>Wprowadzono domyślne wyświetlanie paska górnego przy uruchomieniu programu/okna oraz dodano w ustawieniach opcję &apos;Domyślnie pokazuj pasek górny po otwarciu okna&apos;, umożliwiającą dostosowanie tego zachowania do własnych preferencji.</source>
+        <translation>Introduced default display of the top bar upon program/window startup and added a &apos;Show top bar by default after opening a window&apos; option in the settings, allowing customization of this behavior to personal preferences.</translation>
     </message>
     <message>
         <source>Zaimplementowano dynamiczną ścieżkę bibliotek RPATH w CMakeLists.txt z użyciem GNUInstallDirs, co umożliwia natychmiastowe uruchomienie skompilowanej aplikacji na Ubuntu i Debianie bez konieczności ręcznej konfiguracji /etc/ld.so.conf.d/ i ldconfig.</source>
@@ -2008,12 +2013,12 @@
         <translation>Check Hikvision NVR error status</translation>
     </message>
     <message>
-        <source>Dodano funkcjonalność wyciszania (Suppression) raportowania błędów dla poszczególnych rejestratorów (pole wyboru "Wycisz"). Wyciszenie maskuje błędy rejestratora w globalnych wskaźnikach alarmów, ale zachowuje podgląd błędów i czerwone wyróżnienie bezpośrednio na kafelkach w popupie statusu.</source>
-        <translation>Added individual recorder error suppression ("Suppress" checkbox). Masking a recorder's error deactivates global status indicators/pulsing rings, while retaining warning border styling and diagnostic lists inside the popup cards for operator visibility.</translation>
+        <source>Dodano funkcjonalność wyciszania (Suppression) raportowania błędów dla poszczególnych rejestratorów (pole wyboru &quot;Wycisz&quot;). Wyciszenie maskuje błędy rejestratora w globalnych wskaźnikach alarmów, ale zachowuje podgląd błędów i czerwone wyróżnienie bezpośrednio na kafelkach w popupie statusu.</source>
+        <translation>Added individual recorder error suppression (&quot;Suppress&quot; checkbox). Masking a recorder&apos;s error deactivates global status indicators/pulsing rings, while retaining warning border styling and diagnostic lists inside the popup cards for operator visibility.</translation>
     </message>
     <message>
-        <source>Poprawiono błędną polską translację "Symulowany Rejestrator" w oknie statusu oraz wdrożono właściwe rozróżnienie słowne ("Suppress" dla błędów vs "Mute" dla dźwięku).</source>
-        <translation>Corrected the Polish translation of "Simulated NVR" in the status popup and established proper word choices ("Suppress" for error status vs "Mute" for audio player).</translation>
+        <source>Poprawiono błędną polską translację &quot;Symulowany Rejestrator&quot; w oknie statusu oraz wdrożono właściwe rozróżnienie słowne (&quot;Suppress&quot; dla błędów vs &quot;Mute&quot; dla dźwięku).</source>
+        <translation>Corrected the Polish translation of &quot;Simulated NVR&quot; in the status popup and established proper word choices (&quot;Suppress&quot; for error status vs &quot;Mute&quot; for audio player).</translation>
     </message>
     <message>
         <source>Zaimplementowano okresowe (co 5 minut) oraz ręczne sprawdzanie stanu błędów rejestratorów Hikvision (SDK / ISAPI).</source>
@@ -2032,12 +2037,12 @@
         <translation>Introduced a top-edge protruding red indicator circle that pulses at the top of the screen when the main toolbar is collapsed, ensuring critical warnings are never missed.</translation>
     </message>
     <message>
-        <source>Stworzono eleganckie, przewijane, ograniczone do 85% wysokości ekranu okno popup "Status rejestratorów" ze szczegółowym podglądem błędów urządzeń, błędów dysków oraz dokładnym czasem ostatniego sprawdzenia.</source>
-        <translation>Created a premium, scrollable, screen-height-bounded (max 85% of screen resolution) "NVR Status" popup dialog listing each recorder, its specific errors, disk-level faults, and precise last check timestamps, equipped with a manual "Check now" button.</translation>
+        <source>Stworzono eleganckie, przewijane, ograniczone do 85% wysokości ekranu okno popup &quot;Status rejestratorów&quot; ze szczegółowym podglądem błędów urządzeń, błędów dysków oraz dokładnym czasem ostatniego sprawdzenia.</source>
+        <translation>Created a premium, scrollable, screen-height-bounded (max 85% of screen resolution) &quot;NVR Status&quot; popup dialog listing each recorder, its specific errors, disk-level faults, and precise last check timestamps, equipped with a manual &quot;Check now&quot; button.</translation>
     </message>
     <message>
-        <source>Dodano flagę uruchomieniową "--simulate-error" do natychmiastowej symulacji uszkodzeń dysków oraz błędów połączenia we wszystkich rejestratorach w celach demonstracyjnych.</source>
-        <translation>Integrated a command-line flag "--simulate-error" to instantly simulate NVR faults on all configured recorders for design demonstration and layout testing.</translation>
+        <source>Dodano flagę uruchomieniową &quot;--simulate-error&quot; do natychmiastowej symulacji uszkodzeń dysków oraz błędów połączenia we wszystkich rejestratorach w celach demonstracyjnych.</source>
+        <translation>Integrated a command-line flag &quot;--simulate-error&quot; to instantly simulate NVR faults on all configured recorders for design demonstration and layout testing.</translation>
     </message>
     <message>
         <source>Wdrożono plakietki ostrzegawcze i wyrównanie wskaźników stanu w listach skonfigurowanych rejestratorów.</source>
@@ -2080,8 +2085,8 @@
         <translation>Added dynamic display of minute labels (e.g., :15, :30, :45) at minute ticks on the archive player timeline with intelligent label density adjustment (zoomHours).</translation>
     </message>
     <message>
-        <source>Dodano nową opcję w ustawieniach interfejsu użytkownika: "Wyłącz animację powiększania viewportu" z natychmiastowym zastosowaniem w widoku siatki kamer.</source>
-        <translation>Added a new option in the user interface settings: "Disable viewport zoom animation" with immediate application in the camera grid view.</translation>
+        <source>Dodano nową opcję w ustawieniach interfejsu użytkownika: &quot;Wyłącz animację powiększania viewportu&quot; z natychmiastowym zastosowaniem w widoku siatki kamer.</source>
+        <translation>Added a new option in the user interface settings: &quot;Disable viewport zoom animation&quot; with immediate application in the camera grid view.</translation>
     </message>
     <message>
         <source>Przebudowano proces inicjalizacji odtwarzacza archiwalnego: wstrzymano logowanie i ładowanie wideo do czasu precyzyjnego ustalenia krańców nagrania (asynchroniczne, ultra-szybkie przeszukiwanie zakresu 24h), eliminując przedwczesne odtwarzanie i skakanie obrazu.</source>
@@ -2097,7 +2102,7 @@
     </message>
     <message>
         <source>Dodano ikonę bezpośredniego logowania do panelu web rejestratora w oknie statusu NVR.</source>
-        <translation>Added a direct web login icon to the recorder's web panel inside the NVR status popup.</translation>
+        <translation>Added a direct web login icon to the recorder&apos;s web panel inside the NVR status popup.</translation>
     </message>
     <message>
         <source>Dodano funkcjonalność szybkiego podglądu wstecz (do 30 minut) bezpośrednio w kafelku kamery (viewport).</source>
