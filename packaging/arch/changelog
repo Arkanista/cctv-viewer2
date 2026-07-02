@@ -1,3 +1,7 @@
+2.4.4-1
+  * PL: Naprawiono błąd zaokrąglania frakcyjnego skalowania (np. 145%) przez framework Qt5, wymuszając politykę HighDpiScaleFactorRoundingPolicy::PassThrough. Teraz system natywnie skaluje interfejs przy dowolnych ustawieniach.
+    EN: Fixed fractional scaling rounding issue (e.g. 145%) in Qt5 by enforcing HighDpiScaleFactorRoundingPolicy::PassThrough policy. The UI now natively scales correctly on all settings.
+
 2.4.3-1
   * PL: Wyeliminowano problem zamarzania obrazu innych kamer na siatce live podczas przewijania osi czasu (szukania nagrań w kafelku). Wszystkie blokujące wywołania sieciowe SDK Hikvision (logowanie, stop, start, zmiana prędkości) zostały przeniesione do asynchronicznego wątku roboczego.
     EN: Resolved the freeze issue of other live grid viewports when seeking or dragging the timeline. All blocking Hikvision SDK network calls (login, logout, stop, play, speed changes) are now executed asynchronously on a background worker thread.

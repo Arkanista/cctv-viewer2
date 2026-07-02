@@ -1,7 +1,7 @@
 # Maintainer: arkanista <arkanista@cctv-viewer2.org>
 
 pkgname=kvision
-pkgver=2.4.3
+pkgver=2.4.4
 pkgrel=1
 pkgdesc="KVision - viewer and mounter video streams with Hikvision SDK integration"
 arch=('x86_64')
@@ -11,7 +11,7 @@ changelog=changelog
 conflicts=('cctv-viewer' 'cctv-viewer-git' 'cctv-viewer2')
 provides=('kvision' 'cctv-viewer' 'cctv-viewer2')
 replaces=('cctv-viewer2')
-depends=('qt5-declarative' 'qt5-multimedia' 'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-svg' 'ffmpeg' 'qt5-graphicaleffects')
+depends=('qt5-declarative' 'qt5-multimedia' 'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-svg' 'ffmpeg' 'qt5-graphicaleffects' 'qt5-wayland')
 makedepends=('cmake' 'qt5-tools' 'git')
 source=("kvision::git+file://${startdir}/../..")
 sha256sums=('SKIP')

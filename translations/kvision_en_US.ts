@@ -2151,6 +2151,10 @@
         <source>Zoptymalizowano zegar bezszwowego przełączania strumieni do 100ms w celu zapewnienia maksymalnej szybkości reakcji przy zachowaniu pełnej stabilności bufora.</source>
         <translation type="unfinished" />
     </message>
+    <message>
+        <source>Naprawiono ucinanie nieliniowego skalowania (np. 145%) przez framework Qt5 pod systemami KDE Plasma, wymuszając poprawną interpretację polityki High DPI.</source>
+        <translation>Fixed truncation of non-linear scaling (e.g. 145%) by the Qt5 framework on KDE Plasma systems, enforcing proper interpretation of High DPI policy.</translation>
+    </message>
 </context>
 <context>
     <name>SideBarItem</name>

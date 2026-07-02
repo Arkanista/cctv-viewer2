@@ -133,6 +133,13 @@ FocusScope {
 
     property var changelogData: [
         {
+            version: "v2.4.4",
+            date: "02.07.2026",
+            changes: [
+                qsTr("Naprawiono ucinanie nieliniowego skalowania (np. 145%) przez framework Qt5 pod systemami KDE Plasma, wymuszając poprawną interpretację polityki High DPI.")
+            ]
+        },
+        {
             version: "v2.4.3",
             date: "01.07.2026",
             changes: [

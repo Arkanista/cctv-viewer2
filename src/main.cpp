@@ -183,7 +183,11 @@ int main(int argc, char *argv[])
 {
     qInstallMessageHandler(customMessageHandler);
     av_log_set_callback(custom_ffmpeg_log_callback);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+#endif
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
 #if defined(APP_NAME)
     QCoreApplication::setApplicationName(QLatin1String(APP_NAME));
